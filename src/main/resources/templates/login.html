@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link type="text/css" href="/css/signin.css">
+	<title>Sign in</title>
+</head>
+<body>
+
+	<div align="center">
+		<form action="/login" method="post" class="form-signin w-25 p-3 ">
+			<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+			<input name="USER_ID" type="text" class="form-control" placeholder="Input your USER_ID" required="required" autofocus="autofocus"><br>
+			<input name="USER_PW" type="password" class="form-control" placeholder="Password" required="required"><br>
+			<div class="checkbox mb-3">
+				<label> <input type="checkbox" value="remember-me"> Remember me </label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+			<a href="/registration" class="btn btn-lg btn-primary btn-block">Registration</a>
+			<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+		</form>
+	</div>
+
+</body>
+</html>
