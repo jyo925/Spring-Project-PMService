@@ -18,12 +18,12 @@ import com.project.bit.projects.domain.Users;
 import com.project.bit.projects.mapper.UserMapper;
 
 @Service
-public class SecurityUserDetailService implements UserDetailsService {
+public class MyUserDetailService implements UserDetailsService {
 
 	@Autowired
 	private UserMapper userMapper;
 
-	public SecurityUserDetailService() {
+	public MyUserDetailService() {
 
 		// TODO Auto-generated constructor stub
 	}

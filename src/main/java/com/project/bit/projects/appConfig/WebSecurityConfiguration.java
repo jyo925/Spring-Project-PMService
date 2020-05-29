@@ -5,19 +5,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.project.bit.projects.service.SecurityUserDetailService;
+import com.project.bit.projects.service.MyUserDetailService;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
-	private SecurityUserDetailService userDetailsService;
+	private MyUserDetailService userDetailsService;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -45,8 +46,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
+	
+	 @Override
+		public void configure(WebSecurity web) throws Exception {
+			web.ignoring().antMatchers("/resources/**/**",
+										"/static/**",
+										"/css/**",
+										"/images/**",
+										"/js/**", 
+										"/fullcalendar/**/**",
+										"/fonts/**",
+										"/mybatis.mapper/**");
+		}
 
-	public SecurityConfig() {
+	public WebSecurityConfiguration() {
 		// TODO Auto-generated constructor stub
 	}
 
