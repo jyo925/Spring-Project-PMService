@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+
+<head>
+    <meta charset="utf-8">
+    <title>CKEditor 4 – Document editor</title>
+    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        CKEDITOR.plugins.addExternal( 'save-to-pdf', 'https://rawgit.com/Api2Pdf/api2pdf.ckeditor4/master/plugins/save-to-pdf/', 'plugin.js' );
+    </script>
+
+</head>
+</head>
+<body>
+<form>
+            <textarea name="editor1" id="editor1" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor.
+            </textarea>
+    <script>
+        CKEDITOR.replace( 'editor1',
+            {
+                extraPlugins: 'save-to-pdf',
+                pdfHandler: '/api2pdf-lib/savetopdf.json'
+            } );
+    </script>
+</form>
+</body>
+</html>
