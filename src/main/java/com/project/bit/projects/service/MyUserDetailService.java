@@ -35,17 +35,17 @@ public class MyUserDetailService implements UserDetailsService {
 		System.out.println(member);
 
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		if (member.getDUTY_CODE().equals("duty100")) {
-			grantedAuthorities.add(new SimpleGrantedAuthority(member.getDUTY_CODE()));
-		} else if (member.getDUTY_CODE().toString().equals("duty200")) {
-			grantedAuthorities.add(new SimpleGrantedAuthority(member.getDUTY_CODE()));
-		} else if (member.getDUTY_CODE().toString().equals("duty300")) {
-			grantedAuthorities.add(new SimpleGrantedAuthority(member.getDUTY_CODE()));
-		} else if (member.getDUTY_CODE().toString().equals("duty400")) {
-			grantedAuthorities.add(new SimpleGrantedAuthority(member.getDUTY_CODE()));
+		if (member.getDutyCode().equals("duty100")) {
+			grantedAuthorities.add(new SimpleGrantedAuthority(member.getDutyCode()));
+		} else if (member.getDutyCode().toString().equals("duty200")) {
+			grantedAuthorities.add(new SimpleGrantedAuthority(member.getDutyCode()));
+		} else if (member.getDutyCode().toString().equals("duty300")) {
+			grantedAuthorities.add(new SimpleGrantedAuthority(member.getDutyCode()));
+		} else if (member.getDutyCode().toString().equals("duty400")) {
+			grantedAuthorities.add(new SimpleGrantedAuthority(member.getDutyCode()));
 		}
 		
-		User user = new User(member.getUSER_NAME(), member.getUSER_PW(), grantedAuthorities);
+		User user = new User(member.getUserName(), member.getUserPw(), grantedAuthorities);
 		return user;
 
 	}
@@ -53,7 +53,7 @@ public class MyUserDetailService implements UserDetailsService {
 	@Transactional
 	public void joinUser(Users users) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		users.setUSER_PW(passwordEncoder.encode(users.getUSER_PW()));
+		users.setUserPw(passwordEncoder.encode(users.getUserPw()));
 
 	}
 

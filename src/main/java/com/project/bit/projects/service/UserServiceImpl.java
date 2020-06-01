@@ -1,5 +1,6 @@
 package com.project.bit.projects.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class UserServiceImpl implements UserService {
 	public void insertUser(Users user) {
 		userMapper.insertUser(user);
 		
+	}
+
+	@Override
+	public List<Users> selectAll() {
+		return userMapper.selectAll();
 	}
 
 }
