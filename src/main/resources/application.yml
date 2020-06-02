@@ -1,8 +1,11 @@
 spring:
   datasource:
         url: jdbc:oracle:thin:@localhost:1521:orcl
-        username: root
-        password: 1234
         driver-class-name: oracle.jdbc.OracleDriver
-        
-mybatis:  mapper-locations: classpath:/mappers/**/*Mapper.xml  configuration:    map-underscore-to-camel-case: true
+        username: root
+        password: 1234    
+mybatis:
+  mapper-locations: mapper/**/*Mapper.xml
+  type-aliases-package: com.project.bit.projects.domain.event
+  configuration:
+    mapUnderscoreToCamelCase: true
