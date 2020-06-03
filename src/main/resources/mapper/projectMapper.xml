@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.project.mapper.ProjectMapper">
-	<select id="selectProjectListAll" resultType="ProjectVO">
+	<select id="selectProjectListAll" resultType="com.project.bit.project.domain.ProjectVO">
 		SELECT
 		p.project_name AS project_name,
 		(SELECT project_type

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:fragment="config">
+<meta charset="UTF-8" />
+<title th:include=":: #pageTitle">Layout Generic Title</title>
+<!-- common css -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+<!-- content css -->
+<th:block layout:fragment="css"></th:block>
+
+<!-- common js -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- content js -->
+<th:block layout:fragment="script"></th:block>
+</head>
+
+</html>

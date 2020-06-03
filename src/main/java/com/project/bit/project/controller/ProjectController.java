@@ -9,14 +9,18 @@ import com.project.bit.project.service.ProjectService;
 
 @Controller
 public class ProjectController {
-	
+
 	@Autowired
 	private ProjectService projectService;
-	
-	
+
 	@GetMapping("/projectListAll")
 	public String getProjectListAll(Model model) {
 		model.addAttribute("projectList", projectService.getProjectListAll());
 		return "getProjectListAll";
+	}
+
+	@GetMapping("/index")
+	public String goIndex() {
+		return "index";
 	}
 }

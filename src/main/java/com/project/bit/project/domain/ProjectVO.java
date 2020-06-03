@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Alias("ProjectVO")
 @Getter @Setter @ToString
 public class ProjectVO extends ProjectDTO {
 	private int projectOutputAccount;
