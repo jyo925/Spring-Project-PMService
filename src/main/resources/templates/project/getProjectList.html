@@ -1,60 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>모든 프로젝트 리스트</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script th:inline="javascript" src="/js/project/projectTypeSearch.js"></script>
-</head>
-<body>
-<div>
-	<h3> 프로젝트 리스트 </h3>
-</div>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
 
-<div>
-	<select id="projectTypeChoice" name="projectTypeChoice">
-		<option value="all"> 전체 </option>
-		<option th:each="projectType : ${projectTypeList}"
-		 th:value="${projectType.projectTypeCode}" th:text="${projectType.projectType}">
-		 </option>
-	</select>
-	
-	
-	<input type="text" placeholder="프로젝트명" id="projectName" style="margin-left:10px; margin-right:10px;"> 
-	<button type="button" id="search_btn">검색</button>
-	
-	<button type="button" onclick="location.href='/goProjectAdd'">+프로젝트 등록</button>
-	
-</div>
+<title id="pageTitle">모든 프로젝트 리스트</title>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
 
-<!-- ProjectList START-->
-<div>
-	<table style="text-align:center;">
-		<thead>
-			<tr>
-				<th>No.</th>
-				<th>프로젝트</th>
-				<th>개발 형태</th>
-				<th>시작일</th>
-				<th>완료일</th>
-				<th>산출물</th>
-				<th>이슈</th>
-			</tr>
-		</thead>
-		<tbody id="projectListBody">
-			<tr th:each="project : ${projectList}">
-				<td th:text=${projectStat.count}></td>
-				<td th:text="${project.projectName}"></td>
-				<td th:text="${project.projectTypeName}"></td>
-				<td th:text="${project.projectStart}"></td>
-				<td th:text="${project.projectFinish}"></td>
-				<td th:text="${project.projectOutputAccount}"></td>
-				<td th:text="${project.projectIssueAccount}"></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<!-- ProjectList END -->
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript" src="/js/project/projectTypeSearch.js"></script>
+</th:block>
 
-</body>
+<div layout:fragment="content">
+
+
+
+	<div class="row">
+		<div class="col-12 grid-margin">
+			<div class="card">
+				<div class="card-body">
+					<h6 class="card-title">프로젝트 리스트</h6>
+					<div>
+						<select id="projectTypeChoice" name="projectTypeChoice">
+							<option value="all">전체</option>
+							<option th:each="projectType : ${projectTypeList}"
+								th:value="${projectType.projectTypeCode}"
+								th:text="${projectType.projectType}"></option>
+						</select> <input type="text" placeholder="프로젝트명" id="projectName"
+							style="margin-left: 10px; margin-right: 10px;">
+						<button type="button" id="search_btn">검색</button>
+
+						<button type="button" onclick="location.href='/goProjectAdd'">+프로젝트
+							등록</button>
+
+					</div>
+
+					<!-- ProjectList START-->
+					<div>
+						<table style="text-align: center;">
+							<thead>
+								<tr width="100%">
+									<th width="5%">No.</th>
+									<th width="45%">프로젝트</th>
+									<th width="10%">개발 형태</th>
+									<th width="10%">시작일</th>
+									<th width="10%">완료일</th>
+									<th width="10%">산출물</th>
+									<th width="10%">이슈</th>
+								</tr>
+							</thead>
+							<tbody id="projectListBody">
+								<tr th:each="project : ${projectList}">
+									<td th:text=${projectStat.count}></td>
+									<td th:text="${project.projectName}"></td>
+									<td th:text="${project.projectTypeName}"></td>
+									<td th:text="${project.projectStart}"></td>
+									<td th:text="${project.projectFinish}"></td>
+									<td th:text="${project.projectOutputAccount}"></td>
+									<td th:text="${project.projectIssueAccount}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- ProjectList END -->
+					<div id="js-legend" class="chartjs-legend mt-4 mb-5"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 </html>
