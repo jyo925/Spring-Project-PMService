@@ -7,8 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.project.bit.project.domain.ProjectDTO;
 import com.project.bit.project.domain.ProjectTypeDTO;
 import com.project.bit.project.service.ProjectService;
 
@@ -19,14 +20,20 @@ public class ProjectController {
 	private ProjectService projectService;	
 	
 	@GetMapping("/projectList")
-	public String getProjectListAll(Model model) {
+	public String getProjectList(Model model) {
 		model.addAttribute("projectList", projectService.getProjectListAll());
 		return "/project/getProjectList";
 	}
 	
 	@GetMapping("/goProjectAdd")
-	public String goProjectAdd() {
+	public String goProjectAdd(@ModelAttribute ProjectDTO projectDTO) {
 		return "/project/projectInsert";
+	}
+	
+	@PostMapping("/projectInsert")
+	public String postProject(@ModelAttribute ProjectDTO projectDTO) {
+		System.out.println(projectDTO);
+		return "redirect:/projectList";
 	}
 	
 	@ModelAttribute("projectTypeList")
