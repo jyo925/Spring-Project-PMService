@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.approval.mapper.ApMapper">
+    
+    <select id="selectApPath" resultType="com.project.bit.approval.domain.ApPathDTO">
+        select ap_path1, ap_path2, ap_path3
+        from approvalpath
+        where ap_path_no = (select ap_path_no from approvalform where ap_form_no= #{apFormNo})
+    </select>
+
+    <select id="selectApproverList" parameterType="com.project.bit.approval.domain.ApPathDTO"
+            resultType="com.project.bit.approval.domain.ApproverVO">
+        select u.user_id, u.user_name, d.duty_name
+        from project_members m
+        inner join users u on m.user_id = u.user_id
+        inner join dutys d on d.duty_code = m.duty_code
+        where d.duty_name in(#{path.apPath1}, #{path.apPath2}, #{path.apPath3})
+        and m.project_code =
+        (select project_code from project_members where user_id = #{userId})
+
+    </select>
+
+
+</mapper>
