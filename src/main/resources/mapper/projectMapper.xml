@@ -4,24 +4,28 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.project.mapper.ProjectMapper">
 	<select id="selectProjectListAll" resultType="com.project.bit.project.domain.ProjectVO">
-		SELECT
-		p.project_name AS project_name,
-		(SELECT project_type
-		FROM project_types ptype
-		WHERE ptype.project_typecode = p.project_typecode) AS project_typeName,
-		p.project_start AS project_start,
-		p.project_finish AS project_finish,
-		(SELECT count(*)
-		FROM project_tasks pt, project_task_groups ptg , project_outputs po
-		WHERE p.project_code = ptg.project_code
-		AND pt.taskGroup_code = ptg.taskGroup_code
-		AND pt.task_code = po.task_code) AS output_count,
-		(SELECT count(*)
-		FROM project_tasks pt, project_task_groups ptg , project_issues pi
-		WHERE p.project_code = ptg.project_code
-		AND pt.taskGroup_code = ptg.taskGroup_code
-		AND pt.task_code = pi.task_code) AS issue_count
-		FROM projects p
+		select * from projectList
+	</select>
+	
+	<select id="selectProjectListByType" parameterType="String" resultType="com.project.bit.project.domain.ProjectVO">
+		SELECT * FROM projectList 
+		WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode})
+	</select>
+	
+	<select id="selectProjectListByName" parameterType="String" resultType="com.project.bit.project.domain.ProjectVO">
+		SELECT * FROM projectList 
+		WHERE project_name LIKE '%'||#{projectName}||'%'
+	</select>
+	
+	<select id="selectProjectListByTypeAndName" resultType="com.project.bit.project.domain.ProjectVO">
+		SELECT * FROM projectList
+		WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode})
+		AND project_name LIKE '%'||#{projectName}||'%'
+	</select>
+	
+	
+	<select id="selectProjectTypeListAll" resultType="com.project.bit.project.domain.ProjectTypeDTO">
+		SELECT * FROM project_types
 	</select>
 
 </mapper>
