@@ -1,20 +1,13 @@
 spring:
   datasource:
-        url: jdbc:oracle:thin:@localhost:1521:orcl
+        url: jdbc:oracle:thin:@localhost:1521:root
         username: root
         password: 1234
-        driver-class-name: oracle.jdbc.OracleDriver
-
-  devtools:
-    livereload:
-      enabled: true
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+        
 
 mybatis:
-  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  mapper-locations: classpath:/mybatis/mapper/*Mapper.xml
+  type-aliases-package: com.project.bit.projects.domain.event
   configuration:
-    map-underscore-to-camel-case: true
-
-
-
-#여기서부터 지윤 환경설정
-#username 은 root로
+    map-underscore-to-camel-case: true       

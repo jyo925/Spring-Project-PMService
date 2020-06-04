@@ -28,16 +28,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/","/registration").permitAll()          //
+				.antMatchers("/","/registration","/calendar","/calendarE","/usersList").permitAll()          //
 				.antMatchers("/addDuty","/addMembers").hasAnyAuthority("duty100","duty200","duty300","duty400")
-				.antMatchers("/admin").hasAuthority("duty100")           
+				.antMatchers("/admin").hasAuthority("duty100")
 			.and()
 				.formLogin()
 				.loginPage("/login")
 				.defaultSuccessUrl("/")
 				.usernameParameter("USER_ID")
 				.passwordParameter("USER_PW")
-				.permitAll();
+				.permitAll()
+			.and()
+				.csrf().disable();
+		
 		
 	}
 	
@@ -55,8 +58,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 										"/images/**",
 										"/js/**", 
 										"/fullcalendar/**/**",
-										"/fonts/**",
-										"/mybatis.mapper/**");
+										"/mapper/**");
 		}
 
 	public WebSecurityConfiguration() {

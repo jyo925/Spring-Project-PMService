@@ -1,5 +1,6 @@
 package com.project.bit.projects.mapper;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.ibatis.annotations.Insert;
@@ -19,5 +20,8 @@ public interface UserMapper {
 	@Insert("insert into users(USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_PHONE, POSITION_CODE, TEAM_CODE) "
 			       + "values(#{USER_ID}, #{USER_PW}, #{USER_NAME}, #{USER_EMAIL}, #{USER_PHONE}, #{POSITION_CODE}, #{TEAM_CODE})")
 	void insertUser(Users user);
+	
+	@Select("select * from users")
+	List<Users> selectAll();
 
 }
