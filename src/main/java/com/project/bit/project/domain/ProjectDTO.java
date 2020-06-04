@@ -6,7 +6,6 @@ import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 
-@Alias("ProjectDTO")
 @Data
 public class ProjectDTO {
 	protected String projectCode;
@@ -18,6 +17,9 @@ public class ProjectDTO {
 	protected String projectPmo;
 	protected String projectDescription;
 	protected int projectPriority;
+	protected String projectStatusCode;
 	protected String projectStatusName;
+	protected String projectTypeCode;
 	protected String projectTypeName;
 }
+

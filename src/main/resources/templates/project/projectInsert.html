@@ -5,6 +5,63 @@
 <title>프로젝트 등록</title>
 </head>
 <body>
-추후에 예정
+
+	<div>
+		<h3> 프로젝트 등록 </h3>
+	</div>
+	
+	<!-- form START -->
+	<form action="#" th:action="@{/projectInsert}" th:object="${projectDTO}" method="POST">
+		<div>
+			<input type="text" th:field="*{projectName}" placeholder="프로젝트명" style="width:300px;">
+			<input type="text" th:field="*{projectSubName}" placeholder="프로젝트약어">
+		</div>
+		
+		<div style="margin-top:10px;">
+			<h5> 개발 형태 </h5>
+			<select th:field="*{projectTypeCode}">
+				<option value="" > 개발 형태 </option>
+				<option th:each="projectType : ${projectTypeList}" th:value="${projectType.projectTypeCode}"
+				 th:text="${projectType.projectType}"></option>
+			</select>
+			
+			<input type="date" th:field="*{projectStart}">
+			<input type="date" th:field="*{projectFinish}">
+		</div>
+		
+		<div style="margin-top:10px;">
+			<h5> PM </h5>
+			<select>
+				<option value=""> 부서 </option>
+				<option th:each="dept : ${deptList}" th:value="${dept.teamCode}" th:text="${dept.teamName}"></option>
+			</select>
+			<select th:field="*{projectPm}">
+				<option value=""> 아이디 </option>
+				<option th:each="user : ${userList}" th:value="${user.userId}" th:text="${user.userName}"></option>
+			</select>
+			
+			<h5> PMO </h5>
+			<select>
+				<option value=""> 부서 </option>
+				<option th:each="dept : ${deptList}" th:value="${dept.teamCode}" th:text="${dept.teamName}"></option>
+			</select>
+			<select th:field="*{projectPmo}">
+				<option value=""> 아이디 </option>
+				<option th:each="user : ${userList}" th:value="${user.userId}" th:text="${user.userName}"></option>
+			</select>
+		</div>
+		
+		<div>
+			<h5> 프로젝트 설명 </h5>
+			<textarea rows="10px" cols="100px" th:field="*{projectDescription}" maxlength="500" placeholder=" 프로젝트 설명 "></textarea>
+		</div>
+		
+		<div style="margin-top:20px;">
+			<button type="submit"> 저장 </button>
+			<button type="button" onclick="location.href='/projectList'"> 취소 </button>
+		</div>
+	</form>
+	<!-- form END -->
+	
 </body>
 </html>
