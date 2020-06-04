@@ -1,7 +1,7 @@
 spring:
   datasource:
-        url: jdbc:oracle:thin:@localhost:1521:orcl
-        driver-class-name: oracle.jdbc.OracleDriver
+        url: jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
         username: root
         password: 1234    
 mybatis:
@@ -9,3 +9,6 @@ mybatis:
   type-aliases-package: com.project.bit.projects.domain.event
   configuration:
     mapUnderscoreToCamelCase: true
+logging:
+  file:
+    path: logback-spring.xml
