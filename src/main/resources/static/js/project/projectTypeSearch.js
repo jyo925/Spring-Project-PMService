@@ -37,9 +37,10 @@ function search(){
 		var projectsBody = $('#projectListBody')
 		projectsBody.empty()
 		$.each(projectList, function(index, value){
+			var project_code = value.projectCode
 			var projects = '<tr>' + 
 				'<td>' + (index+1) + '</td>' +
-				'<td>' + value.projectName + '</td>' + 
+				'<td><a href=/project/' + value.projectCode + '>' + value.projectName + '</a></td>' + 
 				'<td>' + value.projectTypeName + '</td>' +
 				'<td>' + value.projectStart + '</td>' +
 				'<td>' + value.projectFinish + '</td>' +

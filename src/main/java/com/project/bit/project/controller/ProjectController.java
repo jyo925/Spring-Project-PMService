@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.project.bit.project.domain.ProjectDTO;
@@ -18,6 +19,11 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectService projectService;	
+	
+	@GetMapping("/index")
+	public String goIndex() {
+		return "index";
+	}
 	
 	@GetMapping("/projectList")
 	public String getProjectList(Model model) {
@@ -36,13 +42,17 @@ public class ProjectController {
 		return "redirect:/projectList";
 	}
 	
+	@GetMapping("/project/{projectId}")
+	public String getProjectDetailChart(@PathVariable String projectId) {
+		System.out.println(projectId);
+		return "/project/projectDetailChart";
+	}
+	
+	
+	
 	@ModelAttribute("projectTypeList")
 	public List<ProjectTypeDTO> getProjectType(){
 		return projectService.getProjectTypeAll();
 	}
 
-	@GetMapping("/index")
-	public String goIndex() {
-		return "index";
-	}
 }
