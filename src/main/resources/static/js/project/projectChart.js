@@ -46,7 +46,7 @@ function drawChart(array){
 	data.addRows(lists);
 	
 	var options = {
-		chartArea: {width:'100%',height:'100%'},
+		chartArea: {width:'80%',height:'80%'},
 		pieHole: 0.4
 	};
 	
@@ -61,12 +61,11 @@ function drawChartIssue(array){
 	data.addColumn('number', 'account');
 	array.forEach(function(element){
 		lists.push([element.issueStatusName,element.issueStatusAccount]);
-		//data.addRows([element.taskStatusName,element.taskStatusAccount]);
 	});
 	data.addRows(lists);
 	
 	var options = {
-		chartArea: {width:'100%',height:'100%'},
+		chartArea: {width:'80%',height:'80%'},
 		pieHole: 0.4
 	};
 	

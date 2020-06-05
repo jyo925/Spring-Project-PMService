@@ -12,15 +12,13 @@ public class Users {
 	private String userPw;
 	private String userName;
 	private int positionCode;
+	private String positionName;
 	private int teamCode;
+	private String teamName;
 	private String userEmail;
 	private String userPhone;
 	private Date userRregitdate;
 	private String dutyCode;
-	
-	
-	public Users() {
-		// TODO Auto-generated constructor stub
-	}
+	private String dutyName;
 
 }

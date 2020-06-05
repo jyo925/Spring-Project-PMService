@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/default">
@@ -19,8 +18,8 @@
 
 <div layout:fragment="content">
 	<ul>
-		<li><a href="#">요약정보</a></li>
-		<li><a href="#">기본정보</a></li>
+		<li><a th:href="'/project/'+${project.projectCode}">요약정보</a></li>
+		<li><a th:href="'/project/detail/'+${project.projectCode}">기본정보</a></li>
 		<li><a href="#">리소스</a></li>
 		<li><a href="#">프로젝트 작업</a></li>
 		<li><a href="#">배정현황</a></li>
@@ -38,13 +37,20 @@
 					
 					<div>
 						<input type="hidden" th:value="${project.projectCode}" id="projectCode">
-						<!-- 프로젝트 이름 --><span th:text="${project.projectName}"></span>
-						<!-- 프로젝트 시작일 --><span th:text="${project.projectStart}"></span>
-						<!-- 프로젝트 종료일 --><span th:text="${project.projectFinish}"></span>
-						<!-- 프로젝트 피엠 아이디 --><span th:text="${project.projectPm}"></span>
-						<!-- 프로젝트 개발 형태 --><span th:text="${project.projectTypeName}"></span>
-						<!-- 프로젝트 작업 갯수 --><span th:text="${project.projectTaskAccount}"></span>
-						<!-- 프로젝트 멤버 갯수 --><span th:text="${project.projectMemberAccount}"></span>
+						<!-- 프로젝트 이름 -->
+						<span th:text="${project.projectName}"></span>
+						<!-- 프로젝트 시작일 -->
+						<span th:text="${project.projectStart}"></span>
+						<!-- 프로젝트 종료일 -->
+						<span th:text="${project.projectFinish}"></span>
+						<!-- 프로젝트 피엠 아이디 -->
+						<span th:text="${project.projectPm}"></span>
+						<!-- 프로젝트 개발 형태 -->
+						<span th:text="${project.projectTypeName}"></span>
+						<!-- 프로젝트 작업 갯수 -->
+						<span th:text="${project.projectTaskAccount}"></span>
+						<!-- 프로젝트 멤버 갯수 -->
+						<span th:text="${project.projectMemberAccount}"></span>
 					</div>
 
 				</div>

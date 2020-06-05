@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.bit.project.domain.ProjectDTO;
 import com.project.bit.project.domain.ProjectInfoVO;
 import com.project.bit.project.domain.ProjectIssueStatusVO;
+import com.project.bit.project.domain.ProjectStatusDTO;
 import com.project.bit.project.domain.ProjectTaskStatusVO;
 import com.project.bit.project.domain.ProjectTypeDTO;
 import com.project.bit.project.domain.ProjectVO;
@@ -21,11 +23,6 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public List<ProjectVO> getProjectListAll() {
 		return projectMapper.selectProjectListAll();
-	}
-
-	@Override
-	public List<ProjectTypeDTO> getProjectTypeAll() {
-		return projectMapper.selectProjectTypeListAll();
 	}
 
 	@Override
@@ -55,6 +52,21 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public List<ProjectIssueStatusVO> getProjectIssueStatusCount(String projectId) {
 		return projectMapper.selectProjectIssueStatusCount(projectId);
+	}
+
+	@Override
+	public ProjectDTO getProjectOne(String projectId) {
+		return projectMapper.selectProjectOne(projectId);
+	}
+	
+	@Override
+	public List<ProjectTypeDTO> getProjectTypeAll() {
+		return projectMapper.selectProjectTypeListAll();
+	}
+
+	@Override
+	public List<ProjectStatusDTO> getProjectStatusListAll() {
+		return projectMapper.selectProjectStatusListAll();
 	}
 
 }

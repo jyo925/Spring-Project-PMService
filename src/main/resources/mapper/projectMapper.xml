@@ -68,9 +68,21 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		GROUP BY (pit.issue_type_code, pit.issue_type)
 	</select>
 	
+	<select id="selectProjectOne" parameterType="String" resultType="com.project.bit.project.domain.ProjectDTO">
+		SELECT 
+			p.*,
+		 	(select project_type from project_types pt where p.project_typeCode = pt.project_typeCode) as project_typeName,
+		 	(select project_status from project_status ps where p.project_statusCode = ps.project_statusCode) as project_statusName
+		FROM projects p WHERE project_code = #{projectId}
+	</select>
+	
 	
 	<select id="selectProjectTypeListAll" resultType="com.project.bit.project.domain.ProjectTypeDTO">
 		SELECT * FROM project_types
+	</select>
+	
+	<select id="selectProjectStatusListAll" resultType="com.project.bit.project.domain.ProjectStatusDTO">
+		SELECT * FROM project_status
 	</select>
 
 </mapper>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<title id="pageTitle">프로젝트 기본정보</title>
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+
+<div layout:fragment="content">
+	<div class="row">
+		<div class="col-12 grid-margin">
+			<div class="card">
+				<div class="card-body">
+
+					<h6 class="card-title">프로젝트 상세정보</h6>
+					
+					<div>
+						<input type="hidden" th:value="${project.projectCode}" id="projectCode">
+						<input type="text" th:value="${project.projectName}" id="projectName" style="width: 30%">
+						<input type="text" th:value="${project.projectSubName}" id="projectSubName">
+					</div>
+
+					<div style="margin-top: 10px;">
+						<h5>개발 형태</h5>
+						<select th:value="${project.projectTypeCode}" disabled>
+							<option value="">개발 형태</option>
+							<option th:each="projectType : ${projectTypeList}" th:value="${projectType.projectTypeCode}"
+								th:text="${projectType.projectType}"></option>
+						</select>
+						<input type="date" th:value="${project.projectStart}" id="projectStart">
+						<input type="date" th:value="${project.projectFinish}" id="projectFinish">
+					</div>
+
+					<div style="margin-top: 10px;">
+						<h5>PM</h5>
+						<select>
+							<option value="">부서</option>
+							<option th:each="dept : ${deptList}" th:value="${dept.teamCode}"
+								th:text="${dept.teamName}"></option>
+						</select> 
+						<select th:value="${project.projectPm}">
+							<option value="">아이디</option>
+							<option th:each="user : ${userList}" th:value="${user.userId}"
+								th:text="${user.userName}"></option>
+						</select>
+
+						<h5>PMO</h5>
+						<select>
+							<option value="">부서</option>
+							<option th:each="dept : ${deptList}" th:value="${dept.teamCode}"
+								th:text="${dept.teamName}"></option>
+						</select> 
+						<select th:value="${project.projectPmo}">
+							<option value="">아이디</option>
+							<option th:each="user : ${userList}" th:value="${user.userId}"
+								th:text="${user.userName}"></option>
+						</select>
+					</div>
+
+					<div>
+						<h5>프로젝트 설명</h5>
+						<textarea rows="10px" cols="100px" th:value="${project.projectDescription}" maxlength="500" id="projectDescription"></textarea>
+					</div>
+					
+					<div>
+						<select>
+							<option value=""> 상태  </option>
+							<option th:each="status : ${projectStatus}" th:value="${status.projectStatusCode}"
+								th:text="${status.projectStatus}"></option>
+						</select>
+					</div>
+
+					<div style="margin-top: 20px;">
+						<button type="button" onclick="#">삭제</button>
+						<button type="button" id="update_btn">저장</button>
+						<button type="button" onclick="location.href='/projectList'">취소</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</html>
