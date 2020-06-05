@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+
+<head>
+    <meta charset="utf-8">
+    <title>전자결재 메인</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+</head>
+<body>
+<h2>전자결재 메인페이지</h2>
+
+<div layout:fragment="content">
+    <div class="panel-heading">I'm a heading</div><hr>
+    <div class="panel-body"> I'm a body<br><hr>
+
+
+        새 결제 작성하기
+        <form th:action="goNewApDoc" th:method="get">
+            <button type="submit" name="apFormNo" value="1">교육참가신청서</button>
+            <button type="submit" name="apFormNo" value="2">휴가계획서</button>
+            <button type="submit" name="apFormNo" value="3">출장보고서</button>
+            <button type="submit" name="apFormNo" value="4">회의록</button>
+        </form>
+    </div>
+
+    <script>
+    </script>
+</div>
+
+</body>
+</html>

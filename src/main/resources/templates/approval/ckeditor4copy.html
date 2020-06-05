@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+
+<head>
+    <meta charset="utf-8">
+    <title>CKEditor 4 – Document editor</title>
+    <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link th:href="@{editor.css}" rel="stylesheet" />
+</head>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="panel-heading">I'm a heading</div>
+    <br><hr>
+
+    <div class="panel-body">
+        I'm a body<br><br><br><br>
+
+        결재선
+        <table style="border: 1px solid #444444;">
+        <thead>
+        <tr>
+            <th>결재자1</th>
+            <th>결재자2</th>
+            <th>결재자3</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${userList}">
+            <td th:text="${user.email}">홍길동</td>
+            <td th:text="${user.fullNmKr}">박길동</td>
+            <td th:text="${user.userStatCd}">김길동</td>
+        </tr>
+        <tr th:each="user : ${userList}">
+            <td th:text="${user.email}">승인</td>
+            <td th:text="${user.fullNmKr}">승인</td>
+            <td th:text="${user.userStatCd}">미결</td>
+        </tr>
+        </tbody>
+        </table>
+
+        <br><hr>
+        <form th:action="@{/test}" method="post">
+            <h3>문서 내용</h3>
+            <div class="document-editor">
+                <div class="document-editor__toolbar"></div>
+                <div class="document-editor__editable-container">
+                    <div class="document-editor__editable" name="editor1">
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="formData" th:value="${data.getForm()}">
+        </form>
+    </div>
+
+    <script>
+        CKEDITOR.replace(document.querySelector( '.document-editor__editable' ),{
+            width : '1200px',  // 입력창의 넓이, 넓이는 config.js 에서 % 로 제어
+            height : '400px',  // 입력창의 높이
+            startupFocus : false
+        });
+        let formData = document.querySelector('#formData').value;
+        console.log(formData);
+        CKEDITOR.instances.editor1.setData(formData);
+        // CKEDITOR.instances.editor1.setData("안녕하세요.");
+        // CKEDITOR.config.readOnly = true;
+        // CKEDITOR.instances.editor1.setReadOnly(true);
+    </script>
+</div>
+</body>
+</html>

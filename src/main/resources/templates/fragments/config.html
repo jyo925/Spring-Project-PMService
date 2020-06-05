@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="ko">
+
+<head th:fragment="config">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title th:include=":: #pageTitle">Layout Title</title>
+<link rel="shortcut icon" href="/images/favicon.png">
+<!-- common css -->
+<link rel="stylesheet" href="/css/default.bundle.base.css">
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+<!-- content css -->
+<th:block layout:fragment="css"></th:block>
+
+<!-- common js -->
+<script src="/js/default.bundle.base.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script src="js/hoverable-collapse.js"></script><!-- nav 관련 -->
+<script src="/js/misc.js"></script><!-- nav 관련 -->
+<script src="/js/settings.js"></script><!-- 메신저로 수정/대체 필요한 부분 -->
+
+<!-- content js -->
+<th:block layout:fragment="script"></th:block>
+</head>
+
+</html>

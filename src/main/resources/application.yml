@@ -4,9 +4,10 @@ spring:
         driver-class-name: oracle.jdbc.OracleDriver
         username: root
         password: 1234
----     
+        
+
 mybatis:
   mapper-locations: mapper/**/*.xml
   type-aliases-package: com.project.bit.foo.domain
   configuration:
-    mapUnderscoreToCamelCase: true
+    map-underscore-to-camel-case: true       
