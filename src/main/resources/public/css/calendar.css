@@ -1,0 +1,69 @@
+
+
+#calendar .fc-day{
+	trancition: .5s;
+}
+
+#calendar .fc-day:hover{
+	background: #EDF8FA;
+}
+
+#dialog-window {
+	z-index: 1000;
+	background: #EDF8FA;
+
+}
+
+#modal{
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow: auto;
+	background: rgba(0,0,0,0.5);
+	display: none;
+}
+
+/* .contaner1{
+	margin: 25vw 25vh;
+	width: 50vw;
+	height: 50vh;
+	background: white;
+	box-sizing: border-box;
+	padding: 15px;
+	position: relative;
+}
+
+.contaner1 .close{
+	
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	
+} */
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

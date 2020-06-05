@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		WHERE pmem.project_code = #{projectId}
 	</select>
 	
-	<select id="selectUserAll" resultType="com.project.bit.projects.domain.Users">
+	<!-- <select id="selectUserAll" resultType="com.project.bit.projects.domain.Users">
 		SELECT
 			u.*,
 			t.team_name AS team_name,
@@ -20,5 +20,5 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		FROM users u
 			INNER JOIN teams t ON u.team_code = t.team_code
 			INNER JOIN positions pos ON u.position_code = pos.position_code
-	</select>
+	</select> -->
 </mapper>
