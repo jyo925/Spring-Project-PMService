@@ -43,8 +43,9 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/project/{projectId}")
-	public String getProjectDetailChart(@PathVariable String projectId) {
-		System.out.println(projectId);
+	public String getProjectDetailChart(@PathVariable String projectId, Model model) {
+		model.addAttribute("project", projectService.getProjectInfo(projectId));
+		//model.addAttribute("projectTaskStatus", projectService.getProjectTaskStatusCount(projectId));
 		return "/project/projectDetailChart";
 	}
 	

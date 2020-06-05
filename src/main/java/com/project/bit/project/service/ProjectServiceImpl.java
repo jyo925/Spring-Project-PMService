@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.bit.project.domain.ProjectInfoVO;
+import com.project.bit.project.domain.ProjectIssueStatusVO;
+import com.project.bit.project.domain.ProjectTaskStatusVO;
 import com.project.bit.project.domain.ProjectTypeDTO;
 import com.project.bit.project.domain.ProjectVO;
 import com.project.bit.project.mapper.ProjectMapper;
@@ -37,6 +40,21 @@ public class ProjectServiceImpl implements ProjectService {
 		else if (typeCode.equals("all") && !projectName.equals("")) return projectMapper.selectProjectListByName(projectName);
 		else if (!typeCode.equals("all") && projectName.equals("")) return projectMapper.selectProjectListByType(typeCode);
 		else return projectMapper.selectProjectListByTypeAndName(typeCode, projectName);
+	}
+
+	@Override
+	public ProjectInfoVO getProjectInfo(String projectId) {
+		return projectMapper.selectProjectInfo(projectId);
+	}
+
+	@Override
+	public List<ProjectTaskStatusVO> getProjectTaskStatusCount(String projectId) {
+		return projectMapper.selectProjectTaskStatusCount(projectId);
+	}
+
+	@Override
+	public List<ProjectIssueStatusVO> getProjectIssueStatusCount(String projectId) {
+		return projectMapper.selectProjectIssueStatusCount(projectId);
 	}
 
 }
