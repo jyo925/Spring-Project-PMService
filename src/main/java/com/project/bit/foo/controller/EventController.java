@@ -1,51 +1,50 @@
 package com.project.bit.foo.controller;
 
-import java.security.Principal;
+import java.util.List;
 
-import org.json.JSONArray;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.project.bit.foo.domain.event.Event;
+import com.project.bit.foo.domain.event.EventTypes;
 import com.project.bit.foo.service.EventService.EventService;
+import com.project.bit.foo.service.EventService.EventTypesService;
 
-@RestController
+@Controller
 public class EventController {
 
-	@Autowired
-	private EventService eventService;
-
-	@GetMapping(value = "/calendar", produces = "application/json; charset=utf8")
-	public ModelAndView calendar() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("calendar/calendar");
-		return modelAndView;
+	private final EventTypesService eventTypesService;
+	private final EventService eventService;
+	
+	public EventController(EventService eventService,
+			               EventTypesService eventTypesService) {
+		this.eventService = eventService;
+		this.eventTypesService = eventTypesService;
 	}
 	
-	@PostMapping(value = "/calendar", produces = "application/json; charset=utf8")
-	public ModelAndView calendarEdit(Model model, @RequestParam(required = false) String eventId) {
+	@GetMapping("/calendar")
+	public String calendar(Model model) {
+		List<EventTypes> eventTypes = eventTypesService.selectAllTypes();
+		model.addAttribute("eventTypes", eventTypes);
+		return "calendar/calendar";
+	}
+
+	@PostMapping(value = "/calendarPost", produces = "application/json; charset=utf8")
+	public String calendarPost(Model model, @RequestParam(defaultValue = "") String eventId) {
+
+		System.out.println(eventId);
+
 		if (eventId != "") {
 			Event event = eventService.selectEvent(eventId);
 			model.addAttribute("event", event);
+			System.out.println(event);
 		}
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("calendar/calendar");
-		return modelAndView;
+		return "calendar/calendar";
 	}
 
-	@GetMapping("/calendarE")
-	public String calendarE(Model model, Principal principal) {
-		JSONArray json = eventService.selectEventById(principal.getName());
-		return json.toString();
-	}
-
-	public EventController() {
-
-	}
+	
 
 }

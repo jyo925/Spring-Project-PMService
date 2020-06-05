@@ -16,32 +16,17 @@ $(function(){
 			let clickDate = date.format();
 			$('#start').val(clickDate);
 			$('#dialog-window').dialog('open');
-			$.ajax({
-				url : '/calendar',
-				type : 'POST',
-				data : {clickDate: clickDate},
-				success : function(res){
-					console.log(res);
-				},
-				error : function(){
-					alert('error!');
-				}
-				
-			});
 			
 		},
 		
 		eventClick: function(calEvent, jsEvent, view) {
-			
 			$.ajax({
-				
-				url : "/calendar",
+				url : "/calendarPost",
 				type : "POST",
 				traditional : true,
-				data : {
+				data : ({
 					eventId : calEvent.eventId
-				}
-				
+				})
 			});
 			
 			$('#titlet', '#dialog-event').text('Description: ' + calEvent.description);
@@ -90,6 +75,25 @@ $(function(){
 			duration : 500
 		}
 	});
+	
+	$.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/calendar",
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            alert("success!");
+
+        },
+        error: function (e) {
+
+            alert("fail");
+
+        }
+    });
 	
 	
 });

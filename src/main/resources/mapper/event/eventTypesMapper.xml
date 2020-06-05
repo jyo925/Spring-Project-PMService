@@ -1,0 +1,13 @@
+<?xmlversion ="1.0"encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.foo.mapper.EventTypesMapper">
+	<resultMap type="com.project.bit.foo.domain.event.EventTypes" id="EventTypes">
+		<result property="eventTypeId" column="EVENT_TYPE_ID" javaType="string" />
+		<result property="eventType" column="EVENT_TYPE" javaType="string" />
+	</resultMap>
+	
+	<select id="selectAllTypes" resultType="EventTypes">
+		SELECT * FROM EVENT_TYPES
+	</select>
+	
+</mapper>

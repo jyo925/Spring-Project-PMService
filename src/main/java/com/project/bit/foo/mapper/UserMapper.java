@@ -18,7 +18,7 @@ public interface UserMapper {
 	Optional<Users> selectUserById(String userId);
 	
 	@Insert("insert into users(USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_PHONE, POSITION_CODE, TEAM_CODE) "
-			       + "values(#{USER_ID}, #{USER_PW}, #{USER_NAME}, #{USER_EMAIL}, #{USER_PHONE}, #{POSITION_CODE}, #{TEAM_CODE})")
+			       + "values(#{userId}, #{userPw}, #{userName}, #{userEmail}, #{userPhone}, #{positionCode}, #{teamCode})")
 	void insertUser(Users user);
 	
 	@Select("select * from users")
