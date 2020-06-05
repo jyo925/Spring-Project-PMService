@@ -1,0 +1,24 @@
+<?xmlversion ="1.0"encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.foo.mapper.EventMapper">
+	<resultMap type="com.project.bit.foo.domain.event.Event" id="Event">
+		<result property="eventId" column="EVENT_ID" javaType="string" />
+		<result property="eventTitle" column="EVENT_TITLE" javaType="string" />
+		<result property="eventStartDate" column="EVENT_START_DATE" javaType="date" />
+		<result property="eventFinishDate" column="EVENT_FINISH_DATE" javaType="date" />
+		<result property="eventDescription" column="EVENT_DESCRIPTION" javaType="string" />
+		<result property="eventAllDay" column="EVENT_ALL_DAY" javaType="boolean" />
+		<result property="eventPlace" column="EVENT_PLACE" javaType="string" />
+		<result property="eventTypeId" column="EVENT_TYPE_ID" javaType="string" />
+		<result property="eventCode" column="PROJECT_CODE" javaType="string" />
+	</resultMap>
+	
+	<select id="selectEventById" resultType="Event">
+		SELECT * FROM events e INNER JOIN event_groups g ON e.event_id = g.event_id WHERE g.user_id=#{userId}
+	</select>
+	
+	<select id="selectEvent" resultType="Event">
+		SELECT * FROM events WHERE =#{eventId}
+	</select>
+	
+</mapper>
