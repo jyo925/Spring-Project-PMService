@@ -1,5 +1,6 @@
 package com.project.bit.approval.service;
 
+import com.project.bit.approval.domain.ApDocDTO;
 import com.project.bit.approval.domain.ApFormDTO;
 import com.project.bit.approval.mapper.ApDocMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,5 +15,10 @@ public class ApprovalDocServiceImpl implements ApprovalDocService{
     @Override
     public ApFormDTO getApForm(String apFormNo) {
         return apDocMapper.selectApForm(apFormNo);
+    }
+
+    @Override
+    public int postApDoc(ApDocDTO apDocDTO) {
+        return apDocMapper.insertApDoc(apDocDTO);
     }
 }

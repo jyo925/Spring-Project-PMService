@@ -1,80 +1,82 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/layout1}">
+      layout:decorator="~{layout/default}">
 
-<head>
-    <meta charset="utf-8">
-    <title>새 결재 작성</title>
-    <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
+<title id="pageTitle">새 결재 작성</title>
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <link th:href="@{editor.css}" rel="stylesheet" />
-</head>
-</head>
-<body>
+</th:block>
+
+
 <div layout:fragment="content">
-    <div class="panel-heading">I'm a heading</div>
-    <br><hr>
+    <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
 
-    <div class="panel-body">
-        I'm a body<br><br><br><br>
-<!--        <p th:text="${approvers.size()}"></p>-->
-<!--        <option th:each="i : ${#numbers.sequence( 1, approvers.size())}">-->
-<!--            <p th:text="${ i }"></p> &lt;!&ndash; THIS loops 4 times, instead of 5 &ndash;&gt;-->
-<!--        </option>-->
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">새 결재 작성하기</h3><hr>
+                    결재선
+                    <p th:text="${approvers}"></p>
+                    <table style="border: 1px solid #444444;">
+                        <tr>
+                            <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                <td th:text="${approvers.get(i).getDutyName()}" style="border: 1px solid #444444;"></td>
+                            </span>
+                        </tr>
+                        <tr>
+                            <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                <td th:text="${approvers.get(i).getUserName()}" style="border: 1px solid #444444;"></td>
+                            </span>
+                        </tr>
+                        <tr>
+                            <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                <td style="border: 1px solid #444444;">미결</td>
+                            </span>
+                        </tr>
+                    </table>
+                    <br>
+                    <hr>
+                    <form th:action="@{/approval/postApDoc}" method="post">
+                        <h3 th:text="${form.getApFormName()}" readonly></h3>
+                        제목: <input type="text" name="apDocTitle"><br>
+                        기안자: <input type="text" name="apDocWriter" th:value="user007" readonly><br><!--principal로 수정-->
+                        참조자: <input type="text" name="apReferrers" readonly><button type="button">선택</button><br>
+                        첨부파일: <input type="file" name="apFiles" readonly><br><br><br>
 
-        <p th:text="${approvers}"></p>
-        결재선 ㅎ
-        <table style="border: 1px solid #444444;">
-        <tr>
-            <option th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}" >
-            <td th:text="${approvers.get(i).getDutyName()}"></td>
-            </option>
-<!--            <td th:text="${approvers.get(i).getDutyName()}"></td>-->
-        </tr>
-        <tr>
-            <option th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}" >
-            <td th:text="${approvers.get(i).getUserName()}"></td>
-            </option>
-<!--            <td th:text="${approvers.get(i).getUserName()}"></td>-->
-        </tr>
-         <tr>
-             <option th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}" >
-             <td>미결</td>
-             </option>
-         </tr>
+                        <h4>문서 내용</h4>
+                        <div class="document-editor">
+                            <div class="document-editor__toolbar"></div>
+                            <div class="document-editor__editable-container">
+                                <div class="document-editor__editable" name="editor1">
+                                </div>
+                            </div>
+                        </div>
 
-<!--            <td th:text="${approvers.getDutyName()}">manager</td>-->
-
-<!--        <tr th:each="approvers : ${approvers}">
-            <td th:text="${approvers.getUserName()}">홍길동</td>
-        </tr>
-        <tr th:each="approvers : ${approvers}">
-            <td>미결</td>
-        </tr>-->
+                        <input type="hidden" name="apFormNo" th:value="${form.getApFormNo()}">
+                        <input type="hidden" name="apDocContent" id="formData" th:value="${form.getApFormContent()}">
+                        <button type="submit" id="request">결재 요청</button>
+                        <button type="submit" id="cancel">취소</button>
+                    </form>
 
 
-        </table>
-
-
-        <br><hr>
-        <form th:action="@{/test}" method="post">
-            <h3>문서 내용</h3>
-            <div class="document-editor">
-                <div class="document-editor__toolbar"></div>
-                <div class="document-editor__editable-container">
-                    <div class="document-editor__editable" name="editor1">
-                    </div>
-                </div>
+                    <div id="js-legend" class="chartjs-legend mt-4 mb-5"></div>
+                </div> <!--card body end-->
             </div>
-            <input type="hidden" id="formData" th:value="${form.getApFormContent()}">
-        </form>
+        </div>
     </div>
-
     <script>
-        CKEDITOR.replace(document.querySelector( '.document-editor__editable' ),{
-            width : '1200px',  // 입력창의 넓이, 넓이는 config.js 에서 % 로 제어
-            height : '400px',  // 입력창의 높이
-            startupFocus : false
+        CKEDITOR.replace(document.querySelector('.document-editor__editable'), {
+            width: '95%',  // 입력창의 넓이, 넓이는 config.js 에서 % 로 제어
+            height: '800px',  // 입력창의 높이
+            startupFocus: false
         });
         let formData = document.querySelector('#formData').value;
         console.log(formData);
@@ -83,6 +85,6 @@
         // CKEDITOR.config.readOnly = true;
         // CKEDITOR.instances.editor1.setReadOnly(true);
     </script>
-</div>
-</body>
+
+</div> <!-- content end -->
 </html>
