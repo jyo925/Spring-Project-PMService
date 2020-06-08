@@ -29,7 +29,6 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			p.project_name as project_name,
 			p.project_start as project_start,
 			p.project_finish as project_finish,
-			p.project_pm as project_pm,
 			(select pt.project_type from project_types pt where p.project_typeCode = pt.project_typeCode) as project_typeName,
 			(select count(*) from project_task_Groups ptg, project_tasks pt where p.project_code = ptg.project_code AND ptg.taskGroup_code = pt.taskGroup_code) as projectTaskAccount,
 			(select count(*) from project_members pm where p.project_code = pm.project_code) as projectMemberAccount
@@ -68,12 +67,19 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		GROUP BY (pit.issue_type_code, pit.issue_type)
 	</select>
 	
-	<select id="selectProjectOne" parameterType="String" resultType="com.project.bit.project.domain.ProjectDTO">
+	<select id="selectProjectOne" parameterType="String" resultType="com.project.bit.project.domain.ProjectInfoVO">
 		SELECT 
 			p.*,
+			u.user_id as project_pm,
+			u.user_name as project_pm_name,
+			(select team_name from teams t where u.team_code = t.team_code) as user_team_name,
+			(select position_name from positions pos where u.position_code = pos.position_code) as user_position_name,
 		 	(select project_type from project_types pt where p.project_typeCode = pt.project_typeCode) as project_typeName,
 		 	(select project_status from project_status ps where p.project_statusCode = ps.project_statusCode) as project_statusName
-		FROM projects p WHERE project_code = #{projectId}
+		FROM projects p
+			INNER JOIN users u ON p.project_pm = u.user_id 
+		WHERE project_code = #{projectId}
+		
 	</select>
 	
 	

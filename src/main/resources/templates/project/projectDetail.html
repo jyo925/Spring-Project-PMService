@@ -11,6 +11,7 @@
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+	<script th:inline="javascript" src="/js/project/projectDetail.js"></script>
 </th:block>
 
 
@@ -23,17 +24,22 @@
 					<h6 class="card-title">프로젝트 상세정보</h6>
 					
 					<div>
-						<input type="hidden" th:value="${project.projectCode}" id="projectCode">
-						<input type="text" th:value="${project.projectName}" id="projectName" style="width: 30%">
-						<input type="text" th:value="${project.projectSubName}" id="projectSubName">
+						<h5> 프로젝트 명 </h5>
+						<input type="hidden" th:value="${project.projectCode}" id="projectCode" readOnly>
+						<input type="text" th:value="${project.projectName}" id="projectName" style="width:70%;" >
+						<div>
+							<input type="text" th:value="${project.projectSubName}" id="projectSubName" style="margin-top:5px; width:5%;">
+						</div>
 					</div>
 
 					<div style="margin-top: 10px;">
 						<h5>개발 형태</h5>
-						<select th:value="${project.projectTypeCode}" disabled>
+						<select th:value="${project.projectTypeCode}">
 							<option value="">개발 형태</option>
-							<option th:each="projectType : ${projectTypeList}" th:value="${projectType.projectTypeCode}"
-								th:text="${projectType.projectType}"></option>
+							<option th:each="projectType : ${projectTypeList}" 
+								th:value="${projectType.projectTypeCode}"
+								th:text="${projectType.projectType}"
+								th:selected="${projectType.projectType} == ${project.projectTypeName}"></option>
 						</select>
 						<input type="date" th:value="${project.projectStart}" id="projectStart">
 						<input type="date" th:value="${project.projectFinish}" id="projectFinish">
@@ -41,27 +47,27 @@
 
 					<div style="margin-top: 10px;">
 						<h5>PM</h5>
-						<select>
-							<option value="">부서</option>
-							<option th:each="dept : ${deptList}" th:value="${dept.teamCode}"
-								th:text="${dept.teamName}"></option>
+						<select th:id="pmTeamChoice">
+							<option>부서</option>
+							<option th:each="team : ${teamList}" th:value="${team.teamCode}"
+								th:text="${team.teamName}"></option>
 						</select> 
-						<select th:value="${project.projectPm}">
-							<option value="">아이디</option>
+						<select th:id="pmIdChoice">
+							<option>아이디</option>
 							<option th:each="user : ${userList}" th:value="${user.userId}"
-								th:text="${user.userName}"></option>
+								th:text="${user.userName}" th:selected="${project.projectPm} == ${user.userId}"></option>
 						</select>
 
 						<h5>PMO</h5>
-						<select>
-							<option value="">부서</option>
-							<option th:each="dept : ${deptList}" th:value="${dept.teamCode}"
-								th:text="${dept.teamName}"></option>
+						<select th:id="pmoTeamChoice">
+							<option>부서</option>
+							<option th:each="team : ${teamList}" th:value="${team.teamCode}"
+								th:text="${team.teamName}"></option>
 						</select> 
-						<select th:value="${project.projectPmo}">
+						<select th:id="pmoIdChoice">
 							<option value="">아이디</option>
 							<option th:each="user : ${userList}" th:value="${user.userId}"
-								th:text="${user.userName}"></option>
+								th:text="${user.userName}" th:selected="${project.projectPmo} == ${user.userId}"></option>
 						</select>
 					</div>
 
@@ -73,8 +79,10 @@
 					<div>
 						<select>
 							<option value=""> 상태  </option>
-							<option th:each="status : ${projectStatus}" th:value="${status.projectStatusCode}"
-								th:text="${status.projectStatus}"></option>
+							<option th:each="status : ${projectStatus}" 
+								th:value="${status.projectStatusCode}"
+								th:text="${status.projectStatus}"
+								th:selected="${status.projectStatus} == ${project.projectStatusName}"></option>
 						</select>
 					</div>
 
