@@ -23,10 +23,10 @@ public class MyUserDetailService implements UserDetailsService {
 	@Autowired
 	private UserMapper userMapper;
 
-	public MyUserDetailService() {
-
-		// TODO Auto-generated constructor stub
-	}
+//	public MyUserDetailService() {
+//
+//		// TODO Auto-generated constructor stub
+//	}
 
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
