@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorator="~{layout/default}">
 
 <title id="pageTitle">새 결재 작성</title>
@@ -11,7 +12,7 @@
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 </th:block>
 
 
@@ -22,9 +23,10 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">새 결재 작성하기</h3><hr>
+                    <h3 class="card-title">새 결재 작성하기</h3>
+                    <hr>
                     결재선
-                    <p th:text="${approvers}"></p>
+                    <input type="hidden" th:value="${approvers.size()}" id="approvers"></input>
                     <table style="border: 1px solid #444444;">
                         <tr>
                             <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
@@ -44,11 +46,22 @@
                     </table>
                     <br>
                     <hr>
-                    <form th:action="@{/approval/postApDoc}" method="post">
+                    <!--                    <div sec:authorize="isAuthenticated()">-->
+                    <!--                        <span sec:authentication="name"></span>-->
+                    <!--                        <span sec:authentication="principal.authorities"></span>-->
+                    <!--                    </div>-->
+                    <!--                    <h4 th:text="${#authentication.principal}">dddddd</h4>-->
+                    <!--                    <h4 th:text="${#authentication.details}">ddddd</h4>-->
+
+
+                    <form th:action="@{/approval/postApDoc}" method="post" role="form">
                         <h3 th:text="${form.getApFormName()}" readonly></h3>
                         제목: <input type="text" name="apDocTitle"><br>
-                        기안자: <input type="text" name="apDocWriter" th:value="user007" readonly><br><!--principal로 수정-->
-                        참조자: <input type="text" name="apReferrers" readonly><button type="button">선택</button><br>
+                        기안자: <input type="text" name="apDocWriter" th:value="${#authentication.name}" readonly><br>
+                        <!--principal로 수정-->
+                        참조자: <input type="text" name="apReferrers" readonly>
+                        <button type="button">선택</button>
+                        <br>
                         첨부파일: <input type="file" name="apFiles" readonly><br><br><br>
 
                         <h4>문서 내용</h4>
@@ -59,11 +72,10 @@
                                 </div>
                             </div>
                         </div>
-
                         <input type="hidden" name="apFormNo" th:value="${form.getApFormNo()}">
                         <input type="hidden" name="apDocContent" id="formData" th:value="${form.getApFormContent()}">
                         <button type="submit" id="request">결재 요청</button>
-                        <button type="submit" id="cancel">취소</button>
+                        <button type="button" id="cancel" onclick="location.href = '/approval/apMain'">취소</button>
                     </form>
 
 
@@ -79,11 +91,41 @@
             startupFocus: false
         });
         let formData = document.querySelector('#formData').value;
-        console.log(formData);
+        // console.log(formData);
         CKEDITOR.instances.editor1.setData(formData);
         // CKEDITOR.instances.editor1.setData("안녕하세요.");
         // CKEDITOR.config.readOnly = true;
         // CKEDITOR.instances.editor1.setReadOnly(true);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
+
+            var formObj = $("form[role='form']");
+
+            //결재 요청 클릭시 변경된 문서 내용 전송하도록
+            $("#request").on("click", function (e) {
+                e.preventDefault();
+
+                $("#formData").val(CKEDITOR.instances.editor1.getData());
+
+                var str = "";
+
+                for (var i = 0; i < $("#approvers").val(); i++) {
+                    // str += "<input type='hidden' name='apDto["+i+"].apStep' th:value=i>";
+                    str += "<input type='hidden' name='apDto["+i+"].approver' th:value=`${approvers.get(" + i + ").getUserName()`}>";
+                    str += "<input type='hidden' name='apDto["+i+"].apDutyName' th:value=`${approvers.get(" + i + ").getDutyName()}`>";
+                }
+
+                console.log(str);
+
+                //formObj.append(str).submit();
+
+            });
+
+        });
+
+
     </script>
 
 </div> <!-- content end -->

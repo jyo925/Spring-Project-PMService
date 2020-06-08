@@ -1,5 +1,6 @@
 package com.project.bit.approval.controller;
 
+import com.project.bit.approval.domain.ApDTO;
 import com.project.bit.approval.domain.ApDocDTO;
 import com.project.bit.approval.service.ApprovalDocService;
 import com.project.bit.approval.service.ApprovalService;
@@ -8,12 +9,10 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.function.Supplier;
 
 @Log
@@ -42,7 +41,7 @@ public class ApprovalController {
 
         //문서양식에 맞는 & 사용자 직책 고려한 결재선 불러오기
         //결재자들의 아이디, 이름, 직책 정도?
-        model.addAttribute("approvers", approvalService.getApproverList(apFormNo, "user007"));
+        model.addAttribute("approvers", approvalService.getApproverList(apFormNo, principal.getName()));
 
         return "approval/approvalNew";
 
@@ -52,11 +51,14 @@ public class ApprovalController {
     @PostMapping("/postApDoc")
     public String postApDoc(ApDocDTO apDocDTO, Model model, Principal principal){
         System.out.println("-------------------------------");
-        log.info(apDocDTO.getApDocWriter());
-        log.info(""+apDocDTO.getApFormNo());
+        log.info("작성자:  " + apDocDTO.getApDocWriter());
+        log.info("문서양식번호:  "+apDocDTO.getApFormNo());
 
-        //결재문서 등록하기 insert
+        //결재문서 등록하기
         log.info("등록 결과: "+ apDocService.postApDoc(apDocDTO));
+        //결재선 정보 등록하기
+        System.out.println(apDocDTO.getApDto());
+
 
         return "redirect:/approval/apMain"; //결재진행화면으로변경하기
     }
@@ -67,7 +69,7 @@ public class ApprovalController {
         //결재중인 문서 불러오기
         model.addAttribute("apProgressList", apDocService.getApProgressList("user007"));
 
-        log.info(""+apDocService.getApProgressList("user007"));
+        log.info(""+apDocService.getApProgressList(principal.getName()));
 
         return "approval/approvalProgress";
     }
