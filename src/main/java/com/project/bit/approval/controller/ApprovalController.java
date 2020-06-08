@@ -64,9 +64,10 @@ public class ApprovalController {
     //결재 진행함 클릭시
     @GetMapping("/getApProgressList")
     public String getApProgressList(Principal principal, Model model){
-
         //결재중인 문서 불러오기
+        model.addAttribute("apProgressList", apDocService.getApProgressList("user007"));
 
+        log.info(""+apDocService.getApProgressList("user007"));
 
         return "approval/approvalProgress";
     }

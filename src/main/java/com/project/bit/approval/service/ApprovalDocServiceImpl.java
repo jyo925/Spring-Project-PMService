@@ -1,10 +1,13 @@
 package com.project.bit.approval.service;
 
 import com.project.bit.approval.domain.ApDocDTO;
+import com.project.bit.approval.domain.ApDocListVO;
 import com.project.bit.approval.domain.ApFormDTO;
 import com.project.bit.approval.mapper.ApDocMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ApprovalDocServiceImpl implements ApprovalDocService{
@@ -20,5 +23,11 @@ public class ApprovalDocServiceImpl implements ApprovalDocService{
     @Override
     public int postApDoc(ApDocDTO apDocDTO) {
         return apDocMapper.insertApDoc(apDocDTO);
+    }
+    
+    //진행문서함
+    @Override
+    public List<ApDocListVO> getApProgressList(String apDocWriter) {
+        return apDocMapper.selectApProgressList(apDocWriter);
     }
 }
