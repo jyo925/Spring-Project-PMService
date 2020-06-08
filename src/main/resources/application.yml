@@ -10,7 +10,7 @@ spring:
       enabled: true
 
 mybatis:
-  mapper-locations: mapper/**/*.xml
+  mapper-locations: mapper/**/*Mapper.xml
   type-aliases-package: com.project.bit.foo.domain
   configuration:
     map-underscore-to-camel-case: true
