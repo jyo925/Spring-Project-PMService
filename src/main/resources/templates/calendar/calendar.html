@@ -96,18 +96,32 @@
 			<div class="row">
 				
 				<div class="mb-3">
-					<label for="title">title</label> <input type="text"
-						class="form-control" id="title">
+					<label for="title">title</label> 
+					<input type="text" class="form-control" id="title">
 				</div><br>
 				<div class="mb-3">
-					<label for="start">start</label> <input type="text"
-						class="form-control datePicker" id="start">
+					<label for="start">start</label> 
+					<input type="text" class="form-control datePicker" id="start">
 				</div>
 				<div class="mb-3">
-					<label for="finish">finish</label> <input type="text"
-						class="form-control datePicker" id="finish">
+					<label for="finish">finish</label> 
+					<input type="text" class="form-control datePicker" id="finish">
 				</div>
-
+				<div class="mb-3">
+					<label for="finish">description</label> 
+					<input type="text" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label for="finish">all Day</label> 
+					<input type="checkbox" class="form-control" value="1">
+				</div>
+				<div class="mb-3">
+					<label for="finish">Type</label> 
+					<select name="cars" th:each="el : ${eventTypes}">
+						<option value="${el.eventTypeId}" th:text="${el.eventType}"></option>
+					</select>
+				</div>
+				
 			</div>
 			<hr class="mb-4">
 			<button class="btn btn-success" type="submit">Create</button>
@@ -116,27 +130,26 @@
 	
 	
 	<div id="dialog-event">
-		<form class="needs-validation" novalidate="">
-			<div th:each="el : ${event}" class="row">
-				
-				<div class="mb-3">
-					<div id="titlet"></div>
-					<label for="title">title</label> 
-					<input type="text" class="form-control" id="title" th:value="${el.eventTitle}">
-				</div><br>
-				<div class="mb-3">
-					<label for="start">start</label> 
-					<input type="text" class="form-control datePicker" id="start" th:value="${el.eventStartDate}">
-				</div>
-				<div class="mb-3">
-					<label for="finish">finish</label> 
-					<input type="text" class="form-control datePicker" id="finish" th:value="${el.eventFinishDate}">
-				</div>
-
-			</div>
-			<hr class="mb-4">
-			<button class="btn btn-success" type="submit">Create</button>
-		</form>
+		<div th:each="el : ${event}" class="row">
+			<div th:text="el.eventTitle"></div>
+			<form class="needs-validation" novalidate="">
+					<div class="mb-3">
+						<div id="titlet"></div>
+						<label for="title">title</label> 
+						<input type="text" class="form-control" id="title">
+					</div><br>
+					<div class="mb-3">
+						<label for="start">start</label> 
+						<input type="text" class="form-control datePicker" id="start">
+					</div>
+					<div class="mb-3">
+						<label for="finish">finish</label> 
+						<input type="text" class="form-control datePicker" id="finish">
+					</div>
+				<hr class="mb-4">
+				<button class="btn btn-success" type="submit">Create</button>
+			</form>
+		</div>
 	</div>
 	
 	

@@ -39,7 +39,6 @@ public class EventServiceImpl implements EventService {
 			ev.put("projectCode", event.getProjectCode());
 			json.put(ev);
 		}
-		System.out.println(json);
 		return json;
 	}
 

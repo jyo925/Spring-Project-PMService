@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="selectEvent" resultType="Event">
-		SELECT * FROM events WHERE =#{eventId}
+		SELECT * FROM events WHERE EVENT_ID=#{eventId}
 	</select>
 	
 </mapper>

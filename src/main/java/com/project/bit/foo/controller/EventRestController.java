@@ -1,0 +1,47 @@
+package com.project.bit.foo.controller;
+
+import java.security.Principal;
+
+import org.json.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.project.bit.foo.domain.event.Event;
+import com.project.bit.foo.service.EventService.EventService;
+
+@RestController
+public class EventRestController {
+
+	@Autowired
+	private EventService eventService;
+
+	/*
+	 * @PostMapping(value = "/calendar", produces =
+	 * "application/json; charset=utf8") public ModelAndView calendar(Model
+	 * model, @RequestParam(defaultValue = "") String eventId) {
+	 * 
+	 * System.out.println(eventId);
+	 * 
+	 * if (eventId != "") { Event event = eventService.selectEvent(eventId);
+	 * model.addAttribute("event", event); System.out.println(event); }
+	 * 
+	 * ModelAndView modelAndView = new ModelAndView();
+	 * modelAndView.setViewName("calendar/calendar"); return modelAndView; }
+	 */
+	
+	@GetMapping("/calendarE")
+	public String calendarE(Model model, Principal principal) {
+		JSONArray json = eventService.selectEventById(principal.getName());
+		return json.toString();
+	}
+
+	public EventRestController() {
+
+	}
+
+}
