@@ -1,0 +1,107 @@
+<div th:fragment="sidebar">	
+	    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile mt-4">
+              <div class="nav-link">
+                <div class="profile-image">
+                  <img src="images/user.png" alt="image" class="bg-success">
+                </div>
+                <div class="profile-name">
+                  <p class="name">
+                    User Name
+                  </p>
+                  <p class="designation">
+                    Developer
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#dashboard-nav">
+                <i class="fa fa-dashboard menu-icon"></i> 
+                <span class="menu-title">프로젝트 대시보드</span>
+                <span class="badge"> </span> <!-- nav item 옆 down arrow -->
+              </a>
+              <div class="collapse" id="dashboard-nav">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="#">종합 대시보드</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="#">상세 대시보드</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="#">개인 대시보드</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#project-nav">
+                <i class="fa fa-tasks menu-icon"></i>
+                <span class="menu-title">프로젝트 관리</span>
+                <span class="badge"> </span> <!-- nav item 옆 down arrow -->
+              </a>
+              <div class="collapse" id="project-nav">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">프로젝트 센터</a></li>
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">프로젝트 산출물</a></li>
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">프로젝트 작업 승인</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#myWork-nav">
+                <i class="fa fa-desktop menu-icon"></i>
+                <span class="menu-title">내 작업</span>
+                <span class="badge"> </span> <!-- nav item 옆 down arrow -->
+              </a>
+              <div class="collapse" id="myWork-nav">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">내 작업</a></li>
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/calendar">일정관리</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#defaultWork-nav">
+                <i class="fa fa-folder-open-o menu-icon"></i>
+                <span class="menu-title">일반업무</span>
+                <span class="badge"> </span> <!-- nav item 옆 down arrow -->
+              </a>
+              <div class="collapse" id="defaultWork-nav">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">이슈관리</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#eleWork-nav">
+                <i class="fa fa-file-text-o menu-icon"></i>
+                <span class="menu-title">전자결재</span>
+                <span class="badge"> </span> <!-- nav item 옆 down arrow -->
+              </a>
+              <div class="collapse" id="eleWork-nav">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">결재요청</a></li>
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">결재</a></li>
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">문서함 관리</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#user-nav">
+                <i class="fa fa-user-o menu-icon"></i>
+                <span class="menu-title">사용자 관리</span>
+                <span class="badge"> </span> <!-- nav item 옆 down arrow -->
+              </a>
+              <div class="collapse" id="user-nav">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">사용자 현황</a></li>
+                  <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">사용자 배정현황</a></li>
+                </ul>
+              </div>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="icon-bell menu-icon"></i>
+                <span class="menu-title">Notifications</span>
+              </a>
+            </li> 서브메뉴 없는 경우의 nav항목-->
+          </ul>
+        </nav>
+</div>	        

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.project.mapper.ProjectMemberMapper">
+	<select id="selectProjectMember" parameterType="String" resultType="com.project.bit.project.domain.ProjectMemberDTO">
+		SELECT
+			pmem.user_id AS user_id,
+			u.user_name AS user_name
+		FROM project_members pmem
+			INNER JOIN users u ON pmem.user_id = u.user_id
+		WHERE pmem.project_code = #{projectId}
+	</select>
+	
+	<!-- <select id="selectUserAll" resultType="com.project.bit.projects.domain.Users">
+		SELECT
+			u.*,
+			t.team_name AS team_name,
+			pos.position_name AS position_name
+		FROM users u
+			INNER JOIN teams t ON u.team_code = t.team_code
+			INNER JOIN positions pos ON u.position_code = pos.position_code
+	</select> -->
+</mapper>

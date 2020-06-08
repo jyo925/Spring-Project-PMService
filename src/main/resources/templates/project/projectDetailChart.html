@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<title id="pageTitle">프로젝트 요약 정보</title>
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script th:inline="javascript" src="/js/project/projectChart.js"></script>
+</th:block>
+
+<div layout:fragment="content">
+	<ul>
+		<li><a th:href="'/project/'+${project.projectCode}">요약정보</a></li>
+		<li><a th:href="'/project/detail/'+${project.projectCode}">기본정보</a></li>
+		<li><a href="#">리소스</a></li>
+		<li><a href="#">프로젝트 작업</a></li>
+		<li><a href="#">배정현황</a></li>
+		<li><a href="#">이슈</a></li>
+		<li><a href="#">산출물</a></li>
+	</ul>
+	
+	<div class="row">
+		<!-- 프로젝트 정보 START -->
+		<div class="col-12 grid-margin">
+			<div class="card">
+				<div class="card-body">
+
+					<h6 class="card-title"> 프로젝트 정보 </h6>
+					
+					<div>
+						<input type="hidden" th:value="${project.projectCode}" id="projectCode">
+						<!-- 프로젝트 이름 -->
+						<span th:text="${project.projectName}"></span>
+						<!-- 프로젝트 시작일 -->
+						<span th:text="${project.projectStart}"></span>
+						<!-- 프로젝트 종료일 -->
+						<span th:text="${project.projectFinish}"></span>
+						<!-- 프로젝트 피엠 아이디 -->
+						<span th:text="${project.projectPm}"></span>
+						<!-- 프로젝트 개발 형태 -->
+						<span th:text="${project.projectTypeName}"></span>
+						<!-- 프로젝트 작업 갯수 -->
+						<span th:text="${project.projectTaskAccount}"></span>
+						<!-- 프로젝트 멤버 갯수 -->
+						<span th:text="${project.projectMemberAccount}"></span>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 프로젝트 작업 진행상태 START -->
+		<div class="col-6 grid-margin">
+			<div class="card">
+				<div class="card-body">
+
+					<h6 class="card-title"> 프로젝트 작업 진행상태 </h6>
+					
+					<div id="projectTaskStatusChart" style="margin:auto;">
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 프로젝트 이슈 현황 START -->
+		<div class="col-6 grid-margin">
+			<div class="card">
+				<div class="card-body">
+
+					<h6 class="card-title"> 프로젝트 이슈 현황 </h6>
+					
+					<div id="projectIssueStatusChart" style="margin:auto;">
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		<!-- 프로젝트 멤버 배정 현황 -->
+		<div class="col-12 grid-margin">
+			<div class="card">
+				<div class="card-body">
+
+					<h6 class="card-title"> 프로젝트 멤버 배정 현황 </h6>
+					
+					<div id="projectIssueStatusChart" style="margin:auto;">
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+</html>
