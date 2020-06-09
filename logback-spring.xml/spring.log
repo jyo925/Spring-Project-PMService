@@ -1,186 +1,654 @@
-2020-06-04 14:17:36.762  INFO 35764 --- [restartedMain] com.project.bit.BitApplication           : Starting BitApplication on DESKTOP-SU9Q0O0 with PID 35764 (C:\Users\LCY\git\finalProject\target\classes started by LCY in C:\Users\LCY\git\finalProject)
-2020-06-04 14:17:36.763  INFO 35764 --- [restartedMain] com.project.bit.BitApplication           : No active profile set, falling back to default profiles: default
-2020-06-04 14:17:37.522  INFO 35764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2020-06-04 14:17:37.523  INFO 35764 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-06-04 14:17:37.523  INFO 35764 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
-2020-06-04 14:17:37.542  INFO 35764 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-06-04 14:17:37.542  INFO 35764 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 773 ms
-2020-06-04 14:17:37.587  WARN 35764 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'projectController': Unsatisfied dependency expressed through field 'projectService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'projectServiceImpl': Unsatisfied dependency expressed through field 'projectMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'projectMapper' defined in file [C:\Users\LCY\git\finalProject\target\classes\com\project\bit\project\mapper\ProjectMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is java.lang.IllegalStateException: Cannot load driver class: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-2020-06-04 14:17:37.588  INFO 35764 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2020-06-04 14:17:37.598  INFO 35764 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+2020-06-09 06:22:27.010  WARN 5500 --- [main] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/Users/hj/.m2/repository/org/json/json/20160810/json-20160810.jar!/org/json/JSONObject.class
+	jar:file:/Users/hj/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2020-06-09 06:22:27.027  INFO 5500 --- [main] com.project.bit.test.Test                : Starting Test on HJui-MacBookPro.local with PID 5500 (started by hj in /Users/hj/Documents/dev/git/finalProject)
+2020-06-09 06:22:27.028  INFO 5500 --- [main] com.project.bit.test.Test                : No active profile set, falling back to default profiles: default
+2020-06-09 06:22:29.320  INFO 5500 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-09 06:22:29.320  INFO 5500 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-06-09 06:22:29.320  INFO 5500 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-09 06:22:29.320  INFO 5500 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-09 06:22:29.321  INFO 5500 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-09 06:22:29.321  INFO 5500 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/fullcalendar/**/**'], []
+2020-06-09 06:22:29.321  INFO 5500 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/mapper/**'], []
+2020-06-09 06:22:29.321  INFO 5500 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**/**/**'], []
+2020-06-09 06:22:29.427  INFO 5500 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2f74900b, org.springframework.security.web.context.SecurityContextPersistenceFilter@5583098b, org.springframework.security.web.header.HeaderWriterFilter@18a25bbd, org.springframework.security.web.authentication.logout.LogoutFilter@1eff3cfb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1084f78c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@53a84ff4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@717d7587, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6d8796c1, org.springframework.security.web.session.SessionManagementFilter@1ee27d73, org.springframework.security.web.access.ExceptionTranslationFilter@20a7953c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@62d1dc3c]
+2020-06-09 06:22:29.753  INFO 5500 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-09 06:22:29.873  INFO 5500 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-06-09 06:22:30.829  INFO 5500 --- [main] com.project.bit.test.Test                : Started Test in 4.355 seconds (JVM running for 5.738)
+2020-06-09 06:22:31.090  INFO 5500 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-06-09 06:22:32.442 ERROR 5500 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+
+java.sql.SQLException: 로케일을 인식할 수 없습니다.
+	at oracle.jdbc.driver.T4CTTIoauthenticate.setSessionFields(T4CTTIoauthenticate.java:1498) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.T4CTTIoauthenticate.<init>(T4CTTIoauthenticate.java:294) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:675) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.PhysicalConnection.connect(PhysicalConnection.java:793) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:57) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:747) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:562) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at net.sf.log4jdbc.sql.jdbcapi.DriverSpy.connect(DriverSpy.java:401) ~[log4jdbc-log4j2-jdbc4.1-1.16.jar:na]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:358) ~[HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:477) [HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:560) [HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) [HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) [HikariCP-3.4.5.jar:na]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:158) [spring-jdbc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:116) [spring-jdbc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:79) [spring-jdbc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80) [mybatis-spring-2.0.4.jar:2.0.4]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67) [mybatis-spring-2.0.4.jar:2.0.4]
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:336) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140) [mybatis-3.5.4.jar:3.5.4]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_241]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426) [mybatis-spring-2.0.4.jar:2.0.4]
+	at com.sun.proxy.$Proxy72.selectList(Unknown Source) [na:na]
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:223) [mybatis-spring-2.0.4.jar:2.0.4]
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:144) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:85) [mybatis-3.5.4.jar:3.5.4]
+	at com.sun.proxy.$Proxy79.selectProjectList(Unknown Source) [na:na]
+	at com.project.bit.test.Test.testMapper2(Test.java:24) [test-classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_241]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686) [junit-platform-commons-1.6.2.jar:1.6.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1257) ~[na:1.8.0_241]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1257) ~[na:1.8.0_241]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:69) ~[junit5-rt.jar:na]
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33) ~[junit-rt.jar:na]
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230) ~[junit-rt.jar:na]
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58) ~[junit-rt.jar:na]
+
+2020-06-09 06:22:32.497  INFO 5500 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-09 06:23:13.050  WARN 5507 --- [main] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/Users/hj/.m2/repository/org/json/json/20160810/json-20160810.jar!/org/json/JSONObject.class
+	jar:file:/Users/hj/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2020-06-09 06:23:13.066  INFO 5507 --- [main] com.project.bit.test.Test                : Starting Test on HJui-MacBookPro.local with PID 5507 (started by hj in /Users/hj/Documents/dev/git/finalProject)
+2020-06-09 06:23:13.067  INFO 5507 --- [main] com.project.bit.test.Test                : No active profile set, falling back to default profiles: default
+2020-06-09 06:23:15.092  INFO 5507 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-09 06:23:15.093  INFO 5507 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-06-09 06:23:15.093  INFO 5507 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-09 06:23:15.093  INFO 5507 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-09 06:23:15.093  INFO 5507 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-09 06:23:15.093  INFO 5507 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/fullcalendar/**/**'], []
+2020-06-09 06:23:15.093  INFO 5507 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/mapper/**'], []
+2020-06-09 06:23:15.093  INFO 5507 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**/**/**'], []
+2020-06-09 06:23:15.189  INFO 5507 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2e7157c7, org.springframework.security.web.context.SecurityContextPersistenceFilter@5377414a, org.springframework.security.web.header.HeaderWriterFilter@48e8c32a, org.springframework.security.web.authentication.logout.LogoutFilter@2489e84a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3811510, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@17aa8a11, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5583098b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2a43e0ac, org.springframework.security.web.session.SessionManagementFilter@57c00115, org.springframework.security.web.access.ExceptionTranslationFilter@167381c7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7cfb4736]
+2020-06-09 06:23:15.517  INFO 5507 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-09 06:23:15.638  INFO 5507 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-06-09 06:23:16.464  INFO 5507 --- [main] com.project.bit.test.Test                : Started Test in 3.803 seconds (JVM running for 4.787)
+2020-06-09 06:23:16.694  INFO 5507 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-06-09 06:23:17.987 ERROR 5507 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+
+java.sql.SQLException: 로케일을 인식할 수 없습니다.
+	at oracle.jdbc.driver.T4CTTIoauthenticate.setSessionFields(T4CTTIoauthenticate.java:1498) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.T4CTTIoauthenticate.<init>(T4CTTIoauthenticate.java:294) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:675) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.PhysicalConnection.connect(PhysicalConnection.java:793) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:57) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:747) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:562) ~[ojdbc8-19.3.0.0.jar:19.3.0.0.0]
+	at net.sf.log4jdbc.sql.jdbcapi.DriverSpy.connect(DriverSpy.java:401) ~[log4jdbc-log4j2-jdbc4.1-1.16.jar:na]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:358) ~[HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:477) [HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:560) [HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) [HikariCP-3.4.5.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) [HikariCP-3.4.5.jar:na]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:158) [spring-jdbc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:116) [spring-jdbc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:79) [spring-jdbc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80) [mybatis-spring-2.0.4.jar:2.0.4]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67) [mybatis-spring-2.0.4.jar:2.0.4]
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:336) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140) [mybatis-3.5.4.jar:3.5.4]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_241]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426) [mybatis-spring-2.0.4.jar:2.0.4]
+	at com.sun.proxy.$Proxy72.selectList(Unknown Source) [na:na]
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:223) [mybatis-spring-2.0.4.jar:2.0.4]
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:144) [mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:85) [mybatis-3.5.4.jar:3.5.4]
+	at com.sun.proxy.$Proxy79.selectProjectList(Unknown Source) [na:na]
+	at com.project.bit.test.Test.testMapper2(Test.java:24) [test-classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_241]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686) [junit-platform-commons-1.6.2.jar:1.6.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84) [junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:212) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:208) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71) ~[junit-jupiter-engine-5.6.2.jar:5.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1257) ~[na:1.8.0_241]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1257) ~[na:1.8.0_241]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51) ~[junit-platform-engine-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132) ~[junit-platform-launcher-1.6.2.jar:1.6.2]
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:69) ~[junit5-rt.jar:na]
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33) ~[junit-rt.jar:na]
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230) ~[junit-rt.jar:na]
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58) ~[junit-rt.jar:na]
+
+2020-06-09 06:23:18.046  INFO 5507 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-09 06:24:59.318  WARN 5599 --- [main] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/Users/hj/.m2/repository/org/json/json/20160810/json-20160810.jar!/org/json/JSONObject.class
+	jar:file:/Users/hj/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2020-06-09 06:24:59.333  INFO 5599 --- [main] com.project.bit.test.Test                : Starting Test on HJui-MacBookPro.local with PID 5599 (started by hj in /Users/hj/Documents/dev/git/finalProject)
+2020-06-09 06:24:59.333  INFO 5599 --- [main] com.project.bit.test.Test                : No active profile set, falling back to default profiles: default
+2020-06-09 06:25:01.678  INFO 5599 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-09 06:25:01.679  INFO 5599 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-06-09 06:25:01.679  INFO 5599 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-09 06:25:01.679  INFO 5599 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-09 06:25:01.679  INFO 5599 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-09 06:25:01.679  INFO 5599 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/fullcalendar/**/**'], []
+2020-06-09 06:25:01.679  INFO 5599 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/mapper/**'], []
+2020-06-09 06:25:01.679  INFO 5599 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**/**/**'], []
+2020-06-09 06:25:01.795  INFO 5599 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2f74900b, org.springframework.security.web.context.SecurityContextPersistenceFilter@5583098b, org.springframework.security.web.header.HeaderWriterFilter@18a25bbd, org.springframework.security.web.authentication.logout.LogoutFilter@1eff3cfb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1084f78c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@53a84ff4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@717d7587, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6d8796c1, org.springframework.security.web.session.SessionManagementFilter@1ee27d73, org.springframework.security.web.access.ExceptionTranslationFilter@20a7953c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@62d1dc3c]
+2020-06-09 06:25:02.166  INFO 5599 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-09 06:25:02.300  INFO 5599 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-06-09 06:25:03.310  INFO 5599 --- [main] com.project.bit.test.Test                : Started Test in 4.595 seconds (JVM running for 5.883)
+2020-06-09 06:25:03.571  INFO 5599 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-06-09 06:25:03.976  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection opened. {executed in 387ms} 
+2020-06-09 06:25:03.977  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.new Connection returned 
+2020-06-09 06:25:03.977  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.getNetworkTimeout() returned 0
+2020-06-09 06:25:03.978  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.isReadOnly() returned false
+2020-06-09 06:25:03.978  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.getAutoCommit() returned true
+2020-06-09 06:25:03.982  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.isValid(1) returned true
+2020-06-09 06:25:03.982  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.getTransactionIsolation() returned 2
+2020-06-09 06:25:03.986  INFO 5599 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-06-09 06:25:03.989  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.getAutoCommit() returned true
+2020-06-09 06:25:04.113  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. PreparedStatement.new PreparedStatement returned 
+2020-06-09 06:25:04.113  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.prepareStatement(select project_name from projects) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@53f7a906
+2020-06-09 06:25:04.165  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 2. Connection opened. {executed in 75ms} 
+2020-06-09 06:25:04.165  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 2. Connection.new Connection returned 
+2020-06-09 06:25:04.165  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 2. Connection.isReadOnly() returned false
+2020-06-09 06:25:04.165  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 2. Connection.getAutoCommit() returned true
+2020-06-09 06:25:04.228  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 3. Connection opened. {executed in 62ms} 
+2020-06-09 06:25:04.228  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 3. Connection.new Connection returned 
+2020-06-09 06:25:04.229  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 3. Connection.isReadOnly() returned false
+2020-06-09 06:25:04.229  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 3. Connection.getAutoCommit() returned true
+2020-06-09 06:25:04.236  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. select project_name from projects  {executed in 116 ms}
+2020-06-09 06:25:04.236  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. PreparedStatement.execute() returned true
+2020-06-09 06:25:04.254  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.new ResultSet returned 
+2020-06-09 06:25:04.254  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@4d20616a
+2020-06-09 06:25:04.262  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getMetaData() returned oracle.jdbc.driver.OracleResultSetMetaData@595fed99
+2020-06-09 06:25:04.263  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getType() returned 1003
+2020-06-09 06:25:04.264  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.264  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.268  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned 테스트 프로젝트
+2020-06-09 06:25:04.268  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.268  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.269  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned 솔루션 기반 여행 플랫폼 웹 서비스 제작
+2020-06-09 06:25:04.269  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.269  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.269  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned 딥러닝 기반 Vision 알고리즘 개발
+2020-06-09 06:25:04.270  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.270  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.270  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned 음식 업체 오더 배달 네이티브 APP 개발
+2020-06-09 06:25:04.270  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.270  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.271  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned React Native 기반 포트폴리오 관리 앱 서비스 리뉴얼
+2020-06-09 06:25:04.271  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.271  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.271  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned 워드프레스 기반 미디어 홈페이지 디자인 및 개발 리뉴얼
+2020-06-09 06:25:04.271  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.271  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.272  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned 광고주와 인플루언서 매칭 하이브리드 웹/앱 디자인
+2020-06-09 06:25:04.272  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.272  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.272  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned Java 기반 대기업 중국 스마트폰 센터 구축
+2020-06-09 06:25:04.273  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.273  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.273  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned Django/React-Native 기반 B2B2C 라이프스타일 하이브리드 앱 개발
+2020-06-09 06:25:04.273  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.274  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned true
+2020-06-09 06:25:04.274  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.getString(PROJECT_NAME) returned 웹 기반 관리자 페이지 개발
+2020-06-09 06:25:04.274  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.isClosed() returned false
+2020-06-09 06:25:04.279  INFO 5599 --- [main] log4jdbc.log4j2                          : 
+|-----------------------------------------------|
+|project_name                                   |
+|-----------------------------------------------|
+|테스트 프로젝트                                       |
+|솔루션 기반 여행 플랫폼 웹 서비스 제작                         |
+|딥러닝 기반 Vision 알고리즘 개발                          |
+|음식 업체 오더 배달 네이티브 APP 개발                        |
+|React Native 기반 포트폴리오 관리 앱 서비스 리뉴얼             |
+|워드프레스 기반 미디어 홈페이지 디자인 및 개발 리뉴얼                 |
+|광고주와 인플루언서 매칭 하이브리드 웹/앱 디자인                    |
+|Java 기반 대기업 중국 스마트폰 센터 구축                      |
+|Django/React-Native 기반 B2B2C 라이프스타일 하이브리드 앱 개발 |
+|웹 기반 관리자 페이지 개발                                |
+|-----------------------------------------------|
+
+2020-06-09 06:25:04.280  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.next() returned false
+2020-06-09 06:25:04.280  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. ResultSet.close() returned void
+2020-06-09 06:25:04.280  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.getMetaData() returned oracle.jdbc.driver.OracleDatabaseMetaData@41ece227
+2020-06-09 06:25:04.285  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. PreparedStatement.close() returned 
+2020-06-09 06:25:04.291  INFO 5599 --- [main] log4jdbc.log4j2                          : 1. Connection.clearWarnings() returned 
+2020-06-09 06:25:04.298  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 4. Connection opened. {executed in 69ms} 
+2020-06-09 06:25:04.298  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 4. Connection.new Connection returned 
+2020-06-09 06:25:04.298  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 4. Connection.isReadOnly() returned false
+2020-06-09 06:25:04.298  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 4. Connection.getAutoCommit() returned true
+2020-06-09 06:25:04.449  INFO 5599 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-09 06:25:04.451  INFO 5599 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-06-09 06:25:04.458  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 1. Connection closed. {executed in 5ms} 
+2020-06-09 06:25:04.459  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 1. Connection.close() returned 
+2020-06-09 06:25:04.461  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 2. Connection closed. {executed in 2ms} 
+2020-06-09 06:25:04.462  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 2. Connection.close() returned 
+2020-06-09 06:25:04.465  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 3. Connection closed. {executed in 3ms} 
+2020-06-09 06:25:04.465  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 3. Connection.close() returned 
+2020-06-09 06:25:04.468  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 4. Connection closed. {executed in 3ms} 
+2020-06-09 06:25:04.468  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 4. Connection.close() returned 
+2020-06-09 06:25:04.473  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 5. Connection opened. {executed in 174ms} 
+2020-06-09 06:25:04.473  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 5. Connection.new Connection returned 
+2020-06-09 06:25:04.473  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 5. Connection.isReadOnly() returned false
+2020-06-09 06:25:04.474  INFO 5599 --- [HikariPool-1 connection adder] log4jdbc.log4j2                          : 5. Connection.getAutoCommit() returned true
+2020-06-09 06:25:04.479  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 5. Connection closed. {executed in 4ms} 
+2020-06-09 06:25:04.479  INFO 5599 --- [HikariPool-1 connection closer] log4jdbc.log4j2                          : 5. Connection.close() returned 
+2020-06-09 06:25:04.479  INFO 5599 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-06-09 09:44:48.920  INFO 6075 --- [restartedMain] com.project.bit.BitApplication           : Starting BitApplication on HJui-MacBookPro.local with PID 6075 (/Users/hj/Documents/dev/git/finalProject/target/classes started by hj in /Users/hj/Documents/dev/git/finalProject)
+2020-06-09 09:44:48.924  INFO 6075 --- [restartedMain] com.project.bit.BitApplication           : No active profile set, falling back to default profiles: default
+2020-06-09 09:44:49.129  INFO 6075 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-mapping.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-utility.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-collation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-translation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-net.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-servlet.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-lcsd.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-tools.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/gdk_custom.jar
+2020-06-09 09:44:49.130  INFO 6075 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/ojdbc8-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/oraclepki.jar
+2020-06-09 09:44:49.130  INFO 6075 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/oraclepki-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_cert.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_cert.jar
+2020-06-09 09:44:49.175  INFO 6075 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-09 09:44:49.176  INFO 6075 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-09 09:44:50.405  INFO 6075 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-09 09:44:50.414  INFO 6075 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-09 09:44:50.414  INFO 6075 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-09 09:44:50.488  INFO 6075 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-09 09:44:50.489  INFO 6075 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1312 ms
+2020-06-09 09:44:51.105  INFO 6075 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-09 09:44:51.105  INFO 6075 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-06-09 09:44:51.105  INFO 6075 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-09 09:44:51.105  INFO 6075 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-09 09:44:51.105  INFO 6075 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-09 09:44:51.106  INFO 6075 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/fullcalendar/**/**'], []
+2020-06-09 09:44:51.106  INFO 6075 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/mapper/**'], []
+2020-06-09 09:44:51.106  INFO 6075 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**/**/**'], []
+2020-06-09 09:44:51.133  INFO 6075 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@76692184, org.springframework.security.web.context.SecurityContextPersistenceFilter@2010e466, org.springframework.security.web.header.HeaderWriterFilter@4fef93aa, org.springframework.security.web.authentication.logout.LogoutFilter@69949ad0, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6ab680dd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@32afdd7f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@60caf1a3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2807f7fc, org.springframework.security.web.session.SessionManagementFilter@5eda2669, org.springframework.security.web.access.ExceptionTranslationFilter@550859e5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7d83f1ad]
+2020-06-09 09:44:51.214  INFO 6075 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-09 09:44:51.280  INFO 6075 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-06-09 09:44:51.826  INFO 6075 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-06-09 09:44:51.897  WARN 6075 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-06-09 09:44:51.902  INFO 6075 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-09 09:44:51.905  INFO 6075 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-06-09 09:44:51.913  INFO 6075 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
 
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-2020-06-04 14:17:37.610 ERROR 35764 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+2020-06-09 09:44:51.917 ERROR 6075 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
 
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'projectController': Unsatisfied dependency expressed through field 'projectService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'projectServiceImpl': Unsatisfied dependency expressed through field 'projectMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'projectMapper' defined in file [C:\Users\LCY\git\finalProject\target\classes\com\project\bit\project\mapper\ProjectMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is java.lang.IllegalStateException: Cannot load driver class: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:643) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:895) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:878) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at com.project.bit.BitApplication.main(BitApplication.java:10) [classes/:na]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
-	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
-	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'projectServiceImpl': Unsatisfied dependency expressed through field 'projectMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'projectMapper' defined in file [C:\Users\LCY\git\finalProject\target\classes\com\project\bit\project\mapper\ProjectMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is java.lang.IllegalStateException: Cannot load driver class: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:643) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	... 25 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'projectMapper' defined in file [C:\Users\LCY\git\finalProject\target\classes\com\project\bit\project\mapper\ProjectMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is java.lang.IllegalStateException: Cannot load driver class: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1526) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1406) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	... 38 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is java.lang.IllegalStateException: Cannot load driver class: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:798) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:539) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1511) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	... 49 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is java.lang.IllegalStateException: Cannot load driver class: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:656) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:885) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	... 62 common frames omitted
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is java.lang.IllegalStateException: Cannot load driver class: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	... 76 common frames omitted
-Caused by: java.lang.IllegalStateException: Cannot load driver class: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-	at org.springframework.util.Assert.state(Assert.java:94) ~[spring-core-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.determineDriverClassName(DataSourceProperties.java:223) ~[spring-boot-autoconfigure-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.initializeDataSourceBuilder(DataSourceProperties.java:175) ~[spring-boot-autoconfigure-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration.createDataSource(DataSourceConfiguration.java:43) ~[spring-boot-autoconfigure-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari.dataSource(DataSourceConfiguration.java:85) ~[spring-boot-autoconfigure-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
-	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	... 77 common frames omitted
+***************************
+APPLICATION FAILED TO START
+***************************
 
-2020-06-04 14:17:37.615  WARN 35764 --- [restartedMain] o.s.boot.SpringApplication               : Unable to close ApplicationContext
+Description:
 
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'delegatingApplicationListener' defined in class path resource [org/springframework/security/config/annotation/web/configuration/WebSecurityConfiguration.class]: Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.context.event.AbstractApplicationEventMulticaster.retrieveApplicationListeners(AbstractApplicationEventMulticaster.java:245) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.context.event.AbstractApplicationEventMulticaster.getApplicationListeners(AbstractApplicationEventMulticaster.java:197) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:134) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:403) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:360) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:81) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:67) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:167) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:978) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:814) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at com.project.bit.BitApplication.main(BitApplication.java:10) [classes/:na]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
-	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
-	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:409) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.aop.framework.autoproxy.BeanFactoryAdvisorRetrievalHelper.findAdvisorBeans(BeanFactoryAdvisorRetrievalHelper.java:91) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findCandidateAdvisors(AbstractAdvisorAutoProxyCreator.java:109) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findEligibleAdvisors(AbstractAdvisorAutoProxyCreator.java:94) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.getAdvicesAndAdvisorsForBean(AbstractAdvisorAutoProxyCreator.java:76) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.wrapIfNecessary(AbstractAutoProxyCreator.java:347) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessAfterInitialization(AbstractAutoProxyCreator.java:299) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization(AbstractAutowireCapableBeanFactory.java:431) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	... 24 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:814) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1282) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:297) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor.postProcessBeforeInitialization(ConfigurationClassPostProcessor.java:456) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:416) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1788) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	... 47 common frames omitted
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-06-09 09:52:37.301  INFO 6188 --- [restartedMain] com.project.bit.BitApplication           : Starting BitApplication on HJui-MacBookPro.local with PID 6188 (/Users/hj/Documents/dev/git/finalProject/target/classes started by hj in /Users/hj/Documents/dev/git/finalProject)
+2020-06-09 09:52:37.303  INFO 6188 --- [restartedMain] com.project.bit.BitApplication           : No active profile set, falling back to default profiles: default
+2020-06-09 09:52:37.431  INFO 6188 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-mapping.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-utility.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-collation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-translation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-net.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-servlet.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-lcsd.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-tools.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/gdk_custom.jar
+2020-06-09 09:52:37.432  INFO 6188 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/ojdbc8-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/oraclepki.jar
+2020-06-09 09:52:37.432  INFO 6188 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/oraclepki-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_cert.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_cert.jar
+2020-06-09 09:52:37.432  INFO 6188 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-09 09:52:37.432  INFO 6188 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-09 09:52:38.635  INFO 6188 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-09 09:52:38.644  INFO 6188 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-09 09:52:38.644  INFO 6188 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-09 09:52:38.711  INFO 6188 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-09 09:52:38.711  INFO 6188 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1279 ms
+2020-06-09 09:52:39.240  INFO 6188 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-09 09:52:39.241  INFO 6188 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-06-09 09:52:39.241  INFO 6188 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-09 09:52:39.241  INFO 6188 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-09 09:52:39.241  INFO 6188 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-09 09:52:39.241  INFO 6188 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/fullcalendar/**/**'], []
+2020-06-09 09:52:39.241  INFO 6188 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/mapper/**'], []
+2020-06-09 09:52:39.241  INFO 6188 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**/**/**'], []
+2020-06-09 09:52:39.263  INFO 6188 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5786bb8f, org.springframework.security.web.context.SecurityContextPersistenceFilter@53cc7af, org.springframework.security.web.header.HeaderWriterFilter@47022021, org.springframework.security.web.authentication.logout.LogoutFilter@769c9616, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1869979a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@9d8dc9b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2a781a4a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@30733a2, org.springframework.security.web.session.SessionManagementFilter@53064ab3, org.springframework.security.web.access.ExceptionTranslationFilter@2f3b0a61, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@181edd43]
+2020-06-09 09:52:39.332  INFO 6188 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-09 09:52:39.387  INFO 6188 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-06-09 09:52:39.809  INFO 6188 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-06-09 09:52:39.874  WARN 6188 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-06-09 09:52:39.879  INFO 6188 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-09 09:52:39.882  INFO 6188 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-06-09 09:52:39.891  INFO 6188 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-06-09 09:52:39.894 ERROR 6188 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-06-09 10:00:11.183  INFO 6285 --- [restartedMain] com.project.bit.BitApplication           : Starting BitApplication on HJui-MacBookPro.local with PID 6285 (/Users/hj/Documents/dev/git/finalProject/target/classes started by hj in /Users/hj/Documents/dev/git/finalProject)
+2020-06-09 10:00:11.185  INFO 6285 --- [restartedMain] com.project.bit.BitApplication           : No active profile set, falling back to default profiles: default
+2020-06-09 10:00:11.357  INFO 6285 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-mapping.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-utility.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-collation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-translation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-net.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-servlet.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-lcsd.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-tools.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/gdk_custom.jar
+2020-06-09 10:00:11.357  INFO 6285 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/ojdbc8-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/oraclepki.jar
+2020-06-09 10:00:11.357  INFO 6285 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/oraclepki-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_cert.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_cert.jar
+2020-06-09 10:00:11.358  INFO 6285 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-09 10:00:11.358  INFO 6285 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-09 10:00:12.381  INFO 6285 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-09 10:00:12.388  INFO 6285 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-09 10:00:12.388  INFO 6285 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-09 10:00:12.441  INFO 6285 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-09 10:00:12.441  INFO 6285 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1083 ms
+2020-06-09 10:00:12.969  INFO 6285 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-09 10:00:12.969  INFO 6285 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-06-09 10:00:12.969  INFO 6285 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-09 10:00:12.970  INFO 6285 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-09 10:00:12.970  INFO 6285 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-09 10:00:12.970  INFO 6285 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/fullcalendar/**/**'], []
+2020-06-09 10:00:12.970  INFO 6285 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/mapper/**'], []
+2020-06-09 10:00:12.970  INFO 6285 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**/**/**'], []
+2020-06-09 10:00:12.994  INFO 6285 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@d2aaa6e, org.springframework.security.web.context.SecurityContextPersistenceFilter@591d0f9, org.springframework.security.web.header.HeaderWriterFilter@1faf821, org.springframework.security.web.authentication.logout.LogoutFilter@2da88f4e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3864d826, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2a82dd3d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6dba6fad, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1391e605, org.springframework.security.web.session.SessionManagementFilter@156ee1d0, org.springframework.security.web.access.ExceptionTranslationFilter@6816263a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@32afdd7f]
+2020-06-09 10:00:13.064  INFO 6285 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-09 10:00:13.117  INFO 6285 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-06-09 10:00:13.550  INFO 6285 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-06-09 10:00:13.614  WARN 6285 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-06-09 10:00:13.619  INFO 6285 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-09 10:00:13.622  INFO 6285 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-06-09 10:00:13.631  INFO 6285 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-06-09 10:00:13.634 ERROR 6285 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-06-09 10:00:33.211  INFO 6301 --- [restartedMain] com.project.bit.BitApplication           : Starting BitApplication on HJui-MacBookPro.local with PID 6301 (/Users/hj/Documents/dev/git/finalProject/target/classes started by hj in /Users/hj/Documents/dev/git/finalProject)
+2020-06-09 10:00:33.214  INFO 6301 --- [restartedMain] com.project.bit.BitApplication           : No active profile set, falling back to default profiles: default
+2020-06-09 10:00:33.483  INFO 6301 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-mapping.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-utility.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-collation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-translation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-net.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-servlet.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-lcsd.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-tools.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/gdk_custom.jar
+2020-06-09 10:00:33.483  INFO 6301 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/ojdbc8-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/oraclepki.jar
+2020-06-09 10:00:33.483  INFO 6301 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/oraclepki-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_cert.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_cert.jar
+2020-06-09 10:00:33.484  INFO 6301 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-09 10:00:33.484  INFO 6301 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-09 10:00:34.719  INFO 6301 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-09 10:00:34.726  INFO 6301 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-09 10:00:34.727  INFO 6301 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-09 10:00:34.780  INFO 6301 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-09 10:00:34.780  INFO 6301 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1296 ms
+2020-06-09 10:00:35.348  INFO 6301 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-09 10:00:35.348  INFO 6301 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-06-09 10:00:35.348  INFO 6301 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-09 10:00:35.349  INFO 6301 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-09 10:00:35.349  INFO 6301 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-09 10:00:35.349  INFO 6301 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/fullcalendar/**/**'], []
+2020-06-09 10:00:35.349  INFO 6301 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/mapper/**'], []
+2020-06-09 10:00:35.349  INFO 6301 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**/**/**'], []
+2020-06-09 10:00:35.374  INFO 6301 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7ec72e31, org.springframework.security.web.context.SecurityContextPersistenceFilter@e64a3b, org.springframework.security.web.header.HeaderWriterFilter@31e1d0bb, org.springframework.security.web.authentication.logout.LogoutFilter@a922097, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@401b578b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5ff083ae, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7cc35747, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@647a896d, org.springframework.security.web.session.SessionManagementFilter@344c161f, org.springframework.security.web.access.ExceptionTranslationFilter@50f37755, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2475a688]
+2020-06-09 10:00:35.449  INFO 6301 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-09 10:00:35.508  INFO 6301 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-06-09 10:00:35.939  INFO 6301 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-06-09 10:00:36.006  WARN 6301 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-06-09 10:00:36.010  INFO 6301 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-09 10:00:36.013  INFO 6301 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-06-09 10:00:36.022  INFO 6301 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-06-09 10:00:36.026 ERROR 6301 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-06-09 10:01:29.900  INFO 6340 --- [restartedMain] com.project.bit.BitApplication           : Starting BitApplication on HJui-MacBookPro.local with PID 6340 (/Users/hj/Documents/dev/git/finalProject/target/classes started by hj in /Users/hj/Documents/dev/git/finalProject)
+2020-06-09 10:01:29.902  INFO 6340 --- [restartedMain] com.project.bit.BitApplication           : No active profile set, falling back to default profiles: default
+2020-06-09 10:01:30.037  INFO 6340 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-mapping.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-utility.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-collation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-translation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-net.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-servlet.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-lcsd.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-tools.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/gdk_custom.jar
+2020-06-09 10:01:30.038  INFO 6340 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/ojdbc8-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/oraclepki.jar
+2020-06-09 10:01:30.038  INFO 6340 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/oraclepki-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_cert.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_cert.jar
+2020-06-09 10:01:30.038  INFO 6340 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-09 10:01:30.038  INFO 6340 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-09 10:01:31.110  INFO 6340 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-09 10:01:31.117  INFO 6340 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-09 10:01:31.117  INFO 6340 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-09 10:01:31.181  INFO 6340 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-09 10:01:31.182  INFO 6340 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1143 ms
+2020-06-09 10:01:31.749  INFO 6340 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-09 10:01:31.750  INFO 6340 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-06-09 10:01:31.750  INFO 6340 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-09 10:01:31.750  INFO 6340 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-09 10:01:31.750  INFO 6340 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-09 10:01:31.750  INFO 6340 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/fullcalendar/**/**'], []
+2020-06-09 10:01:31.750  INFO 6340 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/mapper/**'], []
+2020-06-09 10:01:31.750  INFO 6340 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**/**/**'], []
+2020-06-09 10:01:31.773  INFO 6340 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e895542, org.springframework.security.web.context.SecurityContextPersistenceFilter@8c25643, org.springframework.security.web.header.HeaderWriterFilter@a77a737, org.springframework.security.web.authentication.logout.LogoutFilter@647a896d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@10e2440e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@453644cd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7f07a5ca, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c49a0a9, org.springframework.security.web.session.SessionManagementFilter@4d92d48e, org.springframework.security.web.access.ExceptionTranslationFilter@330dc45c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@29c4e392]
+2020-06-09 10:01:31.845  INFO 6340 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-09 10:01:31.903  INFO 6340 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-06-09 10:01:32.322  INFO 6340 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-06-09 10:01:32.389  WARN 6340 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-06-09 10:01:32.394  INFO 6340 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-09 10:01:32.396  INFO 6340 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-06-09 10:01:32.405  INFO 6340 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-06-09 10:01:32.408 ERROR 6340 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-06-09 10:09:45.250  INFO 857 --- [restartedMain] com.project.bit.BitApplication           : Starting BitApplication on HJui-MacBookPro.local with PID 857 (/Users/hj/Documents/dev/git/finalProject/target/classes started by hj in /Users/hj/Documents/dev/git/finalProject)
+2020-06-09 10:09:45.253  INFO 857 --- [restartedMain] com.project.bit.BitApplication           : No active profile set, falling back to default profiles: default
+2020-06-09 10:09:45.466  INFO 857 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-mapping.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-utility.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-collation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-translation.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-net.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-servlet.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-lcsd.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-tools.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/orai18n/19.3.0.0/gdk_custom.jar
+2020-06-09 10:09:45.466  INFO 857 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/ojdbc8-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/oraclepki.jar
+2020-06-09 10:09:45.466  INFO 857 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in /Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/oraclepki-19.3.0.0.jar referenced one or more files that do not exist: file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_cert.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_core.jar,file:/Users/hj/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_cert.jar
+2020-06-09 10:09:45.467  INFO 857 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-09 10:09:45.467  INFO 857 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-09 10:09:46.746  INFO 857 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-09 10:09:46.757  INFO 857 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-09 10:09:46.758  INFO 857 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-09 10:09:46.830  INFO 857 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-09 10:09:46.830  INFO 857 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1363 ms
+2020-06-09 10:09:47.600  INFO 857 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-09 10:09:47.601  INFO 857 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-06-09 10:09:47.601  INFO 857 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-09 10:09:47.601  INFO 857 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-09 10:09:47.601  INFO 857 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-09 10:09:47.601  INFO 857 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/fullcalendar/**/**'], []
+2020-06-09 10:09:47.601  INFO 857 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/mapper/**'], []
+2020-06-09 10:09:47.601  INFO 857 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**/**/**'], []
+2020-06-09 10:09:47.629  INFO 857 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e27d943, org.springframework.security.web.context.SecurityContextPersistenceFilter@24627238, org.springframework.security.web.header.HeaderWriterFilter@14bda0ae, org.springframework.security.web.authentication.logout.LogoutFilter@438ce133, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@15586768, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@16e25ab4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@36c4e472, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@48129ec8, org.springframework.security.web.session.SessionManagementFilter@39508d97, org.springframework.security.web.access.ExceptionTranslationFilter@305de5e5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@667420c]
+2020-06-09 10:09:47.711  INFO 857 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-09 10:09:47.785  INFO 857 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-06-09 10:09:48.375  INFO 857 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-06-09 10:09:48.448  WARN 857 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-06-09 10:09:48.457  INFO 857 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-09 10:09:48.462  INFO 857 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-06-09 10:09:48.472  INFO 857 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-06-09 10:09:48.477 ERROR 857 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
 

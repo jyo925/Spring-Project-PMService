@@ -1,4 +1,4 @@
-package com.project.bit.project.domain;
+package com.project.bit.dashBoard.domain;
 
 public class UserCountVO {
 	private int project_count;

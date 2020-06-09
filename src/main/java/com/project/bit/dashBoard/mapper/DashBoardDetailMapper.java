@@ -1,4 +1,4 @@
-package com.project.bit.project.mapper;
+package com.project.bit.dashBoard.mapper;
 
 import java.util.List;
 

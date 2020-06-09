@@ -1,9 +1,9 @@
-package com.project.bit.project.service;
+package com.project.bit.dashBoard.service;
 
 import java.util.*;
 
-import com.project.bit.project.domain.IssueStatusCountVO;
-import com.project.bit.project.domain.ProjectStatusVO;
+import com.project.bit.dashBoard.domain.IssueStatusCountVO;
+import com.project.bit.dashBoard.domain.ProjectStatusVO;
 
 public interface DashBoardAllService {
 
@@ -16,4 +16,6 @@ public interface DashBoardAllService {
 	 * @return
 	 */
 	public List<IssueStatusCountVO> getIssueAllStatusCount();
+
+
 }

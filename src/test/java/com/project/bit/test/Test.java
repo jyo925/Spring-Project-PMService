@@ -3,7 +3,7 @@ package com.project.bit.test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.project.bit.project.mapper.DashBoardDetailMapper;
+import com.project.bit.dashBoard.mapper.DashBoardDetailMapper;
 import com.project.bit.project.mapper.ProjectMapper;
 
 @SpringBootTest

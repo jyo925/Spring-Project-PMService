@@ -1,4 +1,4 @@
-package com.project.bit.project.service;
+package com.project.bit.dashBoard.service;
 
 import java.util.List;
 
