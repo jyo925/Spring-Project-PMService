@@ -1,5 +1,6 @@
 package com.project.bit.dashBoard.controller;
 
+import com.project.bit.dashBoard.service.DashBoardAllService;
 import com.project.bit.project.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ import lombok.AllArgsConstructor;
 public class DashBoardController {
 	
 	private DashBoardDetailService dashBoardDetailService;
-	private ProjectService projectService;
+	private DashBoardAllService dashBoardAllService;
 	
 	@GetMapping("/dashBoard")
 	public String goDashBoard(Model model) {
@@ -23,8 +24,8 @@ public class DashBoardController {
 	}
 
 	@GetMapping("/dashBoardAll")
-	public String getProjectList(Model model) {
-		model.addAttribute("projectList", projectService.getProjectListAll());
+	public String getKeyProject(Model model) {
+		model.addAttribute("keyProjectList", dashBoardAllService.getKeyProject());
 		return "dashBoard/dashBoardAll";
 	}
 	

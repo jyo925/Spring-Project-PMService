@@ -4,11 +4,11 @@
       layout:decorator="layout/default">
 
 <title id="pageTitle">MAIN</title>
-<!-- index.html 고유 CSS 추가 -->
+<!-- 현제 페이지 고유 CSS 추가 -->
 <th:block layout:fragment="css">
 </th:block>
 
-<!-- index.html 고유 스크립트 추가 -->
+<!-- 현재 페이지 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 </th:block>
 
@@ -19,7 +19,6 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">최근 프로젝트</h6>
-
                     <div>
                         <table>
                             <thead>
@@ -29,19 +28,15 @@
                                 <th width="10%">개발 형태</th>
                                 <th width="10%">시작일</th>
                                 <th width="10%">완료일</th>
-                                <th width="10%">산출물</th>
-                                <th width="10%">이슈</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="projectList : ${projectList}">
-                                <td th:text=${projectStat.count}></td>
-                                <td th:text="${projectList.projectName}"></td>
-                                <td th:text="${projectList.projectTypeName}"></td>
-                                <td th:text="${projectList.projectStart}"></td>
-                                <td th:text="${projectList.projectFinish}"></td>
-                                <td th:text="${projectList.projectOutputAccount}"></td>
-                                <td th:text="${projectList.projectIssueAccount}"></td>
+                            <tr th:each="keyProject : ${keyProjectList}" th:object="${keyProject}">
+                                <td th:text="${keyProjectStat.count}"></td> <!-- search -->
+                                <td th:text="*{projectName}"></td>
+                                <td th:text="*{projectTypeName}"></td>
+                                <td th:text="*{projectStart}"></td>
+                                <td th:text="*{projectFinish}"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -53,9 +48,6 @@
             </div>
         </div>
     </div>
-    <!-- js code -->
-    <th:block layout:fragment="scriptCode">
-    </th:block>
 </div>
 
 

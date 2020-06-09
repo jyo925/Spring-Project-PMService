@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.project.bit.dashBoard.domain.IssueStatusCountVO;
 import com.project.bit.dashBoard.domain.ProjectStatusVO;
+import com.project.bit.project.domain.ProjectDTO;
 
 public interface DashBoardAllService {
 
@@ -17,5 +18,6 @@ public interface DashBoardAllService {
 	 */
 	public List<IssueStatusCountVO> getIssueAllStatusCount();
 
+	public List<ProjectDTO> getKeyProject();
 
 }
