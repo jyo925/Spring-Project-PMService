@@ -18,4 +18,6 @@ public interface ApDocMapper {
 
     public List<ApDocListVO> selectApProgressList(String apDocWriter);
 
+    public Long selectApDocNo(ApDocDTO apDocDTO);
+
 }

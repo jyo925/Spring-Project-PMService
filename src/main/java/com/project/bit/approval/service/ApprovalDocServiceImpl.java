@@ -24,7 +24,12 @@ public class ApprovalDocServiceImpl implements ApprovalDocService{
     public int postApDoc(ApDocDTO apDocDTO) {
         return apDocMapper.insertApDoc(apDocDTO);
     }
-    
+
+    @Override
+    public Long getApDocNo(ApDocDTO apDocDTO) {
+        return apDocMapper.selectApDocNo(apDocDTO);
+    }
+
     //진행문서함
     @Override
     public List<ApDocListVO> getApProgressList(String apDocWriter) {

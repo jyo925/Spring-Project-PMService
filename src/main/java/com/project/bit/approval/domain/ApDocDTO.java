@@ -18,5 +18,5 @@ public class ApDocDTO {
     private Date apDocCreateDate;
     private Date apDocEndDate;
 
-    private List<ApDTO> apDto;
+
 }

@@ -1,10 +1,12 @@
 package com.project.bit.approval.domain;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@Builder
 public class ApDTO {
 
     private Long apNo;

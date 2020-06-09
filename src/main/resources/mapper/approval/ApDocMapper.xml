@@ -31,4 +31,8 @@
         order by ap_doc_status desc
 
     </select>
+
+    <select id="selectApDocNo" resultType="long">
+        select Max(ap_doc_no) from approvaldoc where ap_form_no = #{apFormNo} and ap_doc_writer = #{apDocWriter}
+    </select>
 </mapper>

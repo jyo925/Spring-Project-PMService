@@ -26,7 +26,7 @@
                     <h3 class="card-title">새 결재 작성하기</h3>
                     <hr>
                     결재선
-                    <input type="hidden" th:value="${approvers.size()}" id="approvers"></input>
+
                     <table style="border: 1px solid #444444;">
                         <tr>
                             <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
@@ -62,7 +62,7 @@
                         참조자: <input type="text" name="apReferrers" readonly>
                         <button type="button">선택</button>
                         <br>
-                        첨부파일: <input type="file" name="apFiles" readonly><br><br><br>
+                        첨부파일: <input type="file" name="apFiles" multiple><br><br><br>
 
                         <h4>문서 내용</h4>
                         <div class="document-editor">
@@ -74,6 +74,13 @@
                         </div>
                         <input type="hidden" name="apFormNo" th:value="${form.getApFormNo()}">
                         <input type="hidden" name="apDocContent" id="formData" th:value="${form.getApFormContent()}">
+
+<!--                        <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">-->
+<!--                            <input type="hidden" name='"approvers["+i+"].apStep"' th:value=i>-->
+<!--                            <input type='hidden' name='approvers[${i}].approver' th:value="${approvers.get(i).getUserName()}">-->
+<!--                            <input type='hidden' name='approvers[${i}].apDutyName' th:value="${approvers.get(i).getDutyName()}">-->
+<!--                        </span>-->
+                        <input type="hidden" th:value="${approvers}" id="approvers">
                         <button type="submit" id="request">결재 요청</button>
                         <button type="button" id="cancel" onclick="location.href = '/approval/apMain'">취소</button>
                     </form>
@@ -109,16 +116,19 @@
 
                 $("#formData").val(CKEDITOR.instances.editor1.getData());
 
-                var str = "";
+                //
+                // var str = "";
+                //
+                // for (var i = 0; i < $("#approvers").size(); i++) {
+                //     str += "<input type='hidden' name='approvers["+i+"]' th:value='${approvers.get("+i+")}'>";
+                //
+                //      str += "<input type='hidden' name='approvers["+i+"].apStep' th:value=i>";
+                //     str += "<input type='hidden' name='approvers["+i+"].approver' th:value="+ $("#approvers").val()   ">";
+                //     str += "<input type='hidden' name='approvers["+i+"].apDutyName' th:value="+   ">";
+                // }
 
-                for (var i = 0; i < $("#approvers").val(); i++) {
-                    // str += "<input type='hidden' name='apDto["+i+"].apStep' th:value=i>";
-                    str += "<input type='hidden' name='apDto["+i+"].approver' th:value=`${approvers.get(" + i + ").getUserName()`}>";
-                    str += "<input type='hidden' name='apDto["+i+"].apDutyName' th:value=`${approvers.get(" + i + ").getDutyName()}`>";
-                }
 
-                console.log(str);
-
+                formObj.submit();
                 //formObj.append(str).submit();
 
             });

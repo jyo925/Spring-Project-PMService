@@ -1,6 +1,5 @@
 package com.project.bit.approval.controller;
 
-import com.project.bit.approval.domain.ApDTO;
 import com.project.bit.approval.domain.ApDocDTO;
 import com.project.bit.approval.service.ApprovalDocService;
 import com.project.bit.approval.service.ApprovalService;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.function.Supplier;
 
 @Log
 @Controller
@@ -25,7 +23,7 @@ public class ApprovalController {
     @Autowired
     ApprovalDocService apDocService;
     @Autowired
-    ApprovalService approvalService;
+    ApprovalService apService;
 
     //새 결재 작성하기 클릭시
     @GetMapping("/apMain")
@@ -41,7 +39,7 @@ public class ApprovalController {
 
         //문서양식에 맞는 & 사용자 직책 고려한 결재선 불러오기
         //결재자들의 아이디, 이름, 직책 정도?
-        model.addAttribute("approvers", approvalService.getApproverList(apFormNo, principal.getName()));
+        model.addAttribute("approvers", apService.getApproverList(apFormNo, principal.getName()));
 
         return "approval/approvalNew";
 
@@ -50,15 +48,15 @@ public class ApprovalController {
     //결재 요청(등록)
     @PostMapping("/postApDoc")
     public String postApDoc(ApDocDTO apDocDTO, Model model, Principal principal){
-        System.out.println("-------------------------------");
-        log.info("작성자:  " + apDocDTO.getApDocWriter());
-        log.info("문서양식번호:  "+apDocDTO.getApFormNo());
 
         //결재문서 등록하기
-        log.info("등록 결과: "+ apDocService.postApDoc(apDocDTO));
+        log.info("새 결재 문서 등록 결과: "+ apDocService.postApDoc(apDocDTO));
+        //등록된 결재문서번호 조회...
+        Long apDocNo = apDocService.getApDocNo(apDocDTO);
         //결재선 정보 등록하기
-        System.out.println(apDocDTO.getApDto());
-
+        log.info("결재자 등록 수: "+
+                apService.postApprovers(
+                    apService.getApproverList(""+apDocDTO.getApFormNo(), principal.getName()), apDocNo));
 
         return "redirect:/approval/apMain"; //결재진행화면으로변경하기
     }
@@ -67,7 +65,7 @@ public class ApprovalController {
     @GetMapping("/getApProgressList")
     public String getApProgressList(Principal principal, Model model){
         //결재중인 문서 불러오기
-        model.addAttribute("apProgressList", apDocService.getApProgressList("user007"));
+        model.addAttribute("apProgressList", apDocService.getApProgressList(principal.getName()));
 
         log.info(""+apDocService.getApProgressList(principal.getName()));
 
@@ -78,6 +76,8 @@ public class ApprovalController {
     @GetMapping("/getApCheckList")
     public String getApCheckList(){
 
+       //내가 결재해야할 문서를 불러와야 함
+        
         return "approval/approvalCheck";
     }
 
