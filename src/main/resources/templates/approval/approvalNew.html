@@ -14,7 +14,12 @@
 <th:block layout:fragment="script">
 
 </th:block>
-
+<!--                    <div sec:authorize="isAuthenticated()">-->
+<!--                        <span sec:authentication="name"></span>-->
+<!--                        <span sec:authentication="principal.authorities"></span>-->
+<!--                    </div>-->
+<!--                    <h4 th:text="${#authentication.principal}">dddddd</h4>-->
+<!--                    <h4 th:text="${#authentication.details}">ddddd</h4>-->
 
 <div layout:fragment="content">
     <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
@@ -23,48 +28,95 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">새 결재 작성하기</h3>
+                    <h3 class="card-title">새 결재 작성</h3>
                     <hr>
-                    결재선
-
-                    <table style="border: 1px solid #444444;">
-                        <tr>
-                            <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                <td th:text="${approvers.get(i).getDutyName()}" style="border: 1px solid #444444;"></td>
-                            </span>
-                        </tr>
-                        <tr>
-                            <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                <td th:text="${approvers.get(i).getUserName()}" style="border: 1px solid #444444;"></td>
-                            </span>
-                        </tr>
-                        <tr>
-                            <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                <td style="border: 1px solid #444444;">미결</td>
-                            </span>
-                        </tr>
-                    </table>
-                    <br>
-                    <hr>
-                    <!--                    <div sec:authorize="isAuthenticated()">-->
-                    <!--                        <span sec:authentication="name"></span>-->
-                    <!--                        <span sec:authentication="principal.authorities"></span>-->
-                    <!--                    </div>-->
-                    <!--                    <h4 th:text="${#authentication.principal}">dddddd</h4>-->
-                    <!--                    <h4 th:text="${#authentication.details}">ddddd</h4>-->
-
+                    <!--                        <div class="form-group row">-->
+                    <!--                            <div class="col-lg-3">-->
+                    <!--                                <label class="col-form-label">All the options</label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="col-lg-8">-->
+                    <!--                                <input class="form-control" maxlength="10" name="defaultconfig-3" id="defaultconfig-3" type="text" placeholder="Type Something..">-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group row">-->
+                    <!--                            <div class="col-lg-3">-->
+                    <!--                                <label class="col-form-label">Text Area</label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="col-lg-8">-->
+                    <!--                                <textarea id="maxlength-textarea" class="form-control" maxlength="100" rows="2" placeholder="This textarea has a limit of 100 chars."></textarea>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
 
                     <form th:action="@{/approval/postApDoc}" method="post" role="form">
-                        <h3 th:text="${form.getApFormName()}" readonly></h3>
-                        제목: <input type="text" name="apDocTitle"><br>
-                        기안자: <input type="text" name="apDocWriter" th:value="${#authentication.name}" readonly><br>
-                        <!--principal로 수정-->
-                        참조자: <input type="text" name="apReferrers" readonly>
-                        <button type="button">선택</button>
-                        <br>
-                        첨부파일: <input type="file" name="apFiles" multiple><br><br><br>
+                        <h4 class="card-title" th:text="${form.getApFormName()}" readonly></h4>
 
-                        <h4>문서 내용</h4>
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <label class="col-form-label">제목</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input class="form-control" maxlength="25" name="apDocTitle" type="text"
+                                       placeholder="제목을 입력하세요.">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <label class="col-form-label">기안자</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <!--principal로 수정했는데 이름으로 나오도록 변경하기-->
+                                <input class="form-control" maxlength="25" name="apDocWriter"
+                                       th:value="${#authentication.name}" type="text" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <label class="col-form-label">참조자</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input class="form-control" maxlength="25" name="apReferrers" type="text"
+                                       placeholder="참조자를 선택하세요." readonly>
+                                <button type="button" class="btn btn-primary btn-xs">선택</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <label class="col-form-label">첨부파일</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input class="form-control" maxlength="25" name="apFiles" type="file" multiple
+                                       placeholder="참조자를 선택하세요." readonly>
+                            </div>
+                        </div>
+
+                        결재선 디자인좀............
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                        <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                            <th th:text="${approvers.get(i).getDutyName()}"></th>
+                                        </span>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                        <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                            <td th:text="${approvers.get(i).getUserName()}+'랄랄라'"></td>
+                                        </span>
+                                </tr>
+                                <tr>
+                                        <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                            <td>미결</td>
+                                        </span>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><br>
+
+
+                        <h5>문서 내용</h5>
                         <div class="document-editor">
                             <div class="document-editor__toolbar"></div>
                             <div class="document-editor__editable-container">
@@ -75,14 +127,16 @@
                         <input type="hidden" name="apFormNo" th:value="${form.getApFormNo()}">
                         <input type="hidden" name="apDocContent" id="formData" th:value="${form.getApFormContent()}">
 
-<!--                        <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">-->
-<!--                            <input type="hidden" name='"approvers["+i+"].apStep"' th:value=i>-->
-<!--                            <input type='hidden' name='approvers[${i}].approver' th:value="${approvers.get(i).getUserName()}">-->
-<!--                            <input type='hidden' name='approvers[${i}].apDutyName' th:value="${approvers.get(i).getDutyName()}">-->
-<!--                        </span>-->
-                        <input type="hidden" th:value="${approvers}" id="approvers">
-                        <button type="submit" id="request">결재 요청</button>
-                        <button type="button" id="cancel" onclick="location.href = '/approval/apMain'">취소</button>
+                        <!--                        <span th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">-->
+                        <!--                            <input type="hidden" name='"approvers["+i+"].apStep"' th:value=i>-->
+                        <!--                            <input type='hidden' name='approvers[${i}].approver' th:value="${approvers.get(i).getUserName()}">-->
+                        <!--                            <input type='hidden' name='approvers[${i}].apDutyName' th:value="${approvers.get(i).getDutyName()}">-->
+                        <!--                        </span>-->
+                        <input type="hidden" th:value="${approvers}" id="approvers"><br>
+                        <button type="submit" id="request" class="btn btn-success btn-fw" style="float: right">결재 요청</button>
+                        <button type="button" id="cancel" onclick="location.href = '/approval/apMain'"
+                                class="btn btn-inverse-dark btn-fw" style="float: right">취소
+                        </button>
                     </form>
 
 
@@ -93,7 +147,7 @@
     </div>
     <script>
         CKEDITOR.replace(document.querySelector('.document-editor__editable'), {
-            width: '95%',  // 입력창의 넓이, 넓이는 config.js 에서 % 로 제어
+            width: '100%',  // 입력창의 넓이, 넓이는 config.js 에서 % 로 제어
             height: '800px',  // 입력창의 높이
             startupFocus: false
         });
@@ -126,11 +180,8 @@
                 //     str += "<input type='hidden' name='approvers["+i+"].approver' th:value="+ $("#approvers").val()   ">";
                 //     str += "<input type='hidden' name='approvers["+i+"].apDutyName' th:value="+   ">";
                 // }
-
-
                 formObj.submit();
                 //formObj.append(str).submit();
-
             });
 
         });

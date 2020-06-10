@@ -3,6 +3,7 @@ package com.project.bit.approval.service;
 import com.project.bit.approval.domain.ApDocDTO;
 import com.project.bit.approval.domain.ApDocListVO;
 import com.project.bit.approval.domain.ApFormDTO;
+import com.project.bit.approval.domain.Criteria;
 
 import java.util.List;
 
@@ -16,6 +17,6 @@ public interface ApprovalDocService {
     public Long getApDocNo(ApDocDTO apDocDTO);
 
     //결재진행함 조회
-    public List<ApDocListVO> getApProgressList(String apDocWriter);
+    public List<ApDocListVO> getApProgressList(String apDocWriter, Criteria cri);
 
 }

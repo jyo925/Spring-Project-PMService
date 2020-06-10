@@ -1,9 +1,10 @@
 package com.project.bit.approval.controller;
 
 import com.project.bit.approval.domain.ApDocDTO;
+import com.project.bit.approval.domain.Criteria;
+import com.project.bit.approval.domain.PageDTO;
 import com.project.bit.approval.service.ApprovalDocService;
 import com.project.bit.approval.service.ApprovalService;
-import com.project.bit.approval.service.TestService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,15 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @Log
 @Controller
 @RequestMapping("approval")
 public class ApprovalController {
 
-    @Autowired
-    TestService testService;
     @Autowired
     ApprovalDocService apDocService;
     @Autowired
@@ -61,14 +59,15 @@ public class ApprovalController {
         return "redirect:/approval/apMain"; //결재진행화면으로변경하기
     }
 
-    //결재 진행함 클릭시
+    //결재 진행함 조회
     @GetMapping("/getApProgressList")
-    public String getApProgressList(Principal principal, Model model){
+    public String getApProgressList(Criteria cri, Principal principal, Model model){
+        int total = 35; //리스트 개수 반환하는 서비스 로직 만들기
         //결재중인 문서 불러오기
-        model.addAttribute("apProgressList", apDocService.getApProgressList(principal.getName()));
-
-        log.info(""+apDocService.getApProgressList(principal.getName()));
-
+        model.addAttribute("apProgressList", apDocService.getApProgressList(principal.getName(), cri));
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
+        log.info("결재진행----------------------------------------------------");
+        log.info(""+cri);
         return "approval/approvalProgress";
     }
 
