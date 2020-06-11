@@ -120,3 +120,4 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	<select id="selectProjectStatusListAll" resultType="com.project.bit.project.domain.ProjectStatusDTO">
 		SELECT * FROM project_status
 	</select>
+</mapper>
