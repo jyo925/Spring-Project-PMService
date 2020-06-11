@@ -36,23 +36,23 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-6 d-flex justify-content-center border-right">
                             <div class="wrapper text-center">
-                                <h4 class="card-title">진행 결재 문서</h4>
-                                <p class="card-description">5 건</p>
-                                <button class="btn btn-outline-success" onclick="showSwal('basic')">View</button>
+                                <h4 class="card-title">결재 진행 문서</h4>
+                                <h2 class="card-description" th:text="${apDocCount.get(0)}+' 건'"></h2>
+                                <button class="btn btn-outline-success" onclick="location.href = '/approval/getApProgressList'">View</button>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6 d-flex justify-content-center border-right">
                             <div class="wrapper text-center">
-                                <h4 class="card-title">대기 결재 문서</h4>
-                                <p class="card-description">3 건</p>
-                                <button class="btn btn-outline-success" onclick="showSwal('title-and-text')">View</button>
+                                <h4 class="card-title">결재 대기 문서</h4>
+                                <h2 class="card-description" th:text="${apDocCount.get(1)}+' 건'"></h2>
+                                <button class="btn btn-outline-success" onclick="location.href = '/approval/getApCheckList'">View</button>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6 d-flex justify-content-center">
                             <div class="wrapper text-center">
                                 <h4 class="card-title">임시 저장 문서</h4>
-                                <p class="card-description">1 건</p>
-                                <button class="btn btn-outline-success" onclick="showSwal('success-message')">View</button>
+                                <h2 class="card-description" th:text="${apDocCount.get(2)}+' 건'"></h2>
+                                <button class="btn btn-outline-success" onclick="location.href = '/approval/getApCheckList'">View</button>
                             </div>
                         </div>
                     </div>

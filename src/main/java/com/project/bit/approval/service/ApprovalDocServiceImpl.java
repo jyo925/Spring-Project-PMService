@@ -5,9 +5,11 @@ import com.project.bit.approval.domain.ApDocListVO;
 import com.project.bit.approval.domain.ApFormDTO;
 import com.project.bit.approval.domain.Criteria;
 import com.project.bit.approval.mapper.ApDocMapper;
+import groovy.lang.IntRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,13 +29,35 @@ public class ApprovalDocServiceImpl implements ApprovalDocService{
     }
 
     @Override
-    public Long getApDocNo(ApDocDTO apDocDTO) {
-        return apDocMapper.selectApDocNo(apDocDTO);
+    public Long getNewApDocNo(ApDocDTO apDocDTO) {
+        return apDocMapper.selectNewApDocNo(apDocDTO);
     }
 
     //진행문서함
     @Override
     public List<ApDocListVO> getApProgressList(String apDocWriter, Criteria cri) {
         return apDocMapper.selectApProgressList(apDocWriter, cri);
+    }
+
+
+
+    @Override
+    public List<Integer> getApDocCount(String apDocWriter) {
+
+        List<Integer> apDocCountList = new ArrayList<Integer>();
+        //결재진행 개수
+        apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter));
+        //결재대기 개수
+        apDocCountList.add(apDocMapper.selectCountApCheck(apDocWriter));
+        //임시저장 개수
+        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter));
+
+        return apDocCountList;
+    }
+
+    //결재 대기 문서함
+    @Override
+    public List<ApDocListVO> getApCheckList(String apDocWriter, Criteria cri) {
+        return apDocMapper.selectApCheckList(apDocWriter, cri);
     }
 }

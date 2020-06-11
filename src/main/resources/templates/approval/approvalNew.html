@@ -55,7 +55,7 @@
                                 <label class="col-form-label">제목</label>
                             </div>
                             <div class="col-lg-8">
-                                <input class="form-control" maxlength="25" name="apDocTitle" type="text"
+                                <input class="form-control" maxlength="100" name="apDocTitle" type="text"
                                        placeholder="제목을 입력하세요.">
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <!--principal로 수정했는데 이름으로 나오도록 변경하기-->
-                                <input class="form-control" maxlength="25" name="apDocWriter"
+                                <input class="form-control" maxlength="100" name="apDocWriter"
                                        th:value="${#authentication.name}" type="text" readonly>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                 <label class="col-form-label">참조자</label>
                             </div>
                             <div class="col-lg-8">
-                                <input class="form-control" maxlength="25" name="apReferrers" type="text"
+                                <input class="form-control" maxlength="200" name="apReferrers" type="text"
                                        placeholder="참조자를 선택하세요." readonly>
                                 <button type="button" class="btn btn-primary btn-xs">선택</button>
                             </div>

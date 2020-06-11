@@ -53,7 +53,7 @@
                                 <th>제목</th>
                                 <th>기안자</th>
                                 <th>기안일</th>
-                                <th>프로젝트코드</th>
+                                <th>프로젝트</th>
 <!--                                <th>apDocEndDate</th>-->
                                 <th>상태</th>
                             </tr>
@@ -61,12 +61,12 @@
                             <tbody>
                             <tr th:each="apProgress: ${apProgressList}">
                                 <td th:text="${apProgressStat.count}"></td>
-                                <td><a th:text="${apProgress.apDocNo}" th:href="'/'"></a></td>
+                                <td th:text="${apProgress.apDocNo}"></td>
                                 <td th:text="${apProgress.apFormName}"></td>
-                                <td th:text="${apProgress.apDocTitle}"></td>
+                                <td><a th:text="${apProgress.apDocTitle}" th:href="'/'"></a></td>
                                 <td th:text="${apProgress.userName}"></td>
                                 <td th:text="${#dates.format(apProgress.apDocCreateDate, 'yyyy-MM-dd')}"></td>
-                                <td th:text="${apProgress.projectCode}"></td>
+                                <td th:text="${apProgress.projectName}"></td>
 <!--                                <td th:text="${apProgress.apDocEndDate}"></td>-->
 <!--                                <span th:if="${apProgress.apDocStatus.toString().equals('0')}">-->
                                 <span th:if="${apProgress.apDocStatus == 0}">
