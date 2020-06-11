@@ -2,6 +2,7 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.project.bit.project.mapper.ProjectMapper">
 	<select id="selectProjectListAll" resultType="com.project.bit.project.domain.ProjectVO">
 		select * from projectList
@@ -23,6 +24,65 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		AND project_name LIKE '%'||#{projectName}||'%'
 	</select>
 	
+	<select id="selectProjectInfo" parameterType="String" resultType="com.project.bit.project.domain.ProjectInfoVO">
+		SELECT
+			p.project_code as project_code,
+			p.project_name as project_name,
+			p.project_start as project_start,
+			p.project_finish as project_finish,
+			(select pt.project_type from project_types pt where p.project_typeCode = pt.project_typeCode) as project_typeName,
+			(select count(*) from project_task_Groups ptg, project_tasks pt where p.project_code = ptg.project_code AND ptg.taskGroup_code = pt.taskGroup_code) as projectTaskAccount,
+			(select count(*) from project_members pm where p.project_code = pm.project_code) as projectMemberAccount
+		FROM projects p
+		WHERE p.project_code=#{projectId}
+	</select>
+	
+	<select id="selectProjectTaskStatusCount" parameterType="String" resultType="com.project.bit.project.domain.ProjectTaskStatusVO">
+		SELECT
+ 			count(pt.task_status_code) as task_status_account, 
+ 			pts.task_status as task_status_name
+
+		FROM projects p, project_task_groups ptg, project_tasks pt, project_task_status pts
+		
+		WHERE p.project_code=#{projectId}
+			AND p.project_code = ptg.project_code 
+			AND ptg.taskGroup_code = pt.taskGroup_code
+			AND pts.task_status_code = pt.task_status_code
+			
+		GROUP BY (pt.task_status_code, pts.task_status)
+	</select>
+	
+	<select id="selectProjectIssueStatusCount" parameterType="String" resultType="com.project.bit.project.domain.ProjectIssueStatusVO">
+		SELECT
+ 			count(pit.issue_type_code) as issue_status_account, 
+ 			pit.issue_type as issue_status_name
+
+		FROM projects p, project_task_groups ptg, project_tasks pt, project_issues pi, project_issue_types pit
+		
+		WHERE p.project_code=#{projectId}
+			AND p.project_code = ptg.project_code 
+			AND ptg.taskGroup_code = pt.taskGroup_code
+			AND pt.task_code = pi.task_code
+            AND pi.issue_type_code = pit.issue_type_code
+			
+		GROUP BY (pit.issue_type_code, pit.issue_type)
+	</select>
+	
+	<select id="selectProjectOne" parameterType="String" resultType="com.project.bit.project.domain.ProjectInfoVO">
+		SELECT 
+			p.*,
+			u.user_id as project_pm,
+			u.user_name as project_pm_name,
+			(select team_name from teams t where u.team_code = t.team_code) as user_team_name,
+			(select position_name from positions pos where u.position_code = pos.position_code) as user_position_name,
+		 	(select project_type from project_types pt where p.project_typeCode = pt.project_typeCode) as project_typeName,
+		 	(select project_status from project_status ps where p.project_statusCode = ps.project_statusCode) as project_statusName
+		FROM projects p
+			INNER JOIN users u ON p.project_pm = u.user_id 
+		WHERE project_code = #{projectId}
+		
+	</select>
+	
 	<update id="updateProject" parameterType="com.project.bit.project.domain.ProjectDTO">
 		UPDATE projects
 		SET project_name = #{projectName},
@@ -37,6 +97,8 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		 WHERE
 		 	project_code = #{projectCode}
 	</update>
+	
+	
 	
 	<insert id="insertProject" parameterType="com.project.bit.project.domain.ProjectDTO">
 		INSERT INTO projects
@@ -58,5 +120,3 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	<select id="selectProjectStatusListAll" resultType="com.project.bit.project.domain.ProjectStatusDTO">
 		SELECT * FROM project_status
 	</select>
-
-</mapper>

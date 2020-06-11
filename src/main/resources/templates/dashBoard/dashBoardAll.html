@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+
+<title id="pageTitle">MAIN</title>
+<!-- 현제 페이지 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- 현재 페이지 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">최근 프로젝트</h6>
+                    <div>
+                        <table>
+                            <thead>
+                            <tr width="100%">
+                                <th width="5%">No.</th>
+                                <th width="45%">프로젝트</th>
+                                <th width="10%">개발 형태</th>
+                                <th width="10%">시작일</th>
+                                <th width="10%">완료일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="keyProject : ${keyProjectList}" th:object="${keyProject}">
+                                <td th:text="${keyProjectStat.count}"></td> <!-- search -->
+                                <td th:text="*{projectName}"></td>
+                                <td th:text="*{projectTypeName}"></td>
+                                <td th:text="*{projectStart}"></td>
+                                <td th:text="*{projectFinish}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div id="js-legend" class="chartjs-legend mt-4 mb-5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</html>
