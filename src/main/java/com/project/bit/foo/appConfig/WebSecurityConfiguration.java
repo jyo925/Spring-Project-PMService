@@ -28,7 +28,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/registration").permitAll()          //
+				.antMatchers("/registration", "/dashBoardAll").permitAll()          //
 				.antMatchers("/addDuty","/addMembers","/calendar","/calendarE").hasAnyAuthority("duty100","duty200","duty300","duty400")
 				.antMatchers("/admin").hasAuthority("duty100")
 				.anyRequest().authenticated()

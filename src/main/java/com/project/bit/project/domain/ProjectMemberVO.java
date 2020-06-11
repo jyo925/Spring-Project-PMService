@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class ProjectMemberVO extends ProjectMemberDTO{
 	private String teamName;
-	private String teamUpper;
+	private String positionName;
+	private String dutyName;
 }
