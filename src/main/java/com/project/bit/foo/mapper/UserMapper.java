@@ -23,9 +23,11 @@ public interface UserMapper {
 			       + "values(#{userId}, #{userPw}, #{userName}, #{userEmail}, #{userEmail}, #{positionCode}, #{teamCode})")
 	void insertUser(Users user);
 	
-	@Select("select * from users")
 	List<Users> selectAll();
 	
 	List<TeamDTO> selectTeamAll();
+	
 	List<PositionDTO> selectPositionAll();
+	
+	List<Users> selectUserByTeam(int teamCode);
 }

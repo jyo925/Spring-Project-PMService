@@ -27,12 +27,11 @@
 							<option th:each="projectType : ${projectTypeList}"
 								th:value="${projectType.projectTypeCode}"
 								th:text="${projectType.projectType}"></option>
-						</select> <input type="text" placeholder="프로젝트명" id="projectName"
-							style="margin-left: 10px; margin-right: 10px;">
+						</select> 
+						
+						<input type="text" placeholder="프로젝트명" id="projectName" style="margin-left: 10px; margin-right: 10px;">
 						<button type="button" id="search_btn">검색</button>
-
-						<button type="button" onclick="location.href='/goProjectAdd'">+프로젝트
-							등록</button>
+						<button type="button" onclick="location.href='/goProjectAdd'">+프로젝트 등록</button>
 
 					</div>
 

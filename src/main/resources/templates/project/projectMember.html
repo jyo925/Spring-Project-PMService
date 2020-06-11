@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<title id="pageTitle">프로젝트 기본정보</title>
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript" src="/js/project/projectMember.js"></script>
+</th:block>
+
+
+<div layout:fragment="content">
+	<div class="row">
+		<div class="col-12 grid-margin">
+			<div class="card">
+				<div class="card-body">
+					<h6> 프로젝트 멤버 </h6>
+					
+					<input type="hidden" th:value="${project.projectCode}" id="projectCode">
+					
+					<div id="user_div">
+						<ul id="user" style="list-style:none; padding-left:0px;">
+							<li th:id="userId" th:each="user : ${userList}" 
+							th:data-id="${user.userId}" th:data-name="${user.userName}"
+							th:data-team="${user.teamName}" th:data-pos="${user.positionName}"
+							th:text="${user.teamName} + ' / ' + ${user.userName} + ' / '
+							 + ${user.positionName} + ' / ' + ${user.userId}"></li>
+						</ul>
+					</div>
+					
+					<div>
+						<button type="button" id="memberAdd_btn"> 추가 &gt; </button>
+						<button type="button" id="memberRemove_btn"> &lt; 삭제 </button>
+					</div>
+					
+					<div id="member_div">
+						<ul id="member" style="list-style:none; padding-left:0px;">
+							<li th:id="memberId" th:each="member : ${projectMembers}" 
+							th:data-code="${member.projectJoinCode}"
+							th:text="${member.teamName} + ' / ' + ${member.userName} + ' / ' + ${member.positionName} + ' / '
+							 + ${member.userId}"></li>
+						</ul>				
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

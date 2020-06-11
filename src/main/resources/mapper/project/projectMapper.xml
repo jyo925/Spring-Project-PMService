@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.project.mapper.ProjectMapper">
+	<select id="selectProjectListAll" resultType="com.project.bit.project.domain.ProjectVO">
+		select * from projectList
+	</select>
+	
+	<select id="selectProjectListByType" parameterType="String" resultType="com.project.bit.project.domain.ProjectVO">
+		SELECT * FROM projectList 
+		WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode})
+	</select>
+	
+	<select id="selectProjectListByName" parameterType="String" resultType="com.project.bit.project.domain.ProjectVO">
+		SELECT * FROM projectList 
+		WHERE project_name LIKE '%'||#{projectName}||'%'
+	</select>
+	
+	<select id="selectProjectListByTypeAndName" resultType="com.project.bit.project.domain.ProjectVO">
+		SELECT * FROM projectList
+		WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode})
+		AND project_name LIKE '%'||#{projectName}||'%'
+	</select>
+	
+	<update id="updateProject" parameterType="com.project.bit.project.domain.ProjectDTO">
+		UPDATE projects
+		SET project_name = #{projectName},
+		 	project_subName = #{projectSubName},
+		 	project_start = #{projectStart}, 
+		 	project_finish = #{projectFinish},
+		 	project_pm = #{projectPm},
+		 	project_pmo = #{projectPmo},
+		 	project_typeCode = #{projectTypeCode},
+		 	project_description = #{projectDescription},
+		 	project_statusCode = #{projectStatusCode}
+		 WHERE
+		 	project_code = #{projectCode}
+	</update>
+	
+	<insert id="insertProject" parameterType="com.project.bit.project.domain.ProjectDTO">
+		INSERT INTO projects
+		VALUES(#{projectCode}, #{projectName}, #{projectSubName}, #{projectStart}, #{projectFinish}, #{projectPm}, #{projectTypeCode},
+		#{projectPmo}, #{projectDescription}, #{projectPriority}, #{projectStatusCode})
+	</insert>
+	
+	<delete id="deleteProject" parameterType="String">
+		DELETE FROM projects WHERE project_code = #{projectCode}
+	</delete>
+	
+	
+	
+	
+	<select id="selectProjectTypeListAll" resultType="com.project.bit.project.domain.ProjectTypeDTO">
+		SELECT * FROM project_types
+	</select>
+	
+	<select id="selectProjectStatusListAll" resultType="com.project.bit.project.domain.ProjectStatusDTO">
+		SELECT * FROM project_status
+	</select>
+
+</mapper>

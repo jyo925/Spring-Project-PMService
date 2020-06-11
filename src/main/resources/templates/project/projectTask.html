@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<title id="pageTitle">프로젝트 기본정보</title>
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="css/project/project.css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript" src="/js/project/projectTask.js"></script>
+</th:block>
+
+
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-12 grid-margin">
+				<div class="card">
+					<div class="card-body">
+						<h6>프로젝트 작업</h6>
+						
+						<div id="taskGroup_div" th:each="taskGroup : ${taskGroupList}"
+							style="border: 1px solid black; padding: 20px; width: 20%; float: left; margin-right: 5px;">
+							<span th:id="taskGroup"
+							 th:data-text="${taskGroup.taskGroupName}" th:data-id="${taskGroup.taskGroupCode}" 
+								th:text="${taskGroup.taskGroupName}">프로젝트 작업 그룹 명</span>
+							<ul>
+								<li>
+									<button id="groupName_btn"type="button">그룹명 바꾸기</button>
+								</li>
+								<li>
+									<button type="button">그룹 삭제</button>							
+								</li>
+							</ul>
+							
+							<button type="button" style="margin-bottom: 10px; width:100%;"> + </button>
+							
+							<div th:each="task : ${taskGroup.projectTasks}" style="border: 1px solid black; padding: 10px; margin-top:5px;">
+								<span th:text="${task.taskName}"id="task_name">프로젝트 작업 명</span>
+								<ul>
+									<li>
+										<a href="#">작업 완료</a>
+									</li>
+									<li>
+										<a href="#">작업 삭제</a>							
+									</li>
+								</ul>
+								<p th:text="${task.taskDescription}"> 작업 설명 </p>
+								<p th:text="${task.taskStart} + ' ~ ' + ${task.taskFinish}"> 시작일 ~ 완료일 </p>
+								<span th:each="manager : ${task.projectTaskManagers}" th:text="${manager.taskManagerId} + ' '"></span>
+							
+							</div>
+						</div>
+						<!-- 프로젝트 작업 그룹 -->
+						
+						<span><a href="#groupAddModal" class="groupAdd_btn">+작업 그룹</a></span>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 그룹 추가 모달 -->
+	<div id="groupAddModal" class="white-popup mfp-hide">
+		<p>그룹 명</p>
+		<input type="text" placeholder="그룹 명">
+		<p>그룹 설명</p>
+		<textarea rows="10px" cols="100px" placeholder="그룹 설명"></textarea>
+	</div>
+	
+	
+</html>
