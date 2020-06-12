@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/default">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
 <title id="pageTitle">MAIN</title>
 <!-- 현제 페이지 고유 CSS 추가 -->
@@ -14,23 +14,19 @@
 
 <div layout:fragment="content">
 
-	<div class="row">
-		<div class="col-12 grid-margin">
-			<div class="card">
-				<div class="card-body">
-				 <select>
-				 <th:block th:each="project : ${projectNameList}">
-				 <option th:text="${project.projectName}">
-				 </th:block>
-				 </select>
-					<div id="js-legend" class="chartjs-legend mt-4 mb-5"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- js code -->
-<th:block layout:fragment="scriptCode">
-</th:block>
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <select>
+                        <th:block th:each="project : ${projectNameList}">
+                            <option th:value="${project.projectCode}" th:text="${project.projectName}">
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

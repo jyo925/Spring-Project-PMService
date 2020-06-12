@@ -4,8 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.dashBoard.mapper.DashBoardAllMapper">
     <select id="selectKeyProject" resultType="com.project.bit.project.domain.ProjectDTO">
-        <![CDATA[select * from(select p.*, pt.project_type as project_type_name
-        from projects p
-        inner join project_types pt on p.project_typeCode = pt.project_typeCode order by p.project_finish ASC) where ROWNUM<=3]]>
+        <![CDATA[
+        select * from(select p.*, ps.project_status as project_status_name, pt.project_type as project_type_name
+            from projects p
+            inner join project_status ps on p.project_statusCode = ps.project_statusCode
+            inner join project_types pt on p.project_typeCode = pt.project_typeCode order by p.project_finish ASC) where ROWNUM<=3
+        ]]>
+    </select>
+    <select id="selectProjectAllStatusCount" resultType="com.project.bit.dashBoard.domain.ProjectStatusVO">
+        select t.project_type as project_status_name, count(p.project_typecode) as project_status_all,
+            count(case when project_statuscode = 'projstatus100' then 1 end) as project_status_process,
+            count(case when project_statuscode = 'projstatus200' then 1 end) as project_status_complete,
+            count(case when project_statuscode = 'projstatus300' then 1 end) as project_status_stop,
+            count(case when project_statuscode = 'projstatus400' then 1 end) as project_status_standBy
+        from project_types t
+        left outer join projects p on t.project_typecode = p.project_typecode group by t.project_type
     </select>
 </mapper>
