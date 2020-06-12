@@ -7,11 +7,15 @@ import com.project.bit.approval.mapper.ApMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class ApprovalServiceImpl implements ApprovalService {
+
+
 
     @Autowired
     ApMapper apMapper;
@@ -20,7 +24,22 @@ public class ApprovalServiceImpl implements ApprovalService {
     public List<ApproverVO> getApproverList(String apFormNo, String userId) {
 
         ApPathDTO path = apMapper.selectApPath(apFormNo);
-        List<ApproverVO> approvers = apMapper.selectApproverList(path, userId);
+        List<ApproverVO> approvers = new ArrayList<ApproverVO>();
+
+        List<String> dutyName = new ArrayList<>(Arrays.asList("developer", "manager", "PM", "PMO"));
+        String userDutyName = apMapper.selectApproverDutyName(userId); //pm인경우 manager가 나오면 안됨
+
+        for(ApproverVO approver : apMapper.selectApproverList(path, userId)){
+            //결재선에 자기가 결재자로 들어가면 삭제
+            if(approver.getUserId() == userId){
+                break;
+            }
+            if(dutyName.indexOf(userDutyName)>dutyName.indexOf(approver.getDutyName())){
+                break;
+            }
+            approvers.add(approver);
+        }
+        //결재선이 텅 비었다면?...PMO는
 
         return approvers;
     }

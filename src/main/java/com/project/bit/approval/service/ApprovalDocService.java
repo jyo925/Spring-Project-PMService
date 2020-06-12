@@ -21,7 +21,7 @@ public interface ApprovalDocService {
     public List<ApDocListVO> getApProgressList(String apDocWriter, Criteria cri);
 
     //문서 개수 조회 결재진행, 결재대기, 임시저장 순
-    public List<Integer> getApDocCount(String apDocWriter);
+    public List<Integer> getApDocCount(String apDocWriter, Criteria cri);
 
     //결재 대기 문서 조회
     public List<ApDocListVO> getApCheckList(String apDocWriter, Criteria cri);

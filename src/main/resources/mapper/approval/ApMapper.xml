@@ -32,4 +32,9 @@
         update approval set ap_receivedate = sysdate where ap_doc_no = #{apDocNo} and ap_approver = #{approver}
     </update>
 
+    <select id="selectApproverDutyName" resultType="String">
+        select duty_name from dutys
+        where duty_code =
+        (select duty_code from project_members where user_id = #{userId})
+    </select>
 </mapper>

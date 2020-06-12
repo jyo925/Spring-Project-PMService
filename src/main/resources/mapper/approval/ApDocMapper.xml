@@ -67,6 +67,7 @@
         select NVL(Max(count(ap_doc_status)),0)
         from approvaldoc
         where ap_doc_writer = #{apDocWriter} and ap_doc_status = #{apDocStatus}
+        <include refid="criteria"></include>
         group by ap_doc_status
     </select>
 
@@ -95,5 +96,6 @@
         <include refid="criteria"></include>
         <![CDATA[ and rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
     </select>
+
 
 </mapper>

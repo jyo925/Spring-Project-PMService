@@ -26,7 +26,7 @@ public interface ApDocMapper {
     public Long selectNewApDocNo(ApDocDTO apDocDTO);
 
     //결재진행문서, 임시저장문서 개수 불러오기
-    public int selectCountApDoc(int apDocStatus, String apDocWriter);
+    public int selectCountApDoc(int apDocStatus, String apDocWriter, Criteria cri);
 
     //결재대기문서 개수 불러오기...
     public int selectCountApCheck(String apDocWriter);

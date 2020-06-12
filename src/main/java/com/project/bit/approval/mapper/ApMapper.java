@@ -23,4 +23,7 @@ public interface ApMapper {
     public int insertApprover(ApDTO apDTO);
 
     public int updateApReceiveDate(ApDTO apDTO);
+
+    //결재자 직책
+    public String selectApproverDutyName(String userId);
 }

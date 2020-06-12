@@ -42,15 +42,16 @@ public class ApprovalDocServiceImpl implements ApprovalDocService{
 
 
     @Override
-    public List<Integer> getApDocCount(String apDocWriter) {
+    public List<Integer> getApDocCount(String apDocWriter, Criteria cri) {
 
         List<Integer> apDocCountList = new ArrayList<Integer>();
-        //결재진행 개수
-        apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter));
+        //결재진행(진행중, 반려) 개수
+        apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter,cri)+
+                apDocMapper.selectCountApDoc(2, apDocWriter,cri));
         //결재대기 개수
         apDocCountList.add(apDocMapper.selectCountApCheck(apDocWriter));
         //임시저장 개수
-        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter));
+        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter,cri));
 
         return apDocCountList;
     }
