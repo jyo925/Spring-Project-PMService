@@ -3,6 +3,7 @@ package com.project.bit.approval.domain;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class ApDocDTO {
@@ -16,4 +17,6 @@ public class ApDocDTO {
     private int apDocStep;
     private Date apDocCreateDate;
     private Date apDocEndDate;
+
+
 }

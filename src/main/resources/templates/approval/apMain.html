@@ -1,33 +1,71 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/layout1}">
+      layout:decorator="~{layout/default}">
 
-<head>
-    <meta charset="utf-8">
-    <title>전자결재 메인</title>
+
+<title id="pageTitle">새 결재 작성</title>
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-</head>
-</head>
-<body>
-<h2>전자결재 메인페이지</h2>
+</th:block>
 
 <div layout:fragment="content">
-    <div class="panel-heading">I'm a heading</div><hr>
-    <div class="panel-body"> I'm a body<br><hr>
 
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">전자결재 메인 페이지</h3><hr>
 
-        새 결제 작성하기
-        <form th:action="goNewApDoc" th:method="get">
-            <button type="submit" name="apFormNo" value="1">교육참가신청서</button>
-            <button type="submit" name="apFormNo" value="2">휴가계획서</button>
-            <button type="submit" name="apFormNo" value="3">출장보고서</button>
-            <button type="submit" name="apFormNo" value="4">회의록</button>
-        </form>
+                    <h4>새 결재 작성</h4><br>
+                    <form th:action="goNewApDoc" th:method="get">
+                        <button type="submit" name="apFormNo" value="1" class="btn btn-primary btn-lg">교육참가신청서</button>
+                        <button type="submit" name="apFormNo" value="2" class="btn btn-primary btn-lg">휴가계획서</button>
+                        <button type="submit" name="apFormNo" value="3" class="btn btn-primary btn-lg">출장보고서</button>
+                        <button type="submit" name="apFormNo" value="4" class="btn btn-primary btn-lg">구매요청서</button>
+                        <button type="submit" name="apFormNo" value="5" class="btn btn-primary btn-lg">회의록</button>
+                    </form>
+                    <br><hr>
+
+                    <h4>결재 현황</h4><br>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 d-flex justify-content-center border-right">
+                            <div class="wrapper text-center">
+                                <h4 class="card-title">결재 진행 문서</h4>
+                                <h2 class="card-description" th:text="${apDocCount.get(0)}+' 건'"></h2>
+                                <button class="btn btn-outline-success" onclick="location.href = '/approval/getApProgressList'">View</button>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 d-flex justify-content-center border-right">
+                            <div class="wrapper text-center">
+                                <h4 class="card-title">결재 대기 문서</h4>
+                                <h2 class="card-description" th:text="${apDocCount.get(1)}+' 건'"></h2>
+                                <button class="btn btn-outline-success" onclick="location.href = '/approval/getApCheckList'">View</button>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 d-flex justify-content-center">
+                            <div class="wrapper text-center">
+                                <h4 class="card-title">임시 저장 문서</h4>
+                                <h2 class="card-description" th:text="${apDocCount.get(2)}+' 건'"></h2>
+                                <button class="btn btn-outline-success" onclick="location.href = '/approval/getApCheckList'">View</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!--card body end-->
+            </div>
+        </div>
     </div>
 
-    <script>
-    </script>
+
+
+
+
 </div>
 
-</body>
 </html>

@@ -1,0 +1,173 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layout/default}">
+
+<title id="pageTitle">결재진행함</title>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">결재진행함</h3><hr>
+
+                    <div class="table-responsive">
+                        <!-- 검색 -->
+                        <form id='searchForm' action="/approval/getApProgressList" method='get' class="form-inline repeater">
+                            <div data-repeater-list="group-a">
+                                <div data-repeater-item="" class="d-md-flex mb-2">
+                                    <div class="input-group mb-2 mr-md-2 mb-md-0">
+                                        <div class="input-group-prepend">
+                                        </div>
+                                        <select class="form-control" name='type'>
+                                            <option value="N" selected>문서번호</option>
+                                            <option value="T">제목</option>
+                                            <option value="W">기안자</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-2 mr-md-2 mb-md-0">
+                                        <div class="input-group-prepend">
+                                        </div>
+                                        <input type="text" name="keyword" class="form-control" placeholder="Search Here">
+                                        <input type='hidden' name='pageNum' th:value="${pageMaker.cri.pageNum}">
+                                        <input type='hidden' name='amount' 	th:value="${pageMaker.cri.amount}">
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-sm">검색</button>
+                                </div>
+                            </div>
+                        </form> <!-- 검색 end-->
+
+                        <table id="order-listing" class="table">
+                            <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>문서번호</th>
+                                <th>구분</th>
+                                <th>제목</th>
+                                <th>기안자</th>
+                                <th>기안일</th>
+                                <th>프로젝트</th>
+<!--                                <th>apDocEndDate</th>-->
+                                <th>상태</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="apProgress: ${apProgressList}">
+                                <td th:text="${apProgressStat.count}"></td>
+                                <td th:text="${apProgress.apDocNo}"></td>
+                                <td th:text="${apProgress.apFormName}"></td>
+                                <td><a th:text="${apProgress.apDocTitle}" th:href="'/'"></a></td>
+                                <td th:text="${apProgress.userName}"></td>
+                                <td th:text="${#dates.format(apProgress.apDocCreateDate, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${apProgress.projectName}"></td>
+<!--                                <td th:text="${apProgress.apDocEndDate}"></td>-->
+<!--                                <span th:if="${apProgress.apDocStatus.toString().equals('0')}">-->
+                                <span th:if="${apProgress.apDocStatus == 0}">
+                                    <td><label class="badge badge-info">진행중</label></td>
+
+                                </span>
+<!--                                <span th:if="${apProgress.apDocStatus.toString().equals('2')}">-->
+                                <span th:if="${apProgress.apDocStatus == 2}">
+<!--                                    <td th:text="반려" style="color:red"><label class="badge badge-danger">반려</label></td>-->
+                                    <td><label class="badge badge-danger">반려</label></td>
+                                </span>
+
+                            </tr>
+<!--                            <tr>-->
+<!--                                <td>2</td>-->
+<!--                                <td>2015/04/01</td>-->
+<!--                                <td>Doe</td>-->
+<!--                                <td>Brazil</td>-->
+<!--                                <td>$4500</td>-->
+<!--                                <td>$7500</td>-->
+<!--                                <td>-->
+<!--                                    <label class="badge badge-danger">Pending</label>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <button class="btn btn-outline-primary">View</button>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>3</td>-->
+<!--                                <td>2010/11/21</td>-->
+<!--                                <td>Sam</td>-->
+<!--                                <td>Tokyo</td>-->
+<!--                                <td>$2100</td>-->
+<!--                                <td>$6300</td>-->
+<!--                                <td>-->
+<!--                                    <label class="badge badge-info">On hold</label>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <button class="btn btn-outline-primary">View</button>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>4</td>-->
+<!--                                <td>2016/01/12</td>-->
+<!--                                <td>Sam</td>-->
+<!--                                <td>Tokyo</td>-->
+<!--                                <td>$2100</td>-->
+<!--                                <td>$6300</td>-->
+<!--                                <td>-->
+<!--                                    <label class="badge badge-success">Closed</label>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <button class="btn btn-outline-primary">View</button>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- paging -->
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">
+                                Showing 1 to 10 of 10 entries
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="order-listing_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button page-item previous disabled" id="order-listing_previous">
+                                        <a href="#"
+                                           aria-controls="order-listing"
+                                           data-dt-idx="0"
+                                           tabindex="0"
+                                           class="page-link">Previous</a>
+                                    </li>
+                                    <!-- each 사용해서 페이지 개수만큼 li생성 -->
+                                    <li class="paginate_button page-item active">
+                                        <a href="#" aria-controls="order-listing" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                    </li>
+                                    <li class="paginate_button page-item next disabled" id="order-listing_next">
+                                        <a href="#"
+                                           aria-controls="order-listing"
+                                           data-dt-idx="2"
+                                           tabindex="0"
+                                           class="page-link">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!-- paging end-->
+
+                </div> <!--card body end-->
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+</html>

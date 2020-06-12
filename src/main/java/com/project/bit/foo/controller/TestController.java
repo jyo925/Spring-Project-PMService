@@ -64,6 +64,7 @@ public class TestController {
 
 	@PostMapping("/registration")
 	public String registrationPost(Users user) {
+		System.out.println(user);
 		user.setUserPw(bCryptPasswordEncoder.encode(user.getUserPw()));
 		userServiceImpl.insertUser(user);
 		return "redirect:/";

@@ -1,13 +1,23 @@
 spring:
   datasource:
-        url: jdbc:oracle:thin:@localhost:1521:root
-        driver-class-name: oracle.jdbc.OracleDriver
-        username: root
-        password: 1234
-        
+    url: jdbc:log4jdbc:oracle:thin:@localhost:1521:xe
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    username: root
+    password: 1234
+
+  devtools:
+    livereload:
+      enabled: true
 
 mybatis:
-  mapper-locations: mapper/**/*.xml
+  mapper-locations: mapper/**/*Mapper.xml
   type-aliases-package: com.project.bit.foo.domain
   configuration:
-    map-underscore-to-camel-case: true       
+    map-underscore-to-camel-case: true
+
+logging:
+  file:
+    path: logback-spring.xml
+
+server:
+  port: 8081

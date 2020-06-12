@@ -35,4 +35,10 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectAll();
 	}
 
+	@Override
+	public List<Users> selectUserByTeam(int teamCode) {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserByTeam(teamCode);
+	}
+
 }

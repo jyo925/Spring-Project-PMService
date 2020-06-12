@@ -13,5 +13,7 @@ public interface UserService {
 	void insertUser(Users user);
 	
 	List<Users> selectAll();
+	
+	List<Users> selectUserByTeam(int teamCode);
 
 }

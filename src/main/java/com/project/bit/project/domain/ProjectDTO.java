@@ -14,7 +14,9 @@ public class ProjectDTO {
 	protected Date projectStart;
 	protected Date projectFinish;
 	protected String projectPm;
+	protected String projectPmName;
 	protected String projectPmo;
+	protected String projectPmoName;
 	protected String projectDescription;
 	protected int projectPriority;
 	protected String projectStatusCode;
@@ -22,4 +24,5 @@ public class ProjectDTO {
 	protected String projectTypeCode;
 	protected String projectTypeName;
 }
+
 
