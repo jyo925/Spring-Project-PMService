@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:log4jdbc:oracle:thin:@localhost:1521:xe
+    url: jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     username: root
     password: 1234
@@ -20,4 +20,4 @@ logging:
     path: logback-spring.xml
 
 server:
-  port: 8081
+  port: 8080
