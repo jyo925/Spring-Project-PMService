@@ -15,7 +15,6 @@ public class Event {
 	private boolean eventAllDay;
 	private String eventPlace;
 	private String eventTypeId;
-	private String eventCode;
 	private String projectCode;
 
 	public Event() {

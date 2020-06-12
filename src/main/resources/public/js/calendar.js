@@ -1,17 +1,16 @@
 
 $(function(){
 	
-	
 	$('#calendar').fullCalendar({
 		header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,basicWeek,basicDay'
         },
-        navLinks: true, // can click day/week names to navigate views
+        navLigYnks: true, // can click day/week names to navigate views
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-         
+        
 		dayClick : function(date, jsEvent, view) {
 			let clickDate = date.format();
 			$('#start').val(clickDate);
@@ -20,20 +19,20 @@ $(function(){
 		},
 		
 		eventClick: function(calEvent, jsEvent, view) {
-			$.ajax({
+			/*$.ajax({
 				url : "/calendarPost",
 				type : "POST",
 				traditional : true,
 				data : ({
 					eventId : calEvent.eventId
 				})
-			});
+			});*/
 			
-			$('#titlet', '#dialog-event').text('Description: ' + calEvent.description);
-		    /*alert('Event: ' + calEvent.title);*/
+			$('#title', '#dialog-event').val(calEvent.title);
+			$('#start', '#dialog-event').val(calEvent.start.format('YYYY-MM-DD'));
+			$('#finish', '#dialog-event').val(calEvent.end.format('YYYY-MM-DD'));
 		    $('#dialog-event').dialog('open');
 		    
-
 		  },
 		
 		eventSources: [
@@ -41,7 +40,6 @@ $(function(){
 				url: '/calendarE'
 			}
 		]
-		
 		
 	});
 	
@@ -76,24 +74,35 @@ $(function(){
 		}
 	});
 	
-	$.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/calendar",
-        dataType: 'json',
-        cache: false,
-        timeout: 600000,
-        success: function (data) {
-
-            alert("success!");
-
-        },
-        error: function (e) {
-
-            alert("fail");
-
-        }
-    });
+	$('.datePicker').datepicker({
+		dateFormat: "yy-mm-dd"
+	});
+	
+	
+	let textList = $('#textList');
+		
+	$('.memb').on('click', function() {
+		let regexp = new RegExp($(this).text(),"gi");
+		let replace = new RegExp(" "+$(this).text(),"gi");
+		if(textList.text() == ""){
+			//membersList = $(this).text();
+			textList.text(" "+$(this).text());
+			$(this).removeClass("btn-light");
+		}else if(textList.text().search(regexp) != -1){
+			//alert('member already exist');
+			textList.text(textList.text().replace(replace,""));
+			$(this).addClass("btn-light");
+			
+		}else{
+			//membersList = membersList+" "+ $(this).text();
+			textList.text(textList.text()+" "+$(this).text());
+			$(this).removeClass("btn-light");
+		}
+	
+		
+		
+	});
+	
 	
 	
 });

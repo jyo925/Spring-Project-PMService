@@ -21,6 +21,16 @@ public class EventServiceImpl implements EventService {
 	public EventServiceImpl(EventMapper eventMapper) {
 		this.eventMapper = eventMapper;
 	}
+	
+	public String getEventId(Event event) {
+		String [] strings = event.getEventTitle().split(" ");
+		String subTitle = "";
+		for(int i = 0; i<strings.length; i++){
+			subTitle += strings[i].charAt(0);
+		}
+		String eventId = event.getEventStartDate()+"."+subTitle.toUpperCase()+"."+event.getEventTypeId()+"."+event.getProjectCode();
+		return eventId;
+	}
 
 	@Override
 	public JSONArray selectEventById(String userId) {
@@ -45,6 +55,19 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public Event selectEvent(String eventId) {
 		return eventMapper.selectEvent(eventId);
+	}
+
+	@Override
+	public void insertEvent(Event event) {
+		event.setEventId(getEventId(event));
+		eventMapper.insertEvent(event);
+		
+	}
+
+	@Override
+	public void deleteEvent(Event event) {
+		eventMapper.deleteEvent(event);
+		
 	}
 
 }
