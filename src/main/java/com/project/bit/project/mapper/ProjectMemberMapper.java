@@ -10,6 +10,6 @@ import com.project.bit.project.domain.ProjectMemberVO;
 @Mapper
 public interface ProjectMemberMapper {
 	public void insertProjectMember(ProjectMemberDTO projectMemberDTO);
-	public void deleteProjectMember(String projectJoinCode);
+	public void deleteProjectMember(String projectJoinId);
 	public List<ProjectMemberVO> selectProjectMember(String projectId);
 }

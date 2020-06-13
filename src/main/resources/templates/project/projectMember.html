@@ -40,7 +40,7 @@
 					</div>
 					
 					<div id="member_div">
-						<ul id="member" style="list-style:none; padding-left:0px;">
+						<ul class="member" style="list-style:none; padding-left:0px;">
 							<li th:id="memberId" th:each="member : ${projectMembers}" 
 							th:data-code="${member.projectJoinCode}"
 							th:text="${member.teamName} + ' / ' + ${member.userName} + ' / ' + ${member.positionName} + ' / '

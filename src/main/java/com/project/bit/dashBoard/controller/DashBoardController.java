@@ -17,7 +17,7 @@ public class DashBoardController {
 	private DashBoardDetailService dashBoardDetailService;
 	private DashBoardAllService dashBoardAllService;
 	
-	@GetMapping("/dashBoard")
+	@GetMapping("/dashBoardDetail")
 	public String goDashBoard(Model model) {
 		model.addAttribute("projectNameList", dashBoardDetailService.findProjectList());
 		return "dashBoard/dashBoardDetail";

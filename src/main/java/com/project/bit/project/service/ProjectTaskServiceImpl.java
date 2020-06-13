@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.bit.project.domain.ProjectTaskDTO;
 import com.project.bit.project.domain.ProjectTaskGroupDTO;
+import com.project.bit.project.domain.ProjectTaskStatusDTO;
 import com.project.bit.project.mapper.ProjectTaskMapper;
 
 @Service
@@ -29,6 +30,22 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	public void putProjectTaskGroup(ProjectTaskGroupDTO projectTaskGroupDTO) {
 		projectTaskMapper.updateProjectTaskGroup(projectTaskGroupDTO);
 		
+	}
+
+	@Override
+	public void postProjectTaskGroup(ProjectTaskGroupDTO projectTaskGroupDTO) {
+		projectTaskMapper.insertProjectTaskGroup(projectTaskGroupDTO);		
+	}
+
+	@Override
+	public void removeProjectTaskGroup(String groupId) {
+		projectTaskMapper.deleteProjectTaskGroup(groupId);
+		
+	}
+
+	@Override
+	public List<ProjectTaskStatusDTO> getTaskStatus() {
+		return projectTaskMapper.selectTaskStatus();
 	}
 
 }

@@ -19,11 +19,10 @@
 			<div class="card">
 				<div class="card-body">
 				 <select>
-				 <th:block th:each="project : ${projectNameList}">
-				 <option th:text="${project.projectName}">
-				 </th:block>
+					 <th:block th:each="project : ${projectNameList}">
+						 <option th:value="${project.projectCode}" th:text="${project.projectName}">
+					 </th:block>
 				 </select>
-					<div id="js-legend" class="chartjs-legend mt-4 mb-5"></div>
 				</div>
 			</div>
 		</div>
