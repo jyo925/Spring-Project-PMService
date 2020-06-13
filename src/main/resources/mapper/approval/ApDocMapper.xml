@@ -4,6 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.approval.mapper.ApDocMapper">
 
+    <sql id="criteria">
+        <trim prefix="and" prefixOverrides="OR">
+            <foreach item='type' collection="cri.typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            ap_doc_title like '%'||#{cri.keyword}||'%'
+                        </when>
+                        <when test="type == 'N'.toString()">
+                            ap_doc_no like '%'||#{cri.keyword}||'%'
+                        </when>
+                        <when test="type == 'W'.toString()">
+                            ap_doc_writer like '%'||#{cri.keyword}||'%'
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
     <select id="selectApForm" resultType="com.project.bit.approval.domain.ApFormDTO">
         select * from approvalform where ap_form_no = #{apFormNo}
     </select>
@@ -19,16 +39,61 @@
         '0', 1, sysdate, null)
     </insert>
 
-    <!--ap_doc_status 0=진행중,-1=반려-->
+    <!-- 결재진행함 조회 -->
+    <!--ap_doc_status 0=진행중,1=완료, 2=반려, 3=임시저장 -->
     <select id="selectApProgressList" resultType="com.project.bit.approval.domain.ApDocListVO">
-        select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name,  d.ap_doc_writer, p.project_code,d.ap_doc_createdate, d.ap_doc_enddate ,d.ap_doc_status
-        from approvaldoc d
+        select * from
+        (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name,  ap_doc_writer, project_code, project_name, ap_doc_createdate, ap_doc_enddate , ap_doc_status
+        from (select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name,  d.ap_doc_writer,
+        p.project_code,(select project_name from projects where project_code = p.project_code)as project_name,
+        d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status from approvaldoc d
         join approvalform f on d.ap_form_no = f.ap_form_no
         join project_members p on d.ap_doc_writer = p.user_id
         join users u on p.user_id = u.user_id
         where ap_doc_writer = #{apDocWriter}
-        and ap_doc_status in (0, -1)
-        order by ap_doc_status desc
-
+        and ap_doc_status in (0, 2)
+        <include refid="criteria"></include>
+        order by ap_doc_status desc, ap_doc_no)
+        <![CDATA[where rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
     </select>
+
+    <!-- 방금 등록한 결재문서 조회 -->
+    <select id="selectNewApDocNo" resultType="long">
+        select Max(ap_doc_no) from approvaldoc where ap_form_no = #{apFormNo} and ap_doc_writer = #{apDocWriter}
+    </select>
+
+    <!-- 진행중 or 임시저장 결재 문서 개수 -->
+    <select id="selectCountApDoc" resultType="_int">
+        select NVL(Max(count(ap_doc_status)),0)
+        from approvaldoc
+        where ap_doc_writer = #{apDocWriter} and ap_doc_status = #{apDocStatus}
+        group by ap_doc_status
+    </select>
+
+    <!-- 결재 대기 문서 개수 -->
+    <select id="selectCountApCheck" resultType="_int">
+        select NVL(count(*),0)
+        from approval a
+        where a.ap_approver = #{apDocWriter}
+        and a.ap_step = (select ap_doc_step from approvaldoc where ap_doc_no = a.ap_doc_no)
+    </select>
+
+
+    <!-- 결재 대기 문서 조회 -->
+    <select id="selectApCheckList" resultType="com.project.bit.approval.domain.ApDocListVO">
+        select * from
+        (select rownum rn, f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name,  d.ap_doc_writer,
+        p.project_code,(select project_name from projects where project_code = p.project_code)as project_name,
+        d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status
+        from approvaldoc d
+        join  approvalform f on d.ap_form_no = f.ap_form_no
+        join project_members p on d.ap_doc_writer = p.user_id
+        join (select user_id, user_name from users) u on p.user_id = u.user_id
+        where d.ap_doc_no in
+        (select a.ap_doc_no from approval a where a.ap_approver = #{apDocWriter} and a.ap_step = (select ap_doc_step from approvaldoc where ap_doc_no = a.ap_doc_no)
+        )and ap_doc_status = 0
+        <include refid="criteria"></include>
+        <![CDATA[ and rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
+    </select>
+
 </mapper>
