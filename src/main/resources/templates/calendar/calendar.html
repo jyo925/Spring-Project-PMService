@@ -92,34 +92,51 @@
   <!-- container-scroller -->
 
 	<div id="dialog-window">
-		<form class="needs-validation" novalidate="">
+		<form class="needs-validation" action="/addEvent" method="post">
 			<div class="row">
-				
 				<div class="mb-3">
 					<label for="title">title</label> 
-					<input type="text" class="form-control" id="title">
+					<input name="eventTitle" class="form-control" id="title">
 				</div><br>
 				<div class="mb-3">
 					<label for="start">start</label> 
-					<input type="text" class="form-control datePicker" id="start">
+					<input name="eventStartDate" type="text" class="form-control datePicker" id="start">
 				</div>
 				<div class="mb-3">
 					<label for="finish">finish</label> 
-					<input type="text" class="form-control datePicker" id="finish">
+					<input name="eventFinishDate" type="text" class="form-control datePicker" id="finish">
 				</div>
 				<div class="mb-3">
-					<label for="finish">description</label> 
-					<input type="text" class="form-control">
+					<label for="description">description</label> 
+					<textarea name="eventDescription" class="form-control"></textarea>
 				</div>
 				<div class="mb-3">
-					<label for="finish">all Day</label> 
-					<input type="checkbox" class="form-control" value="1">
+					<label for="eventPlace">Place</label> 
+					<input name="eventPlace" type="text" class="form-control">
 				</div>
 				<div class="mb-3">
-					<label for="finish">Type</label> 
-					<select name="cars" th:each="el : ${eventTypes}">
-						<option value="${el.eventTypeId}" th:text="${el.eventType}"></option>
+					<label for="all Day">all Day</label> 
+					<input name="eventAllDay" type="checkbox" class="form-control" value="1">
+				</div>
+				<div class="mb-3">
+					<label for="Type">Type</label> 
+					<select name="eventTypeId" >
+						<option th:each="el : ${eventTypes}" th:value="${el.eventTypeId}" th:text="${el.eventType}"></option>
 					</select>
+				</div>
+				<div class="mb-3">
+					<label for="Project">Project</label> 
+					<select name="projectCode" >
+						<option th:each="el : ${projectList}" th:value="${el.projectCode}" th:text="${el.projectSubname}"></option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="Project">Members:</label>
+					<textarea name="eventMembers" id="textList" readonly="readonly"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="Project">Add:</label>
+					<button th:each="el : ${usersList}" th:text="${el.userId}" type="button" class="btn btn-light memb"></button>
 				</div>
 				
 			</div>
@@ -130,11 +147,9 @@
 	
 	
 	<div id="dialog-event">
-		<div th:each="el : ${event}" class="row">
-			<div th:text="el.eventTitle"></div>
+			<div th:text="${event}"></div>
 			<form class="needs-validation" novalidate="">
 					<div class="mb-3">
-						<div id="titlet"></div>
 						<label for="title">title</label> 
 						<input type="text" class="form-control" id="title">
 					</div><br>
@@ -149,7 +164,6 @@
 				<hr class="mb-4">
 				<button class="btn btn-success" type="submit">Create</button>
 			</form>
-		</div>
 	</div>
 	
 	

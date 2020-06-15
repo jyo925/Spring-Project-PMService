@@ -10,4 +10,7 @@ public interface EventService {
 	
 	Event selectEvent(String eventId);
 
+	void insertEvent(Event event);
+	
+	void deleteEvent(Event event);
 }

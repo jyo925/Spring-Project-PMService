@@ -7,6 +7,6 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		select * from projects where project_name=#{projectName}
 	</select>
 	<select id="selectProjectList" resultType="com.project.bit.project.domain.ProjectDTO">
-		select project_name from projects
+		select project_code, project_name from projects
 	</select>
 </mapper>
