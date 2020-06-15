@@ -4,18 +4,16 @@ import com.project.bit.approval.domain.ApDTO;
 import com.project.bit.approval.domain.ApPathDTO;
 import com.project.bit.approval.domain.ApproverVO;
 import com.project.bit.approval.mapper.ApMapper;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @Service
+@Log
 public class ApprovalServiceImpl implements ApprovalService {
-
-
 
     @Autowired
     ApMapper apMapper;
@@ -31,15 +29,21 @@ public class ApprovalServiceImpl implements ApprovalService {
 
         for(ApproverVO approver : apMapper.selectApproverList(path, userId)){
             //결재선에 자기가 결재자로 들어가면 삭제
-            if(approver.getUserId() == userId){
-                break;
+            if(approver.getUserId().equals(userId)){
+                log.info(approver.getUserId() + " == " + userId);
+                continue;
             }
             if(dutyName.indexOf(userDutyName)>dutyName.indexOf(approver.getDutyName())){
-                break;
+                continue;
             }
             approvers.add(approver);
         }
-        //결재선이 텅 비었다면?...PMO는
+
+        //결재선이 텅 비었다면?...바로 윗 직급 불러와서 결재선 셋팅
+        if(approvers.size() == 0){
+            approvers.add(apMapper.selectSuperiorApprover(userId));
+            log.info("추가된 상위 결재자 정보: "+ apMapper.selectSuperiorApprover(userId));
+        }
 
         return approvers;
     }

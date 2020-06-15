@@ -5,7 +5,6 @@ import com.project.bit.approval.domain.ApDocListVO;
 import com.project.bit.approval.domain.ApFormDTO;
 import com.project.bit.approval.domain.Criteria;
 import com.project.bit.approval.mapper.ApDocMapper;
-import groovy.lang.IntRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
