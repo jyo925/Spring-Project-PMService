@@ -7,13 +7,13 @@ import java.sql.Date;
 
 @Data
 
-public class UserDTO {
+public class UserVO {
 
 	private String userId;
 	private String userPw;
 	private String userName;
-	private int positionCode;
-	private int teamCode;
+	private String positionName;
+	private String teamName;
 	private String userEmail;
 	private String userPhone;
 	private Date userRegitDate;

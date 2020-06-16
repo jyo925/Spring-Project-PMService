@@ -1,85 +1,92 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="~{layout/default}">
-<head>
+      layout:decorate="~{layout/default}">
 
-    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>사용자 등록</title>
+<title id="pageTitle">사용자 등록</title>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <style>
-        label, input { display:block; }
-        input.text { margin-bottom:12px; width:95%; padding: .4em; }
-        fieldset { padding:0; border:0; margin-top:25px; }
-        h1 { font-size: 1.2em; margin: .6em 0; }
-        div#users-contain { width: 350px; margin: 20px 0; }
-        div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-        div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
-        .ui-dialog .ui-state-error { padding: .3em; }
-        .validateTips { border: 1px solid transparent; padding: 0.3em; }
-    </style>
+
+<div layout:fragment="content">
+
+    <div id="dialog-form" title="regitUser">
+        <form>
+
+                <label for="userID">아이디</label>
+                <input id="userID" name="userID" type="text" class="text ui-widget-content ui-corner-all" placeholder=""
+                       required="required">
+                <label for="name">이름</label>
+                <input id="name" name="name" type="text" class="text ui-widget-content ui-corner-all" placeholder=""
+                       required="required"><br>
+                <select name="positions">
+                    <option value="">직급선택</option>
+                    <option value="부장">부장</option>
+                    <option value="차장">차장</option>
+                    <option value="과장">과장</option>
+                    <option value="대리">대리</option>
+                    <option value="사원">사원</option>
+                </select>
+                <label for="team">팀</label>
+                <!--ajax DB를 갔다가 와야함 비동기 통신-->
+                <input type="text" name="team" id="team" class="text ui-widget-content ui-corner-all">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="text ui-widget-content ui-corner-all">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="text ui-widget-content ui-corner-all">
+
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+
+        </form>
+    </div>
+    <button id="regitBtn">사용자 등록</button>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>ID</th>
+                <th>이름</th>
+                <th>직급</th>
+                <th>부서</th>
+                <th>이메일</th>
+                <th>등록일</th>
+            </tr>
+            </thead>
+            <tbody id="userList">
+            <tr th:each="userList,index : ${userSettingAll}">
+                <td scope="row" th:text="${index.index+1}"></td>
+                <td th:text="${userList.userId}"></td>
+                <td th:text="${userList.userName}"></td>
+                <td th:text="${userList.positionName}"></td>
+                <td th:text="${userList.teamName}"></td>
+                <td th:text="${userList.userEmail}"></td>
+                <td th:text="${userList.userRegitDate}"></td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $( function() {
+        $(document).ready(function () {
 
+            $("#regitBtn").on('click', function () {
+                $('#dialog-form').dialog('open');
+            })
 
-            <!-- Dialog Start button on click >> dialog open-->
-
-            $( "#dialog-form" ).dialog({
+            $('#dialog-form').dialog({
+                title: '사용자 등록',
                 autoOpen: false,
-                height: 400,
-                width: 350,
                 modal: true,
+                width: 400,
+                height: 700
             });
-        } );
+
+        });
     </script>
-</head>
-<body>
-
-<div id="dialog-form" title="Create new user">
-    <p class="validateTips">All form fields are required.</p>
-
-    <form>
-        <fieldset>
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
-
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </fieldset>
-    </form>
 </div>
 
 
-<div id="users-contain" class="ui-widget">
-    <table id="users" class="table_userList">
-
-        <!-- 리스트 테이블 여기에 작성 -->
-        <tr>
-            <th>No.</th>
-            <th>ID</th>
-            <th>이름</th>
-            <th>직급</th>
-            <th>부서</th>
-            <th>이메일</th>
-            <th>등록일</th>
-        </tr>
-
-
-
-
-    </table>
-</div>
-<button id="create-user">Create new user</button>
-
-
-</body>
 </html>

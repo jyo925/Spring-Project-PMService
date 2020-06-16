@@ -21,8 +21,8 @@ class UserSettingControllerTest {
     @Test
     @WithMockUser
     public void resetTest() throws Exception {
-     mockMvc.perform(MockMvcRequestBuilders.get("/userSettingList2")
-             .param("userId", "user004")
+     mockMvc.perform(MockMvcRequestBuilders.get("/userSettingResetPw")
+             .param("userId", "khj0623")
      )
      .andDo(print());
     }

@@ -1,6 +1,6 @@
 package com.project.bit.admin.service;
 
-import com.project.bit.admin.domain.UserDTO;
+import com.project.bit.admin.domain.UserVO;
 import com.project.bit.admin.mapper.UserSettingMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -19,24 +19,24 @@ public class UserSettingServiceImpl implements UserSettingService{
 
     //사용자 목록
     @Override
-    public List<UserDTO> userSettingAll() {
+    public List<UserVO> userSettingAll() {
         return userSettingMapper.selectUser();
     }
 
     //사용자 등록
     @Override
-    public void regitUserSetting(UserDTO userDTO) {
+    public void regitUserSetting(UserVO userVO) {
 
-        log.info("regit............."+userDTO);
-        userSettingMapper.insertUser(userDTO);
+        log.info("regit............."+ userVO);
+        userSettingMapper.insertUser(userVO);
 
     }
 
     //비밀번호 리셋
     @Override
-    public void resetUserPw(UserDTO userDTO) {
+    public void resetUserPw(UserVO userVO) {
 
-        userDTO.setUserPw(bCryptPasswordEncoder.encode("1234"));
-        userSettingMapper.resetUserPw(userDTO);
+        userVO.setUserPw(bCryptPasswordEncoder.encode("1234"));
+        userSettingMapper.resetUserPw(userVO);
     }
 }

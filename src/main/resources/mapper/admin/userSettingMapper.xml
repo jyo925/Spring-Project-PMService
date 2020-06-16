@@ -5,10 +5,18 @@
 <mapper namespace="com.project.bit.admin.mapper.UserSettingMapper">
 
 <!--사용자 리스트-->
-    <select id="selectUser" resultType="com.project.bit.admin.domain.UserDTO">
-
-     select * from users
-
+    <select id="selectUser" resultType="com.project.bit.admin.domain.UserVO">
+     SELECT
+     U.USER_ID
+     ,U.USER_NAME
+     ,u.USER_EMAIL
+     ,U.USER_PHONE
+     ,T.TEAM_NAME
+     ,P.POSITION_NAME
+     ,U.USER_REGITDATE
+     FROM USERS U
+        INNER JOIN POSITIONS P ON  U.POSITION_CODE = P.POSITION_CODE
+        INNER JOIN TEAMS T ON U.TEAM_CODE = T.TEAM_CODE
     </select>
 
 <!--사용자 등록-->
@@ -43,7 +51,7 @@
 <!--        -->
 <!--    </delete>-->
     
-    <update id="resetUserPw" parameterType="com.project.bit.admin.domain.UserDTO">
+    <update id="resetUserPw" parameterType="com.project.bit.admin.domain.UserVO">
         update users
         set
          user_pw = #{userPw}
