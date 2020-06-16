@@ -66,23 +66,23 @@ public class ApprovalFileController {
 
 
     // 업로드 파일을 c드라이브에 저장
-    @PostMapping("/uploadFormAction")
-    public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
-
-        String uploadFoder = "C:\\upload";
-        for (MultipartFile multipartFile : uploadFile) {
-            log.info("--------------------------------------");
-            log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-            log.info("Upload File Size: " + multipartFile.getSize());
-
-            File saveFile = new File(uploadFoder, multipartFile.getOriginalFilename()); // 경로, 파일명 지정
-            try {
-                multipartFile.transferTo(saveFile);// 저장
-            } catch (Exception e) {
-                log.info(e.getMessage());
-            }
-        } // end for
-    }
+//    @PostMapping("/uploadFormAction")
+//    public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
+//
+//        String uploadFoder = "C:\\upload";
+//        for (MultipartFile multipartFile : uploadFile) {
+//            log.info("--------------------------------------");
+//            log.info("Upload File Name: " + multipartFile.getOriginalFilename());
+//            log.info("Upload File Size: " + multipartFile.getSize());
+//
+//            File saveFile = new File(uploadFoder, multipartFile.getOriginalFilename()); // 경로, 파일명 지정
+//            try {
+//                multipartFile.transferTo(saveFile);// 저장
+//            } catch (Exception e) {
+//                log.info(e.getMessage());
+//            }
+//        } // end for
+//    }
 
 
     // 파일 다운로드
@@ -131,7 +131,7 @@ public class ApprovalFileController {
         return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
     }
 
-    //파일 서버에 등록 및 등록결과 뷰에 반영
+    //파일 서버에 등록 및 등록 결과 뷰에 반영
 //    @PreAuthorize("isAuthenticated()")
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

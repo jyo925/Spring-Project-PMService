@@ -2,6 +2,7 @@ package com.project.bit.approval.domain;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class ApDocDTO {
     private Date apDocCreateDate;
     private Date apDocEndDate;
 
-    private List<ApFileDTO> apFiles;
+
+
 
 
 }
