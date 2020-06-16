@@ -25,24 +25,24 @@
 					
 					<div>
 						<h5> 프로젝트 명 </h5>
-						<input type="hidden" th:value="${project.projectCode}" id="projectCode" readOnly>
-						<input type="text" th:value="${project.projectName}" id="projectName" style="width:70%;" >
+						<input type="hidden" th:value="${project.projectCode}" th:id="projectCode" readOnly>
+						<input type="text" th:value="${project.projectName}" th:id="projectName" style="width:70%;" >
 						<div>
-							<input type="text" th:value="${project.projectSubName}" id="projectSubName" style="margin-top:5px; width:5%;">
+							<input type="text" th:value="${project.projectSubName}" th:id="projectSubName" style="margin-top:5px; width:5%;">
 						</div>
 					</div>
 
 					<div style="margin-top: 10px;">
 						<h5>개발 형태</h5>
-						<select th:value="${project.projectTypeCode}">
+						<select id="projectTypeChoice">
 							<option value="">개발 형태</option>
 							<option th:each="projectType : ${projectTypeList}" 
 								th:value="${projectType.projectTypeCode}"
 								th:text="${projectType.projectType}"
 								th:selected="${projectType.projectType} == ${project.projectTypeName}"></option>
 						</select>
-						<input type="date" th:value="${project.projectStart}" id="projectStart">
-						<input type="date" th:value="${project.projectFinish}" id="projectFinish">
+						<input type="date" th:value="${project.projectStart}" th:id="projectStart">
+						<input type="date" th:value="${project.projectFinish}" th:id="projectFinish">
 					</div>
 
 					<div style="margin-top: 10px;">
@@ -54,8 +54,8 @@
 						</select> 
 						<select th:id="pmIdChoice">
 							<option>아이디</option>
-							<option th:each="user : ${userList}" th:value="${user.userId}"
-								th:text="${user.userName}" th:selected="${project.projectPm} == ${user.userId}"></option>
+							<option th:id="pmIdList" th:each="user : ${userList}" th:value="${user.userId}"
+								th:text="${user.userName} + ' : ' + ${user.userId}" th:selected="${project.projectPm} == ${user.userId}"></option>
 						</select>
 
 						<h5>PMO</h5>
@@ -67,17 +67,17 @@
 						<select th:id="pmoIdChoice">
 							<option value="">아이디</option>
 							<option th:each="user : ${userList}" th:value="${user.userId}"
-								th:text="${user.userName}" th:selected="${project.projectPmo} == ${user.userId}"></option>
+								th:text="${user.userName} + ' : ' + ${user.userId}" th:selected="${project.projectPmo} == ${user.userId}"></option>
 						</select>
 					</div>
 
 					<div>
 						<h5>프로젝트 설명</h5>
-						<textarea rows="10px" cols="100px" th:value="${project.projectDescription}" maxlength="500" id="projectDescription"></textarea>
+						<textarea rows="10px" cols="100px" th:text="${project.projectDescription}" maxlength="500" th:id="projectDescription"></textarea>
 					</div>
 					
 					<div>
-						<select>
+						<select th:id="projectStatusChoice">
 							<option value=""> 상태  </option>
 							<option th:each="status : ${projectStatus}" 
 								th:value="${status.projectStatusCode}"
@@ -87,7 +87,7 @@
 					</div>
 
 					<div style="margin-top: 20px;">
-						<button type="button" onclick="#">삭제</button>
+						<button type="button" onclick="location.href='/projectDelete/'+$('#projectCode').val()">삭제</button>
 						<button type="button" id="update_btn">저장</button>
 						<button type="button" onclick="location.href='/projectList'">취소</button>
 					</div>

@@ -22,5 +22,14 @@
 
     </select>
 
+    <insert id="insertApprover" parameterType="com.project.bit.approval.domain.ApDTO">
+        insert into
+        approval(ap_no, ap_doc_no, ap_approver, ap_duty_name, ap_step)
+        values (AP_SEQ.nextval, #{apDocNo}, #{approver}, #{apDutyName}, #{apStep})
+    </insert>
+
+    <update id="updateApReceiveDate">
+        update approval set ap_receivedate = sysdate where ap_doc_no = #{apDocNo} and ap_approver = #{approver}
+    </update>
 
 </mapper>

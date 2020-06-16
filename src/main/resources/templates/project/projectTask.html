@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<title id="pageTitle">프로젝트 기본정보</title>
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/project/project.css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript" src="/js/project/projectTaskGroup.js"></script>
+	<script th:inline="javascript" src="/js/project/projectTask.js"></script>
+</th:block>
+
+
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-12 grid-margin">
+				<div class="card">
+					<div class="card-body">
+						<h6>프로젝트 작업</h6>
+						
+						<div class="taskGroup-div" th:each="taskGroup : ${taskGroupList}">
+							<span class="taskGroup" th:data-proj="${taskGroup.projectCode}"
+							th:data-text="${taskGroup.taskGroupName}" th:data-id="${taskGroup.taskGroupCode}" 
+								th:text="${taskGroup.taskGroupName}">프로젝트 작업 그룹 명</span>
+							<ul>
+								<li>
+									<button th:class="groupName_btn" type="button">그룹명 바꾸기</button>
+								</li>
+								<li>
+									<button th:class="group-remove-btn" type="button">그룹 삭제</button>							
+								</li>
+							</ul>
+							
+							<button data-mfp-src="#task-add-popup" class="task-add-modal" type="button"> + </button>
+							
+							<!-- 작업 등록 모달 -->
+							<div id="task-add-popup" class="white-popup mfp-hide">
+								<p>작업 명</p>
+								<input id="task-name" type="text" placeholder="작업 명">
+								
+								<p>시작일</p>
+								<input id="task-start" type="date">
+								
+								<p>종료일</p>
+								<input id="task-finish" type="date">
+								
+								<p>담당자</p>
+								<input id="task-manager" type="text" readOnly>
+								
+								<p>작업 설명</p>
+								<textarea id="task-description" rows="10%" cols="auto" placeholder="작업 설명"></textarea>
+								
+								<select id="task-status">
+									<option value=""> 상태</option>
+									<option th:each="taskStatus : ${taskStatusList}" th:value="${taskStatus.taskStatusCode}" 
+									th:text="${taskStatus.taskStatus}"></option>
+								</select>
+								
+								<div class="task-modal-btns">
+									<button class="task-add-btn" type="button">확인</button>
+									<button id="task-cancel-btn" type="button">취소</button>
+								</div>
+							</div>
+							<!-- 모달 끝 -->
+							
+							<div th:each="task : ${taskGroup.projectTasks}" style="border: 1px solid black; padding: 10px; margin-top:5px;">
+								<span th:text="${task.taskName}"id="task_name">프로젝트 작업 명</span>
+								<ul>
+									<li>
+										<a href="#">작업 완료</a>
+									</li>
+									<li>
+										<a href="#">작업 삭제</a>							
+									</li>
+								</ul>
+								<p th:text="${task.taskDescription}"> 작업 설명 </p>
+								<p th:text="${task.taskStart} + ' ~ ' + ${task.taskFinish}"> 시작일 ~ 완료일 </p>
+								<span th:each="manager : ${task.projectTaskManagers}" th:text="${manager.taskManagerId} + ' '"></span>
+							</div>
+						</div>
+						<!-- 프로젝트 작업 그룹 -->
+						
+						<span><a href="#group-add-popup" data-mfp-src="#group-add-popup" class="group-add-modal">+작업 그룹</a></span>
+						
+						<!-- 그룹 등록 모달 -->
+						<div id="group-add-popup" class="white-popup mfp-hide">
+							<p>그룹 명</p>
+							<input id="group-name" type="text" placeholder="그룹 명">
+							<p>그룹 설명</p>
+							<textarea id="group-description" rows="10%" cols="auto" placeholder="그룹 설명"></textarea>
+							<button id="group-add-btn" type="button">확인</button>
+							<button id="cancel-btn" type="button">취소</button>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	
+	
+</html>

@@ -5,8 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.bit.project.domain.ProjectMemberDTO;
+import com.project.bit.project.domain.ProjectMemberVO;
 
 @Mapper
 public interface ProjectMemberMapper {
-	public List<ProjectMemberDTO> selectProjectMember(String projectId);
+	public void insertProjectMember(ProjectMemberDTO projectMemberDTO);
+	public void deleteProjectMember(String projectJoinId);
+	public List<ProjectMemberVO> selectProjectMember(String projectId);
 }

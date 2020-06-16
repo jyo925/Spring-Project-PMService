@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.project.mapper.ProjectTaskMapper">
+	<resultMap type="com.project.bit.project.domain.ProjectTaskGroupDTO" id="taskGroup">
+		<result property="taskGroupCode" column="TASKGROUP_CODE"/>
+		<result property="taskGroupName" column="TASKGROUP_NAME"/>
+		<result property="taskGroupDescription" column="TASKGROUP_DESCRIPTION"/>
+		<collection property="projectTasks" column="TASKGROUP_CODE" javaType="List" ofType="com.project.bit.project.domain.ProjectTaskDTO" select="selectProjectTask"/>
+	</resultMap>
+	
+	<resultMap type="com.project.bit.project.domain.ProjectTaskDTO" id="task">
+		<result property="taskCode" column="TASK_CODE"/>
+		<result property="taskName" column="TASK_NAME"/>
+		<result property="taskDescription" column="TASK_DESCRIPTION"/>
+		<result property="taskStart" column="TASK_START"/>
+		<result property="taskFinish" column="TASK_FINISH"/>
+		<collection property="projectTaskManagers" column="TASK_CODE" javaType="List" ofType="com.project.bit.project.domain.ProjectTaskManagerDTO" select="selectProjectTaskManger"/>
+	</resultMap>
+	<select id="selectProjectTaskManger" resultType="com.project.bit.project.domain.ProjectTaskManagerDTO">
+		SELECT *
+		FROM project_task_managers
+		WHERE task_code = #{taskCode}
+	</select>
+	
+	<select id="selectProjectTask" resultMap="task">
+		SELECT
+			pt.task_code as task_code,
+			pt.task_name as task_name,
+			pt.task_description as task_description,
+			pt.task_start as task_start,
+			pt.task_finish as task_finish
+		FROM project_tasks pt
+		WHERE pt.taskGroup_code = #{taskGroupCode}
+	</select>
+	
+	<select id="selectProjectTaskGroup" parameterType="String" resultMap="taskGroup">
+		SELECT * FROM project_task_groups WHERE project_code = #{projectId}
+	</select>
+	
+	<update id="updateProjectTaskGroup" parameterType="com.project.bit.project.domain.ProjectTaskGroupDTO">
+		UPDATE project_task_groups SET taskGroup_name = #{taskGroupName} WHERE taskGroup_code = #{taskGroupCode} 
+	</update>
+	
+	<insert id="insertProjectTaskGroup" parameterType="com.project.bit.project.domain.ProjectTaskGroupDTO">
+		INSERT INTO project_task_groups
+		VALUES('G'||'-'||(select p.project_subName from projects p where p.project_code = #{projectCode})||'-'||ID_SEQ.nextval,#{taskGroupName},#{taskGroupDescription},#{projectCode})
+	</insert>
+	
+	<delete id="deleteProjectTaskGroup" parameterType="String">
+		DELETE FROM project_task_groups 
+		WHERE taskGroup_code = #{groupId}
+	</delete>
+	
+	
+	
+	
+	
+	<select id="selectTaskStatus" resultType="com.project.bit.project.domain.ProjectTaskStatusDTO">
+		SELECT * FROM project_task_status
+	</select>
+	
+</mapper>
