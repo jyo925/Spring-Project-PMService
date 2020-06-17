@@ -1,8 +1,33 @@
 .white-popup {
-  position: relative;
-  background: #FFF;
-  padding: 20px;
-  width:auto;
-  max-width: 500px;
-  margin: 20px auto;
+	position: relative;
+	background: #FFF;
+	padding: 20px;
+	width: auto;
+	max-width: 500px;
+	margin: 20px auto;
+}
+
+.white-popup input, textarea {
+	width: 100%;
+}
+
+p {
+	margin-top: 10px;
+}
+
+.taskGroup-div {
+	border: 1px solid black;
+	padding: 20px;
+	width: 20%;
+	float: left;
+	margin-right: 5px;
+}
+
+.task-add-modal {
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.task-modal-btns{
+	float: right;
 }

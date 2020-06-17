@@ -1,25 +1,21 @@
 package com.project.bit.admin.domain;
 
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 
 @Data
-public class UserDTO {
+
+public class UserVO {
 
 	private String userId;
 	private String userPw;
 	private String userName;
-	private int positionCode;
-	private int teamCode;
+	private String positionName;
+	private String teamName;
 	private String userEmail;
 	private String userPhone;
-	private Date userRregitdate;
-	private String dutyCode;
-
-
-	public UserDTO() {
-		// TODO Auto-generated constructor stub
-	}
+	private Date userRegitDate;
 
 }

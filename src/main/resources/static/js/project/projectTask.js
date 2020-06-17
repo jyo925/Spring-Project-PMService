@@ -1,37 +1,25 @@
 $(function(){
-	updateGroupName();
-	groupAddModal();
+	insertTask();
 })
 
-function updateGroupName(){
-	$('#groupName_btn').on('click',function(){
-		var group = $('#taskGroup');
-		var groupName = '<input type="text" value="'+ group.data('text') + '" data-id="'+group.data('id')+'" id="groupName" style="margin-bottom: 5px;">';
-		group.html(groupName);
-		
-		$('#groupName').keydown(function(key){
-			if(key.keyCode == 13){
-				$.ajax({
-					url : '/task/groupName/update',
-					type : 'PUT',
-					data : {
-						taskGroupCode : $(this).data('id'),
-						taskGroupName : $(this).val()
-					}
-				}).done(function(){
-					location.reload();
-				}).fail(function(){
-					alert('groupName update fail')
-				})
-			}
-			
+function insertTask(){
+	$('.task-add-modal').on('click', function(event){
+		$groupId = $(event.target).closest('.taskGroup-div').find('.taskGroup').data('id')
+		$('.task-add-btn').on('click', function(event){
+			console.log($groupId);
 		})
 	})
+	
+	taskAddModal('.task-add-modal','#task-cancel-btn');
 }
 
-function groupAddModal(){
-	$('.groupAdd_btn').magnificPopup({
+function taskAddModal(openTarget, closeTarget){
+	$(openTarget).magnificPopup({
 		type: 'inline',
 		midClick: true
-	});
+	})
+	
+	$(closeTarget).on('click', function(){
+		$.magnificPopup.instance.close();
+	})
 }

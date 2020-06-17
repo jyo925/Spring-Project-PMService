@@ -66,14 +66,14 @@ function memberAdd(array){
 
 function member(){
 	var array = [];
-	$('#member li').on('click', function(){
+	$('.member li').on('click', function(event){
 		
-		var ele = $(this);
+		var ele = $(event.target);
 		if(ele.attr('class') == null || ele.attr('class') == ''){
 			ele.css("background-color", "rgb(128,128,128)");
 			ele.addClass('memberId');
 			
-			array.push(ele.data('code'))
+			array.push(ele.data('code'));
 		} else if(ele.attr('class') == 'memberId'){
 			ele.css("background-color", "rgba(0,0,0,0)");
 			
@@ -84,13 +84,14 @@ function member(){
 		}
 		
 		console.log(array);
+		memberRemove(array);
 	})
 	
 	array = [];
-	memberRemove(array);
 }
 
 function memberRemove(array){
+	console.log(array)
 	$('#memberRemove_btn').on('click', function(){
 		$.each(array, function(index, value){
 			var item = $('#member li');

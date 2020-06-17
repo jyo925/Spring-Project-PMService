@@ -14,4 +14,9 @@ class DashBoardAllMapperTest {
     public void test1() {
         dashBoardAllMapper.selectKeyProject();
     }
+
+    @Test
+    public void test2() {
+        dashBoardAllMapper.selectProjectAllStatusCount();
+    }
 }

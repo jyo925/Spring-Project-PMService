@@ -8,6 +8,7 @@ spring:
   devtools:
     livereload:
       enabled: true
+
   servlet:
     multipart:
       max-file-size: 10MB
@@ -25,4 +26,3 @@ logging:
 
 server:
   port: 8080
-

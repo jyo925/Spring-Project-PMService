@@ -43,6 +43,22 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		UPDATE project_task_groups SET taskGroup_name = #{taskGroupName} WHERE taskGroup_code = #{taskGroupCode} 
 	</update>
 	
+	<insert id="insertProjectTaskGroup" parameterType="com.project.bit.project.domain.ProjectTaskGroupDTO">
+		INSERT INTO project_task_groups
+		VALUES('G'||'-'||(select p.project_subName from projects p where p.project_code = #{projectCode})||'-'||ID_SEQ.nextval,#{taskGroupName},#{taskGroupDescription},#{projectCode})
+	</insert>
 	
+	<delete id="deleteProjectTaskGroup" parameterType="String">
+		DELETE FROM project_task_groups 
+		WHERE taskGroup_code = #{groupId}
+	</delete>
+	
+	
+	
+	
+	
+	<select id="selectTaskStatus" resultType="com.project.bit.project.domain.ProjectTaskStatusDTO">
+		SELECT * FROM project_task_status
+	</select>
 	
 </mapper>

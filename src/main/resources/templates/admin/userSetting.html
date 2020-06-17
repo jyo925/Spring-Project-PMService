@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<title id="pageTitle">사용자 등록</title>
+
+
+<div layout:fragment="content">
+
+    <div id="dialog-form" title="regitUser">
+        <form>
+
+                <label for="userID">아이디</label>
+                <input id="userID" name="userID" type="text" class="text ui-widget-content ui-corner-all" placeholder=""
+                       required="required">
+                <label for="name">이름</label>
+                <input id="name" name="name" type="text" class="text ui-widget-content ui-corner-all" placeholder=""
+                       required="required"><br>
+                <select name="positions">
+                    <option value="">직급선택</option>
+                    <option value="부장">부장</option>
+                    <option value="차장">차장</option>
+                    <option value="과장">과장</option>
+                    <option value="대리">대리</option>
+                    <option value="사원">사원</option>
+                </select>
+                <label for="team">팀</label>
+                <!--ajax DB를 갔다가 와야함 비동기 통신-->
+                <input type="text" name="team" id="team" class="text ui-widget-content ui-corner-all">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="text ui-widget-content ui-corner-all">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="text ui-widget-content ui-corner-all">
+
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+
+        </form>
+    </div>
+    <button id="regitBtn">사용자 등록</button>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>ID</th>
+                <th>이름</th>
+                <th>직급</th>
+                <th>부서</th>
+                <th>이메일</th>
+                <th>등록일</th>
+            </tr>
+            </thead>
+            <tbody id="userList">
+            <tr th:each="userList,index : ${userSettingAll}">
+                <td scope="row" th:text="${index.index+1}"></td>
+                <td th:text="${userList.userId}"></td>
+                <td th:text="${userList.userName}"></td>
+                <td th:text="${userList.positionName}"></td>
+                <td th:text="${userList.teamName}"></td>
+                <td th:text="${userList.userEmail}"></td>
+                <td th:text="${userList.userRegitDate}"></td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#regitBtn").on('click', function () {
+                $('#dialog-form').dialog('open');
+            })
+
+            $('#dialog-form').dialog({
+                title: '사용자 등록',
+                autoOpen: false,
+                modal: true,
+                width: 400,
+                height: 700
+            });
+
+        });
+    </script>
+</div>
+
+
+</html>

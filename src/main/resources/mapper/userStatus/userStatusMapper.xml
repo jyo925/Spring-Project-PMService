@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.userStatus.mapper.UserStatusMapper">
+
+    <!-- 사용자현황 리스트 -->
+    <select id="selectUserStatus" resultType="com.project.bit.userStatus.domain.UserStatusVO">
+    select /*+ INDEX_ASC(users user_id) */
+        users.user_id
+        ,users.user_name
+        ,users.user_email
+        ,users.user_phone
+        ,count(project_tasks.taskGroup_code) as taskCountTotal
+        ,count(case when project_tasks.task_status_code = 'taskstatus100' then 1 end) as taskCountProcessing
+        ,count(case when project_tasks.task_status_code = 'taskstatus200' then 1 end) as taskCountComplete
+        ,count(case when project_tasks.task_status_code = 'taskstatus300' then 1 end) as taskCountStandBy
+    from users
+
+    INNER join project_members
+    on users.user_id = project_members.user_id
+
+    inner join project_task_groups
+    on project_members.project_code = project_task_groups.project_code
+
+    inner join project_tasks
+    on project_task_groups.taskGroup_code = project_tasks.taskGroup_code
+
+    group by users.user_id, users.user_name, users.user_email, users.user_phone
+
+    </select>
+
+    <!-- 페이징처리-->
+    <select id="getListWithPaging" resultType="com.project.bit.userStatus.domain.UserStatusVO">
+
+    </select>
+
+
+
+</mapper>
