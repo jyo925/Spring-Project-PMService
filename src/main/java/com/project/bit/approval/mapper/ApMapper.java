@@ -29,7 +29,9 @@ public interface ApMapper {
 
     //결재자 직책
     public String selectApproverDutyName(String userId);
-
+    
+    //결재중인 문서 결재 정보 가져오기
+    public List<ApDTO> selectApprovalList(String apDocNo);
 
 
 }

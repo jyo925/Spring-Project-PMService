@@ -34,4 +34,7 @@ public interface ApDocMapper {
     //결재문서 조회
     public ApDocDTO selectApDoc(String apDocNo);
 
+    //조회 가능한 사용자 리스트
+    public List<String> selectApDocViewableUsers(String apDocNo);
+
 }

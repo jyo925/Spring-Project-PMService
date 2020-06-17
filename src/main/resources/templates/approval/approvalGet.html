@@ -16,7 +16,8 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <button type="submit" class="btn btn-success btn-fw"
-                                style="float: right; margin-left: 25px" onclick="location.href = '/approval/getApProgressList'">목록
+                                style="float: right; margin-left: 25px"
+                                onclick="location.href = '/approval/getApProgressList'">목록
                         </button>
                         <button type="submit" class="btn btn-success btn-fw"
                                 style="float: right; margin-left: 25px">승인
@@ -93,31 +94,31 @@
                         </div>
                     </div>
 
-                    <th:block th:if="${approvers} != null">
+                    <th:block th:if="${approvalData} != null">
                         <label class="col-form-label">결재선</label>
-                        <!--                        <div class="" style="width: 100%">-->
+                        <div class="" style="width: 100%">
 
-                        <!--                            <table class="" border="1" style="table-layout: fixed">-->
-                        <!--                                <thead>-->
-                        <!--                                <tr>-->
-                        <!--                                    <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">-->
-                        <!--                                        <th width="40px" th:text="${approvers.get(i).getDutyName()}"></th>-->
-                        <!--                                    </th:block>-->
-                        <!--                                </tr>-->
-                        <!--                                </thead>-->
-                        <!--                                <tbody>-->
-                        <!--                                <tr>-->
-                        <!--                                    <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">-->
-                        <!--                                        <td width="40px" th:text="${approvers.get(i).getUserName()}"></td>-->
-                        <!--                                    </th:block>-->
-                        <!--                                </tr>-->
-                        <!--                                <tr>-->
-                        <!--                                    <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">-->
-                        <!--                                        <td width="40px">미결</td>-->
-                        <!--                                    </th:block>-->
-                        <!--                                </tr>-->
-                        <!--                                </tbody>-->
-                        <!--                            </table>-->
+                            <table class="" border="1" style="table-layout: fixed">
+                                <thead>
+                                <tr>
+                                    <th:block th:each="i : ${#numbers.sequence( 0, approvalData.size()-1)}">
+                                        <th width="40px" th:text="${approvalData.get(i).getApDutyName()}"></th>
+                                    </th:block>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th:block th:each="i : ${#numbers.sequence( 0, approvalData.size()-1)}">
+                                        <td width="40px" th:text="${approvalData.get(i).getUserName()}"></td>
+                                    </th:block>
+                                </tr>
+                                <tr>
+                                    <th:block th:each="i : ${#numbers.sequence( 0, approvalData.size()-1)}">
+                                        <td th:if="${approvalData.get(i).getApResult().toString().equals('0')}" width="40px" th:text="미결"></td>
+                                    </th:block>
+                                </tr>
+                                </tbody>
+                            </table>
 
                     </th:block>
                     <br>
@@ -149,20 +150,6 @@
                         name: 'document',
                         groups: ['mode', 'document', 'doctools'],
                         items: ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']
-                    },
-                    {
-                        name: 'clipboard',
-                        groups: ['clipboard', 'undo'],
-                        items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']
-                    },
-                    {
-                        name: 'editing',
-                        groups: ['find', 'selection', 'spellchecker'],
-                        items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt']
-                    },
-                    {
-                        name: 'forms',
-                        items: ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField']
                     }
                 ],
                 width: '100%',
@@ -172,233 +159,13 @@
             var formData = document.querySelector('#formData').value;
 
             CKEDITOR.instances.editor1.setData(formData);
-            CKEDITOR.config.readOnly = true;
+            // CKEDITOR.config.readOnly = true;
+
 
             $(document).ready(function (e) {
 
 
-                var formObj = $("form[role='form']");
-
-                //---------------------결재 요청 클릭시 ----------------------
-                $("#request").on("click", function (e) {
-
-                    e.preventDefault();
-                    //1. 변경된 문서내용으로 업데이트
-                    var updateFormData = CKEDITOR.instances.editor1.getData();
-                    //console.log(updateFormData);
-                    $("#formData").val(updateFormData);
-
-                    //2. 입력란 유효성 검사
-                    var apDocTitle = $("#apDocTitle");
-                    console.log(apDocTitle.val());
-
-                    if (apDocTitle.val() == "") {
-                        alert("제목을 입력해 주세요");
-                        apDocTitle.focus();
-                        return false;
-                    }
-
-                    //첨부파일 formObj에 추가하여 controller로 전송
-                    var str = "";
-
-                    $(".uploadResult ul li")
-                        .each(
-                            function (i, obj) {
-
-                                var jobj = $(obj);
-
-                                str += "<input type='hidden' name='apFileName'"
-                                    + " value='"
-                                    + jobj
-                                        .data("filename")
-                                    + "*b*l*a*b*l*a*'>";
-                                str += "<input type='hidden' name='apFileUuid'"
-                                    + " value='"
-                                    + jobj
-                                        .data("uuid")
-                                    + "'>";
-                                str += "<input type='hidden' name='apFilePath'"
-                                    + " value='"
-                                    + jobj
-                                        .data("path")
-                                    + "'>";
-                                str += "<input type='hidden' name='apFileType'"
-                                    + " value='"
-                                    + jobj
-                                        .data("type")
-                                    + "'>";
-                            });
-
-                    console.log(str);
-                    formObj.append(str).submit();
-                    //
-                });
-
-
-                var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-                var maxSize = 5242880; //5MB
-
-                //파일 이름, 사이즈 체크
-                function checkExtension(fileName, fileSize) {
-                    if (fileSize >= maxSize) {
-                        alert("파일 사이즈 초과");
-                        return false;
-                    }
-                    if (regex.test(fileName)) {
-                        alert("해당 종류의 파일은 업로드할 수 없습니다.");
-                        return false;
-                    }
-                    return true;
-                }
-
-
-                $("input[type='file']")
-                    .change(
-                        function (e) {
-
-                            var fileFormData = new FormData();
-
-                            var inputFile = $("input[name='apFiles']");
-
-                            var files = inputFile[0].files;
-
-                            console.log(files);
-
-                            for (var i = 0; i < files.length; i++) {
-                                if (!checkExtension( //파일사이즈 체크해서 못하게 수정해야함
-                                    files[i].name,
-                                    files[i].size)) {
-                                    return false;
-                                }
-                                fileFormData.append("apFiles",
-                                    files[i]);
-                            }
-
-                            $.ajax({
-                                url: '/approval/uploadAjaxAction',
-                                processData: false,
-                                contentType: false,
-                                // beforeSend:function(xhr){
-                                //     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                                //     console.log(xhr);
-                                // },
-                                data: fileFormData,
-                                type: 'POST',
-                                dataType: 'json',
-                                success: function (result) {
-                                    console.log(result);
-                                    showUploadResult(result); //업로드 결과 처리 함수
-                                }
-                            }); //ajax end
-                        });
-
-                function showUploadResult(uploadResultArr) {
-
-                    if (!uploadResultArr || uploadResultArr.length == 0) {
-                        return;
-                    }
-
-                    var uploadUL = $(".uploadResult ul");
-                    var str = "";
-
-                    $(uploadResultArr)
-                        .each(
-                            function (i, obj) {
-
-                                var fileCallPath = encodeURIComponent(obj.apFilePath
-                                    + "/"
-                                    + obj.apFileUuid
-                                    + "_"
-                                    + obj.apFileName);
-                                var fileLink = fileCallPath
-                                    .replace(
-                                        new RegExp(
-                                            /\\/g),
-                                        "/");
-
-                                str += "<li style='list-style:none'"
-                                str += "data-path='" + obj.apFilePath + "' data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='" + "file" + "' ><div>";
-                                str += "<i class='fa fa-file-o'></i><span> "
-                                    + obj.apFileName
-                                    + "</span> &nbsp";
-                                str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' "
-                                str += "class='btn btn-info btn-xs'><i class='mdi mdi-delete'></i>Delete<br>";
-                                str += "</a></div></li>";
-
-                            });
-
-                    uploadUL.append(str);
-                } //showUploadResult() end
-
-                //첨부파일 삭제
-                $(".uploadResult").on("click", "button", function (e) {
-
-                    console.log("delete file");
-
-                    var targetFile = $(this).data("file");
-                    var type = $(this).data("type");
-                    var targetLi = $(this).closest("li");
-
-                    $.ajax({
-                        url: '/approval/deleteFile',
-                        data: {
-                            fileName: targetFile,
-                            type: type
-                        },
-                        // beforeSend:function(xhr){
-                        //     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                        // },
-                        dataType: 'text',
-                        type: 'POST',
-                        success: function (result) {
-                            alert(result);
-                            targetLi.remove();
-                        }
-                    }); //ajax end
-                });
-
-                //////////////////////////////////////////////////////////////////////////////
-
-
-                //참조자 선택시 옆으로 이동 & 기존 화면 input 란에 반영하기
-                // $('#selectReferrers').on('click', function (e) {
-                //
-                // });
-                //
-                // $.ajax({
-                //     url: '/approval/getReferrerUserList',
-                //     processData: false,
-                //     contentType: false,
-                //     type: 'POST',
-                //     dataType: 'json',
-                //     success: function (result) {
-                //         console.log(result);
-                //         console.log(result[0].userId);
-                //         console.log(result[1].userId);
-                //         var $li = $("<li class='collapsable'>" +
-                //             "<div class='hitarea collapsable-hitarea'></div>" +
-                //             "<span class='folder'>"+result[0].teamName+"</span>" +
-                //             "<ul style='display: block;'><li class='last'><span class='file'>" +
-                //             result[0].userName+"</span></li></ul></li>");
-                //
-                //         var referrerList = $('#browser').prepend($li);
-                //         console.log(referrerList);
-                //     }
-                // }); //ajax end
-
             });//end
-
-            var formType = $("input[name='apFormNo']").val();
-            switch (formType) {
-                case '2':
-                    // $("input[name='apExecutionDate']").hidden;
-                    break;
-                default :
-                    $("label[name='dateFormName']").hide();
-                    $("input[name='apExecutionDate']").hide();
-            }
-
-
         </script>
 
     </div> <!-- content end -->

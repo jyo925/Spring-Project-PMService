@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.jws.WebParam;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,6 +69,8 @@ public class ApprovalController {
     @PostMapping("/postApDoc")
     public String postApDoc(ApDocDTO apDocDTO, ApFileDTO apFileDTO, Model model, Principal principal) {
 
+        //PMO는 못하도록
+
         //결재문서 등록하기
         log.info("새 결재 문서 등록 결과: " + apDocService.postApDoc(apDocDTO));
 
@@ -81,9 +84,8 @@ public class ApprovalController {
 
 
         //첨부파일 등록하기
-        //log.info("첨부파일 들어오는지? -----------------"+ apFileDTO);
-        apFileDTO.setApDocNo(apDocNo);
-        apDocService.postApDocFiles(apFileDTO);
+//        log.info("첨부파일 들어오는지? -----------------"+ apFileDTO.getApFileName());
+        if(!(apFileDTO.getApFileName()==null)) apDocService.postApDocFiles(apFileDTO);
 
 
         return "redirect:/approval/apMain"; //결재진행화면으로변경하기
@@ -125,14 +127,34 @@ public class ApprovalController {
 
     //결재문서 상세조회
     @GetMapping("/getApDoc")
-    public String getApDoc(@RequestParam("apDocNo") String apDocNo) {
+    public String getApDoc(@RequestParam("apDocNo") String apDocNo, Model model,Principal principal) {
 
         //조회 권한이 있는 사용자만 볼 수 있도록 체크
-
-        //만약 결재자인 경우는 승인/반려 처리할 수 있도록 따로 값을 추가로 전달 model에
-
+        if(!apDocService.getApDocViewableUsers(apDocNo).contains(principal.getName())){
+            System.out.println("불가능!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            return "redirect:apMain"; //임시로
+        }
         //해당 결재문서 데이터 불러오기 ApDocDTO
+        ApDocDTO apDocData = apDocService.getApDoc(apDocNo);
+        model.addAttribute("apDocData", apDocData);
+
         //결재문서에 대한 결재자 및 결재 정보 불러오기 ApDto
+        List<ApDTO> approvalData = apService.getApprovalList(apDocNo);
+
+        model.addAttribute("approvalData", approvalData);
+
+        //만약 조회자가 결재자인 경우는 승인/반려 처리할 수 있도록 따로 값을 추가로 전달 model에
+        for (ApDTO approver: approvalData
+             ) {
+            if((approver.getApApprover().equals(principal.getName())) &&
+                    apDocData.getApDocStep()==approver.getApStep()
+            ){
+                System.out.println("결재자에요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
+        }
+
+
+        //참조자 불러오기
 
 
         return "approval/approvalGet";

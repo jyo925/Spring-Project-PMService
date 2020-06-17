@@ -94,6 +94,11 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     @Override
     public ApDocDTO getApDoc(String apDocNo) {
 
-        return null;
+        return apDocMapper.selectApDoc(apDocNo);
+    }
+
+    @Override
+    public List<String> getApDocViewableUsers(String apDocNo) {
+        return apDocMapper.selectApDocViewableUsers(apDocNo);
     }
 }

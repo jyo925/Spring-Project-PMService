@@ -32,4 +32,7 @@ public interface ApprovalDocService {
     //결재문서 조회
     public ApDocDTO getApDoc(String apDocNo);
 
+    //결재문서 조회 권한 있는 사용자 리스트
+    public List<String> getApDocViewableUsers(String apDocNo);
+
 }

@@ -107,4 +107,11 @@
         where d.ap_doc_no = #{apDocNo}
     </select>
 
+    <select id="selectApDocViewableUsers" resultType="String">
+        WITH table1 AS(
+        select ap_approver AS COLUMN1 from approval where ap_doc_no = #{apDocNo} UNION ALL
+        select ap_referrer AS COLUMN1 from approvalreferrer where ap_doc_no = #{apDocNo} UNION ALL
+        select ap_doc_writer  AS COLUMN1 from approvaldoc where ap_doc_no = #{apDocNo})
+        select * from table1
+    </select>
 </mapper>
