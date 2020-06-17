@@ -20,4 +20,5 @@ logging:
     path: logback-spring.xml
 
 server:
-  port: 8080
+  port: 8081
+
