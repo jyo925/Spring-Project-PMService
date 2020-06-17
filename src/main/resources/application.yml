@@ -8,10 +8,11 @@ spring:
   devtools:
     livereload:
       enabled: true
-      
-  servlet:    multipart:      enabled: true
+
+  servlet:
+    multipart:
       max-file-size: 10MB
-      max-request-size: 10MB                
+      max-request-size: 10MB
 
 mybatis:
   mapper-locations: mapper/**/*Mapper.xml

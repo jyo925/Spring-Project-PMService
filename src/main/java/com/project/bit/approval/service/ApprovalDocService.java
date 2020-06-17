@@ -1,9 +1,6 @@
 package com.project.bit.approval.service;
 
-import com.project.bit.approval.domain.ApDocDTO;
-import com.project.bit.approval.domain.ApDocListVO;
-import com.project.bit.approval.domain.ApFormDTO;
-import com.project.bit.approval.domain.Criteria;
+import com.project.bit.approval.domain.*;
 
 import java.util.List;
 
@@ -21,11 +18,18 @@ public interface ApprovalDocService {
     public List<ApDocListVO> getApProgressList(String apDocWriter, Criteria cri);
 
     //문서 개수 조회 결재진행, 결재대기, 임시저장 순
-    public List<Integer> getApDocCount(String apDocWriter);
+    public List<Integer> getApDocCount(String apDocWriter, Criteria cri);
 
     //결재 대기 문서 조회
     public List<ApDocListVO> getApCheckList(String apDocWriter, Criteria cri);
+    
+    //첨부파일 등록하기
+    public int postApDocFiles(ApFileDTO apFileDTO);
 
+    //참조자 조직도 리스트 불러오기
+    public List<ReferrerVO> getReferrerUserList();
 
+    //결재문서 조회
+    public ApDocDTO getApDoc(String apDocNo);
 
 }

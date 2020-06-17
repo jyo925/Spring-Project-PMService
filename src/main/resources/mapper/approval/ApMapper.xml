@@ -18,7 +18,7 @@
         inner join dutys d on d.duty_code = m.duty_code
         where d.duty_name in(#{path.apPath1}, #{path.apPath2}, #{path.apPath3})
         and m.project_code =
-        (select project_code from project_members where user_id = #{userId})
+        (select project_code from project_members where user_id = #{userId}) order by d.duty_code desc
 
     </select>
 
@@ -32,4 +32,21 @@
         update approval set ap_receivedate = sysdate where ap_doc_no = #{apDocNo} and ap_approver = #{approver}
     </update>
 
+    <select id="selectApproverDutyName" resultType="String">
+        select duty_name from dutys
+        where duty_code =
+        (select duty_code from project_members where user_id = #{userId})
+    </select>
+    
+    <select id="selectSuperiorApprover" resultType="com.project.bit.approval.domain.ApproverVO">
+        <![CDATA[select u.user_id, u.user_name, d.duty_name
+        from project_members m
+        inner join users u on m.user_id = u.user_id
+        inner join dutys d on d.duty_code = m.duty_code
+        where m.project_code =
+        (select project_code from project_members where user_id = #{userId})
+        and m.duty_code =
+        (SELECT max(duty_code) FROM dutys
+        where duty_code < (select duty_code from project_members where user_id = #{userId}))]]>
+    </select>
 </mapper>

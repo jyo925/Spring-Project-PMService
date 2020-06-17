@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.bit.chat.mapper.ParticipationMapper">
+    <resultMap id="Participation" type="com.project.bit.chat.domain.Participation">
+        <result property="userId" column="user_id"></result>
+        <result property="conversationId" column="conversation_id"></result>
+        <result property="joinTime" column="join_time"></result>
+    </resultMap>
+
+    <select id="findByUserId" resultMap="Participation">
+        SELECT *
+        FROM participations
+        WHERE user_id = #{userId}
+    </select>
+
+    <insert id="save" parameterType="com.project.bit.chat.domain.Participation">
+        INSERT INTO participations (user_id, conversation_id)
+        VALUES (#{userId}, #{conversationId})
+    </insert>
+</mapper>

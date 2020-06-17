@@ -19,8 +19,17 @@ public interface ApMapper {
     //결재선별 결재자 정보 가져오기 - 아이디, 이름, 직책
     public List<ApproverVO> selectApproverList(@Param("path") ApPathDTO path, String userId);
 
+    //상위 결재자
+    public ApproverVO selectSuperiorApprover(String userId);
+
     //결재자 등록하기
     public int insertApprover(ApDTO apDTO);
 
     public int updateApReceiveDate(ApDTO apDTO);
+
+    //결재자 직책
+    public String selectApproverDutyName(String userId);
+
+
+
 }

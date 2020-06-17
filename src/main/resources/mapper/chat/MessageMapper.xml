@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.bit.chat.mapper.MessageMapper">
+
+    <resultMap id="Message" type="com.project.bit.chat.domain.Message">
+        <id property="messageId" column="message_id"></id>
+        <result property="authorId" column="author_id"></result>
+        <result property="conversationId" column="conversation_id"></result>
+        <result property="content" column="content"></result>
+        <result property="creationTime" column="creation_time"></result>
+    </resultMap>
+
+    <select id="findAll" resultMap="Message">
+        SELECT *
+        FROM MESSAGES
+    </select>
+
+    <select id="findLastMessageByUserId" parameterType="String" resultMap="Message">
+        SELECT *
+        FROM (
+            SELECT m.message_id, m.conversation_id, m.author_id, m.content, m.creation_time
+            FROM (SELECT conversation_id, MAX(creation_time) c_t FROM messages GROUP BY conversation_id) x
+            , messages m
+            WHERE x.c_t = m.creation_time
+        ) a
+        LEFT JOIN participations b
+        ON a.conversation_id= b.conversation_id
+        WHERE user_id = #{userId}
+    </select>
+</mapper>

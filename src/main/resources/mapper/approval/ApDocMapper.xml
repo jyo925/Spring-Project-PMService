@@ -43,8 +43,9 @@
     <!--ap_doc_status 0=진행중,1=완료, 2=반려, 3=임시저장 -->
     <select id="selectApProgressList" resultType="com.project.bit.approval.domain.ApDocListVO">
         select * from
-        (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name,  ap_doc_writer, project_code, project_name, ap_doc_createdate, ap_doc_enddate , ap_doc_status
-        from (select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name,  d.ap_doc_writer,
+        (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name, ap_doc_writer, project_code, project_name,
+        ap_doc_createdate, ap_doc_enddate , ap_doc_status
+        from (select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name, d.ap_doc_writer,
         p.project_code,(select project_name from projects where project_code = p.project_code)as project_name,
         d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status from approvaldoc d
         join approvalform f on d.ap_form_no = f.ap_form_no
@@ -67,6 +68,7 @@
         select NVL(Max(count(ap_doc_status)),0)
         from approvaldoc
         where ap_doc_writer = #{apDocWriter} and ap_doc_status = #{apDocStatus}
+        <include refid="criteria"></include>
         group by ap_doc_status
     </select>
 
@@ -82,18 +84,27 @@
     <!-- 결재 대기 문서 조회 -->
     <select id="selectApCheckList" resultType="com.project.bit.approval.domain.ApDocListVO">
         select * from
-        (select rownum rn, f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name,  d.ap_doc_writer,
+        (select rownum rn, f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name, d.ap_doc_writer,
         p.project_code,(select project_name from projects where project_code = p.project_code)as project_name,
         d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status
         from approvaldoc d
-        join  approvalform f on d.ap_form_no = f.ap_form_no
+        join approvalform f on d.ap_form_no = f.ap_form_no
         join project_members p on d.ap_doc_writer = p.user_id
         join (select user_id, user_name from users) u on p.user_id = u.user_id
         where d.ap_doc_no in
-        (select a.ap_doc_no from approval a where a.ap_approver = #{apDocWriter} and a.ap_step = (select ap_doc_step from approvaldoc where ap_doc_no = a.ap_doc_no)
+        (select a.ap_doc_no from approval a where a.ap_approver = #{apDocWriter} and a.ap_step = (select ap_doc_step
+        from approvaldoc where ap_doc_no = a.ap_doc_no)
         )and ap_doc_status = 0
         <include refid="criteria"></include>
         <![CDATA[ and rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
+    </select>
+
+    <select id="selectApDoc" resultType="com.project.bit.approval.domain.ApDocDTO">
+        select d.*, u.user_name as ap_doc_writer_name
+        from approvaldoc d
+        join (select user_id, user_name from users) u
+        on u.user_id = d.ap_doc_writer
+        where d.ap_doc_no = #{apDocNo}
     </select>
 
 </mapper>
