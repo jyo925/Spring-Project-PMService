@@ -9,11 +9,13 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			pmem.user_id AS user_id,
 			u.user_name AS user_name,
 			t.team_name AS team_name,
-			pos.position_name AS position_name
+			pos.position_name AS position_name,
+			d.duty_name AS duty_name
 		FROM project_members pmem
 			INNER JOIN users u ON pmem.user_id = u.user_id
 			INNER JOIN teams t ON u.team_code = t.team_code
 			INNER JOIN positions pos ON u.position_code = pos.position_code
+			INNER JOIN dutys d ON pmem.duty_code = d.duty_code
 		WHERE pmem.project_code = #{projectId}
 	</select>
 	

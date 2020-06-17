@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.project.mapper.ProjectOutputMapper">
+	<select id="selectProjectOutput" resultType="com.project.bit.project.domain.ProjectOutputDTO">
+		SELECT
+			po.*,
+			ptt.output_type AS output_type_name
+		FROM project_outputs po
+			INNER JOIN project_tasks pt ON po.task_code = pt.task_code
+			INNER JOIN project_output_types ptt ON po.output_type_code = ptt.output_type_code
+		WHERE
+			pt.task_code = #{taskCode}
+		ORDER BY
+			ptt.output_type
+	</select>
+	
+	<select id="selectProjectOutputType" resultType="com.project.bit.project.domain.ProjectOutputTypeDTO">
+		SELECT * FROM project_output_types
+	</select>
+	
+	<insert id="insertProjectOutput" parameterType="com.project.bit.project.domain.ProjectOutputDTO">
+		INSERT INTO project_outputs
+		VALUES(ID_SEQ.NEXTVAL, #{outputName}, #{outputUser}, (SELECT sysdate FROM dual), #{outputPath}, #{outputTypeCode}, #{taskCode})
+	</insert>
+	
+	<delete id="deleteProjectOutput" parameterType="String">
+		DELETE FROM project_outputs
+		WHERE output_code = #{outputId}
+	</delete>
+</mapper>

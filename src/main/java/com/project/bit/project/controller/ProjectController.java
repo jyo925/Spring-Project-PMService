@@ -40,6 +40,10 @@ public class ProjectController {
 		return "redirect:/projectList";
 	}	
 	
+	
+	
+	
+	// 프로젝트 유형 리스트
 	@ModelAttribute("projectTypeList")
 	public List<ProjectTypeDTO> getProjectType(){
 		return projectService.getProjectTypeAll();

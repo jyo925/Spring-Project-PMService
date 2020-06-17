@@ -44,7 +44,7 @@ function memberAdd(array){
 	$('#memberAdd_btn').on('click', function(){
 		$.each(array, function(index, value){
 			var member = '<li>' + value.teamName + ' / ' + value.userName + ' / ' + value.position + ' / ' + value.userId + '</li>';
-			$('#member').append(member);
+			$('.member').append(member);
 			$('#user li').css("background-color", "rgba(0,0,0,0)")
 			$('#user li').removeClass('userId');
 		});
