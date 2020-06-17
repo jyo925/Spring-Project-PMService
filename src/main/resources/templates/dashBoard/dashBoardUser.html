@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<title id="pageTitle">MAIN</title>
+<!-- 현재 페이지 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- 현재 페이지 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">주요 프로젝트<a href="#"><span class="float-right">+more</span></a></h6>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div th:text="${userStatusCount != null} ? ${userStatusCount} : '0'"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div th:text="${userStatusCount != null} ? ${userStatusCount} : '0'"></div>
+                        </div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</html>

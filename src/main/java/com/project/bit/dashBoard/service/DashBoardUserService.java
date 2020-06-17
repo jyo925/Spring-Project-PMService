@@ -1,44 +1,20 @@
 package com.project.bit.dashBoard.service;
 
-import com.project.bit.dashBoard.domain.IssueStatusCountVO;
+import com.project.bit.dashBoard.domain.IssueTypeCountVO;
 import com.project.bit.dashBoard.domain.TaskStatusCountVO;
 import com.project.bit.dashBoard.domain.UserCountVO;
 
 import java.util.*;
 
-/**
- *
- */
 public interface DashBoardUserService {
+    public UserCountVO getDashBoardUserCount(String userId);
 
-    /**
-     * @param user_id
-     * @return
-     */
-    public UserCountVO getDashBoardUserCount(String user_id);
+    public List<TaskStatusCountVO> getTaskStatusCountUser(String userId);
 
-    /**
-     * @param user_id
-     * @return
-     */
-    public List<TaskStatusCountVO> getTaskStatusCountUser(String user_id);
+//    public List<OutputVO> getMyOutputList(String userId);
 
-    /**
-     * @param user_id
-     * @return
-     */
-//    public List<OutputVO> getMyOutputList(String user_id);
+    public List<IssueTypeCountVO> getIssueStatusCountUser(String userId);
 
-    /**
-     * @param user_id
-     * @return
-     */
-    public List<IssueStatusCountVO> getIssueStatusCountUser(String user_id);
-
-    /**
-     * @param user_id
-     * @return
-     */
-//    public List<MyTaskVO> getMyTaskList(String user_id);
+//    public List<MyTaskVO> getMyTaskList(String userId);
 
 }

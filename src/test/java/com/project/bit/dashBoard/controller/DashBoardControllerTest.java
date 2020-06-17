@@ -22,13 +22,17 @@ class DashBoardControllerTest {
     public void test() throws Exception {
         mockMvc.perform((MockMvcRequestBuilders.get("/dashBoardAll")
         )).andDo(print());
-
-
     }
 
     @Test
     @WithMockUser
     public void test2() throws Exception {
+        mockMvc.perform((MockMvcRequestBuilders.get("/dIndex"))).andDo(print());
+    }
+
+    @Test
+    @WithMockUser
+    public void test3() throws Exception {
         mockMvc.perform((MockMvcRequestBuilders.get("/monthly"))).andDo(print());
     }
 

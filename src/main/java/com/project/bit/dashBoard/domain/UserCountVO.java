@@ -1,8 +1,16 @@
 package com.project.bit.dashBoard.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.apache.ibatis.type.Alias;
+
+@Setter
+@Getter
+@ToString
 public class UserCountVO {
-	private int project_count;
-    private int task_count;
-    private int issue_count;
-    private int output_count;
+    private int userProjectCount;
+    private int userTaskCount;
+    private int userIssueCount;
+    private int userOutputCount;
 }
