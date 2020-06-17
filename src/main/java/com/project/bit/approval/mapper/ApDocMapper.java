@@ -31,4 +31,7 @@ public interface ApDocMapper {
     //결재대기문서 개수 불러오기...
     public int selectCountApCheck(String apDocWriter);
 
+    //결재문서 조회
+    public ApDocDTO selectApDoc(String apDocNo);
+
 }

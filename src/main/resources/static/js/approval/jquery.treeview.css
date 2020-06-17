@@ -58,4 +58,4 @@
 .filetree span.folder, .filetree span.file { padding: 1px 0 1px 16px; display: block; }
 .filetree span.folder { background: url(/js/approval/images/folder.gif) 0 0 no-repeat; }
 .filetree li.expandable span.folder { background: url(/js/approval/images/folder-closed.gif) 0 0 no-repeat; }
-.filetree span.file { background: url(/js/approval/images/file.gif) 0 0 no-repeat; }
+.filetree span.file { background: url(/js/approval/images/member.gif) 0 0 no-repeat; background-size: 15px;}

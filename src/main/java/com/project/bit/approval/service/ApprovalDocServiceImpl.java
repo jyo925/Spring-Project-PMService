@@ -90,4 +90,10 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     public List<ReferrerVO> getReferrerUserList() {
         return apReferrerMapper.selectReferrerUserList();
     }
+
+    @Override
+    public ApDocDTO getApDoc(String apDocNo) {
+
+        return null;
+    }
 }

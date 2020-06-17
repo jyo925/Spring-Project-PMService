@@ -29,4 +29,7 @@ public interface ApprovalDocService {
     //참조자 조직도 리스트 불러오기
     public List<ReferrerVO> getReferrerUserList();
 
+    //결재문서 조회
+    public ApDocDTO getApDoc(String apDocNo);
+
 }

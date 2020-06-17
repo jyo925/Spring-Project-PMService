@@ -19,7 +19,8 @@ public class ApprovalRestController {
 
     @Autowired
     ApprovalDocService apDocService;
-
+    
+    //지우기
     @PostMapping("/getReferrerUserList")
     public List<ReferrerVO> getReferrerUserList() {
         return apDocService.getReferrerUserList();

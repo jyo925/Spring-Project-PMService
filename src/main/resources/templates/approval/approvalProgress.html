@@ -67,7 +67,7 @@
                                 <td th:text="${apProgressStat.count}"></td>
                                 <td th:text="${apProgress.apDocNo}"></td>
                                 <td th:text="${apProgress.apFormName}"></td>
-                                <td><a th:text="${apProgress.apDocTitle}" th:href="'/'"></a></td>
+                                <td><a th:text="${apProgress.apDocTitle}" th:href="'/approval/getApDoc?apDocNo='+${apProgress.apDocNo}"></a></td>
                                 <td th:text="${apProgress.userName}"></td>
                                 <td th:text="${#dates.format(apProgress.apDocCreateDate, 'yyyy-MM-dd')}"></td>
                                 <td th:text="${apProgress.projectName}"></td>

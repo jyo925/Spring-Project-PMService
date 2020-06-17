@@ -49,6 +49,17 @@ public class ApprovalController {
         //문서양식에 맞는 & 사용자 직책 고려한 결재선 불러오기
         model.addAttribute("approvers", apService.getApproverList(apFormNo, principal.getName()));
 
+        //팀 목록
+        List<String> teamList = new ArrayList<>();
+        List<ReferrerVO> referrerVO = apDocService.getReferrerUserList();
+        for(int i=0; i<referrerVO.size(); i++){
+            if (!teamList.contains(referrerVO.get(i).getTeamName())) {
+                teamList.add(referrerVO.get(i).getTeamName());
+            }
+        }
+        model.addAttribute("teams", teamList);
+        //참조자 리스트 정보 추가
+        model.addAttribute("referrers", referrerVO);
         return "approval/approvalNew";
 
     }
@@ -96,23 +107,35 @@ public class ApprovalController {
         return "approval/approvalCheck";
     }
 
-    //임시저장함 클릭시
+    //임시저장함 조회
     @GetMapping("/getApTempList")
     public String getApTempList() {
         return "approval/approvalTemp";
     }
 
+    //참조문서함 조회
     @GetMapping("/getReferenceList")
     public String getReferenceList(){
         return "approval/approvalReference";
     }
+
+
+
+
 
     //결재문서 상세조회
     @GetMapping("/getApDoc")
     public String getApDoc(@RequestParam("apDocNo") String apDocNo) {
 
         //조회 권한이 있는 사용자만 볼 수 있도록 체크
-        return null;
+
+        //만약 결재자인 경우는 승인/반려 처리할 수 있도록 따로 값을 추가로 전달 model에
+
+        //해당 결재문서 데이터 불러오기 ApDocDTO
+        //결재문서에 대한 결재자 및 결재 정보 불러오기 ApDto
+
+
+        return "approval/approvalGet";
     }
 
 

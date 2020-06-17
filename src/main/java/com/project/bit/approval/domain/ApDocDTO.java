@@ -12,6 +12,7 @@ public class ApDocDTO {
     private Long apDocNo;
     private int apFormNo;
     private String apDocWriter;
+    private String apDocWriterName;
     private String apDocTitle;
     private String apDocContent;
     private int apDocStatus;
