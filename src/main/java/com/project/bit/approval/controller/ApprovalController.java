@@ -85,7 +85,10 @@ public class ApprovalController {
 
         //첨부파일 등록하기
 //        log.info("첨부파일 들어오는지? -----------------"+ apFileDTO.getApFileName());
-        if(!(apFileDTO.getApFileName()==null)) apDocService.postApDocFiles(apFileDTO);
+        if(!(apFileDTO.getApFileName()==null)) {
+            apFileDTO.setApDocNo(apDocNo);
+            apDocService.postApDocFiles(apFileDTO);
+        }
 
 
         return "redirect:/approval/apMain"; //결재진행화면으로변경하기
@@ -131,7 +134,7 @@ public class ApprovalController {
 
         //조회 권한이 있는 사용자만 볼 수 있도록 체크
         if(!apDocService.getApDocViewableUsers(apDocNo).contains(principal.getName())){
-            System.out.println("불가능!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("조회 불가능 사용자!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             return "redirect:apMain"; //임시로
         }
         //해당 결재문서 데이터 불러오기 ApDocDTO
@@ -150,6 +153,7 @@ public class ApprovalController {
                     apDocData.getApDocStep()==approver.getApStep()
             ){
                 System.out.println("결재자에요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                model.addAttribute("checkApprover", true);
             }
         }
 
@@ -159,6 +163,32 @@ public class ApprovalController {
 
         return "approval/approvalGet";
     }
+
+
+    //승인 및 반려 처리
+    @PostMapping("/postApproval")
+    public String postApproval(Model model,Principal principal, ApDTO apDTO){
+
+        log.info("----------------------------결재 처리 부분 ------------------------------");
+        log.info(principal.getName()); //결재자 아이디
+        log.info(apDTO.getApDocNo()+""); //어떤 문서에 대한건지
+        log.info(apDTO.getApResult()+""); //승인인지 반려인지
+        log.info(apDTO.getApComment());
+
+        if(apDTO.getApResult()==1){
+            //마지막 결재자라면? 문서상태를 완료로 업데이트 & 결재 업데이트(결재 결과, 결재 의견, 결재일자)
+            //아니라면? 문서단계(+1) 업데이트 & 결재 업데이트(결재 결과, 결재 의견, 결재일자) & 다음결재자 결재수신일자 업데이트
+
+
+        }else {
+            log.info("반려");
+            //결재 업데이트 (결재 결과, 결재 의견, 결재일자) & 문서단계(0으로)업데이트...
+        }
+
+
+        return "redirect:/approval/apMain"; //결재진행화면으로변경하기
+    }
+
 
 
 }

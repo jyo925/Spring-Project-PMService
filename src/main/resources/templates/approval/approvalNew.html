@@ -263,11 +263,17 @@
 
                     //2. 입력란 유효성 검사
                     var apDocTitle = $("#apDocTitle");
+                    var apDocContent = $("#apDocContent");
                     console.log(apDocTitle.val());
 
                     if (apDocTitle.val() == "") {
                         alert("제목을 입력해 주세요");
                         apDocTitle.focus();
+                        return false;
+                    }
+                    if (apDocContent.val() == "" || apDocContent.val() == formData) {
+                        alert("내용을 입력해 주세요");
+                        apDocContent.focus();
                         return false;
                     }
 

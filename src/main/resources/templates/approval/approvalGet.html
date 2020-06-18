@@ -15,18 +15,45 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group row">
-                        <button type="submit" class="btn btn-success btn-fw"
+                        <input hidden="hidden" th:value="${apDocData.getApFormNo()}" id="apDocFormNo">
+                        <input hidden="hidden" th:value="${checkApprover}" id="checkApprover">
+                        <button type="button" class="btn btn-primary btn"
                                 style="float: right; margin-left: 25px"
                                 onclick="location.href = '/approval/getApProgressList'">목록
                         </button>
-                        <button type="submit" class="btn btn-success btn-fw"
-                                style="float: right; margin-left: 25px">승인
-                        </button>
-                        <button type="submit" class="btn btn-success btn-fw"
-                                style="float: right; margin-left: 25px">반려
-                        </button>
-                    </div>
-                    <h3 class="card-title" th:text="어떤문서종류인지" readonly></h3><br>
+                        <br>
+                    </div><hr>
+
+
+                        <form th:action="@{/approval/postApproval}" method="post" role="form">
+                            <input name="apDocNo" hidden="hidden" th:value="${apDocData.getApDocNo()}">
+                            <!-- 결재 결과 승인인지 반려인지 -->
+                            <input hidden="hidden" value="" id="apResult" name="apResult">
+
+                            <div class="form-group row" style="display: none" id="apDiv">
+                                <div class="col-lg-2">
+                                    <label class="col-form-label">결재의견</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input name="apComment" type="textarea" class="form-control" maxlength="500 " placeholder="결재의견을 입력하세요."
+                                    style="width: 95%; height: 70px;">
+                                </div>
+                                <div class="col-lg-4">
+                                <button id="apPass" type="submit" class="btn btn-success btn-fw"
+                                        style="float: left; margin-right: 25px">승인
+                                </button>
+                                <button id="apReject" type="submit" class="btn btn-success btn-fw"
+                                        style="float: left; margin-right: 25px">반려
+                                </button>
+                                </div>
+
+                            </div>
+
+
+                        </form>
+
+
+                    <h2 id="apDocFormName" class="card-title" text=""></h2>
 
                     <div class="form-group row">
                         <div class="col-lg-2">
@@ -34,8 +61,8 @@
                         </div>
                         <div class="col-lg-8">
                             <input class="form-control" maxlength="100" name="apDocTitle" type="text"
-                                   id="apDocTitle"
-                                   th:value="제목불러오기">
+                                   id="apDocTitle" readonly style="background-color:white;"
+                                   th:value="${apDocData.getApDocTitle()}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -43,9 +70,8 @@
                             <label class="col-form-label">기안자</label>
                         </div>
                         <div class="col-lg-8">
-                            <!--principal로 수정했는데 이름으로 나오도록 변경하기-->
                             <input class="form-control" maxlength="100" name="apDocWriter"
-                                   th:value="${#authentication.name}" type="text" readonly>
+                                   th:value="${apDocData.getApDocWriterName()}" type="text" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -53,9 +79,9 @@
                             <label class="col-form-label">기안일</label>
                         </div>
                         <div class="col-lg-8">
-                            <!--principal로 수정했는데 이름으로 나오도록 변경하기-->
                             <input class="form-control" maxlength="100" name="apDocWriter"
-                                   value="기안일" type="text" readonly>
+                                   th:value="${#dates.format(apDocData.getApDocCreateDate(), 'yyyy-MM-dd')}" type="text"
+                                   readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -66,7 +92,7 @@
                             <div class="row">
                                 <div class="col-12 col">
                                     <input class="form-control" maxlength="200" name="apReferrers" type="text"
-                                           value="참조자 목록" readonly>
+                                           value="참조자 목록 나열하기" readonly>
                                 </div>
                             </div>
                         </div>
@@ -102,19 +128,24 @@
                                 <thead>
                                 <tr>
                                     <th:block th:each="i : ${#numbers.sequence( 0, approvalData.size()-1)}">
-                                        <th width="40px" th:text="${approvalData.get(i).getApDutyName()}"></th>
+                                        <th width="60px" th:text="${approvalData.get(i).getApDutyName()}"></th>
                                     </th:block>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <th:block th:each="i : ${#numbers.sequence( 0, approvalData.size()-1)}">
-                                        <td width="40px" th:text="${approvalData.get(i).getUserName()}"></td>
+                                        <td width="60px" th:text="${approvalData.get(i).getUserName()}"></td>
                                     </th:block>
                                 </tr>
                                 <tr>
                                     <th:block th:each="i : ${#numbers.sequence( 0, approvalData.size()-1)}">
-                                        <td th:if="${approvalData.get(i).getApResult().toString().equals('0')}" width="40px" th:text="미결"></td>
+                                        <td th:if="${approvalData.get(i).getApResult().toString().equals('0')}"
+                                            width="60px" th:text="미결"></td>
+                                        <td th:if="${approvalData.get(i).getApResult().toString().equals('1')}"
+                                            width="60px" th:text="승인"></td>
+                                        <td th:if="${approvalData.get(i).getApResult().toString().equals('2')}"
+                                            width="60px" th:text="반려"></td>
                                     </th:block>
                                 </tr>
                                 </tbody>
@@ -132,7 +163,7 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name="apDocContent" id="formData" value="문서내용 여따 넣어">
+                    <input type="hidden" name="apDocContent" id="formData" th:value="${apDocData.getApDocContent()}">
 
                     <!-- 모달 -->
                     <!-- 모달 end -->
@@ -149,7 +180,7 @@
                     {
                         name: 'document',
                         groups: ['mode', 'document', 'doctools'],
-                        items: ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']
+                        items: ['Source', 'Preview', 'Print']
                     }
                 ],
                 width: '100%',
@@ -159,10 +190,69 @@
             var formData = document.querySelector('#formData').value;
 
             CKEDITOR.instances.editor1.setData(formData);
-            // CKEDITOR.config.readOnly = true;
+            CKEDITOR.config.readOnly = true;
 
 
             $(document).ready(function (e) {
+
+                //문서양식명 변경
+                var apDocFormName = $('#apDocFormName');
+                switch ($('#apDocFormNo').val()) {
+                    case '1':
+                        apDocFormName.text("교육참가신청서");
+                        break;
+                    case '2':
+                        apDocFormName.text("휴가계획서");
+                        break;
+                    case '3':
+                        apDocFormName.text("출장보고서");
+                        break;
+                    case '4':
+                        apDocFormName.text("구매요청서");
+                        break;
+                    default:
+                        apDocFormName.text("회의록");
+                }
+
+                //승인 및 반려 버튼 여부 -> 결재자일 경우 show
+                if ($('#checkApprover').val() == 'true') {
+                    // $('#apPass').show();
+                    // $('#apReject').show();
+                    $('#apDiv').show();
+                }
+
+                var formObj = $("form[role='form']");
+
+                //승인 반려 처리
+                //승인 클릭시
+                $("#apPass").on("click", function (e) {
+                    e.preventDefault();
+                    $('#apResult').val("1");
+
+                    //컨펌창 한번 띄워서 결재 하시겠습니까? 확인하면 넘기기...
+                    var answer = confirm("결재하시겠습니까?");
+                    if(answer == true) {
+                        console.log("전송하자");
+                        formObj.submit();
+                    }
+
+
+                });
+
+                //반려 클릭시
+                $("#apReject").on("click", function (e) {
+                    e.preventDefault();
+                    $('#apResult').val("2");
+
+                    //컨펌창 한번 띄워서 결재 하시겠습니까? 확인하면 넘기기...
+                    var answer = confirm("결재하시겠습니까?");
+                    if(answer == true) {
+                        console.log("전송하자");
+                        formObj.submit();
+                    }
+
+
+                });
 
 
             });//end
