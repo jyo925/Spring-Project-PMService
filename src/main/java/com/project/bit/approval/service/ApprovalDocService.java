@@ -34,5 +34,14 @@ public interface ApprovalDocService {
 
     //결재문서 조회 권한 있는 사용자 리스트
     public List<String> getApDocViewableUsers(String apDocNo);
+    
+    //문서 정보 업데이트
+    public void putApDoc(ApDTO apDT);
+
+    //문서 정보 최종 업데이트
+    public void putLastApDoc(long apDocNo);
+
+    //첨부파일 가져오기
+    public List<ApFileDTO> getApFiles(String apDocNo);
 
 }

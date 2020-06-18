@@ -15,5 +15,11 @@ public interface ApprovalService {
     
     //결재문서 결재 정보 불러오기
     public List<ApDTO> getApprovalList(String adDocNo);
-    
+
+    //결재 승인 반려시 정보 업데이트
+    public int putApproval(ApDTO apDTO);
+
+    //최종 결재자 여부
+    public String getLastApprover(String adDocNo);
+
 }

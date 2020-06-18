@@ -37,4 +37,10 @@ public interface ApDocMapper {
     //조회 가능한 사용자 리스트
     public List<String> selectApDocViewableUsers(String apDocNo);
 
+    //문서 단계 업데이트
+    public void updateApDocStep(long apDocNo);
+
+    //결재 완료시 문서 업데이트
+    public void updateLastApDoc(long apDocNo);
+
 }

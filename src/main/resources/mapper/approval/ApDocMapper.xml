@@ -96,7 +96,7 @@
         from approvaldoc where ap_doc_no = a.ap_doc_no)
         )and ap_doc_status = 0
         <include refid="criteria"></include>
-        <![CDATA[ and rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
+        <![CDATA[ and rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} order by ap_doc_no asc]]>
     </select>
 
     <select id="selectApDoc" resultType="com.project.bit.approval.domain.ApDocDTO">
@@ -114,4 +114,17 @@
         select ap_doc_writer  AS COLUMN1 from approvaldoc where ap_doc_no = #{apDocNo})
         select * from table1
     </select>
+
+    <update id="updateApDocStep">
+        update approvaldoc
+        set ap_doc_step = ap_doc_step+1
+        where ap_doc_no = #{apDocNo}
+    </update>
+
+    <update id="updateLastApDoc">
+        update approvaldoc
+        set ap_doc_step = ap_doc_step+1, ap_doc_enddate = sysdate, ap_doc_status = 1
+        where ap_doc_no = #{apDocNo}
+    </update>
+
 </mapper>

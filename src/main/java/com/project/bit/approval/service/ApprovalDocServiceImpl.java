@@ -3,6 +3,7 @@ package com.project.bit.approval.service;
 import com.project.bit.approval.domain.*;
 import com.project.bit.approval.mapper.ApDocMapper;
 import com.project.bit.approval.mapper.ApFileMapper;
+import com.project.bit.approval.mapper.ApMapper;
 import com.project.bit.approval.mapper.ApReferrerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
 
     @Autowired
     ApDocMapper apDocMapper;
+
+    @Autowired
+    ApMapper apMapper;
 
     @Autowired
     ApFileMapper apFileMapper;
@@ -100,5 +104,23 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     @Override
     public List<String> getApDocViewableUsers(String apDocNo) {
         return apDocMapper.selectApDocViewableUsers(apDocNo);
+    }
+
+    @Override
+    public void putApDoc(ApDTO apDTO) {
+        //문서단계(+1) 업데이트 &  & 다음결재자 결재수신일자 업데이트
+        apDocMapper.updateApDocStep(apDTO.getApDocNo());
+        apMapper.updateNextApReceiveDate(apDTO);
+    }
+
+    @Override
+    public void putLastApDoc(long apDocNo) {
+        apDocMapper.updateLastApDoc(apDocNo);
+//        문서상태를 완료(1로), 완료일자 업데이트
+    }
+
+    @Override
+    public List<ApFileDTO> getApFiles(String apDocNo) {
+        return apFileMapper.selectApFiles(apDocNo);
     }
 }

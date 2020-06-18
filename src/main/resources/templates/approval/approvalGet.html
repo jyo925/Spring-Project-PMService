@@ -150,7 +150,7 @@
                                 </tr>
                                 </tbody>
                             </table>
-
+                        </div>
                     </th:block>
                     <br>
 
@@ -230,9 +230,8 @@
                     $('#apResult').val("1");
 
                     //컨펌창 한번 띄워서 결재 하시겠습니까? 확인하면 넘기기...
-                    var answer = confirm("결재하시겠습니까?");
+                    var answer = confirm("승인하시겠습니까?");
                     if(answer == true) {
-                        console.log("전송하자");
                         formObj.submit();
                     }
 
@@ -245,17 +244,44 @@
                     $('#apResult').val("2");
 
                     //컨펌창 한번 띄워서 결재 하시겠습니까? 확인하면 넘기기...
-                    var answer = confirm("결재하시겠습니까?");
+                    var answer = confirm("반려하시겠습니까?");
                     if(answer == true) {
-                        console.log("전송하자");
                         formObj.submit();
                     }
 
-
                 });
 
+                //첨부파일 불러오기
+                // (function() {
 
-            });//end
+                    var apDocNo = $("input[name='apDocNo']").val();
+
+                    $.getJSON(
+                            "/approval/getApprovalFiles",
+                            {
+                                apDocNo : apDocNo
+                            },
+                            function(arr) {
+                                console.log(arr);
+                                var str = "";
+                                $(arr)
+                                    .each(
+                                        function(i,
+                                                 attach) {
+                                                str += "<li data-path='"+attach.apFilePath+"' data-uuid='"+attach.apFileUuid+"' data-filename='"+attach.apFileName+"' data-type='"+attach.apFileType+"' ><div>";
+                                                str += "<span> <i class='fa fa-file-o'></i>"
+                                                    + attach.apFileName
+                                                    + "</span><br/>";
+                                                str += "</div></li>";
+                                        });
+                                $(".uploadResult ul").html(str);
+
+                            });//end getjson
+
+                // })();//end func
+
+
+            });//ready end
         </script>
 
     </div> <!-- content end -->

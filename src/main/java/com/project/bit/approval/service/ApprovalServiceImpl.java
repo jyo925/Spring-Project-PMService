@@ -71,4 +71,16 @@ public class ApprovalServiceImpl implements ApprovalService {
         return apMapper.selectApprovalList(adDocNo);
     }
 
+    @Override
+    public int putApproval(ApDTO apDTO) {
+
+        return apMapper.updateApproval(apDTO);
+    }
+
+    @Override
+    public String getLastApprover(String adDocNo) {
+
+        return apMapper.selectLastApprover(adDocNo);
+    }
+
 }

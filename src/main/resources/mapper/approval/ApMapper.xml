@@ -65,4 +65,28 @@
         on a.ap_approver = u.user_id
         where a.ap_doc_no = #{apDocNo}
     </select>
+
+    <select id="selectLastApprover" resultType="String">
+        select ap_approver
+        from (select ap_approver, ap_step
+            from approval
+            where ap_doc_no = #{apDocNo}
+            order by ap_step desc)
+        where ROWNUM=1
+    </select>
+
+    <update id="updateApproval">
+        update approval
+        set ap_result = #{apResult}, ap_comment = #{apComment}, ap_signdate = sysdate
+        where ap_doc_no = #{apDocNo} and ap_approver = #{apApprover}
+    </update>
+
+    <update id="updateNextApReceiveDate">
+        update approval
+        set ap_receivedate=sysdate
+        where ap_no = (select ap_no from approval
+                where ap_step =
+                        (select ap_step from approval
+                                where ap_Doc_no= #{apDocNo} and ap_approver = #{apApprover})+1 and ap_doc_no = #{apDocNo})
+    </update>
 </mapper>

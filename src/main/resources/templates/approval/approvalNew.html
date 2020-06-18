@@ -107,19 +107,19 @@
                                 <thead>
                                 <tr>
                                     <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                        <th width="40px" th:text="${approvers.get(i).getDutyName()}"></th>
+                                        <th width="60px" th:text="${approvers.get(i).getDutyName()}"></th>
                                     </th:block>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                        <td width="40px" th:text="${approvers.get(i).getUserName()}"></td>
+                                        <td width="60px" th:text="${approvers.get(i).getUserName()}"></td>
                                     </th:block>
                                 </tr>
                                 <tr>
                                     <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                        <td width="40px">미결</td>
+                                        <td width="60px">미결</td>
                                     </th:block>
                                 </tr>
                                 </tbody>
