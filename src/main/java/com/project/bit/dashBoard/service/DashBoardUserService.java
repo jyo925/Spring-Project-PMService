@@ -1,8 +1,6 @@
 package com.project.bit.dashBoard.service;
 
-import com.project.bit.dashBoard.domain.IssueTypeCountVO;
-import com.project.bit.dashBoard.domain.TaskStatusCountVO;
-import com.project.bit.dashBoard.domain.UserCountVO;
+import com.project.bit.dashBoard.domain.*;
 
 import java.util.*;
 
@@ -11,10 +9,10 @@ public interface DashBoardUserService {
 
     public List<TaskStatusCountVO> getTaskStatusCount(String userId);
 
-//    public List<OutputVO> getMyOutputList(String userId);
+    public List<UserOutputVO> getMyOutputList(String userId);
 
-    public List<IssueTypeCountVO> getIssueStatusCount(String userId);
+    public List<IssueStatusCountVO> getIssueStatusCount(String userId);
 
-//    public List<MyTaskVO> getMyTaskList(String userId);
+    public List<UserTaskVO> getMyTaskList(String userId);
 
 }

@@ -1,12 +1,8 @@
 package com.project.bit.dashBoard.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Setter
-@Getter
-@ToString
+@Data
 public class ProjectStatusVO {
     private String projectStatusName;
     private int projectStatusAll;

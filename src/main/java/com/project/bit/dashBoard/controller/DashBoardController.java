@@ -1,5 +1,7 @@
 package com.project.bit.dashBoard.controller;
 
+import com.project.bit.dashBoard.domain.IssueStatusCountVO;
+import com.project.bit.dashBoard.domain.TaskStatusCountVO;
 import com.project.bit.dashBoard.mapper.DashBoardAllMapper;
 import com.project.bit.dashBoard.service.DashBoardAllService;
 import com.project.bit.dashBoard.service.DashBoardUserService;
@@ -16,47 +18,55 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class DashBoardController {
-	
-	private DashBoardDetailService dashBoardDetailService;
-	private DashBoardAllService dashBoardAllService;
-	private DashBoardAllMapper dashBoardAllMapper;
-	private DashBoardUserService dashBoardUserService;
-	
-	@GetMapping("/dashBoardDetail")
-	public String goDashBoard(Model model) {
-		model.addAttribute("projectNameList", dashBoardDetailService.findProjectList());
-		return "dashBoard/dashBoardDetail";
-	}
 
-	/* dashBoard All Start */
-	@GetMapping("/dashBoardAll")
-	public String dashBoardSection(Model model) {
-		model.addAttribute("keyProjectList", dashBoardAllService.getKeyProject());
-		model.addAttribute("projectStatusCount", dashBoardAllService.getProjectAllStatusCount());
-		return "dashBoard/dashBoardAll";
-	}
+    private DashBoardDetailService dashBoardDetailService;
+    private DashBoardAllService dashBoardAllService;
+    private DashBoardUserService dashBoardUserService;
 
-	/* dashBoard User */
-	@GetMapping("/dIndex")
-	public String dashBoardUserCont(Model model, Principal principal) {
-		model.addAttribute("userStatusCount", dashBoardUserService.getDashBoardUserCount(principal.getName()));
-		model.addAttribute("userTaskStatus", dashBoardUserService.getTaskStatusCount(principal.getName()));
-		model.addAttribute("userIssueStatus", dashBoardUserService.getIssueStatusCount(principal.getName()));
-		return "dashBoard/dashBoardUser";
-	}
+    @GetMapping("/dashBoardDetail")
+    public String goDashBoard(Model model) {
+        model.addAttribute("projectNameList", dashBoardDetailService.findProjectList());
+        return "dashBoard/dashBoardDetail";
+    }
 
-	/**/
-	@GetMapping("/monthly")
-	@ResponseBody /**/
-	public ResponseEntity monthly() {
-		return new ResponseEntity(dashBoardAllService.getKeyProject(), HttpStatus.OK);
-	}
+    /* dashBoard All Start */
+    @GetMapping("/dashBoardAll")
+    public String dashBoardSection(Model model) {
+        model.addAttribute("keyProjectList", dashBoardAllService.getKeyProject());
+        model.addAttribute("projectStatusCount", dashBoardAllService.getProjectAllStatusCount());
+        return "dashBoard/dashBoardAll";
+    }
 
+    /* dashBoard User */
+    @GetMapping("/dIndex")
+    public String dashBoardUserCont(Model model, Principal principal) {
+        model.addAttribute("userStatusCount", dashBoardUserService.getDashBoardUserCount(principal.getName()));
+        model.addAttribute("userTaskList", dashBoardUserService.getMyTaskList(principal.getName()));
+        model.addAttribute("userOutputList", dashBoardUserService.getMyOutputList(principal.getName()));
+        return "dashBoard/dashBoardUser";
+    }
 
+    /* Response */
+    @GetMapping("/monthly")
+    @ResponseBody /**/
+    public ResponseEntity monthly() {
+        return new ResponseEntity(dashBoardAllService.getKeyProject(), HttpStatus.OK);
+    }
 
-	
+    @GetMapping("/dashBoard/chart/task")
+    @ResponseBody
+    public List<TaskStatusCountVO> TaskStatusChart(Principal principal) {
+        return dashBoardUserService.getTaskStatusCount(principal.getName());
+    }
+
+    @GetMapping("/dashBoard/chart/issue")
+    @ResponseBody
+    public List<IssueStatusCountVO> IssueStatusChart(Principal principal) {
+        return dashBoardUserService.getIssueStatusCount(principal.getName());
+    }
 }

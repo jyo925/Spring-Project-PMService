@@ -1,8 +1,6 @@
 package com.project.bit.dashBoard.service;
 
-import com.project.bit.dashBoard.domain.IssueTypeCountVO;
-import com.project.bit.dashBoard.domain.TaskStatusCountVO;
-import com.project.bit.dashBoard.domain.UserCountVO;
+import com.project.bit.dashBoard.domain.*;
 import com.project.bit.dashBoard.mapper.DashBoardUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +30,17 @@ public class DashBoardUserServiceImpl implements DashBoardUserService {
     }
 
     @Override
-    public List<IssueTypeCountVO> getIssueStatusCount(String userId) {
+    public List<UserOutputVO> getMyOutputList(String userId) {
+        return dashBoardUserMapper.selectMyOutputList(userId);
+    }
+
+    @Override
+    public List<IssueStatusCountVO> getIssueStatusCount(String userId) {
         return dashBoardUserMapper.selectIssueStatus(userId);
+    }
+
+    @Override
+    public List<UserTaskVO> getMyTaskList(String userId) {
+        return dashBoardUserMapper.selectMyTaskList(userId);
     }
 }

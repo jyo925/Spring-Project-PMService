@@ -1,13 +1,9 @@
 package com.project.bit.dashBoard.domain;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Setter
-@Getter
-@ToString
+@Data
 @NoArgsConstructor
 public class UserCountVO {
     private int userProjectCount;

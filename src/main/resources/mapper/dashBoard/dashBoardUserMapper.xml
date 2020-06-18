@@ -37,27 +37,52 @@
 
 	<!-- user task status chart -->
 	<select id="selectTaskStatus" resultType="com.project.bit.dashBoard.domain.TaskStatusCountVO">
-		select count(t.task_status_code) as task_status_all
-			,count(case when t.task_status_code = 'taskstatus100' then 1 end) as task_status_process
-			,count(case when t.task_status_code = 'taskstatus200' then 1 end) as task_status_complete
-			,count(case when t.task_status_code = 'taskstatus300' then 1 end) as task_status_standBy
-			from project_tasks t
-			inner join project_task_managers tm
-			on t.task_code=tm.task_code
-			join users u on tm.task_manager_id=u.user_id
-			where u.user_id=#{userId}
+		select count(t.task_status_code) as task_status,
+			ts.task_status as task_status_name
+			from project_tasks t, project_task_status ts, project_task_managers tm
+			where tm.task_manager_id=#{userId}
+			and tm.task_code=t.task_code
+			and t.task_status_code=ts.task_status_code
+			group by t.task_status_code, ts.task_status
 	</select>
 
 	<!-- user issue status chart -->
-	<select id="selectIssueStatus" resultType="com.project.bit.dashBoard.domain.IssueTypeCountVO">
-		select count(i.issue_type_code) as issue_type_all
-			,count(case when i.issue_type_code = 'issuetype100' then 1 end) as issue_type_change
-			,count(case when i.issue_type_code = 'issuetype200' then 1 end) as issue_type_delay
-			,count(case when i.issue_type_code = 'issuetype300' then 1 end) as issue_type_improve
-			,count(case when i.issue_type_code = 'issuetype400' then 1 end) as issue_type_etc
-			from project_issues i
-			inner join users u
-			on i.issue_user_id=u.user_id
-			where u.user_id=#{userId}
+	<select id="selectIssueStatus" resultType="com.project.bit.dashBoard.domain.IssueStatusCountVO">
+		select count(i.issue_code) as issue_status,
+			it.issue_type as issue_status_name
+			from project_issues i, project_issue_types it
+			where i.issue_user_id=#{userId}
+			and i.issue_type_code=it.issue_type_code
+			group by i.issue_code, it.issue_type
+	</select>
+
+	<!-- user newly task/project list -->
+	<select id="selectMyTaskList" resultType="com.project.bit.dashBoard.domain.UserTaskVO">
+		<![CDATA[
+        select * from(select t.*, p.project_name
+			from project_tasks t
+			inner join project_task_groups tg
+			on t.taskGroup_code=tg.taskGroup_code
+			join projects p
+			on tg.project_code=p.project_code
+			join project_members pm
+			on p.project_code=pm.project_code
+			where pm.user_id=#{userId}
+			order by (select to_char(sysdate, 'YYYYMMDD') from dual) - to_char(p.project_start, 'YYYYMMDD') ASC)
+			where ROWNUM<=3 order by task_start ASC
+        ]]>
+	</select>
+
+	<!-- user output list -->
+	<select id="selectMyOutputList" resultType="com.project.bit.dashBoard.domain.UserOutputVO">
+		select pt.task_name, o.output_date, o.output_name, p.project_name
+			from project_outputs o
+			inner join project_tasks pt
+			on o.task_code=pt.task_code
+			join project_task_groups ptg
+			on pt.taskgroup_code=ptg.taskgroup_code
+			join projects p
+			on ptg.project_code=p.project_code
+			where o.output_user=#{userId}
 	</select>
 </mapper>

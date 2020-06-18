@@ -1,9 +1,7 @@
 package com.project.bit.dashBoard.mapper;
 
 
-import com.project.bit.dashBoard.domain.IssueTypeCountVO;
-import com.project.bit.dashBoard.domain.TaskStatusCountVO;
-import com.project.bit.dashBoard.domain.UserCountVO;
+import com.project.bit.dashBoard.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.*;
@@ -19,10 +17,10 @@ public interface DashBoardUserMapper {
 
     public List<TaskStatusCountVO> selectTaskStatus(String userId);
 
-//    public List<OutputVO> selectMyOutputList(String userId);
+    public List<UserOutputVO> selectMyOutputList(String userId);
 
-    public List<IssueTypeCountVO> selectIssueStatus(String userId);
+    public List<IssueStatusCountVO> selectIssueStatus(String userId);
 
-//    public List<MyTaskVO> selectMyTaskList(String userId);
+    public List<UserTaskVO> selectMyTaskList(String userId);
 
 }
