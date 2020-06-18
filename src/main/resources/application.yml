@@ -9,6 +9,11 @@ spring:
     livereload:
       enabled: true
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
 mybatis:
   mapper-locations: mapper/**/*Mapper.xml
   type-aliases-package: com.project.bit.foo.domain

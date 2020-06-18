@@ -45,7 +45,7 @@ public class MyUserDetailService implements UserDetailsService {
 			grantedAuthorities.add(new SimpleGrantedAuthority(member.getDutyCode()));
 		}
 		
-		User user = new User(member.getUserName(), member.getUserPw(), grantedAuthorities);
+		User user = new User(member.getUserId(), member.getUserPw(), grantedAuthorities);
 		return user;
 
 	}

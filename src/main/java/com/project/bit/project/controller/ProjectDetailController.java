@@ -26,23 +26,12 @@ import com.project.bit.project.service.ProjectService;
 @Controller
 public class ProjectDetailController {
 	
-	@Autowired
-	private ProjectService projectService;
-	
-	@Autowired
-	private ProjectDetailService projectDetailService;
-	
-	@Autowired
-	private ProjectMemberService projectMemberService;
-	
-	@Autowired
-	private TeamsService teamsService;
-	
-	@Autowired
-	private PositionsService positionsService;
-	
-	@Autowired
-	private UserService userService;
+	@Autowired	private ProjectService projectService;
+	@Autowired	private ProjectDetailService projectDetailService;
+	@Autowired	private ProjectMemberService projectMemberService;
+	@Autowired	private TeamsService teamsService;
+	@Autowired	private PositionsService positionsService;
+	@Autowired	private UserService userService;
 	
 	// 프로젝트 상세 차트
 	@RequestMapping("/project/{projectId}")

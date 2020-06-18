@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layout/default}">
+<head>
+    <title id="pageTitle">MAIN</title>
+    <!-- 현제 페이지 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+    </th:block>
+
+    <!-- 현제 페이지 고유 스크립 추가 -->
+    <th:block layout:fragment="script">
+    </th:block>
+
+    <div layout:fragment="content">
+
+        <script th:src="@{/js/approval/jquery.treeview.js}"></script>
+        <link rel="stylesheet" th:href="@{/js/approval/jquery.treeview.css}"/>
+
+        <div class="row">
+            <div class="col-12 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">title</h6>
+                        <p class="card-description">this is index.html</p>
+                        <div id="js-legend" class="chartjs-legend mt-4 mb-5"></div>
+
+                        <ul id="browser" class="filetree treeview">
+                            <li class="collapsable">
+                                <div class="hitarea collapsable-hitarea"></div>
+                                <span class="folder">Folder 1</span>
+                                <ul style="display: block;">
+                                    <li class="last"><span class="file">Item 1.1</span></li>
+                                </ul>
+                            </li>
+                            <li class="closed expandable">
+                                <div class="hitarea closed-hitarea expandable-hitarea"></div>
+                                <span class="folder">Folder 3</span>
+                                <ul style="display: none;">
+                                    <li class="last"><span class="file">File 3.1</span></li>
+                                </ul>
+                            </li>
+                            <li class="closed expandable">
+                                <div class="hitarea closed-hitarea expandable-hitarea"></div>
+                                <span class="folder">Folder 4</span>
+                                <ul style="display: none;">
+                                    <li class="last"><span class="file">File 4</span></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--	<script src="/js/approval/jquery.cookie.js"></script>-->
+        <script>
+            $(document).ready(function () {
+                // first example
+                $("#browser").treeview();
+            });
+        </script>
+
+        <!-- js code -->
+        <th:block layout:fragment="scriptCode">
+
+        </th:block>
+    </div>
+
+
+</html>

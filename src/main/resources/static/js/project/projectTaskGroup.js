@@ -2,9 +2,7 @@ $(function(){
 	deleteGroup();
 	updateGroupName();
 	groupAddModal();
-	
-	
-	
+
 })
 
 function deleteGroup(){
