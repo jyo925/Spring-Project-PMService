@@ -25,7 +25,7 @@ class DashBoardControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("user001")
     public void test2() throws Exception {
         mockMvc.perform((MockMvcRequestBuilders.get("/dIndex"))).andDo(print());
     }

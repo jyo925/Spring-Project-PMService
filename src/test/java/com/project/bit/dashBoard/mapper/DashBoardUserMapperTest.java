@@ -11,7 +11,12 @@ class DashBoardUserMapperTest {
 
     @Test
     public void test1() {
-        dashBoardUserMapper.selectTaskCount("user001");
+        dashBoardUserMapper.selectOutputCount("user001");
+    }
+
+    @Test
+    public void test2() {
+        dashBoardUserMapper.selectIssueStatus("user001");
     }
 
 }

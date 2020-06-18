@@ -44,6 +44,8 @@ public class DashBoardController {
 	@GetMapping("/dIndex")
 	public String dashBoardUserCont(Model model, Principal principal) {
 		model.addAttribute("userStatusCount", dashBoardUserService.getDashBoardUserCount(principal.getName()));
+		model.addAttribute("userTaskStatus", dashBoardUserService.getTaskStatusCount(principal.getName()));
+		model.addAttribute("userIssueStatus", dashBoardUserService.getIssueStatusCount(principal.getName()));
 		return "dashBoard/dashBoardUser";
 	}
 

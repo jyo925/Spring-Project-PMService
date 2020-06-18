@@ -9,11 +9,11 @@ import java.util.*;
 public interface DashBoardUserService {
     public UserCountVO getDashBoardUserCount(String userId);
 
-    public List<TaskStatusCountVO> getTaskStatusCountUser(String userId);
+    public List<TaskStatusCountVO> getTaskStatusCount(String userId);
 
 //    public List<OutputVO> getMyOutputList(String userId);
 
-    public List<IssueTypeCountVO> getIssueStatusCountUser(String userId);
+    public List<IssueTypeCountVO> getIssueStatusCount(String userId);
 
 //    public List<MyTaskVO> getMyTaskList(String userId);
 

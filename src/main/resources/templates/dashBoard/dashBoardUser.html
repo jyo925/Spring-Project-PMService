@@ -20,13 +20,18 @@
                     <h6 class="card-title">주요 프로젝트<a href="#"><span class="float-right">+more</span></a></h6>
                     <div class="row">
                         <div class="col-md-3">
-                            <div th:text="${userStatusCount != null} ? ${userStatusCount} : '0'"></div>
+                            <div th:text="${userStatusCount.userTaskCount}"></div>
                         </div>
                         <div class="col-md-3">
-                            <div th:text="${userStatusCount != null} ? ${userStatusCount} : '0'"></div>
+                            <div th:text="${userStatusCount.userIssueCount}"></div>
                         </div>
-                        <div class="col-md-3"></div>
-                        <div class="col-md-3"></div>
+                        <div class="col-md-3">
+                            <div th:text="${userStatusCount.userOutputCount}"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div th:text="${userStatusCount.userProjectCount}"></div>
+<!--                        <div th:text="${userStatusCount.userProjectCount != null} ? ${userStatusCount.userProjectCount} : '0'"></div>-->
+                        </div>
                     </div>
                 </div>
             </div>

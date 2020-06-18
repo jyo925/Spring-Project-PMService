@@ -17,11 +17,11 @@ public interface DashBoardUserMapper {
     public UserCountVO selectOutputCount(String userId);
 
 
-    public List<TaskStatusCountVO> selectMyTaskList(String userId);
+    public List<TaskStatusCountVO> selectTaskStatus(String userId);
 
 //    public List<OutputVO> selectMyOutputList(String userId);
 
-    public List<IssueTypeCountVO> selectCountIssueStatus(String userId);
+    public List<IssueTypeCountVO> selectIssueStatus(String userId);
 
 //    public List<MyTaskVO> selectMyTaskList(String userId);
 
