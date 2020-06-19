@@ -27,5 +27,8 @@ class ChatControllerTest {
     ).andDo(print());
   }
 
-
+  @Test
+  @WithMockUser(username = "user001")
+  public void test2() throws Exception {
+  }
 }

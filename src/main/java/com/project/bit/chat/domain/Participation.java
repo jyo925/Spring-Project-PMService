@@ -15,6 +15,7 @@ public class Participation {
   private String conversationId;
   private Date joinTime;
 
+  @Builder
   public Participation(String userId, String conversationId) {
     this.userId = userId;
     this.conversationId = conversationId;

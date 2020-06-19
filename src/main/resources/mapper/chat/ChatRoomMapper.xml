@@ -9,7 +9,10 @@
         <result property="createdAt" column="conversation_creation_time"></result>
     </resultMap>
 
-    <insert id="save">
+    <insert id="save" parameterType="com.project.bit.chat.domain.ChatRoom">
+        <selectKey keyProperty="conversationId" resultType="String" order="BEFORE">
+            select chatrooms_seq.nextval from dual
+        </selectKey>
         INSERT INTO chatrooms (conversation_id)
         VALUES (chatrooms_seq.NEXTVAL)
     </insert>
