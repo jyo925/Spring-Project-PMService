@@ -7,8 +7,8 @@
 
 <div layout:fragment="content">
     <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
-    <script th:src="@{/js/approval/jquery.treeview.js}"></script>
-    <link rel="stylesheet" th:href="@{/js/approval/jquery.treeview.css}"/>
+<!--    <script th:src="@{/js/approval/jquery.treeview.js}"></script>-->
+<!--    <link rel="stylesheet" th:href="@{/js/approval/jquery.treeview.css}"/>-->
 
     <div class="row">
         <div class="col-12 grid-margin">
@@ -184,7 +184,7 @@
                     }
                 ],
                 width: '100%',
-                height: '800px',
+                height: '600px',
                 startupFocus: false
             });
             var formData = document.querySelector('#formData').value;
@@ -234,8 +234,6 @@
                     if(answer == true) {
                         formObj.submit();
                     }
-
-
                 });
 
                 //반려 클릭시
@@ -252,34 +250,43 @@
                 });
 
                 //첨부파일 불러오기
-                // (function() {
+                var apDocNo = $("input[name='apDocNo']").val();
+                $.getJSON(
+                    "/approval/getApprovalFiles",
+                    {
+                        apDocNo: apDocNo
+                    },
+                    function (arr) {
+                        console.log(arr);
+                        var str = "";
+                        $(arr)
+                            .each(
+                                function (i,
+                                          attach) {
+                                    str += "<li style='list-style:none;' data-path='" + attach.apFilePath + "' data-uuid='" + attach.apFileUuid + "' data-filename='" + attach.apFileName + "' data-type='" + attach.apFileType + "' ><div>";
+                                    str += "<span><i class='fa fa-file-o'></i>&nbsp;&nbsp;"
+                                        + attach.apFileName
+                                        + "</span><br/></div></li>";
+                                });
+                        $(".uploadResult ul").html(str);
+                    });//end getjson
 
-                    var apDocNo = $("input[name='apDocNo']").val();
-
-                    $.getJSON(
-                            "/approval/getApprovalFiles",
-                            {
-                                apDocNo : apDocNo
-                            },
-                            function(arr) {
-                                console.log(arr);
-                                var str = "";
-                                $(arr)
-                                    .each(
-                                        function(i,
-                                                 attach) {
-                                                str += "<li data-path='"+attach.apFilePath+"' data-uuid='"+attach.apFileUuid+"' data-filename='"+attach.apFileName+"' data-type='"+attach.apFileType+"' ><div>";
-                                                str += "<span> <i class='fa fa-file-o'></i>"
-                                                    + attach.apFileName
-                                                    + "</span><br/>";
-                                                str += "</div></li>";
-                                        });
-                                $(".uploadResult ul").html(str);
-
-                            });//end getjson
-
-                // })();//end func
-
+                //클릭시 파일 다운
+                $(".uploadResult").on(
+                    "click",
+                    "li",
+                    function(e) {
+                        console.log("view image");
+                        var liObj = $(this);
+                        var path = encodeURIComponent(liObj
+                                .data("path")
+                            + "/"
+                            + liObj.data("uuid")
+                            + "_"
+                            + liObj.data("filename"));
+                            //download
+                            self.location = "/approval/download?fileName="+ path
+                    });
 
             });//ready end
         </script>

@@ -7,14 +7,9 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.jws.WebParam;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Log
@@ -133,10 +128,8 @@ public class ApprovalController {
     @GetMapping("/getApDoc")
     public String getApDoc(@RequestParam("apDocNo") String apDocNo, Model model,Principal principal) {
 
-        //조회 권한이 있는 사용자만 볼 수 있도록 체크
+        //조회 권한 체크
         if(!apDocService.getApDocViewableUsers(apDocNo).contains(principal.getName())){
-            System.out.println("조회 불가능 사용자!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
             return "redirect:apMain"; //임시로, 추후 안내페이지 이동하거나...
         }
         //해당 결재문서 데이터 조회
@@ -176,11 +169,10 @@ public class ApprovalController {
         //승인시
         if(apDTO.getApResult()=='1'){
 
-            //마지막 결재자인 경우
+            //마지막 결재자라면
             if(apService.getLastApprover(String.valueOf(apDTO.getApDocNo())).equals(principal.getName())){
                 apDocService.putLastApDoc(apDTO.getApDocNo());
             }else {
-                //아닌 경우
                 apDocService.putApDoc(apDTO);
             }
         //반려시

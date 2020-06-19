@@ -4,7 +4,6 @@
       layout:decorator="~{layout/default}">
 
 <title id="pageTitle">새 결재 작성</title>
-
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
 
@@ -64,6 +63,7 @@
                                     <div class="col-10 col">
                                         <input class="form-control" maxlength="200" name="apReferrers" type="text"
                                                placeholder="참조자를 선택하세요." readonly>
+                                        <input name="apReferrersId" type="text" value=" " hidden>
                                     </div>
                                     <div class="col-2 col">
                                         <button type="button" id="selectReferrers" class="btn btn-primary btn"
@@ -94,7 +94,7 @@
                             <div class="col-lg-2">
                                 <label class="col-form-label" name="dateFormName">휴가 일자</label>
                             </div>
-                            <div  class="col-lg-8">
+                            <div class="col-lg-8">
                                 <input type="date" class="form-control" name="apExecutionDate">
                             </div>
                         </div>
@@ -179,50 +179,45 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                            <div class="col-6">
-                                                <label for="message-text" class="col-form-label">참조자 정보</label>
-                                                <div class="col-sm-6">
-                                                    <ul id="browser" class="filetree treeview">
-                                                        <li th:each="team: ${teams}" class="closed expandable">
-                                                            <div class="hitarea collapsable-hitarea"></div>
-                                                            <span class="folder" th:text="${team}"></span>
-                                                            <ul style="display: block;">
-                                                                <th:block th:each="referrer:${referrers}"
-                                                                          th:if="${team}==${referrer.teamName}">
-                                                                    <li class="last">
-                                                                        <span class="file"
-                                                                              th:text="${referrer.userName}"></span>
-                                                                    </li>
-                                                                </th:block>
-
-                                                            </ul>
-                                                        </li>
-                                                        <!--                                                        <li class="closed expandable">-->
-                                                        <!--                                                            <div class="hitarea closed-hitarea expandable-hitarea"></div>-->
-                                                        <!--                                                            <span class="folder">Folder 3</span>-->
-                                                        <!--                                                            <ul style="display: none;">-->
-                                                        <!--                                                                <li class="last"><span class="file">File 3.1</span></li>-->
-                                                        <!--                                                            </ul>-->
-                                                        <!--                                                        </li>-->
-                                                        <!--                                                        <li class="collapsable">-->
-                                                        <!--                                                            <div class="hitarea closed-hitarea expandable-hitarea"></div>-->
-                                                        <!--                                                            <span class="folder">Folder 4</span>-->
-                                                        <!--                                                            <ul style="display: none;">-->
-                                                        <!--                                                                <li class="last"><span class="file">File 4</span></li>-->
-                                                        <!--                                                            </ul>-->
-                                                        <!--                                                        </li>-->
-                                                    </ul>
+                                                <div class="col-6">
+                                                    <label for="message-text" class="col-form-label">참조자 정보</label>
+                                                    <div class="col-sm-6">
+                                                        <!-- 참조자 리스트 -->
+                                                        <ul id="browser" class="filetree treeview"
+                                                            style="width: 200px;">
+                                                            <li th:each="team: ${teams}" class="closed expandable">
+                                                                <div class="hitarea closed-hitarea expandable-hitarea"></div>
+                                                                <span class="folder" th:text="${team}"></span>
+                                                                <ul style="display: block;">
+                                                                    <th:block th:each="referrer:${referrers}"
+                                                                              th:if="${team}==${referrer.teamName}">
+                                                                        <li class="last">
+                                                                            <span hidden="hidden"
+                                                                                  th:text="${referrer.userId}"></span>
+                                                                            <span class="file"
+                                                                                  th:text="${referrer.userName}"></span>
+                                                                        </li>
+                                                                    </th:block>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <label for="message-text" class="col-form-label">선택된 참조자</label>
-                                            </div>
+                                                <div class="col-6">
+                                                    <label for="message-text" class="col-form-label">선택된 참조자</label>
+                                                    <div class="col-sm-6" id="selectedRefer">
+                                                        <ul>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-success">적용</button>
+                                    <button type="button" class="btn btn-success" id="referrersApply"
+                                            data-dismiss="modal">적용
+                                    </button>
                                     <button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
                                 </div>
                             </div>
@@ -237,8 +232,44 @@
         <script>
             //에디터 띄우기
             CKEDITOR.replace(document.querySelector('.document-editor__editable'), {
+                toolbar: [
+                    {
+                        name: 'document',
+                        groups: ['mode', 'document', 'doctools'],
+                        items: ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']
+                    },
+                    {
+                        name: 'clipboard',
+                        groups: ['clipboard', 'undo'],
+                        items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']
+                    },
+                    {
+                        name: 'editing',
+                        groups: ['find', 'selection', 'spellchecker'],
+                        items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt']
+                    },
+                    '/',
+                    {
+                        name: 'basicstyles',
+                        groups: ['basicstyles', 'cleanup'],
+                        items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']
+                    },
+                    {
+                        name: 'paragraph',
+                        groups: ['list', 'indent', 'blocks', 'align', 'bidi'],
+                        items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+                    },
+                    {name: 'links', items: ['Link', 'Unlink', 'Anchor']},
+                    {name: 'insert', items: ['Image', 'Flash', 'Table', 'HorizontalRule']},
+                    '/',
+                    {name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize']},
+                    {name: 'colors', items: ['TextColor', 'BGColor']},
+                    {name: 'tools', items: ['Maximize', 'ShowBlocks']},
+                    {name: 'others', items: ['-']},
+                    {name: 'about', items: ['About']}
+                ],
                 width: '100%',
-                height: '800px',
+                height: '600px',
                 startupFocus: false
             });
             var formData = document.querySelector('#formData').value;
@@ -247,12 +278,75 @@
             // CKEDITOR.config.readOnly = true;
             // CKEDITOR.instances.editor1.setReadOnly(true);
 
+
             $(document).ready(function (e) {
 
+                //참조자 모달 관련 ///////////////////////////////////////////////////////////////
+                $("#browser").treeview();
 
-                var formObj = $("form[role='form']");
+                $('#browser li ul li').hover(function () {
+                    $(this).children().css('color', 'red');
+                }, function () {
+                    $(this).children().css('color', 'black');
+                });
+
+                //선택된 참조자 클릭시 참조목록에서 제외
+                $(document).on("click", "#selectedRefer ul li", function (e) {
+                    var indexId = selectedReferArr.indexOf($(this).children().last().text());
+                    var indexIdName = selectedReferNameArr.indexOf($(this).children().first().text());
+
+                    console.log("indexId:"+indexId);
+                    selectedReferArr.splice(indexId,1);
+                    selectedReferNameArr.splice(indexIdName,1);
+                    console.log("id배열:  "+selectedReferArr);
+                    console.log("name배열:  "+selectedReferNameArr);
+                    e.preventDefault();
+                    $(this).remove();
+                });
+
+                var selectedReferArr = new Array(); //submit 참조자 리스트
+                var selectedReferNameArr = new Array(); //참조자 이름
+
+                //참조자 모달에서 참조자 선택시
+                $('#browser li ul li').on('click', function (e) {
+
+                    var selectedId = $(this).children().first().text();
+                    var selectedName = $(this).children().last().text();
+
+                    if (!selectedReferArr.includes(selectedId)) {
+                        selectedReferArr.push(selectedId); //선택된 참조자 아이디를 추가
+                        selectedReferNameArr.push(selectedName);
+                        $('#selectedRefer ul').append("<li style='list-style:none;'>" + "<span>" + selectedName + '</span>' +
+                            "<span hidden='hidden'>" + selectedId + '</span></li>');
+                        // console.log(selectedReferArr);
+                    } else {
+                        confirm("이미 선택된 참조자입니다.");
+                    }
+                    $('#selectedRefer ul li').hover(function () {
+                        $(this).css('color', 'red');
+                    }, function () {
+                        $(this).css('color', 'black');
+                    });
+
+                });
+
+
+
+
+
+                $('#referrersApply').on('click', function (e) {
+                    $("input[name='apReferrers']").val(selectedReferNameArr);
+                    $("input[name='apReferrersId']").val(selectedReferArr); //input hidden controller로 id 전송
+                });
+
+                //선택 버튼 누를 경우 참조자 배열, input 란 초기화 굳이?
+                $('#selectReferrers').on('click', function (e) {
+                });
+
 
                 //---------------------결재 요청 클릭시 ----------------------
+                var formObj = $("form[role='form']");
+
                 $("#request").on("click", function (e) {
 
                     e.preventDefault();
@@ -277,6 +371,8 @@
                         return false;
                     }
 
+
+                    //첨부파일 관련//////////////////////////////////////////////////////////////////////
                     //첨부파일 formObj에 추가하여 controller로 전송
                     var str = "";
 
@@ -437,33 +533,6 @@
                 });
 
                 //////////////////////////////////////////////////////////////////////////////
-
-
-                //참조자 선택시 옆으로 이동 & 기존 화면 input 란에 반영하기
-                // $('#selectReferrers').on('click', function (e) {
-                //
-                // });
-                //
-                // $.ajax({
-                //     url: '/approval/getReferrerUserList',
-                //     processData: false,
-                //     contentType: false,
-                //     type: 'POST',
-                //     dataType: 'json',
-                //     success: function (result) {
-                //         console.log(result);
-                //         console.log(result[0].userId);
-                //         console.log(result[1].userId);
-                //         var $li = $("<li class='collapsable'>" +
-                //             "<div class='hitarea collapsable-hitarea'></div>" +
-                //             "<span class='folder'>"+result[0].teamName+"</span>" +
-                //             "<ul style='display: block;'><li class='last'><span class='file'>" +
-                //             result[0].userName+"</span></li></ul></li>");
-                //
-                //         var referrerList = $('#browser').prepend($li);
-                //         console.log(referrerList);
-                //     }
-                // }); //ajax end
 
                 var formType = $("input[name='apFormNo']").val();
                 switch (formType) {
