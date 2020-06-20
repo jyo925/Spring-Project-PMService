@@ -44,4 +44,9 @@ public interface ApprovalDocService {
     //첨부파일 가져오기
     public List<ApFileDTO> getApFiles(String apDocNo);
 
+    //참조자 등록
+    public void postApDocReferrers(long apDocNo, String apReferrersId);
+
+    //참조문서 조회
+    public List<ApDocListVO> getApReferList(String apReferrer, Criteria cri);
 }

@@ -5,12 +5,14 @@ import com.project.bit.approval.mapper.ApDocMapper;
 import com.project.bit.approval.mapper.ApFileMapper;
 import com.project.bit.approval.mapper.ApMapper;
 import com.project.bit.approval.mapper.ApReferrerMapper;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Log
 @Service
 public class ApprovalDocServiceImpl implements ApprovalDocService {
 
@@ -78,7 +80,6 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
         String[] apFileType = apFileDTO.getApFileType().split(",");
 
         for (int i = 0; i < apFileName.length; i++) {
-            System.out.println(apFileName[i]);
             apFileMapper.insertApFile(ApFileDTO.builder()
                     .apDocNo(apDocNo)
                     .apFileName(apFileName[i])
@@ -122,5 +123,24 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     @Override
     public List<ApFileDTO> getApFiles(String apDocNo) {
         return apFileMapper.selectApFiles(apDocNo);
+    }
+
+    @Override
+    public void postApDocReferrers(long apDocNo, String apReferrersId) {
+        log.info("서비스단 ------------------------------------------------");
+        log.info(apReferrersId);
+
+        String[] apReferrers = apReferrersId.split(",");
+        log.info(apReferrers+"");
+
+        for(int i=0; i<apReferrers.length; i++){
+            apReferrerMapper.insertApDocReferrer(apDocNo, apReferrers[i]);
+        }
+    }
+
+    @Override
+    public List<ApDocListVO> getApReferList(String apReferrer, Criteria cri) {
+
+        return apDocMapper.selectApReferList(apReferrer, cri);
     }
 }

@@ -64,6 +64,7 @@
                                         <input class="form-control" maxlength="200" name="apReferrers" type="text"
                                                placeholder="참조자를 선택하세요." readonly>
                                         <input name="apReferrersId" type="text" value=" " hidden>
+
                                     </div>
                                     <div class="col-2 col">
                                         <button type="button" id="selectReferrers" class="btn btn-primary btn"
@@ -272,11 +273,9 @@
                 height: '600px',
                 startupFocus: false
             });
-            var formData = document.querySelector('#formData').value;
 
+            var formData = document.querySelector('#formData').value;
             CKEDITOR.instances.editor1.setData(formData);
-            // CKEDITOR.config.readOnly = true;
-            // CKEDITOR.instances.editor1.setReadOnly(true);
 
 
             $(document).ready(function (e) {
@@ -330,18 +329,15 @@
 
                 });
 
-
-
-
-
                 $('#referrersApply').on('click', function (e) {
                     $("input[name='apReferrers']").val(selectedReferNameArr);
                     $("input[name='apReferrersId']").val(selectedReferArr); //input hidden controller로 id 전송
+                    console.log($("input[name='apReferrersId']").val());
                 });
 
                 //선택 버튼 누를 경우 참조자 배열, input 란 초기화 굳이?
-                $('#selectReferrers').on('click', function (e) {
-                });
+                // $('#selectReferrers').on('click', function (e) {
+                // });
 
 
                 //---------------------결재 요청 클릭시 ----------------------

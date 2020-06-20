@@ -127,4 +127,23 @@
         where ap_doc_no = #{apDocNo}
     </update>
 
+
+    <select id="selectApReferList" resultType="com.project.bit.approval.domain.ApDocListVO">
+        select * from
+        (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name, ap_doc_writer, project_code, project_name,
+        ap_doc_createdate, ap_doc_enddate , ap_doc_status
+        from (select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name, d.ap_doc_writer,
+        p.project_code,(select project_name from projects where project_code = p.project_code)as project_name,
+        d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status
+        from approvaldoc d
+        join approvalform f on d.ap_form_no = f.ap_form_no
+        join project_members p on d.ap_doc_writer = p.user_id
+        join (select user_id, user_name from users) u on p.user_id = u.user_id
+        where d.ap_doc_no in (select ap_doc_no from approvalreferrer where ap_referrer = #{apReferrer})
+        and ap_doc_status in (0,1)
+        <include refid="criteria"></include>
+        order by ap_doc_status desc, ap_doc_no asc)
+        <![CDATA[where rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
+    </select>
+
 </mapper>

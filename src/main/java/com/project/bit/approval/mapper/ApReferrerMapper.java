@@ -11,4 +11,6 @@ import java.util.List;
 public interface ApReferrerMapper {
 
     public List<ReferrerVO> selectReferrerUserList();
+
+    public void insertApDocReferrer(long apDocNo, String apReferrer);
 }

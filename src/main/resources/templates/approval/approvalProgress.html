@@ -29,7 +29,7 @@
                                         <div class="input-group-prepend">
                                         </div>
                                         <select class="form-control" name='type'>
-                                            <option value=" " th:selected="${pageMaker.cri.type == null?true:false}">--</option>
+                                            <option value="NULL" th:selected="${pageMaker.cri.type == null?true:false}">--</option>
                                             <option value="N" th:selected="${pageMaker.cri.type eq 'N'?true:false}">문서번호</option>
                                             <option value="T" th:selected="${pageMaker.cri.type eq 'T'?true:false}">제목</option>
                                             <option value="W" th:selected="${pageMaker.cri.type eq 'W'?true:false}">기안자</option>
@@ -90,7 +90,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
                             <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">
-                                <p th:text="'Showing 1 to ' +${apProgressList.size()}+ 'of '+${apProgressList.size()} +' entries'">
+                                <p th:text="'Showing 1 to ' +${apProgressList.size()}+ ' of '+${apProgressList.size()} +' entries'">
 
                             </div>
                         </div>
@@ -165,30 +165,24 @@
                         "click",
                         function(e) {
 
-                            // if (!searchForm.find("option:selected")
-                            //     .val()) {
-                            //     alert("검색종류를 선택하세요.")
-                            //     return false;
-                            // }
-                            //
-                            // if (!searchForm.find(
-                            //     "input[name='keyword']").val()) {
-                            //     alert("키워드를 입력하세요.")
-                            //     return false;
-                            // }
+                            if (searchForm.find("option:selected")
+                                .val()=="NULL") {
+                                alert("검색 종류를 선택하세요.")
+                                return false;
+                            }
+
+                            if (!searchForm.find(
+                                "input[name='keyword']").val()) {
+                                alert("키워드를 입력하세요.")
+                                return false;
+                            }
 
                             searchForm.find("input[name='pageNum']")
                                 .val("1");
-                            e.preventDefalut(); //search버튼 클릭시 폼태그 전송막기
-
+                            // e.preventDefault(); //search버튼 클릭시 폼태그 전송막기
                             searchForm.submit();
-
                         });
-
                 });
     </script>
-
-
 </div>
-
 </html>

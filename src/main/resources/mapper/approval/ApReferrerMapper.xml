@@ -12,4 +12,9 @@
         join teams t on u.team_code =  t.team_code
         order by t.team_name asc, p.position_code asc
     </select>
+
+    <insert id="insertApDocReferrer">
+        insert into approvalreferrer
+        VALUES (#{apDocNo}, #{apReferrer})
+    </insert>
 </mapper>

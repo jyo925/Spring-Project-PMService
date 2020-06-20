@@ -43,4 +43,7 @@ public interface ApDocMapper {
     //결재 완료시 문서 업데이트
     public void updateLastApDoc(long apDocNo);
 
+    //참조문서함 조회
+    public List<ApDocListVO> selectApReferList(String apReferrer, Criteria cri);
+
 }

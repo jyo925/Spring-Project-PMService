@@ -22,12 +22,6 @@ public class ApprovalController {
     @Autowired
     ApprovalService apService;
 
-    @GetMapping("/test")
-    public String testap(){
-        return "approval/indexapproval";
-    }
-
-
     //새 결재 작성하기
     @GetMapping("/apMain")
     public String apMain(Criteria cri,Principal principal, Model model) {
@@ -62,7 +56,7 @@ public class ApprovalController {
 
     //결재 요청(등록)
     @PostMapping("/postApDoc")
-    public String postApDoc(ApDocDTO apDocDTO, ApFileDTO apFileDTO, Model model, Principal principal) {
+    public String postApDoc(ApDocDTO apDocDTO, ApFileDTO apFileDTO, Model model, Principal principal, String apReferrersId) {
 
         ////////////////////////////////////////////
         //PMO는 못하도록 -> 프로제트 내에서 상위 결재자 없음
@@ -87,9 +81,13 @@ public class ApprovalController {
 
         /////////////////////////////////////////////
         //참조자 등록
+        log.info(apReferrersId);
+        if(!apReferrersId.equals(" ")){
+            apDocService.postApDocReferrers(apDocNo, apReferrersId);
+        }
 
 
-        return "redirect:/approval/getApProgressList";
+        return "redirect:/approval/getApProgressList?type=N&keyword="+apDocNo;
     }
 
     //결재 진행함 조회
@@ -112,13 +110,16 @@ public class ApprovalController {
 
     //임시저장함 조회
     @GetMapping("/getApTempList")
-    public String getApTempList() {
+    public String getApTempList(Criteria cri, Principal principal, Model model) {
         return "approval/approvalTemp";
     }
 
     //참조문서함 조회
     @GetMapping("/getReferenceList")
-    public String getReferenceList(){
+    public String getReferenceList(Criteria cri, Principal principal, Model model){
+        log.info("참조자 로그----------------------------------------------");
+        log.info(apDocService.getApReferList(principal.getName(),cri).size()+"");
+
         return "approval/approvalReference";
     }
 
@@ -180,11 +181,7 @@ public class ApprovalController {
             log.info("반려");
             // & 문서단계(0으로)업데이트...
         }
-
-
         return "redirect:/approval/getApCheckList"; //결재진행화면으로변경하기
     }
-
-
 
 }
