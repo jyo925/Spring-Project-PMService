@@ -143,4 +143,22 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
 
         return apDocMapper.selectApReferList(apReferrer, cri);
     }
+
+    @Override
+    public int getApReferDocCount(String apReferrer) {
+        return apDocMapper.selectCountApRefer(apReferrer);
+    }
+
+    @Override
+    public String getApDocReferrers(String apDocNo) {
+        List<ReferrerVO> apReferrers = apReferrerMapper.selectApDocReferrers(apDocNo);
+        String apReferrersStr = "";
+        if(apReferrers.size()!=0){
+            for(int i=0; i<apReferrers.size(); i++){
+                apReferrersStr += apReferrers.get(i).getUserName() +" "+apReferrers.get(i).getPositionName()+", ";
+            }
+            apReferrersStr = apReferrersStr.substring(0, apReferrersStr.length()-2);
+        }
+        return apReferrersStr;
+    }
 }

@@ -32,8 +32,45 @@
                     <h3 class="card-title">새 결재 작성</h3>
                     <hr>
                     <form th:action="@{/approval/postApDoc}" method="post" role="form">
-                        <h3 class="card-title" th:text="${form.getApFormName()}" readonly></h3>
+                        <div class="form-group row">
+                            <div class="col-lg-9">
+                                <h3 class="card-title" th:text="${form.getApFormName()}" readonly></h3>
+                            </div>
 
+                            <div class="col-lg-3" style="padding-left: 0px; padding-right: 0px;">
+                                <th:block th:if="${approvers} != null">
+                                <table rules="none" height="114px" width="30px" border="1px" style="border-color: #f4f4f4; text-align: center; float: left;">
+                                    <tr><td>결</td></tr>
+                                    <tr><td>재</td></tr>
+                                    <tr><td>선</td></tr>
+                                </table>
+                                <table class="" border="1px" style="table-layout: fixed; box-sizing: border-box;
+                                border-color: #f4f4f4; text-align: center; float: left;">
+                                    <thead>
+                                    <tr>
+                                        <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                            <th class="table-primary" width="70px"
+                                                th:text="${approvers.get(i).getDutyName()}"></th>
+                                        </th:block>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                            <td width="70px" height="60px"
+                                                th:text="${approvers.get(i).getUserName()}"></td>
+                                        </th:block>
+                                    </tr>
+                                    <tr>
+                                        <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                            <td width="70px" style="background-color:#e6e9ed;">미결</td>
+                                        </th:block>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </th:block>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <div class="col-lg-2">
                                 <label class="col-form-label">제목</label>
@@ -99,35 +136,6 @@
                                 <input type="date" class="form-control" name="apExecutionDate">
                             </div>
                         </div>
-
-                        <th:block th:if="${approvers} != null">
-                            <label class="col-form-label">결재선</label>
-                            <!--                        <div class="" style="width: 100%">-->
-
-                            <table class="" border="1" style="table-layout: fixed">
-                                <thead>
-                                <tr>
-                                    <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                        <th width="60px" th:text="${approvers.get(i).getDutyName()}"></th>
-                                    </th:block>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                        <td width="60px" th:text="${approvers.get(i).getUserName()}"></td>
-                                    </th:block>
-                                </tr>
-                                <tr>
-                                    <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                        <td width="60px">미결</td>
-                                    </th:block>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <!--                        </div>-->
-
-                        </th:block>
                         <br>
 
                         <label class="col-form-label">문서 내용</label>
@@ -196,7 +204,7 @@
                                                                             <span hidden="hidden"
                                                                                   th:text="${referrer.userId}"></span>
                                                                             <span class="file"
-                                                                                  th:text="${referrer.userName}"></span>
+                                                                                  th:text="${referrer.userName}+' '+${referrer.positionName}"></span>
                                                                         </li>
                                                                     </th:block>
                                                                 </ul>
@@ -289,16 +297,14 @@
                     $(this).children().css('color', 'black');
                 });
 
-                //선택된 참조자 클릭시 참조목록에서 제외
+                //선택된 참조자 클릭시 참조 목록에서 제외
                 $(document).on("click", "#selectedRefer ul li", function (e) {
                     var indexId = selectedReferArr.indexOf($(this).children().last().text());
-                    var indexIdName = selectedReferNameArr.indexOf($(this).children().first().text());
 
-                    console.log("indexId:"+indexId);
-                    selectedReferArr.splice(indexId,1);
-                    selectedReferNameArr.splice(indexIdName,1);
-                    console.log("id배열:  "+selectedReferArr);
-                    console.log("name배열:  "+selectedReferNameArr);
+                    selectedReferArr.splice(indexId, 1);
+                    selectedReferNameArr.splice(indexId, 1);
+                    console.log("id배열:  " + selectedReferArr);
+                    console.log("name배열:  " + selectedReferNameArr);
                     e.preventDefault();
                     $(this).remove();
                 });
@@ -315,7 +321,7 @@
                     if (!selectedReferArr.includes(selectedId)) {
                         selectedReferArr.push(selectedId); //선택된 참조자 아이디를 추가
                         selectedReferNameArr.push(selectedName);
-                        $('#selectedRefer ul').append("<li style='list-style:none;'>" + "<span>" + selectedName + '</span>' +
+                        $('#selectedRefer ul').append("<li style='list-style:none;'>" + "<span>" + selectedName + ' </span>' +
                             "<span hidden='hidden'>" + selectedId + '</span></li>');
                         // console.log(selectedReferArr);
                     } else {
@@ -328,7 +334,7 @@
                     });
 
                 });
-
+                //적용시 작성 화면에 반영
                 $('#referrersApply').on('click', function (e) {
                     $("input[name='apReferrers']").val(selectedReferNameArr);
                     $("input[name='apReferrersId']").val(selectedReferArr); //input hidden controller로 id 전송

@@ -80,6 +80,13 @@
         and a.ap_step = (select ap_doc_step from approvaldoc where ap_doc_no = a.ap_doc_no)
     </select>
 
+    <!-- 참조 문서 개수 -->
+    <select id="selectCountApRefer" resultType="_int">
+        select count(*) from approvaldoc
+        where ap_doc_no in (select ap_doc_no from approvalreferrer where ap_referrer = #{apReferrer})
+        and ap_doc_status in (0,1,2)
+    </select>
+
 
     <!-- 결재 대기 문서 조회 -->
     <select id="selectApCheckList" resultType="com.project.bit.approval.domain.ApDocListVO">
@@ -127,7 +134,7 @@
         where ap_doc_no = #{apDocNo}
     </update>
 
-
+    <!-- 참조 문서함 조회 -->
     <select id="selectApReferList" resultType="com.project.bit.approval.domain.ApDocListVO">
         select * from
         (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name, ap_doc_writer, project_code, project_name,
@@ -140,7 +147,7 @@
         join project_members p on d.ap_doc_writer = p.user_id
         join (select user_id, user_name from users) u on p.user_id = u.user_id
         where d.ap_doc_no in (select ap_doc_no from approvalreferrer where ap_referrer = #{apReferrer})
-        and ap_doc_status in (0,1)
+        and ap_doc_status in (0,1,2)
         <include refid="criteria"></include>
         order by ap_doc_status desc, ap_doc_no asc)
         <![CDATA[where rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>

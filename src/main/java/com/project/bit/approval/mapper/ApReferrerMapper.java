@@ -13,4 +13,7 @@ public interface ApReferrerMapper {
     public List<ReferrerVO> selectReferrerUserList();
 
     public void insertApDocReferrer(long apDocNo, String apReferrer);
+    
+    //참조자 목록 불러오기
+    public List<ReferrerVO> selectApDocReferrers(String apDocNo);
 }

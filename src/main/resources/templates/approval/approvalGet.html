@@ -19,7 +19,7 @@
                         <input hidden="hidden" th:value="${checkApprover}" id="checkApprover">
                         <button type="button" class="btn btn-primary btn"
                                 style="float: right; margin-left: 25px"
-                                onclick="location.href = '/approval/getApProgressList'">목록
+                                onclick="location.href = 'javascript:history.back();'">목록
                         </button>
                         <br>
                     </div><hr>
@@ -46,7 +46,6 @@
                                         style="float: left; margin-right: 25px">반려
                                 </button>
                                 </div>
-
                             </div>
 
 
@@ -91,8 +90,8 @@
                         <div class="col-lg-8">
                             <div class="row">
                                 <div class="col-12 col">
-                                    <input class="form-control" maxlength="200" name="apReferrers" type="text"
-                                           value="참조자 목록 나열하기" readonly>
+                                    <input class="form-control" maxlength="500" name="apReferrers" type="text"
+                                           th:value="${apReferrers}" readonly>
                                 </div>
                             </div>
                         </div>

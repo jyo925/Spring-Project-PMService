@@ -33,10 +33,13 @@ public class ApprovalController {
     //새 결재 작성화면으로 이동
     @GetMapping("/goNewApDoc")
     public String goNewApDoc(@RequestParam("apFormNo") String apFormNo, Principal principal, Model model) {
+
+        ////////////////////////////////////////////
+        //PMO는 못하도록 -> 프로제트 내에서 상위 결재자 없음
+
         //문서양식 불러오기
         model.addAttribute("form", apDocService.getApForm(apFormNo));
-
-        //문서양식에 맞는 & 사용자 직책 고려한 결재선 불러오기
+        //문서양식에 맞는 & 사용자 직책 고려한 결재선
         model.addAttribute("approvers", apService.getApproverList(apFormNo, principal.getName()));
 
         //팀 목록
@@ -59,7 +62,6 @@ public class ApprovalController {
     public String postApDoc(ApDocDTO apDocDTO, ApFileDTO apFileDTO, Model model, Principal principal, String apReferrersId) {
 
         ////////////////////////////////////////////
-        //PMO는 못하도록 -> 프로제트 내에서 상위 결재자 없음
         //임시서장 시 문서상태를 3으로 변경하여 첫번째 결재자가 결재하거나 결재리스트에 뜨는 일이 없도록
 
         //결재문서 등록
@@ -79,14 +81,11 @@ public class ApprovalController {
             apDocService.postApDocFiles(apFileDTO);
         }
 
-        /////////////////////////////////////////////
         //참조자 등록
         log.info(apReferrersId);
         if(!apReferrersId.equals(" ")){
             apDocService.postApDocReferrers(apDocNo, apReferrersId);
         }
-
-
         return "redirect:/approval/getApProgressList?type=N&keyword="+apDocNo;
     }
 
@@ -118,11 +117,18 @@ public class ApprovalController {
     @GetMapping("/getReferenceList")
     public String getReferenceList(Criteria cri, Principal principal, Model model){
         log.info("참조자 로그----------------------------------------------");
-        log.info(apDocService.getApReferList(principal.getName(),cri).size()+"");
+        List<ApDocListVO> apReferList = apDocService.getApReferList(principal.getName(),cri);
+        model.addAttribute("apReferList", apReferList);
+        model.addAttribute("pageMaker", new PageDTO(cri,apDocService.getApReferDocCount(principal.getName())));
 
         return "approval/approvalReference";
     }
 
+    //결재완료함 조회
+    @GetMapping("/getApEndList")
+    public String getApEndList(Criteria cri, Principal principal, Model model){
+        return "approval/apMain";
+    }
 
 
     //결재문서 상세조회
@@ -151,9 +157,8 @@ public class ApprovalController {
             }
         }
 
-        //////////////////////////////////////////////
         //참조자 불러오기
-
+        model.addAttribute("apReferrers", apDocService.getApDocReferrers(apDocNo));
 
         return "approval/approvalGet";
     }

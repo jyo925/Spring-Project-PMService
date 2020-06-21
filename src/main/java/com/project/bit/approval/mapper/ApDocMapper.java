@@ -45,5 +45,8 @@ public interface ApDocMapper {
 
     //참조문서함 조회
     public List<ApDocListVO> selectApReferList(String apReferrer, Criteria cri);
+    
+    //참조문서 개수
+    public int selectCountApRefer(String apReferrer);
 
 }
