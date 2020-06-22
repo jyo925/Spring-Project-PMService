@@ -1,7 +1,4 @@
-package com.project.bit.foo.service.EventService;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.project.bit.foo.service.eventService;
 
 import org.springframework.stereotype.Service;
 
@@ -36,8 +33,8 @@ public class EventGroupServiceImpl implements EventGroupService {
 	}
 
 	@Override
-	public void deleteMember(String userId) {
-		eventGroupMapper.deleteMember(userId);
+	public void deleteGroup(String eventId) {
+		eventGroupMapper.deleteGroup(eventId);
 		
 	}
 
@@ -48,16 +45,13 @@ public class EventGroupServiceImpl implements EventGroupService {
 	}
 
 	
-	
-	public String getMembersList(String eventd) {
-		
-		String [] members = selectGroup(eventd);
+	@Override
+	public String getMembersList(String eventId) {
+		String [] members = selectGroup(eventId);
 		String membersList = "";
 		for(int i = 0; i<members.length; i++) {
 			membersList +=" "+members[i];
 		}
-		System.out.println(membersList);
-		
 		return membersList;
 	}
 	

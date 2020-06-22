@@ -14,6 +14,12 @@
 
 }
 
+#dialog-event {
+	z-index: 1000;
+	background: #EDF8FA;
+
+}
+
 #modal{
 	width: 100vw;
 	height: 100vh;
@@ -23,6 +29,67 @@
 	overflow: auto;
 	background: rgba(0,0,0,0.5);
 	display: none;
+}
+
+
+body {
+  background: #fff;
+  color: #333;
+  font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+  font-size: 0.9em;
+  padding: 40px;
+}
+
+.wideBox {
+  clear: both;
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 10px;
+  background: #ebedf2;
+  border: 1px solid #333;
+  line-height: 80%;
+}
+
+#container {
+  width: 900px;
+  margin: 0 auto;
+}
+
+#chart {
+  display: block;
+  margin: 60px 0px 50px 0;
+  cursor: pointer;
+  width: 100%; 
+  height: 15vh;
+}
+
+#chartData {
+  border-collapse: collapse;
+  width: 100%; 
+  height: 30vh;
+}
+
+#chartData th, #chartData td {
+  padding: 0.5em;
+  border: 1px dotted #666;
+  text-align: left;
+}
+
+#chartData th {
+  border-bottom: 2px solid #333;
+  text-transform: uppercase;
+}
+
+#chartData td {
+  cursor: pointer;
+}
+
+#chartData td.highlight {
+  background: #e8e8e8;
+}
+
+#chartData tr:hover td {
+  background: #f0f0f0;
 }
 
 	

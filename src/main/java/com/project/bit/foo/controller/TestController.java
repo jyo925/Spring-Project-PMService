@@ -31,17 +31,11 @@ import lombok.extern.slf4j.Slf4j;
 public class TestController {
 
 	private UserServiceImpl userServiceImpl;
-
 	private DutyServiceImpl dutyServiceImpl;
-
 	private ProjectMembersServiceImpl projectMembersServiceImpl;
-
 	private PositionsServiceImpl positionsServiceImpl;
-
 	private TeamsServiceImpl teamsServiceImpl;
-
 	private PasswordEncoder bCryptPasswordEncoder;
-	
 	private EventMapper eventMapper;
 
 	@GetMapping("/")
@@ -64,6 +58,7 @@ public class TestController {
 
 	@PostMapping("/registration")
 	public String registrationPost(Users user) {
+		
 		System.out.println(user);
 		user.setUserPw(bCryptPasswordEncoder.encode(user.getUserPw()));
 		userServiceImpl.insertUser(user);

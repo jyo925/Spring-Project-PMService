@@ -1,4 +1,4 @@
-package com.project.bit.foo.service.EventService;
+package com.project.bit.foo.service.eventService;
 
 import java.util.List;
 
@@ -65,8 +65,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public void deleteEvent(Event event) {
-		eventMapper.deleteEvent(event);
+	public void deleteEvent(String eventId) {
+		eventMapper.deleteEvent(eventId);
 		
 	}
 
