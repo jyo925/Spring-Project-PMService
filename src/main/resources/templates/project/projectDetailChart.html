@@ -7,6 +7,7 @@
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/project/projectDetail.css">
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
@@ -16,15 +17,16 @@
 </th:block>
 
 <div layout:fragment="content">
-	<ul>
-		<li><a th:href="'/project/'+${project.projectCode}">요약정보</a></li>
-		<li><a th:href="'/project/detail/'+${project.projectCode}">기본정보</a></li>
-		<li><a th:href="'/projectMember/'+${project.projectCode}">리소스</a></li>
-		<li><a th:href="'/projectTask/'+${project.projectCode}">프로젝트 작업</a></li>
-		<li><a href="#">배정현황</a></li>
-		<li><a href="#">이슈</a></li>
-		<li><a href="#">산출물</a></li>
-	</ul>
+	<div class="detail-top-nav">
+		<a th:href="'/project/'+${project.projectCode}">요약정보</a>
+		<a th:href="'/project/detail/'+${project.projectCode}">기본정보</a>
+		<a th:href="'/projectMember/'+${project.projectCode}">리소스</a>
+		<a th:href="'/projectTask/'+${project.projectCode}">프로젝트 작업</a>
+		<a th:href="'/projectGantt/'+${project.projectCode}">배정현황</a>
+		<a th:href="'/projectIssue/'+${project.projectCode}">이슈</a>
+		<a th:href="'/projectOutput/'+${project.projectCode}">산출물</a>
+	</div>
+
 	
 	<div class="row">
 		<!-- 프로젝트 정보 START -->

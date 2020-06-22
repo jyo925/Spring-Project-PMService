@@ -17,4 +17,5 @@ public class ProjectTaskDTO {
 	protected String taskStatusCode;
 	protected String taskStatusName;
 	private List<ProjectTaskManagerDTO> projectTaskManagers;
+	private List<ProjectOutputDTO> projectOutputList;
 }
