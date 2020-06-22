@@ -178,7 +178,6 @@ public class ApprovalController {
 
         //승인시
         if(apDTO.getApResult()=='1'){
-
             //마지막 결재자라면
             if(apService.getLastApprover(String.valueOf(apDTO.getApDocNo())).equals(principal.getName())){
                 apDocService.putLastApDoc(apDTO.getApDocNo());
@@ -192,5 +191,4 @@ public class ApprovalController {
         }
         return "redirect:/approval/getApCheckList"; //결재진행화면으로변경하기
     }
-
 }

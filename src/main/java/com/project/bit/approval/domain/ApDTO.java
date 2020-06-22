@@ -25,8 +25,4 @@ public class ApDTO {
     private String userName;
 
 
-
-    //결재선에서 필요한 정보
-    //결재자의 아이디, 이름, 직책, 처리결과, 처리일시
-
 }
