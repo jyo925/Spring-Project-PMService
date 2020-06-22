@@ -13,12 +13,6 @@
 <th:block layout:fragment="script">
     <script src="/js/approval/modal-demo.js"></script>
 </th:block>
-<!--                    <div sec:authorize="isAuthenticated()">-->
-<!--                        <span sec:authentication="name"></span>-->
-<!--                        <span sec:authentication="principal.authorities"></span>-->
-<!--                    </div>-->
-<!--                    <h4 th:text="${#authentication.principal}">dddddd</h4>-->
-<!--                    <h4 th:text="${#authentication.details}">ddddd</h4>-->
 
 <div layout:fragment="content">
     <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
@@ -29,45 +23,57 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">새 결재 작성</h3>
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <h3 class="card-title" style="margin-bottom: 0px;">새 결재 작성</h3>
+                        </div>
+                        <div class="col-lg-8">
+                            <button type="button" class="btn btn-primary btn"
+                                    style="float: right; margin-left: 25px"
+                                    onclick="location.href = 'javascript:history.back();'">목록
+                            </button>
+                        </div>
+                    </div>
                     <hr>
                     <form th:action="@{/approval/postApDoc}" method="post" role="form">
                         <div class="form-group row">
                             <div class="col-lg-9">
-                                <h3 class="card-title" th:text="${form.getApFormName()}" readonly></h3>
+                                <h2 class="card-title" th:text="${form.getApFormName()}" readonly></h2>
                             </div>
 
                             <div class="col-lg-3" style="padding-left: 0px; padding-right: 0px;">
                                 <th:block th:if="${approvers} != null">
-                                <table rules="none" height="114px" width="30px" border="1px" style="border-color: #f4f4f4; text-align: center; float: left;">
-                                    <tr><td>결</td></tr>
-                                    <tr><td>재</td></tr>
-                                    <tr><td>선</td></tr>
-                                </table>
-                                <table class="" border="1px" style="table-layout: fixed; box-sizing: border-box;
+                                    <table class="" border="1px" style="table-layout: fixed; box-sizing: border-box;
                                 border-color: #f4f4f4; text-align: center; float: left;">
-                                    <thead>
-                                    <tr>
-                                        <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                            <th class="table-primary" width="70px"
-                                                th:text="${approvers.get(i).getDutyName()}"></th>
-                                        </th:block>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                            <td width="70px" height="60px"
-                                                th:text="${approvers.get(i).getUserName()}"></td>
-                                        </th:block>
-                                    </tr>
-                                    <tr>
-                                        <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                            <td width="70px" style="background-color:#e6e9ed;">미결</td>
-                                        </th:block>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                        <thead>
+                                        <tr>
+                                            <td rules="none" width="25px"
+                                                style="background-color:#e6e9ed; border-bottom-color:#e6e9ed">결
+                                            </td>
+                                            <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                                <th class="table-primary" width="70px"
+                                                    th:text="${approvers.get(i).getDutyName()}"></th>
+                                            </th:block>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td rules="none" width="25px"
+                                                style="background-color:#e6e9ed; border-bottom-color:#e6e9ed">재
+                                            </td>
+                                            <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                                <td width="70px" height="50px"
+                                                    th:text="${approvers.get(i).getUserName()}"></td>
+                                            </th:block>
+                                        </tr>
+                                        <tr>
+                                            <td rules="none" width="25px" style="background-color:#e6e9ed;">선</td>
+                                            <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
+                                                <td width="70px" style="background-color:#e6e9ed;">미결</td>
+                                            </th:block>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </th:block>
                             </div>
                         </div>
@@ -86,9 +92,19 @@
                                 <label class="col-form-label">기안자</label>
                             </div>
                             <div class="col-lg-8">
-                                <!--principal로 수정했는데 이름으로 나오도록 변경하기-->
-                                <input class="form-control" maxlength="100" name="apDocWriter"
+                                <input class="form-control" maxlength="100" name="apDocWriter" hidden="hidden"
                                        th:value="${#authentication.name}" type="text" readonly>
+                                <input class="form-control" maxlength="100" name="apDocWriterName"
+                                       th:value="${writer.userName}" type="text" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="col-form-label">프로젝트</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input class="form-control" maxlength="100" name="apDocProjectName"
+                                       th:value="${writer.projectName}" type="text" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -122,11 +138,9 @@
                                        readonly>
                                 <div class="uploadResult">
                                     <ul>
-
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-2">
@@ -137,7 +151,6 @@
                             </div>
                         </div>
                         <br>
-
                         <label class="col-form-label">문서 내용</label>
                         <div class="document-editor">
                             <div class="document-editor__toolbar"></div>
@@ -278,7 +291,7 @@
                     {name: 'about', items: ['About']}
                 ],
                 width: '100%',
-                height: '600px',
+                height: '400px',
                 startupFocus: false
             });
 

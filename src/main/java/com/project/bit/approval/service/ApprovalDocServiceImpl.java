@@ -45,7 +45,7 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
 
     //진행문서함
     @Override
-    public List<ApDocListVO> getApProgressList(String apDocWriter, Criteria cri) {
+    public List<ApDocDTO> getApProgressList(String apDocWriter, Criteria cri) {
         return apDocMapper.selectApProgressList(apDocWriter, cri);
     }
 
@@ -67,7 +67,7 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
 
     //결재 대기 문서함
     @Override
-    public List<ApDocListVO> getApCheckList(String apDocWriter, Criteria cri) {
+    public List<ApDocDTO> getApCheckList(String apDocWriter, Criteria cri) {
         return apDocMapper.selectApCheckList(apDocWriter, cri);
     }
 
@@ -127,11 +127,8 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
 
     @Override
     public void postApDocReferrers(long apDocNo, String apReferrersId) {
-        log.info("서비스단 ------------------------------------------------");
-        log.info(apReferrersId);
 
         String[] apReferrers = apReferrersId.split(",");
-        log.info(apReferrers+"");
 
         for(int i=0; i<apReferrers.length; i++){
             apReferrerMapper.insertApDocReferrer(apDocNo, apReferrers[i]);
@@ -139,7 +136,7 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     }
 
     @Override
-    public List<ApDocListVO> getApReferList(String apReferrer, Criteria cri) {
+    public List<ApDocDTO> getApReferList(String apReferrer, Criteria cri) {
 
         return apDocMapper.selectApReferList(apReferrer, cri);
     }
@@ -160,5 +157,10 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
             apReferrersStr = apReferrersStr.substring(0, apReferrersStr.length()-2);
         }
         return apReferrersStr;
+    }
+
+    @Override
+    public ApDocWriterVO getApDocWriterInfo(String userId) {
+        return apDocMapper.selectApDocWriterInfo(userId);
     }
 }

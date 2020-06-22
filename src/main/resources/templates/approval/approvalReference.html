@@ -77,9 +77,9 @@
                                 <td th:text="${apReference.apFormName}"></td>
                                 <td><a th:text="${apReference.apDocTitle}"
                                        th:href="'/approval/getApDoc?apDocNo='+${apReference.apDocNo}"></a></td>
-                                <td th:text="${apReference.userName}"></td>
+                                <td th:text="${apReference.apDocWriterName}"></td>
                                 <td th:text="${#dates.format(apReference.apDocCreateDate, 'yyyy-MM-dd')}"></td>
-                                <td th:text="${apReference.projectName}"></td>
+                                <td th:text="${apReference.apDocProjectName}"></td>
                                 <td th:text="${apReference.apDocEndDate}"></td>
                                 <span th:if="${apReference.apDocStatus == 0}">
                                     <td><label class="badge badge-info">진행중</label></td>

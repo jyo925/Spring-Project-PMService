@@ -1,9 +1,6 @@
 package com.project.bit.approval.mapper;
 
-import com.project.bit.approval.domain.ApDocDTO;
-import com.project.bit.approval.domain.ApDocListVO;
-import com.project.bit.approval.domain.ApFormDTO;
-import com.project.bit.approval.domain.Criteria;
+import com.project.bit.approval.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -18,10 +15,10 @@ public interface ApDocMapper {
     public int insertApDoc(ApDocDTO apDocDTO);
 
     //결재 진행함 조회
-    public List<ApDocListVO> selectApProgressList(String apDocWriter, Criteria cri);
+    public List<ApDocDTO> selectApProgressList(String apDocWriter, Criteria cri);
 
     //결재 대기 문서함 조회
-    public List<ApDocListVO> selectApCheckList(String apDocWriter, Criteria cri);
+    public List<ApDocDTO> selectApCheckList(String apDocWriter, Criteria cri);
 
     public Long selectNewApDocNo(ApDocDTO apDocDTO);
 
@@ -44,9 +41,12 @@ public interface ApDocMapper {
     public void updateLastApDoc(long apDocNo);
 
     //참조문서함 조회
-    public List<ApDocListVO> selectApReferList(String apReferrer, Criteria cri);
+    public List<ApDocDTO> selectApReferList(String apReferrer, Criteria cri);
     
     //참조문서 개수
     public int selectCountApRefer(String apReferrer);
+    
+    //기안자 명, 기안프로젝트 명 조회
+    public ApDocWriterVO selectApDocWriterInfo(String userId);
 
 }

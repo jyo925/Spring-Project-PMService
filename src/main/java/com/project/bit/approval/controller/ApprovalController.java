@@ -42,9 +42,11 @@ public class ApprovalController {
         //문서양식에 맞는 & 사용자 직책 고려한 결재선
         model.addAttribute("approvers", apService.getApproverList(apFormNo, principal.getName()));
 
-        //팀 목록
-        List<String> teamList = new ArrayList<>();
-        List<ReferrerVO> referrerVO = apDocService.getReferrerUserList();
+        //기안자 이름, 프로젝트 명 불러오기
+        model.addAttribute("writer", apDocService.getApDocWriterInfo(principal.getName()));
+
+        List<String> teamList = new ArrayList<>();//팀 목록
+        List<ReferrerVO> referrerVO = apDocService.getReferrerUserList();//참조자목록
         for(int i=0; i<referrerVO.size(); i++){
             if (!teamList.contains(referrerVO.get(i).getTeamName())) {
                 teamList.add(referrerVO.get(i).getTeamName());
@@ -86,13 +88,15 @@ public class ApprovalController {
         if(!apReferrersId.equals(" ")){
             apDocService.postApDocReferrers(apDocNo, apReferrersId);
         }
-        return "redirect:/approval/getApProgressList?type=N&keyword="+apDocNo;
+//        return "redirect:/approval/getApProgressList?type=N&keyword="+apDocNo;
+        return "redirect:/approval/getApProgressList";
     }
+
 
     //결재 진행함 조회
     @GetMapping("/getApProgressList")
     public String getApProgressList(Criteria cri, Principal principal, Model model) {
-        List<ApDocListVO> apProgressList = apDocService.getApProgressList(principal.getName(), cri);
+        List<ApDocDTO> apProgressList = apDocService.getApProgressList(principal.getName(), cri);
         model.addAttribute("apProgressList", apProgressList);
         model.addAttribute("pageMaker", new PageDTO(cri, apDocService.getApDocCount(principal.getName(), cri).get(0)));
         return "approval/approvalProgress";
@@ -101,7 +105,7 @@ public class ApprovalController {
     //결재 대기함 조회
     @GetMapping("/getApCheckList")
     public String getApCheckList(Criteria cri, Principal principal, Model model) {
-        List<ApDocListVO> apCheckList = apDocService.getApCheckList(principal.getName(), cri);
+        List<ApDocDTO> apCheckList = apDocService.getApCheckList(principal.getName(), cri);
         model.addAttribute("apCheckList", apCheckList);
         model.addAttribute("pageMaker", new PageDTO(cri, apDocService.getApDocCount(principal.getName(), cri).get(1)));
         return "approval/approvalCheck";
@@ -117,7 +121,7 @@ public class ApprovalController {
     @GetMapping("/getReferenceList")
     public String getReferenceList(Criteria cri, Principal principal, Model model){
         log.info("참조자 로그----------------------------------------------");
-        List<ApDocListVO> apReferList = apDocService.getApReferList(principal.getName(),cri);
+        List<ApDocDTO> apReferList = apDocService.getApReferList(principal.getName(),cri);
         model.addAttribute("apReferList", apReferList);
         model.addAttribute("pageMaker", new PageDTO(cri,apDocService.getApReferDocCount(principal.getName())));
 

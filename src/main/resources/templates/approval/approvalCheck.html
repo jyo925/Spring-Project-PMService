@@ -70,9 +70,9 @@
                                 <td th:text="${apCheck.apFormName}"></td>
                                 <td><a th:text="${apCheck.apDocTitle}"
                                        th:href="'/approval/getApDoc?apDocNo='+${apCheck.apDocNo}"></a></td>
-                                <td th:text="${apCheck.userName}"></td>
+                                <td th:text="${apCheck.apDocWriterName}"></td>
                                 <td th:text="${#dates.format(apCheck.apDocCreateDate, 'yyyy-MM-dd')}"></td>
-                                <td th:text="${apCheck.projectName}"></td>
+                                <td th:text="${apCheck.apDocProjectName}"></td>
                                 <!--                                <td th:text="${apProgress.apDocEndDate}"></td>-->
                                 <!--                                <span th:if="${apProgress.apDocStatus.toString().equals('0')}">-->
                                 <span th:if="${apCheck.apDocStatus == 0}">

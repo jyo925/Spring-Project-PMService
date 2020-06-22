@@ -18,10 +18,10 @@ public interface ApprovalDocService {
     public List<Integer> getApDocCount(String apDocWriter, Criteria cri);
 
     //결재진행함 조회
-    public List<ApDocListVO> getApProgressList(String apDocWriter, Criteria cri);
+    public List<ApDocDTO> getApProgressList(String apDocWriter, Criteria cri);
 
     //결재 대기 문서함 조회
-    public List<ApDocListVO> getApCheckList(String apDocWriter, Criteria cri);
+    public List<ApDocDTO> getApCheckList(String apDocWriter, Criteria cri);
     
     //첨부파일 등록하기
     public int postApDocFiles(ApFileDTO apFileDTO);
@@ -48,11 +48,14 @@ public interface ApprovalDocService {
     public void postApDocReferrers(long apDocNo, String apReferrersId);
 
     //참조문서 조회
-    public List<ApDocListVO> getApReferList(String apReferrer, Criteria cri);
+    public List<ApDocDTO> getApReferList(String apReferrer, Criteria cri);
 
     //참조문서 개수
     public int getApReferDocCount(String apReferrer);
 
     //참조자 목록 불러오기
     public String getApDocReferrers(String apDocNo);
+
+    //기안자 정보 불러오기
+    public ApDocWriterVO getApDocWriterInfo(String userId);
 }

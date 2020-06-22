@@ -68,9 +68,9 @@
                                 <td th:text="${apProgress.apDocNo}"></td>
                                 <td th:text="${apProgress.apFormName}"></td>
                                 <td><a th:text="${apProgress.apDocTitle}" th:href="'/approval/getApDoc?apDocNo='+${apProgress.apDocNo}"></a></td>
-                                <td th:text="${apProgress.userName}"></td>
+                                <td th:text="${apProgress.apDocWriterName}"></td>
                                 <td th:text="${#dates.format(apProgress.apDocCreateDate, 'yyyy-MM-dd')}"></td>
-                                <td th:text="${apProgress.projectName}"></td>
+                                <td th:text="${apProgress.apDocProjectName}"></td>
                                 <!--                                <td th:text="${apProgress.apDocEndDate}"></td>-->
                                 <span th:if="${apProgress.apDocStatus == 0}">
                                     <td><label class="badge badge-info">진행중</label></td>
