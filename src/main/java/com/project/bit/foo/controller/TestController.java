@@ -42,6 +42,7 @@ public class TestController {
 	public String Main(Principal principal) {
 		if (principal != null) {
 			log.info(principal.getName());
+			System.err.println(principal.toString());
 		}
 		return "index";
 	}

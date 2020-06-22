@@ -1,13 +1,18 @@
 spring:
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521:root
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     username: root
     password: 1234
+
   devtools:
     livereload:
-      enabled: true  servlet:    multipart:      max-file-size: 15MB
-      max-request-size: 15MB 
+      enabled: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 mybatis:
   mapper-locations: mapper/**/*Mapper.xml

@@ -832,3 +832,482 @@ java.nio.file.InvalidPathException: Illegal char <	> at index 28: C:\sts4\finalP
 2020-06-22 10:43:08.990  INFO 18160 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
 2020-06-22 10:43:08.991  INFO 18160 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Starting...
 2020-06-22 10:43:09.011  INFO 18160 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Start completed.
+2020-06-22 14:08:18.748  INFO 18160 --- [Thread-5203] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-22 14:08:18.750  INFO 18160 --- [Thread-5203] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Shutdown initiated...
+2020-06-22 14:08:18.766  INFO 18160 --- [Thread-5203] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Shutdown completed.
+2020-06-22 14:08:19.102  INFO 18160 --- [restartedMain] com.project.bit.BitApplication           : Starting BitApplication on DESKTOP-5FQ6JEM with PID 18160 (C:\sts4\finalProject\target\classes started by Acer in C:\sts4\finalProject)
+2020-06-22 14:08:19.102  INFO 18160 --- [restartedMain] com.project.bit.BitApplication           : No active profile set, falling back to default profiles: default
+2020-06-22 14:08:21.317  INFO 18160 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-22 14:08:21.318  INFO 18160 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-22 14:08:21.318  INFO 18160 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-22 14:08:21.331  INFO 18160 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2020-06-22 14:08:21.331  INFO 18160 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2221 ms
+2020-06-22 14:08:21.397  WARN 18160 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'approvalController': Unsatisfied dependency expressed through field 'apDocService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'approvalDocServiceImpl': Unsatisfied dependency expressed through field 'apDocMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'apDocMapper' defined in file [C:\sts4\finalProject\target\classes\com\project\bit\approval\mapper\ApDocMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+2020-06-22 14:08:21.397  INFO 18160 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-06-22 14:08:21.401  INFO 18160 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-06-22 14:08:21.406 ERROR 18160 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'approvalController': Unsatisfied dependency expressed through field 'apDocService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'approvalDocServiceImpl': Unsatisfied dependency expressed through field 'apDocMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'apDocMapper' defined in file [C:\sts4\finalProject\target\classes\com\project\bit\approval\mapper\ApDocMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:643) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:895) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:878) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at com.project.bit.BitApplication.main(BitApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'approvalDocServiceImpl': Unsatisfied dependency expressed through field 'apDocMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'apDocMapper' defined in file [C:\sts4\finalProject\target\classes\com\project\bit\approval\mapper\ApDocMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:643) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 25 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'apDocMapper' defined in file [C:\sts4\finalProject\target\classes\com\project\bit\approval\mapper\ApDocMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1526) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1406) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 38 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:656) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1511) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 49 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 62 common frames omitted
+Caused by: org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:595) ~[mybatis-spring-2.0.4.jar:2.0.4]
+	at org.mybatis.spring.SqlSessionFactoryBean.afterPropertiesSet(SqlSessionFactoryBean.java:475) ~[mybatis-spring-2.0.4.jar:2.0.4]
+	at org.mybatis.spring.SqlSessionFactoryBean.getObject(SqlSessionFactoryBean.java:615) ~[mybatis-spring-2.0.4.jar:2.0.4]
+	at org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration.sqlSessionFactory(MybatisAutoConfiguration.java:180) ~[mybatis-spring-boot-autoconfigure-2.1.2.jar:2.1.2]
+	at org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$40eff083.CGLIB$sqlSessionFactory$1(<generated>) ~[mybatis-spring-boot-autoconfigure-2.1.2.jar:2.1.2]
+	at org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$40eff083$$FastClassBySpringCGLIB$$85f95cd0.invoke(<generated>) ~[mybatis-spring-boot-autoconfigure-2.1.2.jar:2.1.2]
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244) ~[spring-core-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$40eff083.sqlSessionFactory(<generated>) ~[mybatis-spring-boot-autoconfigure-2.1.2.jar:2.1.2]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 63 common frames omitted
+Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [C:\sts4\finalProject\target\classes\mapper\approval\ApDocMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:122) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:94) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:593) ~[mybatis-spring-2.0.4.jar:2.0.4]
+	... 76 common frames omitted
+Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:118) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.builder.xml.XMLStatementBuilder.parseStatementNode(XMLStatementBuilder.java:102) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:137) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:130) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:120) ~[mybatis-3.5.4.jar:3.5.4]
+	... 78 common frames omitted
+Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.project.bit.approval.domain.ApDocListVO'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:120) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.builder.BaseBuilder.resolveAlias(BaseBuilder.java:149) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:116) ~[mybatis-3.5.4.jar:3.5.4]
+	... 82 common frames omitted
+Caused by: java.lang.ClassNotFoundException: Cannot find class: com.project.bit.approval.domain.ApDocListVO
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:200) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:89) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.io.Resources.classForName(Resources.java:261) ~[mybatis-3.5.4.jar:3.5.4]
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:116) ~[mybatis-3.5.4.jar:3.5.4]
+	... 84 common frames omitted
+
+2020-06-22 14:08:21.409  WARN 18160 --- [restartedMain] o.s.boot.SpringApplication               : Unable to close ApplicationContext
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'delegatingApplicationListener' defined in class path resource [org/springframework/security/config/annotation/web/configuration/WebSecurityConfiguration.class]: Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.AbstractApplicationEventMulticaster.retrieveApplicationListeners(AbstractApplicationEventMulticaster.java:245) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.AbstractApplicationEventMulticaster.getApplicationListeners(AbstractApplicationEventMulticaster.java:197) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:134) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:403) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:360) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:81) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:67) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:167) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:978) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:814) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at com.project.bit.BitApplication.main(BitApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:409) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.BeanFactoryAdvisorRetrievalHelper.findAdvisorBeans(BeanFactoryAdvisorRetrievalHelper.java:91) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findCandidateAdvisors(AbstractAdvisorAutoProxyCreator.java:109) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findEligibleAdvisors(AbstractAdvisorAutoProxyCreator.java:94) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.getAdvicesAndAdvisorsForBean(AbstractAdvisorAutoProxyCreator.java:76) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.wrapIfNecessary(AbstractAutoProxyCreator.java:347) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessAfterInitialization(AbstractAutoProxyCreator.java:299) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization(AbstractAutowireCapableBeanFactory.java:431) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:814) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1282) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:297) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor.postProcessBeforeInitialization(ConfigurationClassPostProcessor.java:456) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:416) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1788) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 47 common frames omitted
+
+2020-06-22 14:08:33.309 ERROR 18160 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.IllegalStateException: Failed to load property source from 'file:/C:/sts4/finalProject/target/classes/application.yml' (classpath:/application.yml)
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:554) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadForFileExtension(ConfigFileApplicationListener.java:499) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:469) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$null$7(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$8(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:445) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$0(ConfigFileApplicationListener.java:348) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.FilteredPropertySource.apply(FilteredPropertySource.java:54) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:336) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.addPropertySources(ConfigFileApplicationListener.java:226) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.postProcessEnvironment(ConfigFileApplicationListener.java:210) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEnvironmentPreparedEvent(ConfigFileApplicationListener.java:200) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEvent(ConfigFileApplicationListener.java:188) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at com.project.bit.BitApplication.main(BitApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+Caused by: org.yaml.snakeyaml.scanner.ScannerException: mapping values are not allowed here
+ in 'reader', line 2, column 7:
+    spring:
+          ^
+
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchValue(ScannerImpl.java:870) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchMoreTokens(ScannerImpl.java:358) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.peekToken(ScannerImpl.java:250) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl$ParseDocumentEnd.produce(ParserImpl.java:253) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.peekEvent(ParserImpl.java:158) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.getEvent(ParserImpl.java:168) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.composer.Composer.getNode(Composer.java:97) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.constructor.BaseConstructor.getData(BaseConstructor.java:134) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.Yaml$1.next(Yaml.java:494) ~[snakeyaml-1.26.jar:na]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:160) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:134) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.env.OriginTrackedYamlLoader.load(OriginTrackedYamlLoader.java:75) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.env.YamlPropertySourceLoader.load(YamlPropertySourceLoader.java:50) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadDocuments(ConfigFileApplicationListener.java:608) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:524) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	... 30 common frames omitted
+
+2020-06-22 14:08:36.678 ERROR 18160 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.IllegalStateException: Failed to load property source from 'file:/C:/sts4/finalProject/target/classes/application.yml' (classpath:/application.yml)
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:554) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadForFileExtension(ConfigFileApplicationListener.java:499) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:469) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$null$7(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$8(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:445) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$0(ConfigFileApplicationListener.java:348) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.FilteredPropertySource.apply(FilteredPropertySource.java:54) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:336) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.addPropertySources(ConfigFileApplicationListener.java:226) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.postProcessEnvironment(ConfigFileApplicationListener.java:210) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEnvironmentPreparedEvent(ConfigFileApplicationListener.java:200) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEvent(ConfigFileApplicationListener.java:188) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at com.project.bit.BitApplication.main(BitApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+Caused by: org.yaml.snakeyaml.scanner.ScannerException: mapping values are not allowed here
+ in 'reader', line 2, column 7:
+    spring:
+          ^
+
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchValue(ScannerImpl.java:870) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchMoreTokens(ScannerImpl.java:358) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.peekToken(ScannerImpl.java:250) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl$ParseDocumentEnd.produce(ParserImpl.java:253) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.peekEvent(ParserImpl.java:158) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.getEvent(ParserImpl.java:168) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.composer.Composer.getNode(Composer.java:97) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.constructor.BaseConstructor.getData(BaseConstructor.java:134) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.Yaml$1.next(Yaml.java:494) ~[snakeyaml-1.26.jar:na]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:160) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:134) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.env.OriginTrackedYamlLoader.load(OriginTrackedYamlLoader.java:75) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.env.YamlPropertySourceLoader.load(YamlPropertySourceLoader.java:50) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadDocuments(ConfigFileApplicationListener.java:608) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:524) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	... 30 common frames omitted
+
+2020-06-22 14:08:39.571 ERROR 18160 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.IllegalStateException: Failed to load property source from 'file:/C:/sts4/finalProject/target/classes/application.yml' (classpath:/application.yml)
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:554) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadForFileExtension(ConfigFileApplicationListener.java:499) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:469) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$null$7(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$8(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:445) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$0(ConfigFileApplicationListener.java:348) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.FilteredPropertySource.apply(FilteredPropertySource.java:54) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:336) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.addPropertySources(ConfigFileApplicationListener.java:226) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.postProcessEnvironment(ConfigFileApplicationListener.java:210) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEnvironmentPreparedEvent(ConfigFileApplicationListener.java:200) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEvent(ConfigFileApplicationListener.java:188) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at com.project.bit.BitApplication.main(BitApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+Caused by: org.yaml.snakeyaml.scanner.ScannerException: mapping values are not allowed here
+ in 'reader', line 2, column 7:
+    spring:
+          ^
+
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchValue(ScannerImpl.java:870) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchMoreTokens(ScannerImpl.java:358) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.peekToken(ScannerImpl.java:250) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl$ParseDocumentEnd.produce(ParserImpl.java:253) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.peekEvent(ParserImpl.java:158) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.getEvent(ParserImpl.java:168) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.composer.Composer.getNode(Composer.java:97) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.constructor.BaseConstructor.getData(BaseConstructor.java:134) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.Yaml$1.next(Yaml.java:494) ~[snakeyaml-1.26.jar:na]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:160) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:134) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.env.OriginTrackedYamlLoader.load(OriginTrackedYamlLoader.java:75) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.env.YamlPropertySourceLoader.load(YamlPropertySourceLoader.java:50) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadDocuments(ConfigFileApplicationListener.java:608) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:524) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	... 30 common frames omitted
+
+2020-06-22 14:08:45.783 ERROR 18160 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.IllegalStateException: Failed to load property source from 'file:/C:/sts4/finalProject/target/classes/application.yml' (classpath:/application.yml)
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:554) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadForFileExtension(ConfigFileApplicationListener.java:499) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:469) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$null$7(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$8(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:445) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$0(ConfigFileApplicationListener.java:348) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.FilteredPropertySource.apply(FilteredPropertySource.java:54) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:336) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.addPropertySources(ConfigFileApplicationListener.java:226) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.postProcessEnvironment(ConfigFileApplicationListener.java:210) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEnvironmentPreparedEvent(ConfigFileApplicationListener.java:200) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEvent(ConfigFileApplicationListener.java:188) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at com.project.bit.BitApplication.main(BitApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+Caused by: org.yaml.snakeyaml.scanner.ScannerException: mapping values are not allowed here
+ in 'reader', line 2, column 7:
+    spring:
+          ^
+
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchValue(ScannerImpl.java:870) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchMoreTokens(ScannerImpl.java:358) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.peekToken(ScannerImpl.java:250) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl$ParseDocumentEnd.produce(ParserImpl.java:253) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.peekEvent(ParserImpl.java:158) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.getEvent(ParserImpl.java:168) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.composer.Composer.getNode(Composer.java:97) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.constructor.BaseConstructor.getData(BaseConstructor.java:134) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.Yaml$1.next(Yaml.java:494) ~[snakeyaml-1.26.jar:na]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:160) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:134) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.env.OriginTrackedYamlLoader.load(OriginTrackedYamlLoader.java:75) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.env.YamlPropertySourceLoader.load(YamlPropertySourceLoader.java:50) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadDocuments(ConfigFileApplicationListener.java:608) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:524) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	... 30 common frames omitted
+
+2020-06-22 14:11:39.164 ERROR 18160 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.IllegalStateException: Failed to load property source from 'file:/C:/sts4/finalProject/target/classes/application.yml' (classpath:/application.yml)
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:554) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadForFileExtension(ConfigFileApplicationListener.java:499) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:469) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$null$7(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$8(ConfigFileApplicationListener.java:448) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.Iterable.forEach(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:445) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.lambda$load$0(ConfigFileApplicationListener.java:348) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.FilteredPropertySource.apply(FilteredPropertySource.java:54) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:336) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.addPropertySources(ConfigFileApplicationListener.java:226) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.postProcessEnvironment(ConfigFileApplicationListener.java:210) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEnvironmentPreparedEvent(ConfigFileApplicationListener.java:200) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener.onApplicationEvent(ConfigFileApplicationListener.java:188) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at com.project.bit.BitApplication.main(BitApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_241]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+Caused by: org.yaml.snakeyaml.scanner.ScannerException: mapping values are not allowed here
+ in 'reader', line 2, column 7:
+    spring:
+          ^
+
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchValue(ScannerImpl.java:870) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.fetchMoreTokens(ScannerImpl.java:358) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.scanner.ScannerImpl.peekToken(ScannerImpl.java:250) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl$ParseDocumentEnd.produce(ParserImpl.java:253) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.peekEvent(ParserImpl.java:158) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.parser.ParserImpl.getEvent(ParserImpl.java:168) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.composer.Composer.getNode(Composer.java:97) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.constructor.BaseConstructor.getData(BaseConstructor.java:134) ~[snakeyaml-1.26.jar:na]
+	at org.yaml.snakeyaml.Yaml$1.next(Yaml.java:494) ~[snakeyaml-1.26.jar:na]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:160) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.YamlProcessor.process(YamlProcessor.java:134) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.env.OriginTrackedYamlLoader.load(OriginTrackedYamlLoader.java:75) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.env.YamlPropertySourceLoader.load(YamlPropertySourceLoader.java:50) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.loadDocuments(ConfigFileApplicationListener.java:608) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.context.config.ConfigFileApplicationListener$Loader.load(ConfigFileApplicationListener.java:524) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	... 30 common frames omitted
+

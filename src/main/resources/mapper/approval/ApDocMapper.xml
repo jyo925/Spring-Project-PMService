@@ -36,22 +36,21 @@
         #{apDocWriter},
         #{apDocTitle},
         #{apDocContent},
-        '0', 1, sysdate, null)
+        '0', 1, sysdate, null,
+        #{apDocProjectName})
     </insert>
 
     <!-- 결재진행함 조회 -->
     <!--ap_doc_status 0=진행중,1=완료, 2=반려, 3=임시저장 -->
-    <select id="selectApProgressList" resultType="com.project.bit.approval.domain.ApDocListVO">
+    <select id="selectApProgressList" resultType="com.project.bit.approval.domain.ApDocDTO">
         select * from
-        (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name,  ap_doc_writer, project_code, project_name, ap_doc_createdate, ap_doc_enddate , ap_doc_status
-        from (select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name,  d.ap_doc_writer,
-        p.project_code,(select project_name from projects where project_code = p.project_code)as project_name,
+        (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name as ap_Doc_Writer_Name, ap_doc_writer,ap_doc_project_name,
+        ap_doc_createdate, ap_doc_enddate , ap_doc_status
+        from (select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name, d.ap_doc_writer, d.ap_doc_project_name,
         d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status from approvaldoc d
         join approvalform f on d.ap_form_no = f.ap_form_no
-        join project_members p on d.ap_doc_writer = p.user_id
-        join users u on p.user_id = u.user_id
-        where ap_doc_writer = #{apDocWriter}
-        and ap_doc_status in (0, 2)
+        join users u on d.ap_doc_writer = u.user_id
+        where ap_doc_writer = #{apDocWriter} and ap_doc_status in (0, 2)
         <include refid="criteria"></include>
         order by ap_doc_status desc, ap_doc_no)
         <![CDATA[where rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
@@ -67,6 +66,7 @@
         select NVL(Max(count(ap_doc_status)),0)
         from approvaldoc
         where ap_doc_writer = #{apDocWriter} and ap_doc_status = #{apDocStatus}
+        <include refid="criteria"></include>
         group by ap_doc_status
     </select>
 
@@ -78,22 +78,79 @@
         and a.ap_step = (select ap_doc_step from approvaldoc where ap_doc_no = a.ap_doc_no)
     </select>
 
-
-    <!-- 결재 대기 문서 조회 -->
-    <select id="selectApCheckList" resultType="com.project.bit.approval.domain.ApDocListVO">
-        select * from
-        (select rownum rn, f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name,  d.ap_doc_writer,
-        p.project_code,(select project_name from projects where project_code = p.project_code)as project_name,
-        d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status
-        from approvaldoc d
-        join  approvalform f on d.ap_form_no = f.ap_form_no
-        join project_members p on d.ap_doc_writer = p.user_id
-        join (select user_id, user_name from users) u on p.user_id = u.user_id
-        where d.ap_doc_no in
-        (select a.ap_doc_no from approval a where a.ap_approver = #{apDocWriter} and a.ap_step = (select ap_doc_step from approvaldoc where ap_doc_no = a.ap_doc_no)
-        )and ap_doc_status = 0
-        <include refid="criteria"></include>
-        <![CDATA[ and rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
+    <!-- 참조 문서 개수 -->
+    <select id="selectCountApRefer" resultType="_int">
+        select count(*) from approvaldoc
+        where ap_doc_no in (select ap_doc_no from approvalreferrer where ap_referrer = #{apReferrer})
+        and ap_doc_status in (0,1,2)
     </select>
 
+    <!-- 결재 대기 문서 조회 -->
+    <select id="selectApCheckList" resultType="com.project.bit.approval.domain.ApDocDTO">
+        select * from
+        (select rownum rn, f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name as ap_Doc_Writer_Name,
+        d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status, d.ap_doc_project_name
+        from approvaldoc d
+        join approvalform f on d.ap_form_no = f.ap_form_no
+        join (select user_id, user_name from users) u on d.ap_doc_writer= u.user_id
+        where d.ap_doc_no in
+        (select a.ap_doc_no from approval a where a.ap_approver = #{apDocWriter} and a.ap_step = (select ap_doc_step
+        from approvaldoc where ap_doc_no = a.ap_doc_no)
+        )and ap_doc_status = 0
+        <include refid="criteria"></include>
+        <![CDATA[ and rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} order by ap_doc_no asc]]>
+    </select>
+
+    <select id="selectApDoc" resultType="com.project.bit.approval.domain.ApDocDTO">
+        select d.*, u.user_name as ap_doc_writer_name
+        from approvaldoc d
+        join (select user_id, user_name from users) u
+        on u.user_id = d.ap_doc_writer
+        where d.ap_doc_no = #{apDocNo}
+    </select>
+
+    <select id="selectApDocViewableUsers" resultType="String">
+        WITH table1 AS(
+        select ap_approver AS COLUMN1 from approval where ap_doc_no = #{apDocNo} UNION ALL
+        select ap_referrer AS COLUMN1 from approvalreferrer where ap_doc_no = #{apDocNo} UNION ALL
+        select ap_doc_writer  AS COLUMN1 from approvaldoc where ap_doc_no = #{apDocNo})
+        select * from table1
+    </select>
+
+    <update id="updateApDocStep">
+        update approvaldoc
+        set ap_doc_step = ap_doc_step+1
+        where ap_doc_no = #{apDocNo}
+    </update>
+
+    <update id="updateLastApDoc">
+        update approvaldoc
+        set ap_doc_step = ap_doc_step+1, ap_doc_enddate = sysdate, ap_doc_status = 1
+        where ap_doc_no = #{apDocNo}
+    </update>
+
+    <!-- 참조 문서함 조회 -->
+    <select id="selectApReferList" resultType="com.project.bit.approval.domain.ApDocDTO">
+        select * from
+        (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name as ap_Doc_Writer_Name, ap_doc_project_name,
+        ap_doc_createdate, ap_doc_enddate , ap_doc_status
+        from (select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name, d.ap_doc_writer, d.ap_doc_project_name,
+        d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status
+        from approvaldoc d
+        join approvalform f on d.ap_form_no = f.ap_form_no
+        join (select user_id, user_name from users) u on d.ap_doc_writer = u.user_id
+        where d.ap_doc_no in (select ap_doc_no from approvalreferrer where ap_referrer = #{apReferrer})
+        and ap_doc_status in (0,1,2)
+        <include refid="criteria"></include>
+        order by ap_doc_status desc, ap_doc_no asc)
+        <![CDATA[where rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
+    </select>
+
+    <!-- 기안자명, 기안프로젝트명 가져오기-->
+    <select id="selectApDocWriterInfo" resultType="com.project.bit.approval.domain.ApDocWriterVO">
+        select u.user_name, p.project_name from users u
+        join project_members m on m.user_id = u.user_id
+        join projects p on p.project_code = m.project_code
+        where u.user_id = #{userId}
+    </select>
 </mapper>

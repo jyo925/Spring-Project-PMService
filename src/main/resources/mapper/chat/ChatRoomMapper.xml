@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.bit.chat.mapper.ChatRoomMapper">
+    <resultMap id="ChatRoom" type="com.project.bit.chat.domain.ChatRoom">
+        <id property="conversationId" column="conversation_id"></id>
+        <result property="createdAt" column="conversation_creation_time"></result>
+    </resultMap>
+
+    <insert id="save">
+        INSERT INTO chatrooms (conversation_id)
+        VALUES (chatrooms_seq.NEXTVAL)
+    </insert>
+
+</mapper>

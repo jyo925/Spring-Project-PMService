@@ -3,22 +3,28 @@
 PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.project.mapper.ProjectMemberMapper">
-	<select id="selectProjectMember" parameterType="String" resultType="com.project.bit.project.domain.ProjectMemberDTO">
+	<select id="selectProjectMember" parameterType="String" resultType="com.project.bit.project.domain.ProjectMemberVO">
 		SELECT
+			pmem.project_joinCode AS project_joinCode,
 			pmem.user_id AS user_id,
-			u.user_name AS user_name
+			u.user_name AS user_name,
+			t.team_name AS team_name,
+			pos.position_name AS position_name,
+			d.duty_name AS duty_name
 		FROM project_members pmem
 			INNER JOIN users u ON pmem.user_id = u.user_id
+			INNER JOIN teams t ON u.team_code = t.team_code
+			INNER JOIN positions pos ON u.position_code = pos.position_code
+			INNER JOIN dutys d ON pmem.duty_code = d.duty_code
 		WHERE pmem.project_code = #{projectId}
 	</select>
 	
-	<!-- <select id="selectUserAll" resultType="com.project.bit.projects.domain.Users">
-		SELECT
-			u.*,
-			t.team_name AS team_name,
-			pos.position_name AS position_name
-		FROM users u
-			INNER JOIN teams t ON u.team_code = t.team_code
-			INNER JOIN positions pos ON u.position_code = pos.position_code
-	</select> -->
+	<insert id="insertProjectMember" parameterType="com.project.bit.project.domain.ProjectMemberDTO">
+		INSERT INTO project_members
+		VALUES(ID_SEQ.nextval||'-'||(SELECT project_subName FROM projects WHERE project_code = #{projectCode})||'-'||'DEVELOPER',#{projectCode},#{userId},'duty400')
+	</insert>
+	
+	<delete id="deleteProjectMember" parameterType="String">
+		DELETE FROM project_members WHERE project_joinCode = #{projectJoinId}
+	</delete>
 </mapper>

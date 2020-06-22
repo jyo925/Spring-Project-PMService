@@ -14,22 +14,79 @@
             resultType="com.project.bit.approval.domain.ApproverVO">
         select u.user_id, u.user_name, d.duty_name
         from project_members m
-        inner join users u on m.user_id = u.user_id
-        inner join dutys d on d.duty_code = m.duty_code
+        inner join users u
+        on m.user_id = u.user_id
+        inner join dutys d
+        on d.duty_code = m.duty_code
         where d.duty_name in(#{path.apPath1}, #{path.apPath2}, #{path.apPath3})
         and m.project_code =
-        (select project_code from project_members where user_id = #{userId})
+        (select project_code from project_members where user_id = #{userId}) order by d.duty_code desc
 
     </select>
 
     <insert id="insertApprover" parameterType="com.project.bit.approval.domain.ApDTO">
         insert into
         approval(ap_no, ap_doc_no, ap_approver, ap_duty_name, ap_step)
-        values (AP_SEQ.nextval, #{apDocNo}, #{approver}, #{apDutyName}, #{apStep})
+        values (AP_SEQ.nextval, #{apDocNo}, #{apApprover}, #{apDutyName}, #{apStep})
     </insert>
 
     <update id="updateApReceiveDate">
-        update approval set ap_receivedate = sysdate where ap_doc_no = #{apDocNo} and ap_approver = #{approver}
+        update approval
+        set ap_receivedate = sysdate
+        where ap_doc_no = #{apDocNo}
+        and ap_approver = #{apApprover}
     </update>
 
+    <select id="selectApproverDutyName" resultType="String">
+        select duty_name
+        from dutys
+        where duty_code =
+        (select duty_code from project_members where user_id = #{userId})
+    </select>
+    
+    <select id="selectSuperiorApprover" resultType="com.project.bit.approval.domain.ApproverVO">
+        <![CDATA[select u.user_id, u.user_name, d.duty_name
+        from project_members m
+        inner join users u
+        on m.user_id = u.user_id
+        inner join dutys d
+        on d.duty_code = m.duty_code
+        where m.project_code =
+        (select project_code from project_members where user_id = #{userId})
+        and m.duty_code =
+        (SELECT max(duty_code) FROM dutys
+        where duty_code < (select duty_code from project_members where user_id = #{userId}))]]>
+    </select>
+
+    <select id="selectApprovalList" resultType="com.project.bit.approval.domain.ApDTO">
+        select a.*, u.user_name
+        from approval a
+        join (select user_id, user_name from users) u
+        on a.ap_approver = u.user_id
+        where a.ap_doc_no = #{apDocNo}
+    </select>
+
+    <select id="selectLastApprover" resultType="String">
+        select ap_approver
+        from (select ap_approver, ap_step
+            from approval
+            where ap_doc_no = #{apDocNo}
+            order by ap_step desc)
+        where ROWNUM=1
+    </select>
+
+    <update id="updateApproval">
+        update approval
+        set ap_result = #{apResult}, ap_comment = #{apComment}, ap_signdate = sysdate
+        where ap_doc_no = #{apDocNo} and ap_approver = #{apApprover}
+    </update>
+
+    <update id="updateNextApReceiveDate">
+        update approval
+        set ap_receivedate=sysdate
+        where ap_no = (select ap_no from approval
+                where ap_step =
+                        (select ap_step from approval
+                                where ap_Doc_no= #{apDocNo} and ap_approver = #{apApprover})+1 and ap_doc_no = #{apDocNo})
+    </update>
 </mapper>

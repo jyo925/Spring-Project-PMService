@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorator="layout/default">
 
 <title id="pageTitle">프로젝트 기본정보</title>
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<link rel="stylesheet" href="css/project/project.css">
+	<link rel="stylesheet" href="/css/project/projectTask.css">
+	<link rel="stylesheet" href="/css/magnific-popup.css">
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+	<script th:inline="javascript" src="/js/project/projectTaskGroup.js"></script>
 	<script th:inline="javascript" src="/js/project/projectTask.js"></script>
+	<script th:inline="javascript" src="/js/magnific-popup.js"></script>
 </th:block>
 
 
@@ -23,56 +27,291 @@
 					<div class="card-body">
 						<h6>프로젝트 작업</h6>
 						
-						<div id="taskGroup_div" th:each="taskGroup : ${taskGroupList}"
-							style="border: 1px solid black; padding: 20px; width: 20%; float: left; margin-right: 5px;">
-							<span th:id="taskGroup"
-							 th:data-text="${taskGroup.taskGroupName}" th:data-id="${taskGroup.taskGroupCode}" 
-								th:text="${taskGroup.taskGroupName}">프로젝트 작업 그룹 명</span>
-							<ul>
-								<li>
-									<button id="groupName_btn"type="button">그룹명 바꾸기</button>
-								</li>
-								<li>
-									<button type="button">그룹 삭제</button>							
-								</li>
-							</ul>
-							
-							<button type="button" style="margin-bottom: 10px; width:100%;"> + </button>
-							
-							<div th:each="task : ${taskGroup.projectTasks}" style="border: 1px solid black; padding: 10px; margin-top:5px;">
-								<span th:text="${task.taskName}"id="task_name">프로젝트 작업 명</span>
-								<ul>
-									<li>
-										<a href="#">작업 완료</a>
-									</li>
-									<li>
-										<a href="#">작업 삭제</a>							
-									</li>
-								</ul>
-								<p th:text="${task.taskDescription}"> 작업 설명 </p>
-								<p th:text="${task.taskStart} + ' ~ ' + ${task.taskFinish}"> 시작일 ~ 완료일 </p>
-								<span th:each="manager : ${task.projectTaskManagers}" th:text="${manager.taskManagerId} + ' '"></span>
-							
+						<div class="taskGroup-div" th:each="taskGroup : ${taskGroupList}">							
+							<!-- 작업 그룹 -->
+							<div class="taskGroup-list">
+								<span class="taskGroup" th:data-proj="${taskGroup.projectCode}"
+									th:data-text="${taskGroup.taskGroupName}" th:data-id="${taskGroup.taskGroupCode}" 
+									th:text="${taskGroup.taskGroupName}">프로젝트 작업 그룹 명</span>
+									
+								<i class="fa fa-caret-down group-btn-list"></i>
+								
+								<div class="group-btn">
+									<ul>
+										<li>
+											<a class="groupName_btn">그룹명 바꾸기</a>										
+										</li>
+										<li>
+											<a class="group-remove-btn">그룹 삭제</a>																							
+										</li>
+									</ul>
+								</div>
+								
+								
 							</div>
+							<!-- 작업 그룹 -->
+							
+							<button data-mfp-src="#task-add-popup" class="task-add-modal" type="button"> + </button>
+							
+							<!-- 작업 등록 모달 -->
+							<div id="task-add-popup" class="white-popup mfp-hide">
+								<p>작업 명</p>
+								<input id="task-name" type="text" placeholder="작업 명">
+								
+								<p>시작일</p>
+								<input id="task-start" type="date">
+								
+								<p>종료일</p>
+								<input id="task-finish" type="date">
+								
+								<!-- <p>담당자</p>
+								<ul class="task-manager-list">
+									
+								</ul>
+								<select class="task-manager">
+									<option value="">담당자</option>
+									<option th:each="member : ${projectMembers}" th:value="${member.userId}" th:data-name="${member.userName}" 
+									th:text="${member.dutyName} + ' - ' + ${member.userId} + ' - ' +${member.userName}"></option>
+								</select> -->
+								
+								
+								<p>작업 설명</p>
+								<textarea id="task-description" rows="10%" cols="auto" placeholder="작업 설명"></textarea>
+								
+								<select class="task-status">
+									<option value=""> 상태</option>
+									<option th:each="taskStatus : ${taskStatusList}" th:value="${taskStatus.taskStatusCode}" 
+									th:text="${taskStatus.taskStatus}"></option>
+								</select>
+								
+								<div class="task-modal-btns">
+									<button class="task-add-btn" type="button">확인</button>
+									<button class="task-cancel-btn" type="button">취소</button>
+								</div>
+							</div>
+							<!-- 모달 끝 -->
+							
+							<div class="task" th:each="task : ${taskGroup.projectTasks}" th:if="${task.taskStatusName} != '완료'">
+								<input class="task-code" type="hidden" th:value="${task.taskCode}">
+								
+								<p class="task-status-name" th:text="${task.taskStatusName}"></p>
+								<span class="task-name" th:data-mfp-src="'#' + ${task.taskCode}" th:text="${task.taskName}" id="task_name">프로젝트 작업 명</span>
+								
+								<i class="fa fa-caret-down task-btn-list"></i>
+								
+								<div class="task-btn">
+									<ul>
+										<li>
+											<a class="task-success-btn">작업 완료</a>
+										</li>
+										<li>
+											<a class="task-delete-btn">작업 삭제</a>							
+										</li>
+									</ul>
+								</div>
+								
+								<p th:text="${task.taskDescription}"> 작업 설명 </p>
+								<p th:text="${task.taskStart} + ' ~ ' + ${task.taskFinish}" style="margin-top: 50px;"> 시작일 ~ 완료일 </p>
+								<span th:each="manager : ${task.projectTaskManagers}" th:text="${manager.taskManagerId} + ' '"></span>
+								
+								<!-- 프로젝트 작업 -->
+								<div th:id="${task.taskCode}" class="white-popup mfp-hide">
+									<div class="task-top-nav">
+										<a class="task-info-btn" th:data-mfp-src="'#' + ${task.taskCode}" >작업 정보</a>
+										<a class="task-file-btn" th:data-mfp-src="'#' + ${task.taskCode} + 'file'"  >작업 파일</a>
+									</div>
+									
+									<p>작업 명</p>
+									<input id="task-name" type="text" th:value="${task.taskName}" placeholder="작업 명">
+									
+									<p>시작일</p>
+									<input id="task-start" type="date" th:value="${task.taskStart}">
+									
+									<p>종료일</p>
+									<input id="task-finish" type="date" th:value="${task.taskFinish}">
+									
+									<p>담당자</p>
+									<ul class="task-manager-list">
+										<span class="manager-id" th:each="manager : ${task.projectTaskManagers}" th:text="${manager.taskManagerId}"></span>
+									</ul>
+									<select class="task-manager">
+										<option value="">담당자</option>
+										<option th:each="member : ${projectMembers}" th:value="${member.userId}" th:data-name="${member.userName}" 
+										th:text="${member.dutyName} + ' - ' + ${member.userId} + ' - ' +${member.userName}"></option>
+									</select>
+									
+									
+									<p>작업 설명</p>
+									<textarea id="task-description" rows="10%" cols="auto" placeholder="작업 설명" th:text="${task.taskDescription}"></textarea>
+									
+									<select class="task-status">
+										<option value=""> 상태</option>
+										<option th:each="taskStatus : ${taskStatusList}" th:value="${taskStatus.taskStatusCode}" 
+										th:text="${taskStatus.taskStatus}" th:selected="${taskStatus.taskStatus} == ${task.taskStatusName}"></option>
+									</select>
+									
+									<div class="task-modal-btns">
+										<button class="task-update-btn" type="button">확인</button>
+										<button class="task-update-cancel-btn" type="button">취소</button>
+									</div>
+								
+								</div>
+								
+								<!-- 작업 파일 모달 -->
+								<div th:id="${task.taskCode} + 'file'" class="white-popup mfp-hide task-file-popup" style="width: 1000px;">
+									<div class="task-top-nav">
+										<a class="task-info-btn" th:data-mfp-src="'#' + ${task.taskCode}" >작업 정보</a>
+										<a class="task-file-btn" th:data-mfp-src="'#' + ${task.taskCode} + 'file'" >작업 파일</a>
+									</div>
+									<button class="task-file-add-btn" type="button">+ 산출물 등록</button>
+									
+									<div class="task-file-add">
+										<p>파일</p>
+										<input class="task-file" name="task_file" type="file" multiple="multiple">
+										
+										<p>파일 카테고리</p>
+										<select class="output-category">
+											<option value=""> 카테고리를 선택하세요 </option>
+											<option th:each="outputType : ${outputTypeList}"
+											 th:value="${outputType.outputTypeCode}"
+											 th:text="${outputType.outputType}"></option>
+										</select>
+										
+										<p></p>
+										
+										<button type="submit" class="task-file-upload">저장</button>
+										<button class="task-file-add-cancel-btn">취소</button>
+									</div>
+									
+									<div class="task-file-list">
+										<table class="task-file-table">
+											<thead>
+												<tr width="100%">
+													<th width="5%">No</th>
+													<th width="30%">카테고리</th>
+													<th width="30%">파일이름</th>
+													<th width="10%">작성자</th>
+													<th width="20%">작성날짜</th>
+													<th width="5%">삭제</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="output-row" th:each="output : ${task.projectOutputList}">
+													<td th:text="${outputStat.count}"></td>
+													<td th:text="${output.outputTypeName}"></td>
+													<td class="output-name" th:data-id="${output.outputCode}"
+													 th:data-path="${output.outputPath}"><a class="output-download" th:text="${output.outputName}"></a></td>
+													<td th:text="${output.outputUser}"></td>
+													<td th:text="${output.outputDate}"></td>
+													<td><a class="output-delete">x</a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<button class="task-file-cancel-btn">취소</button>
+								</div>
+								
+								<!-- 모달 끝 -->
+								
+							</div>
+							<!-- 작업 상세 끝 -->
+							
+							<!-- 슬라이드 -->
+							<div class="success-task-list">
+								<div class="success-task-title">
+									<span>완료된 작업</span>
+									<i class="fa fa-angle-down fa-2x" style="float: right;"></i>
+								</div>
+								
+								<div class="success-task" th:each="task : ${taskGroup.projectTasks}" th:if="${task.taskStatusName} == '완료'">
+									<input class="task-code" type="hidden" th:value="${task.taskCode}">
+									
+									<p class="task-status-name" th:text="${task.taskStatusName}"></p>
+									<span class="task-name" th:data-mfp-src="'#' + ${task.taskCode}" th:text="${task.taskName}" id="task_name">프로젝트 작업 명</span>
+									
+									<i class="fa fa-caret-down success-task-btn-list"></i>
+									
+									<div class="success-task-btn">
+										<ul>
+											<li>
+												<a class="task-active-btn">작업 다시 활성화</a>
+											</li>
+											<li>
+												<a class="task-delete-btn">작업 삭제</a>							
+											</li>
+										</ul>
+									</div>
+									
+									<p th:text="${task.taskDescription}"> 작업 설명 </p>
+									<p th:text="${task.taskStart} + ' ~ ' + ${task.taskFinish}"> 시작일 ~ 완료일 </p>
+									<span th:each="manager : ${task.projectTaskManagers}" th:text="${manager.taskManagerId} + ' '"></span>
+									
+									<!-- 프로젝트 작업 -->
+									<div th:id="${task.taskCode}" class="white-popup mfp-hide">
+										<p>작업 명</p>
+										<input id="task-name" type="text" th:value="${task.taskName}" placeholder="작업 명">
+										
+										<p>시작일</p>
+										<input id="task-start" type="date" th:value="${task.taskStart}">
+										
+										<p>종료일</p>
+										<input id="task-finish" type="date" th:value="${task.taskFinish}">
+										
+										<p>담당자</p>
+										<ul class="task-manager-list">
+											<span class="manager-id" th:each="manager : ${task.projectTaskManagers}" th:text="${manager.taskManagerId}"></span>
+										</ul>
+										<select class="task-manager">
+											<option value="">담당자</option>
+											<option th:each="member : ${projectMembers}" th:value="${member.userId}" th:data-name="${member.userName}" 
+											th:text="${member.dutyName} + ' - ' + ${member.userId} + ' - ' +${member.userName}"></option>
+										</select>
+										
+										
+										<p>작업 설명</p>
+										<textarea id="task-description" rows="10%" cols="auto" placeholder="작업 설명" th:text="${task.taskDescription}"></textarea>
+										
+										<select class="task-status">
+											<option value=""> 상태</option>
+											<option th:each="taskStatus : ${taskStatusList}" th:value="${taskStatus.taskStatusCode}" 
+											th:text="${taskStatus.taskStatus}" th:selected="${taskStatus.taskStatus} == ${task.taskStatusName}"></option>
+										</select>
+										
+										<div class="task-modal-btns">
+											<button class="task-update-btn" type="button">확인</button>
+											<button class="task-update-cancel-btn" type="button">취소</button>
+										</div>
+									
+									</div>
+									<!-- 모달 끝 -->
+									
+								</div>
+								
+							</div>							
 						</div>
 						<!-- 프로젝트 작업 그룹 -->
 						
-						<span><a href="#groupAddModal" class="groupAdd_btn">+작업 그룹</a></span>
+						<span><a href="#group-add-popup" data-mfp-src="#group-add-popup" class="group-add-modal">+작업 그룹</a></span>
 						
+						<!-- 그룹 등록 모달 -->
+						<div id="group-add-popup" class="white-popup mfp-hide">
+							<p>그룹 명</p>
+							<input id="group-name" type="text" placeholder="그룹 명">
+							<p>그룹 설명</p>
+							<textarea id="group-description" rows="10%" cols="auto" placeholder="그룹 설명"></textarea>
+							<button id="group-add-btn" type="button">확인</button>
+							<button id="cancel-btn" type="button">취소</button>
+						</div>
 						
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		
 	</div>
 	
-	<!-- 그룹 추가 모달 -->
-	<div id="groupAddModal" class="white-popup mfp-hide">
-		<p>그룹 명</p>
-		<input type="text" placeholder="그룹 명">
-		<p>그룹 설명</p>
-		<textarea rows="10px" cols="100px" placeholder="그룹 설명"></textarea>
-	</div>
 	
 	
 </html>
+
