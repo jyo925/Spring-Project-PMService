@@ -27,7 +27,7 @@
 	</insert>
 	
 	<delete id="deleteEvent">
-		DELETE FROM EVENTS WHERE EVENT_ID=#{eventId};
+		DELETE FROM events WHERE EVENT_ID=#{eventId}
 	</delete>
 	
 </mapper>

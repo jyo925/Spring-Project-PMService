@@ -1,7 +1,6 @@
 package com.project.bit.foo.domain;
 
 import java.sql.Date;
-import java.util.List;
 
 import lombok.Data;
 
@@ -20,5 +19,9 @@ public class Users {
 	private Date userRregitdate;
 	private String dutyCode;
 	private String dutyName;
+	
+	private String userPhoto;
+	private String userWebsite;
+	private String userInfo;
 
 }

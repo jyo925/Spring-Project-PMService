@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import com.project.bit.foo.domain.Users;
 
-
 public interface UserService {
 	
 	Optional<Users> selectUserById(String USER_ID);
@@ -15,5 +14,13 @@ public interface UserService {
 	List<Users> selectAll();
 	
 	List<Users> selectUserByTeam(int teamCode);
+	
+	Users selectUser(String userId);
+	
+	void updateUser(Users user, String userId);
+	
+	void updateUserPoto(Users user, String userId);
+	
+	void updateUserPw(Users user, String userId);
 
 }

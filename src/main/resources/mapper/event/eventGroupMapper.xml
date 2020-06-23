@@ -14,8 +14,8 @@
 		INSERT INTO EVENT_GROUPS(EVENT_ID, USER_ID) VALUES(#{eventId}, #{userId})
 	</insert>
 	
-	<delete id="updateGroup">
-		DELETE FROM EVENT_GROUPS WHERE USER_ID=#{userId};
+	<delete id="deleteGroup">
+		DELETE FROM EVENT_GROUPS WHERE EVENT_ID=#{eventId}
 	</delete>
 	
 </mapper>
