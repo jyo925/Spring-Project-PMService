@@ -2,62 +2,23 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.bit.admin.mapper.UserSettingMapper">
+<mapper namespace="com.project.bit.admin.mapper.TeamSettingMapper">
 
-<!--사용자 리스트-->
-    <select id="selectUser" resultType="com.project.bit.admin.domain.UserVO">
-     SELECT
-     U.USER_ID
-     ,U.USER_NAME
-     ,u.USER_EMAIL
-     ,U.USER_PHONE
-     ,T.TEAM_NAME
-     ,P.POSITION_NAME
-     ,U.USER_REGITDATE
-     FROM USERS U
-        INNER JOIN POSITIONS P ON  U.POSITION_CODE = P.POSITION_CODE
-        INNER JOIN TEAMS T ON U.TEAM_CODE = T.TEAM_CODE
+    <select id="selectTeamUpperForOption" resultType="com.project.bit.admin.domain.TeamDTO">
+    SELECT
+        TEAM_UPPER
+      FROM
+        TEAMS
     </select>
 
-<!--사용자 등록-->
-    <insert id="insertUser">
-      insert into users (
-       USER_ID
-       ,USER_PW
-       ,USER_NAME
-       ,USER_EMAIL
-       ,USER_PHONE
-       ,POSITION_CODE
-       ,TEAM_CODE
-       )
-      values(
-       #{userId}
-       ,#{userPw}
-       ,#{userName}
-       ,#{userEmail}
-       ,#{userEmail}
-       ,#{positionCode}
-       ,#{teamCode}
-       )
-    </insert>
 
-
-<!--    -->
-<!--    <delete id="deleteUser" parameterType="int">-->
-<!--        -->
-<!--        Delete *-->
-<!--        from users-->
-<!--        user_id = #{userId}-->
-<!--        -->
-<!--    </delete>-->
-    
-    <update id="resetUserPw" parameterType="com.project.bit.admin.domain.UserVO">
-        update users
-        set
-         user_pw = #{userPw}
-        where
-         user_id = #{userId}
-    </update>
+    <select id="selectTeamForOption" resultType="com.project.bit.admin.domain.TeamDTO">
+    SELECT
+        TEAM_CODE
+        ,TEAM_NAME
+      FROM
+        TEAMS
+    </select>
 
 
 

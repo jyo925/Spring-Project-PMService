@@ -1,5 +1,7 @@
 package com.project.bit.userStatus.controller;
 
+import com.project.bit.approval.domain.Criteria;
+import com.project.bit.approval.domain.PageDTO;
 import com.project.bit.userStatus.mapper.UserStatusMapper;
 import com.project.bit.userStatus.service.UserStatusService;
 import lombok.AllArgsConstructor;
@@ -14,17 +16,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserStatusController {
 
     private UserStatusService userStatusService;
-    private UserStatusMapper userStatusMapper;
 
+    //사용자현황 목록
     @GetMapping("/userStatusList")
-    public void getUserStatusAll(Model model) {
+    public String getUserStatusList(Criteria cri, Model model) {
 
-        log.info("All Status List");
-        System.out.println(userStatusMapper.selectUserStatus());
+        model.addAttribute("userStatusList", userStatusService.getUserStatusList(cri));
+        model.addAttribute("PageMaker", new PageDTO(cri,userStatusService.countUsersStatusList()));
 
-        model.addAttribute("userStatusList", userStatusService.getUserStatusAll());
+        return "userStatus/userStatusList";
 
     }
 
 
 }
+

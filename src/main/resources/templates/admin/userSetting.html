@@ -1,91 +1,343 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+      layout:decorate="~{layout/admindefault}">
 
 <title id="pageTitle">사용자 등록</title>
 
+<th:block layout:fragment="css">
+    <link href="/css/jquery-ui.css" rel="stylesheet">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+</th:block>
 
 <div layout:fragment="content">
 
+    <!-- Registration Start -->
     <div id="dialog-form" title="regitUser">
-        <form>
-
-                <label for="userID">아이디</label>
-                <input id="userID" name="userID" type="text" class="text ui-widget-content ui-corner-all" placeholder=""
-                       required="required">
-                <label for="name">이름</label>
-                <input id="name" name="name" type="text" class="text ui-widget-content ui-corner-all" placeholder=""
-                       required="required"><br>
-                <select name="positions">
-                    <option value="">직급선택</option>
-                    <option value="부장">부장</option>
-                    <option value="차장">차장</option>
-                    <option value="과장">과장</option>
-                    <option value="대리">대리</option>
-                    <option value="사원">사원</option>
-                </select>
-                <label for="team">팀</label>
-                <!--ajax DB를 갔다가 와야함 비동기 통신-->
-                <input type="text" name="team" id="team" class="text ui-widget-content ui-corner-all">
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" class="text ui-widget-content ui-corner-all">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="text ui-widget-content ui-corner-all">
-
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        <form action="/regitUser" id="regitUser">
+            <label for="userId">아이디</label>
+            <input id="userId" name="userId" type="text" class="text ui-widget-content ui-corner-all form-control mb-3"
+                   placeholder=""
+                   required="required">
+            <label for="userName">이름</label>
+            <input id="userName" name="userName" type="text"
+                   class="text ui-widget-content ui-corner-all form-control mb-3" placeholder=""
+                   required="required">
+            <label for="positionCode">직급</label>
+            <select name="positionCode" id="positionCode" class="form-control mb-3">
+                <option value="">선택</option>
+                <option value="1">부장</option>
+                <option value="2">차장</option>
+                <option value="3">과장</option>
+                <option value="4">대리</option>
+                <option value="5">사원</option>
+            </select>
+            <!--팀선택-->
+            <label for="teamCode">팀</label>
+            <select name="teamCode" id="teamCode" class="form-control mb-3">
+            </select>
+            <!--이메일 작성-->
+            <label for="userEmail">Email</label>
+            <input type="email" name="userEmail" id="userEmail"
+                   class="text ui-widget-content ui-corner-all form-control mb-3">
+            <!--전화번호 작성-->
+            <label for="userPhone">Phone</label>
+            <input type="tel" name="userPhone" id="userPhone"
+                   class="text ui-widget-content ui-corner-all form-control mb-3">
 
         </form>
     </div>
-    <button id="regitBtn">사용자 등록</button>
+    <!-- Registration end -->
 
+    <button type="button" id="regitBtn" name="regitBtn">사용자 등록</button>
+    <button type="button" id="resetPwBtn" name="resetPwBtn">비밀번호 초기화</button>
+    <button type="button" id="deleteUserBtn" name="deleteUserBtn">선택 삭제</button>
+
+
+    <!-- Search start-->
+    <form id='searchForm' action="/userSettingList" method='get' class="form-inline repeater">
+        <div data-repeater-list="group-a">
+            <div data-repeater-item="" class="d-md-flex mb-2">
+                <div class="input-group mb-2 mr-md-2 mb-md-0">
+                    <div class="input-group-prepend">
+                    </div>
+                    <select class="form-control" name='type'>
+                        <option value="NULL" th:selected="${pageMaker.cri.type == null?true:false}">--</option>
+                        <option value="N" th:selected="${pageMaker.cri.type eq 'N'?true:false}">이름</option>
+                        <option value="T" th:selected="${pageMaker.cri.type eq 'T'?true:false}">부서</option>
+                    </select>
+                </div>
+                <div class="input-group mb-2 mr-md-2 mb-md-0">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="text" name="keyword" class="form-control" placeholder="Search Here" th:value="${pageMaker.cri.keyword}">
+                    <input type='hidden' name='pageNum' th:value="${pageMaker.cri.pageNum}">
+                    <input type='hidden' name='amount' th:value="${pageMaker.cri.amount}">
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">검색</button>
+            </div>
+        </div>
+    </form>
+    <!-- Search end-->
+
+    <!--List start-->
     <div>
-        <table>
-            <thead>
-            <tr>
-                <th>No.</th>
-                <th>ID</th>
-                <th>이름</th>
-                <th>직급</th>
-                <th>부서</th>
-                <th>이메일</th>
-                <th>등록일</th>
-            </tr>
-            </thead>
-            <tbody id="userList">
-            <tr th:each="userList,index : ${userSettingAll}">
-                <td scope="row" th:text="${index.index+1}"></td>
-                <td th:text="${userList.userId}"></td>
-                <td th:text="${userList.userName}"></td>
-                <td th:text="${userList.positionName}"></td>
-                <td th:text="${userList.teamName}"></td>
-                <td th:text="${userList.userEmail}"></td>
-                <td th:text="${userList.userRegitDate}"></td>
-            </tr>
-            </tbody>
+        <form  action="" method="post">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="colgroup">ID</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">직급</th>
+                    <th scope="col">부서</th>
+                    <th scope="col">이메일</th>
+                    <th scope="col">전화번호</th>
+                    <th scope="col">등록일</th>
+                </tr>
+                </thead>
+                <tbody id="userList">
+                <tr th:each="userList,index : ${userSettingList}">
+                    <td scope="row" th:text="${index.index+1}"></td>
+                    <td th:text="${userList.userId}"></td>
+                    <td th:text="${userList.userName}"></td>
+                    <td th:text="${userList.positionName}"></td>
+                    <td th:text="${userList.teamName}"></td>
+                    <td th:text="${userList.userEmail}"></td>
+                    <td th:text="${userList.userPhone}"></td>
+                    <td th:text="${userList.userRegitDate}"></td>
+                    <td><input type="checkbox" name="chBox" class="check-box" th:value="${userList.userId}"/></td>
 
-        </table>
+                </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
+    <!-- List end -->
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(document).ready(function () {
 
-            $("#regitBtn").on('click', function () {
-                $('#dialog-form').dialog('open');
-            })
+    <!-- paging start -->
+    <div class="row">
+        <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">
+                <p th:text="'Showing 1 to ' +${userSettingList.size()}+ 'of '+${userSettingList.size()} +' entries'">
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-7">
+            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                <ul class="pagination justify-content-end">
+                    <li class="paginate_button page-item previous"
+                        id="dataTable_previous"
+                       th:if="${pageMaker.prev}">
+                        <a th:href="${pageMaker.endPage -1}"
+                           aria-controls="dataTable"
+                           data-dt-idx="0"
+                           tabindex="0"
+                           class="page-link">Prev</a>
+                    </li>
+                    <th:block
+                            th:each="number: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+                        <li class="paginate_button page-item">
+                            <a th:href="${number}"
+                               aria-controls="dataTable" data-dt-idx="1"
+                               tabindex="0" class="page-link" th:text="${number}">1</a>
+                        </li>
+                    </th:block>
 
-            $('#dialog-form').dialog({
-                title: '사용자 등록',
-                autoOpen: false,
-                modal: true,
-                width: 400,
-                height: 700
+                    <li class="paginate_button page-item next" id="dataTable_next"
+                        th:if="${pageMaker.next}">
+                        <a th:href="${pageMaker.endPage +1}"
+                           aria-controls="dataTable"
+                           data-dt-idx="7" tabindex="0"
+                           class="page-link"
+                        >Next</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+<!-- paging end-->
+
+    <form id='actionForm' action="/userSettingList" method='get'>
+        <input type='hidden' name='type' th:value="${pageMaker.cri.type}">
+        <input type='hidden' name='keyword' th:value="${pageMaker.cri.keyword}">
+        <input type='hidden' name='pageNum' th:value="${pageMaker.cri.pageNum}">
+        <input type='hidden' name='amount' th:value="${pageMaker.cri.amount}">
+    </form>
+
+
+<script>
+    $(document).ready(function () {
+
+        //Paging
+        var actionForm = $("#actionForm");
+        //페이지 이전,다음, 숫자 버튼 클릭시
+        $(".paginate_button a").on(
+            "click",
+            function (e) {
+                e.preventDefault(); //a태그 기능 막고
+                console.log("click");
+                //actionForm pageNum값을 href 속성값으로 추가
+                actionForm.find("input[name='pageNum']")
+                    .val($(this).attr("href"));
+                actionForm.submit();
             });
 
+        //Search
+        var searchForm = $("#searchForm");
+        $("#searchForm button").on(
+            "click",
+            function(e) {
+
+                if (searchForm.find("option:selected")
+                    .val()=="NULL") {
+                    alert("검색 종류를 선택하세요.")
+                    return false;
+                }
+
+                if (!searchForm.find(
+                    "input[name='keyword']").val()) {
+                    alert("키워드를 입력하세요.")
+                    return false;
+                }
+
+                searchForm.find("input[name='pageNum']")
+                    .val("1");
+                // e.preventDefault(); //search버튼 클릭시 폼태그 전송막기
+                searchForm.submit();
+            });
+
+
+        $('#regitBtn').on('click', function () {
+            $('#dialog-form').dialog('open');
         });
-    </script>
+
+        function addUser() {
+            $('#regitUser').submit();
+        }
+
+
+        //Delete User
+        $('#deleteUserBtn').on('click', function () {
+            var confirm_val = confirm("사용자를 삭제하시겠습니까?");
+
+            if (confirm_val) {
+                var user = {
+                    userId: "",
+                };
+
+                $("input[name='chBox']:checked").each(function () {
+                    //alert($(this).val()); //값이 넘어갔는지 확인용
+                    user.userId = $(this).val();
+                });
+                $.ajax({
+                    url: "/deleteUser",
+                    type: "post",
+                    dataType: "json",
+                    data: user,
+                    success: function () {
+                        location.href = "/admin/userSetting";
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("삭제하지 못했습니다.");
+                    }
+
+                });
+            }
+
+        });
+
+        //비밀번호 리셋
+        $('#resetPwBtn').click(function () {
+            var confirm_val = confirm("비밀번호를 초기화하겠습니까?");
+            if (confirm_val) {
+                var user = {
+                    userId: "",
+                };
+                $("input[name='chBox']:checked").each(function () {
+                    alert($(this).val()); //값이 넘어갔는지 확인용
+                    user.userId = $(this).val();
+                });
+
+                $.ajax({
+                    url: "/userSettingResetPw",
+                    type: "get",
+                    dataType: "json",
+                    data: user,
+                    success: function () {
+                        location.href = "/admin/userSetting";
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("리셋 실패!!!!!");
+                    }
+                });
+            }
+        });
+
+
+        $('#dialog-form').dialog({
+            title: '사용자 등록',
+            autoOpen: false,
+            modal: true,
+            width: 400,
+            height: 700,
+            show: {
+                effect: "blind",
+                duration: 1000
+            },
+            hide: {
+                effect: "blind",
+                duration: 1000
+            },
+
+
+            buttons: {
+                "등록": addUser,
+
+                "취소": function () {
+                    $('#dialog-form').dialog('close');
+                }
+            }
+
+        });
+
+        callTeamSelectBox();
+
+
+    });
+
+    function callTeamSelectBox() {
+
+        $.ajax({
+            type: "POST",
+            url: "/getTeamForOption",
+            dataType: "json",
+            data: {param: ""},
+            contentType: "application/json;charset=UTF-8",
+            success: function (result) {
+
+                //SELECT BOX 초기화
+                $('#teamCode').find('option').remove().end().append('<option value="" >선택</option>');
+
+                //배열 개수 만큼 option 추가
+                $.each(result, function (i) {
+                    $('#teamCode').append("<option value='" + result[i].teamCode + "'>" + result[i].teamName + "</option>")
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("오류가 발생하였습니다.");
+            }
+        });
+
+    }
+</script>
+
 </div>
 
 

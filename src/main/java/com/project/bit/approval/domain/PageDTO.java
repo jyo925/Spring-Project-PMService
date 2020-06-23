@@ -28,6 +28,9 @@ public class PageDTO {
         if (realEnd < this.endPage) {
             this.endPage = realEnd;
         }
+        if(realEnd == 0){ //데이터가 0개인 경우 realEnd가 0 -> 1로 변경
+            this.endPage = 1;
+        }
 
         this.prev = this.startPage > 1;
 
