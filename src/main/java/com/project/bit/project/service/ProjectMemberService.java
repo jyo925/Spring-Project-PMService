@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.project.bit.project.domain.ProjectMemberDTO;
 import com.project.bit.project.domain.ProjectMemberVO;
+import com.project.bit.project.domain.ProjectTaskVO;
 
 public interface ProjectMemberService {
-	public void postProjectMember(ProjectMemberDTO projectMemberDTO);
-	public void deleteProjectMember(String projectJoinCode);
-	public List<ProjectMemberVO> getProjectMember(String projectId);
+	void postProjectMember(ProjectMemberDTO projectMemberDTO);
+	void deleteProjectMember(String projectJoinCode);
+	List<ProjectMemberVO> getProjectMember(String projectId);
+	List<ProjectTaskVO> getProjectMemberGantt(String projectCode);
 }

@@ -19,6 +19,23 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		WHERE pmem.project_code = #{projectId}
 	</select>
 	
+	<select id="selectProjectMemberGantt" parameterType="String" resultType="com.project.bit.project.domain.ProjectTaskVO">
+		SELECT
+			ptm.task_manager_id AS user_id,
+			pt.task_name AS task_name,
+			pt.task_start AS task_start,
+			pt.task_finish AS task_finish,
+			pts.task_status AS task_status_name
+		FROM project_tasks pt
+			INNER JOIN project_task_managers ptm ON pt.task_code = ptm.task_code
+			INNER JOIN project_task_groups ptg ON pt.taskGroup_code = ptg.taskGroup_code
+			INNER JOIN projects p ON p.project_code = ptg.project_code
+			INNER JOIN project_task_status pts ON pt.task_status_code = pts.task_status_code
+		WHERE p.project_code = #{projectCode}
+		ORDER BY pt.task_start, ptm.task_manager_id
+		
+	</select>
+	
 	<insert id="insertProjectMember" parameterType="com.project.bit.project.domain.ProjectMemberDTO">
 		INSERT INTO project_members
 		VALUES(ID_SEQ.nextval||'-'||(SELECT project_subName FROM projects WHERE project_code = #{projectCode})||'-'||'DEVELOPER',#{projectCode},#{userId},'duty400')
