@@ -83,7 +83,7 @@
                                 <td th:text="${apComplete.apFormName}"></td>
                                 <td style="text-align: left"><a th:text="${apComplete.apDocTitle}"
                                        th:href="'/approval/getApDoc?apDocNo='+${apComplete.apDocNo}"></a></td>
-                                <td th:text="${#strings.substring(apComplete.apDocProjectName,0,10)+'...'}"></td>
+                                <td th:text="${#strings.substring(apComplete.apDocProjectName,0,15)+'..'}"></td>
                                 <td th:text="${apComplete.apDocWriterName}"></td>
                                 <td th:text="${#dates.format(apComplete.apDocCreateDate, 'yyyy-MM-dd')}"></td>
                                 <td th:text="${#dates.format(apComplete.apDocEndDate, 'yyyy-MM-dd')}"></td>

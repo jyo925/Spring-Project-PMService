@@ -62,9 +62,10 @@
                                 <th>문서번호</th>
                                 <th>구분</th>
                                 <th>제목</th>
+                                <th>프로젝트</th>
                                 <th>기안자</th>
                                 <th>기안일</th>
-                                <th>프로젝트</th>
+
                                 <!--                                <th>apDocEndDate</th>-->
                                 <th>상태</th>
                             </tr>
@@ -76,18 +77,13 @@
                                 <td th:text="${apCheck.apFormName}"></td>
                                 <td style="text-align: left"><a th:text="${apCheck.apDocTitle}"
                                        th:href="'/approval/getApDoc?apDocNo='+${apCheck.apDocNo}"></a></td>
+                                <td th:text="${#strings.substring(apCheck.apDocProjectName,0,15)+'..'}"></td>
                                 <td th:text="${apCheck.apDocWriterName}"></td>
                                 <td th:text="${#dates.format(apCheck.apDocCreateDate, 'yyyy-MM-dd')}"></td>
-                                <td th:text="${apCheck.apDocProjectName}"></td>
-                                <!--                                <td th:text="${apProgress.apDocEndDate}"></td>-->
-                                <!--                                <span th:if="${apProgress.apDocStatus.toString().equals('0')}">-->
                                 <span th:if="${apCheck.apDocStatus == 0}">
                                     <td><label class="badge badge-info">진행중</label></td>
-
                                 </span>
-                                <!--                                <span th:if="${apProgress.apDocStatus.toString().equals('2')}">-->
                                 <span th:if="${apCheck.apDocStatus == 2}">
-<!--                                    <td th:text="반려" style="color:red"><label class="badge badge-danger">반려</label></td>-->
                                     <td><label class="badge badge-danger">반려</label></td>
                                 </span>
 

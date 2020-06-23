@@ -83,7 +83,7 @@
                                 <td th:text="${apReference.apFormName}"></td>
                                 <td style="text-align: left"><a th:text="${apReference.apDocTitle}"
                                        th:href="'/approval/getApDoc?apDocNo='+${apReference.apDocNo}"></a></td>
-                                <td th:text="${#strings.substring(apReference.apDocProjectName,0,10)+'...'}"></td>
+                                <td th:text="${#strings.substring(apReference.apDocProjectName,0,15)+'..'}"></td>
                                 <td th:text="${apReference.apDocWriterName}"></td>
                                 <td th:text="${#dates.format(apReference.apDocCreateDate, 'yyyy-MM-dd')}"></td>
                                 <td th:text="${#dates.format(apReference.apDocEndDate, 'yyyy-MM-dd')}"></td>
