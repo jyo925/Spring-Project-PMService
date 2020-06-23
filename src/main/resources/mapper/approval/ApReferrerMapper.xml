@@ -12,4 +12,17 @@
         join teams t on u.team_code =  t.team_code
         order by t.team_name asc, p.position_code asc
     </select>
+
+    <insert id="insertApDocReferrer">
+        insert into approvalreferrer
+        VALUES (#{apDocNo}, #{apReferrer})
+    </insert>
+
+    <select id="selectApDocReferrers" resultType="com.project.bit.approval.domain.ReferrerVO">
+    select u.user_name, p.position_name
+    from approvalreferrer r
+    join users u on u.user_id = r.ap_referrer
+    join positions p on p.position_code = u.position_code
+    where r.ap_doc_no = #{apDocNo}
+    </select>
 </mapper>

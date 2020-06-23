@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.project.mapper.ProjectIssueMapper">
+	<select id="selectProjectIssueList" parameterType="String" resultType="com.project.bit.project.domain.ProjectIssueDTO">
+		SELECT
+			pi.*,
+			p.project_name AS project_name,
+			pit.issue_type AS issue_type_name
+		FROM project_issues pi
+			INNER JOIN project_issue_types pit ON pi.issue_type_code = pit.issue_type_code
+			INNER JOIN project_tasks pt ON pt.task_code = pi.task_code
+			INNER JOIN project_task_groups ptg ON ptg.taskGroup_code = pt.taskGroup_code
+			INNER JOIN projects p ON ptg.project_code = p.project_code  
+		WHERE
+			p.project_code = #{projectId}
+	</select>
+	
+	<select id="selectProjectIssueListType" parameterType="String" resultType="com.project.bit.project.domain.ProjectIssueDTO">
+		SELECT
+			pi.*,
+			p.project_name AS project_name,
+			pit.issue_type AS issue_type_name
+		FROM project_issues pi
+			INNER JOIN project_issue_types pit ON pi.issue_type_code = pit.issue_type_code
+			INNER JOIN project_tasks pt ON pt.task_code = pi.task_code
+			INNER JOIN project_task_groups ptg ON ptg.taskGroup_code = pt.taskGroup_code
+			INNER JOIN projects p ON ptg.project_code = p.project_code  
+		WHERE
+			p.project_code = #{projectCode} AND
+			pi.issue_type_code = #{issueType}
+	</select>
+	
+	<select id="selectProjectIssueListName" parameterType="String" resultType="com.project.bit.project.domain.ProjectIssueDTO">
+		SELECT
+			pi.*,
+			p.project_name AS project_name,
+			pit.issue_type AS issue_type_name
+		FROM project_issues pi
+			INNER JOIN project_issue_types pit ON pi.issue_type_code = pit.issue_type_code
+			INNER JOIN project_tasks pt ON pt.task_code = pi.task_code
+			INNER JOIN project_task_groups ptg ON ptg.taskGroup_code = pt.taskGroup_code
+			INNER JOIN projects p ON ptg.project_code = p.project_code  
+		WHERE
+			p.project_code = #{projectCode} AND
+			pi.issue_name LIKE '%'||#{issueName}||'%'
+	</select>
+	
+	<select id="selectProjectIssueListSearch" parameterType="String" resultType="com.project.bit.project.domain.ProjectIssueDTO">
+		SELECT
+			pi.*,
+			p.project_name AS project_name,
+			pit.issue_type AS issue_type_name
+		FROM project_issues pi
+			INNER JOIN project_issue_types pit ON pi.issue_type_code = pit.issue_type_code
+			INNER JOIN project_tasks pt ON pt.task_code = pi.task_code
+			INNER JOIN project_task_groups ptg ON ptg.taskGroup_code = pt.taskGroup_code
+			INNER JOIN projects p ON ptg.project_code = p.project_code  
+		WHERE
+			p.project_code = #{projectCode} AND
+			pi.issue_type_code = #{issueType} AND
+			pi.issue_name LIKE '%'||#{issueName}||'%'
+	</select>
+	
+	<select id="selectProjectIssueOne" parameterType="String" resultType="com.project.bit.project.domain.ProjectIssueDTO">
+		SELECT
+			pi.*,
+			p.project_name AS project_name,
+			pit.issue_type AS issue_type_name
+		FROM project_issues pi
+			INNER JOIN project_issue_types pit ON pi.issue_type_code = pit.issue_type_code
+			INNER JOIN project_tasks pt ON pt.task_code = pi.task_code
+			INNER JOIN project_task_groups ptg ON ptg.taskGroup_code = pt.taskGroup_code
+			INNER JOIN projects p ON ptg.project_code = p.project_code
+		WHERE
+			pi.issue_code = #{issueId}
+	</select>
+	
+	<update id="updateProjectIssue" parameterType="com.project.bit.project.domain.ProjectIssueDTO">
+		UPDATE
+			project_issues
+		SET
+			issue_name = #{issueName},
+			issue_description = #{issueDescription},
+			issue_user_id = #{issueUserId},
+			issue_date = #{issueDate},
+			issue_action_id = #{issueActionId},
+			issue_action_date = #{issueActionDate},
+			issue_type_code = #{issueTypeCode},
+			issue_file_name = #{issueFileName},
+			task_code = #{taskCode}
+		WHERE
+			issue_code = #{issueCode}
+	</update>
+	
+	<update id="updateProjectIssueFile" parameterType="String">
+		UPDATE
+			project_issues
+		SET
+			issue_file_path = #{issuePath}
+		WHERE
+			issue_code = #{issueCode}
+	</update>
+	
+	<update id="updateProjectIssueFileColumn" parameterType="String">
+		UPDATE
+			project_issues
+		SET
+			issue_file_name = null,
+			issue_file_path = null
+		WHERE
+			issue_code = #{issueCode}
+	</update>
+	
+	<delete id="deleteProjectIssue" parameterType="String">
+		DELETE FROM project_issues
+		WHERE issue_code = #{issueCode}
+	</delete>
+	
+	
+	<select id="selectProjectIssueTypeList" resultType="com.project.bit.project.domain.ProjectIssueTypeDTO">
+		SELECT * FROM project_issue_types
+	</select>
+	
+	<insert id="insertProjectIssue" parameterType="com.project.bit.project.domain.ProjectIssueDTO">
+		INSERT INTO project_issues
+		VALUES(ID_SEQ.NEXTVAL, #{issueName}, #{issueDescription}, #{issueUserId}, (SELECT SYSDATE FROM DUAL), #{issueActionId}, #{issueActionDate}, #{issueTypeCode}, #{taskCode}, #{issueFileName}, #{issueFilePath})
+	</insert>
+</mapper>

@@ -21,7 +21,7 @@ public class approvalTests {
     @Autowired
     ApDocMapper apDocMapper;
 
-    @Test
+
     public void selectApprovers(){
         ApPathDTO d = apMapper.selectApPath("1");
         List<ApproverVO> list = apMapper.selectApproverList(d, "user007");
@@ -30,13 +30,12 @@ public class approvalTests {
 
 
 
-    //결재선 불러오기
+    @Test
     public void selectApPath(){
 
-        ApPathDTO d = apMapper.selectApPath("2");
-        System.out.println(d.getApPath1());
-        System.out.println(d.getApPath2());
-        System.out.println(d.getApPath3());
+        int a = ((19)-1)/10+1;
+        System.out.println(a);
+
 
     }
 }
