@@ -22,4 +22,5 @@ public interface ApprovalService {
     //최종 결재자 여부
     public String getLastApprover(String adDocNo);
 
+
 }

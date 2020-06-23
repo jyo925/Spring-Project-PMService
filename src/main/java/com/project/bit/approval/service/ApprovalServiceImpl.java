@@ -40,10 +40,13 @@ public class ApprovalServiceImpl implements ApprovalService {
         }
 
         //결재선이 텅 비었다면?...바로 윗 직급 불러와서 결재선 셋팅
+        //그래도 없으면 두단계 윗직급 불러오는지?
         if(approvers.size() == 0){
             approvers.add(apMapper.selectSuperiorApprover(userId));
             log.info("추가된 상위 결재자 정보: "+ apMapper.selectSuperiorApprover(userId));
         }
+
+
 
         return approvers;
     }
