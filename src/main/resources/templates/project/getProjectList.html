@@ -7,6 +7,7 @@
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/project/projectList.css">
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
@@ -21,6 +22,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h6 class="card-title">프로젝트 리스트</h6>
+					<hr>
 					<div>
 						<select id="projectTypeChoice" name="projectTypeChoice">
 							<option value="all">전체</option>
@@ -31,12 +33,12 @@
 						
 						<input type="text" placeholder="프로젝트명" id="projectName" style="margin-left: 10px; margin-right: 10px;">
 						<button type="button" id="search_btn">검색</button>
-						<button type="button" onclick="location.href='/goProjectAdd'">+프로젝트 등록</button>
+						<button type="button" onclick="location.href='/goProjectAdd'" style="float: right;">+프로젝트 등록</button>
 
 					</div>
 
 					<!-- ProjectList START-->
-					<div>
+					<div class="project-list">
 						<table style="text-align: center;">
 							<thead>
 								<tr width="100%">

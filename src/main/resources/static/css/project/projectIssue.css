@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+h5 {
+	margin-top: 20px;
+}
+
+.issue-list {
+	margin-top: 2%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.issue-list thead {
+	/* background-color: gray; */
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.issue-name {
+	width: 40%;
+}
