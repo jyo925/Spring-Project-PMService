@@ -43,7 +43,7 @@
 			where tm.task_manager_id=#{userId}
 			and tm.task_code=t.task_code
 			and t.task_status_code=ts.task_status_code
-			group by t.task_status_code, ts.task_status
+			group by ts.task_status
 	</select>
 
 	<!-- user issue status chart -->
@@ -59,17 +59,20 @@
 	<!-- user newly task/project list -->
 	<select id="selectMyTaskList" resultType="com.project.bit.dashBoard.domain.UserTaskVO">
 		<![CDATA[
-        select * from(select t.*, p.project_name
-			from project_tasks t
-			inner join project_task_groups tg
-			on t.taskGroup_code=tg.taskGroup_code
-			join projects p
-			on tg.project_code=p.project_code
-			join project_members pm
-			on p.project_code=pm.project_code
-			where pm.user_id=#{userId}
-			order by (select to_char(sysdate, 'YYYYMMDD') from dual) - to_char(p.project_start, 'YYYYMMDD') ASC)
-			where ROWNUM<=3 order by task_start ASC
+        select * from
+			(select t.*, p.project_name, ts.task_status
+				from project_tasks t
+				inner join project_task_status ts
+				on t.task_status_code=ts.task_status_code
+				join project_task_groups tg
+				on t.taskGroup_code=tg.taskGroup_code
+				join projects p
+				on tg.project_code=p.project_code
+				join project_members pm
+				on p.project_code=pm.project_code
+		where pm.user_id=#{userId}
+		order by (select to_char(sysdate, 'YYYYMMDD') from dual) - to_char(p.project_start, 'YYYYMMDD') ASC)
+		where ROWNUM<=3 order by task_start ASC
         ]]>
 	</select>
 

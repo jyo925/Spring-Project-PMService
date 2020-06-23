@@ -57,7 +57,13 @@ public class DashBoardController {
     public ResponseEntity monthly() {
         return new ResponseEntity(dashBoardAllService.getKeyProject(), HttpStatus.OK);
     }
+    @GetMapping("/search")
+    @ResponseBody
+    public ResponseEntity search(String keyword) {
+        return new ResponseEntity(dashBoardDetailService.searchProjectList(keyword), HttpStatus.OK);
+    }
 
+    /* Chart */
     @GetMapping("/dashBoard/chart/task")
     @ResponseBody
     public List<TaskStatusCountVO> TaskStatusChart(Principal principal) {

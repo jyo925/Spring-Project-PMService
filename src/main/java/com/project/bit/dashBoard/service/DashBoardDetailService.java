@@ -6,4 +6,5 @@ import com.project.bit.project.domain.ProjectDTO;
 
 public interface DashBoardDetailService {
 	public List<ProjectDTO> findProjectList();
+	public List<ProjectDTO> searchProjectList(String keyword);
 }

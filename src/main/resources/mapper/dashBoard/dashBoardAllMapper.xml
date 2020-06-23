@@ -20,4 +20,5 @@
         from project_types t
         left outer join projects p on t.project_typecode = p.project_typecode group by t.project_type
     </select>
+
 </mapper>

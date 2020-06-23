@@ -9,6 +9,7 @@ public class UserTaskVO {
     private String projectName;
     private String taskName;
     private String taskStatusCode;
+    private String taskStatus;
     private Date taskStart;
     private Date taskFinish;
 }

@@ -9,5 +9,6 @@ import com.project.bit.project.domain.ProjectDTO;
 @Mapper
 public interface DashBoardDetailMapper {
 	public ProjectDTO selectProjectByName(String projectName);
-	public List<ProjectDTO> selectProjectList(); 
+	public List<ProjectDTO> selectProjectList();
+	public List<ProjectDTO> searchProjectList(String keyword);
 }

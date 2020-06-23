@@ -33,6 +33,13 @@ class DashBoardControllerTest {
     @Test
     @WithMockUser
     public void test3() throws Exception {
+        mockMvc.perform((MockMvcRequestBuilders.get("/search"))
+                .param("keyword", "B")).andDo(print());
+    }
+
+    @Test
+    @WithMockUser
+    public void test4() throws Exception {
         mockMvc.perform((MockMvcRequestBuilders.get("/monthly"))).andDo(print());
     }
 
