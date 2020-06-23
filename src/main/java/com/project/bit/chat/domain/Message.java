@@ -3,6 +3,7 @@ package com.project.bit.chat.domain;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,6 +16,7 @@ public class Message {
   private String conversationId;
   private String content;
   private Date creationTime;
+  private List<Participation> participations;
 
   @Builder
   public Message(String authorId, String conversationId, String content) {
@@ -22,4 +24,5 @@ public class Message {
     this.conversationId = conversationId;
     this.content = content;
   }
+
 }

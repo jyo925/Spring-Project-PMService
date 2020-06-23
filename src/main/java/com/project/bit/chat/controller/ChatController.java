@@ -33,8 +33,7 @@ public class ChatController {
 
   @MessageMapping("/room/{room}")
   public void sendMessage(@DestinationVariable String roomNo, Message message) {
-    simpMessagingTemplate.convertAndSend("/topic/room/" + roomNo,
-      new MessageResponse(HtmlUtils.htmlEscape(message.getContent())));
+    chatService.sendMessage(roomNo, message);
   }
 
   @GetMapping("/chat/initial")

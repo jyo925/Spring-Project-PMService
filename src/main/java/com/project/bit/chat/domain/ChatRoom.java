@@ -14,5 +14,4 @@ public class ChatRoom {
   private String conversationId;
   private Date createdAt;
 
-
 }

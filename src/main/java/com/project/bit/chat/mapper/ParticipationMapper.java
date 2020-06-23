@@ -9,6 +9,6 @@ import java.util.List;
 public interface ParticipationMapper {
 
   List<Participation> findByUserId(String userId);
-  int save(Participation participation);
+  int save(List<Participation> participations);
 
 }
