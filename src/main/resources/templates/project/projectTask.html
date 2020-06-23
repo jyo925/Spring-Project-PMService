@@ -8,6 +8,7 @@
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/project/projectDetail.css">
 	<link rel="stylesheet" href="/css/project/projectTask.css">
 	<link rel="stylesheet" href="/css/magnific-popup.css">
 </th:block>
@@ -21,11 +22,13 @@
 
 
 	<div layout:fragment="content">
+		<div th:replace="/project/projectDetailChart :: project-top-nav"></div>
 		<div class="row">
 			<div class="col-12 grid-margin">
 				<div class="card">
 					<div class="card-body">
 						<h6>프로젝트 작업</h6>
+						<hr>
 						
 						<div class="taskGroup-div" th:each="taskGroup : ${taskGroupList}">							
 							<!-- 작업 그룹 -->

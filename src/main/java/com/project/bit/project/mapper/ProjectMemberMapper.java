@@ -6,10 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.project.bit.project.domain.ProjectMemberDTO;
 import com.project.bit.project.domain.ProjectMemberVO;
+import com.project.bit.project.domain.ProjectTaskVO;
 
 @Mapper
 public interface ProjectMemberMapper {
-	public void insertProjectMember(ProjectMemberDTO projectMemberDTO);
-	public void deleteProjectMember(String projectJoinId);
-	public List<ProjectMemberVO> selectProjectMember(String projectId);
+	void insertProjectMember(ProjectMemberDTO projectMemberDTO);
+	void deleteProjectMember(String projectJoinId);
+	List<ProjectMemberVO> selectProjectMember(String projectId);
+	List<ProjectTaskVO> selectProjectMemberGantt(String projectCode);
 }

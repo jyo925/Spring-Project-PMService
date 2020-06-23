@@ -1,9 +1,39 @@
 $(function(){
+	ajaxMethod($('#project-select'));
+	selectEvent('#project-select');
+	projectInfo($('#project-select'));
+})
+
+function selectEvent(target){
+	$(target).on('change', function(e){
+		ajaxMethod($(e.target));
+		projectInfo($(e.target));
+	})
+}
+function projectInfo(target){
+	$.ajax({
+		url: '/project/detail/info/' + target.val(),
+		type: 'get',
+	}).done(function(project){
+		console.log(project)
+		$('#project-name').text(project.projectName);
+		$('#project-start').text(project.projectStart);
+		$('#project-finish').text(project.projectFinish);
+		$('#project-pm').text(project.projectPm);
+		$('#project-type').text(project.projectTypeName);
+		$('#project-task-account').text(project.projectTaskAccount);
+		$('#project-member-account').text(project.projectMemberAccount);
+	}).fail(function(){
+		alert('project detail info fail')
+	})
+}
+
+function ajaxMethod(target){
 	$.ajax({
 		url : '/project/detail/taskChart',
 		type : 'GET',
 		data : {
-			projectId : $('#projectCode').val()
+			projectId : target.val()
 		},
 		dataType : 'json'
 	}).done(function(array){
@@ -20,7 +50,7 @@ $(function(){
 		url : '/project/detail/issueChart',
 		type : 'GET',
 		data : {
-			projectId : $('#projectCode').val()
+			projectId : target.val()
 		},
 		dataType : 'json'
 	}).done(function(array){
@@ -35,7 +65,7 @@ $(function(){
 	$.ajax({
 		url: '/projectMember/gantt',
 		type: 'get',
-		data: {projectCode : $('#projectCode').val()},
+		data: {projectCode : target.val()},
 		dataType: 'JSON'
 	}).done(function(list){
 		google.charts.load('current', {'packages':['timeline']});
@@ -45,7 +75,7 @@ $(function(){
 	}).fail(function(){
 		alert('member gantt fail')
 	})
-})
+}
 
 
 

@@ -9,8 +9,10 @@ import com.project.bit.project.domain.ProjectOutputTypeDTO;
 
 @Mapper
 public interface ProjectOutputMapper {
+	List<ProjectOutputDTO> selectProjectDetailOutput(String projectCode);
 	List<ProjectOutputDTO> selectProjectOutput();
 	List<ProjectOutputTypeDTO> selectProjectOutputType();
 	void insertProjectOutput(ProjectOutputDTO projectOutputDTO);
 	void deleteProjectOutput(String outputId);
+	void updateProjectOutput(ProjectOutputDTO projectOutputDTO);
 }
