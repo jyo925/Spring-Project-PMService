@@ -1,0 +1,12 @@
+<?xmlversion ="1.0"encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.foo.mapper.EventStatisticMapper">
+	
+	<select id="getStatistic" resultType="com.project.bit.foo.domain.event.EventStatisticVO">
+		SELECT t.event_type, COUNT(e.EVENT_TYPE_ID) as EVENT_AMOUNT
+		FROM EVENTS e
+		RIGHT JOIN event_types t
+		ON e.EVENT_TYPE_ID = t.EVENT_TYPE_ID group by t.EVENT_TYPE_ID, t.event_type
+	</select>
+	
+</mapper>

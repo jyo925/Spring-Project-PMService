@@ -55,7 +55,7 @@ public class ApprovalServiceImpl implements ApprovalService {
             ApDTO apDTO = ApDTO.builder()
                     .apDocNo(apDocNo)
                     .apStep(i+1)
-                    .approver(approvers.get(i).getUserId())
+                    .apApprover(approvers.get(i).getUserId())
                     .apDutyName(approvers.get(i).getDutyName()).build();
 
             apMapper.insertApprover(apDTO);
@@ -64,6 +64,23 @@ public class ApprovalServiceImpl implements ApprovalService {
         }
 
         return insertCount;
+    }
+
+    @Override
+    public List<ApDTO> getApprovalList(String adDocNo) {
+        return apMapper.selectApprovalList(adDocNo);
+    }
+
+    @Override
+    public int putApproval(ApDTO apDTO) {
+
+        return apMapper.updateApproval(apDTO);
+    }
+
+    @Override
+    public String getLastApprover(String adDocNo) {
+
+        return apMapper.selectLastApprover(adDocNo);
     }
 
 }

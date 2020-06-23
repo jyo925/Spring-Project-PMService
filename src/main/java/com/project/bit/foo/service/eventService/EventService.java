@@ -1,4 +1,4 @@
-package com.project.bit.foo.service.EventService;
+package com.project.bit.foo.service.eventService;
 
 import org.json.JSONArray;
 
@@ -12,5 +12,5 @@ public interface EventService {
 
 	void insertEvent(Event event);
 	
-	void deleteEvent(Event event);
+	void deleteEvent(String eventId);
 }

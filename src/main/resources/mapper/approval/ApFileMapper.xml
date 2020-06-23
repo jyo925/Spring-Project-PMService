@@ -9,4 +9,8 @@
         values (ap_file_seq.nextval, #{apDocNo}, #{apFileName}, #{apFilePath}, #{apFileType}, #{apFileUuid})
     </insert>
 
+    <select id="selectApFiles" resultType="com.project.bit.approval.domain.ApFileDTO">
+        select * from approvalfile where ap_doc_no = #{apDocNo}
+    </select>
+
 </mapper>

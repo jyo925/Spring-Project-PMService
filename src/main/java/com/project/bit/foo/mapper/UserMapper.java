@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.project.bit.foo.domain.Users;
 import com.project.bit.project.domain.PositionDTO;
@@ -22,6 +23,18 @@ public interface UserMapper {
 			       + "values(#{userId}, #{userPw}, #{userName}, #{userEmail}, #{userEmail}, #{positionCode}, #{teamCode})")
 	void insertUser(Users user);
 	
+	@Select("SELECT * FROM USERS WHERE USER_ID=#{userId}")
+	Users selectUser(String userId);
+	
+	@Update("UPDATE USERS SET USER_WEBSITE=#{user.userWebsite}, USER_INFO=#{user.userInfo}, USER_NAME=#{user.userName}, USER_EMAIL=#{user.userEmail}, USER_PHONE=#{user.userPhone} WHERE USER_ID=#{userId}")
+	void updateUser(Users user, String userId);
+	
+	@Update("UPDATE USERS SET USER_PHOTO=#{user.userPhoto} WHERE USER_ID=#{userId}")
+	void updateUserPoto(Users user, String userId);
+	
+	@Update("UPDATE USERS SET USER_PW=#{user.userPw} WHERE USER_ID=#{userId}")
+	void updateUserPw(Users user, String userId);
+	
 	List<Users> selectAll();
 	
 	List<TeamDTO> selectTeamAll();
@@ -29,4 +42,8 @@ public interface UserMapper {
 	List<PositionDTO> selectPositionAll();
 	
 	List<Users> selectUserByTeam(int teamCode);
+	
+	
+	
+	
 }

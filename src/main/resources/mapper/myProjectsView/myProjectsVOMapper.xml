@@ -1,0 +1,20 @@
+<?xmlversion ="1.0"encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.foo.mapper.MyProjectsVOMapper">
+
+	<select id="getProjects" resultType="com.project.bit.foo.domain.projectView.MyProjectsVO">
+		SELECT p.PROJECT_NAME as PROJECT_NAME,
+			   p.PROJECT_PMO as PROJECT_PMO,
+			   p.PROJECT_STATUSCODE as PROJECT_STATUSCODE,
+			   p.PROJECT_START as PROJECT_START,
+			   p.PROJECT_FINISH as PROJECT_FINISH,
+			   (SELECT pt.TASK_NAME FROM PROJECT_TASK_GROUPS ptg INNER JOIN PROJECT_TASKS pt ON pt.taskgroup_code = ptg.taskgroup_code
+			                                                     INNER JOIN PROJECTS p ON p.project_code = ptg.project_code
+			                                                     INNER JOIN PROJECT_MEMBERS pm ON pm.project_code = p.project_code WHERE  pm.user_id=#{userId} and #{today}>=pt.task_start and pt.task_finish>#{today}) as TASK_NAME 
+		FROM PROJECTS p
+		INNER JOIN PROJECT_MEMBERS pm
+		ON p.project_code = pm.project_code
+		WHERE pm.user_id=#{userId}
+	</select>
+	
+</mapper>

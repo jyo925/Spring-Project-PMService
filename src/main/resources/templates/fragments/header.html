@@ -30,6 +30,9 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown d-none d-lg-flex">
+					<a class="nav-link" href="/myPage">My Page</a>
+				</li>
+				<li class="nav-item dropdown d-none d-lg-flex">
 					<form action="/logout" method="post">
 						<input class="btn nav-link dropdown-toggle" type="submit" value="Sign Out" />
 					</form> 
@@ -249,7 +252,7 @@
                         <div class="collapse" id="myWork-nav">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                                          href="#">내 작업</a></li>
+                                                                          href="/myProjects">내 작업</a></li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="/calendar">일정관리</a></li>
                             </ul>
@@ -263,7 +266,7 @@
                         <div class="collapse" id="defaultWork-nav">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                                          href="#">이슈관리</a></li>
+                                                                          href="/files">이슈관리</a></li>
                             </ul>
                         </div>
                     </li>
@@ -281,6 +284,9 @@
                                 </li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="/approval/getApProgressList">결재진행함</a>
+                                </li>
+                                <li class="nav-item d-none d-lg-block"><a class="nav-link"
+                                                                          href="/approval/getApEndList">결재완료함</a>
                                 </li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="/approval/getApTempList">임시저장함</a></li>
