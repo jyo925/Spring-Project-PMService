@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -21,6 +20,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,9 +32,11 @@ import com.project.bit.project.service.ProjectOutputService;
 @RestController
 @RequestMapping("/output")
 public class ResponseProjectOutputController {
-	
+
 	@Autowired
 	private ProjectOutputService projectOutputService;
+
+	private static final String uploadDirectory = System.getProperty("user.dir") + "\\uploads";
 
 	// 년/월/일 폴더 만들기
 	public String getFolder() {
@@ -45,6 +48,27 @@ public class ResponseProjectOutputController {
 		return str.replace("-", File.separator);
 	}
 
+	@PutMapping("/update")
+	public void putProjectOutput(ProjectOutputDTO projectOutputDTO) {
+		projectOutputService.putProjectOutput(projectOutputDTO);
+	}
+
+	@DeleteMapping("/delete/{outputCode}")
+	public void removeProjectOutput(@PathVariable String outputCode) {
+		projectOutputService.removeProjectOutput(outputCode);
+	}
+
+	@PostMapping(value = "/file/add", produces = MediaType.APPLICATION_JSON_VALUE)
+	public void postProjectOutput(MultipartFile outputFile) {
+		projectOutputService.postProjectOutput(outputFile);
+	}
+
+	@PostMapping("/add")
+	public void postProjectOutput(ProjectOutputDTO projectOutputDTO) {
+		System.err.println(projectOutputDTO);
+		projectOutputService.postProjectOutput(projectOutputDTO);
+	}
+
 	@PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
 	public void postProjectOutput(MultipartFile[] task_output, String[] outputTypeCode, String[] taskCode,
 			Principal principal) {
@@ -52,7 +76,7 @@ public class ResponseProjectOutputController {
 		int size = task_output.length;
 		List<ProjectOutputDTO> outputs = new ArrayList<ProjectOutputDTO>();
 
-		String uploadFolder = "C:\\upload";
+		String uploadFolder = uploadDirectory;
 		String uploadFolderPath = getFolder();
 
 		File uploadPath = new File(uploadFolder, uploadFolderPath);
@@ -63,10 +87,7 @@ public class ResponseProjectOutputController {
 
 		for (int i = 0; i < size; i++) {
 			ProjectOutputDTO output = new ProjectOutputDTO();
-
-			UUID uuid = UUID.randomUUID();
 			String fileName = task_output[i].getOriginalFilename();
-			//fileName = uuid.toString() + "_" + fileName;
 
 			output.setOutputName(task_output[i].getOriginalFilename());
 			output.setOutputUser(principal.getName());
@@ -88,38 +109,43 @@ public class ResponseProjectOutputController {
 
 			outputs.add(output);
 		}
-		
-		for(ProjectOutputDTO output : outputs) {
+
+		for (ProjectOutputDTO output : outputs) {
 			projectOutputService.postProjectOutput(output);
 		}
 
-		// return "";
+		// return "redirect:/projectIssueList";
 	}
-	
+
 	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity<Resource> downloadProjectOutput(String outputName, String outputPath) {
-		Resource resource = new FileSystemResource(outputPath);
-		HttpHeaders headers = new HttpHeaders();
+	public ResponseEntity<Resource> downloadProjectOutput(@RequestHeader("User-Agent") String userAgent,
+			String fileName) {
+
+		Resource resource = new FileSystemResource(fileName);
+		String resourceName = resource.getFilename();
 		
-		String filename;
+		HttpHeaders headers = new HttpHeaders();
+
+		String downloadName = null;
+		
 		try {
-			filename = new String(resource.getFilename().getBytes("UTF-8"), "ISO-8859-1");
-			headers.add("Content-Disposition", "attachment; filename=" + filename);
-			
+			downloadName = new String(resourceName.getBytes("UTF-8"), "ISO-8859-1");
+			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
+
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+
 	}
-	
+
 	@DeleteMapping("/remove/{outputId}")
 	public void removeProjectOutput(@PathVariable String outputId, String outputName, String outputPath) {
 		System.err.println(outputId + "  " + outputName + "  " + outputPath);
-		
+
 		projectOutputService.removeProjectOutput(outputId);
-		
+
 		File file = new File(outputPath);
 		file.delete();
 	}

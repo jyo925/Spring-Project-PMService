@@ -5,6 +5,12 @@
 <title id="pageTitle">참조문서함</title>
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+    <style>
+        .table thead th{
+            font-weight: bold;
+            border-bottom-width: 2px;
+        }
+    </style>
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
@@ -23,13 +29,13 @@
                     <div class="table-responsive">
                         <!-- 검색 -->
                         <form id='searchForm' action="/approval/getReferenceList" method='get'
-                              class="form-inline repeater">
+                              class="form-inline repeater" >
                             <div data-repeater-list="group-a">
-                                <div data-repeater-item="" class="d-md-flex mb-2">
+                                <div data-repeater-item="" class="d-md-flex mb-2" >
                                     <div class="input-group mb-2 mr-md-2 mb-md-0">
                                         <div class="input-group-prepend">
                                         </div>
-                                        <select class="form-control" name='type'>
+                                        <select class="form-control" name='type' style="margin-left: 10px">
                                             <option value="NULL" th:selected="${pageMaker.cri.type == null?true:false}">
                                                 --
                                             </option>
@@ -47,7 +53,7 @@
                                         <div class="input-group-prepend">
                                         </div>
                                         <input type="text" name="keyword" class="form-control" placeholder="Search Here"
-                                               th:value="${pageMaker.cri.keyword}">
+                                               th:value="${pageMaker.cri.keyword}" style="width: 250px">
                                         <input type='hidden' name='pageNum' th:value="${pageMaker.cri.pageNum}">
                                         <input type='hidden' name='amount' th:value="${pageMaker.cri.amount}">
                                     </div>
@@ -56,16 +62,16 @@
                             </div>
                         </form> <!-- 검색 end-->
 
-                        <table id="order-listing" class="table">
+                        <table id="order-listing" class="table" style="text-align: center;">
                             <thead>
                             <tr>
                                 <th>번호</th>
                                 <th>문서번호</th>
                                 <th>구분</th>
                                 <th>제목</th>
+                                <th>프로젝트</th>
                                 <th>기안자</th>
                                 <th>기안일</th>
-                                <th>프로젝트</th>
                                 <th>완료일</th>
                                 <th>상태</th>
                             </tr>
@@ -75,20 +81,21 @@
                                 <td th:text="${apReferenceStat.count}"></td>
                                 <td th:text="${apReference.apDocNo}"></td>
                                 <td th:text="${apReference.apFormName}"></td>
-                                <td><a th:text="${apReference.apDocTitle}"
+                                <td style="text-align: left"><a th:text="${apReference.apDocTitle}"
                                        th:href="'/approval/getApDoc?apDocNo='+${apReference.apDocNo}"></a></td>
+                                <td th:text="${#strings.substring(apReference.apDocProjectName,0,10)+'...'}"></td>
                                 <td th:text="${apReference.apDocWriterName}"></td>
                                 <td th:text="${#dates.format(apReference.apDocCreateDate, 'yyyy-MM-dd')}"></td>
-                                <td th:text="${apReference.apDocProjectName}"></td>
-                                <td th:text="${apReference.apDocEndDate}"></td>
+                                <td th:text="${#dates.format(apReference.apDocEndDate, 'yyyy-MM-dd')}"></td>
                                 <span th:if="${apReference.apDocStatus == 0}">
                                     <td><label class="badge badge-info">진행중</label></td>
-
                                 </span>
                                 <span th:if="${apReference.apDocStatus == 2}">
                                     <td><label class="badge badge-danger">반려</label></td>
                                 </span>
-
+                                <span th:if="${apReference.apDocStatus == 1}">
+                                    <td><label class="badge badge-success">완료</label></td>
+                                </span>
                             </tr>
                             </tbody>
                         </table>
@@ -117,7 +124,7 @@
                                     </li>
                                     <th:block
                                             th:each="number: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
-                                        <li class="paginate_button page-item">
+                                        <li class="paginate_button page-item" th:classappend="${pageMaker.cri.pageNum eq number} ? active : ''">
                                             <a th:href="${number}"
                                                aria-controls="dataTable" data-dt-idx="1"
                                                tabindex="0" class="page-link" th:text="${number}">1</a>

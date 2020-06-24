@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+/* 이슈 상세 정보 */
+
+h5 {
+	margin-top: 20px;
+}
+
+.issue-name {
+	width: 40%;
+}
+
+.issue-file-item, .issue-file-delete {
+	cursor: pointer;
+	margin-right: 10px;
+}

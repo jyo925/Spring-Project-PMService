@@ -56,6 +56,21 @@
         <![CDATA[where rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
     </select>
 
+    <!-- 결재완료함 조회 -->
+    <select id="selectApCompleteList" resultType="com.project.bit.approval.domain.ApDocDTO">
+        select * from
+        (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name as ap_Doc_Writer_Name, ap_doc_writer,ap_doc_project_name,
+        ap_doc_createdate, ap_doc_enddate , ap_doc_status
+        from (select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name, d.ap_doc_writer, d.ap_doc_project_name,
+        d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status from approvaldoc d
+        join approvalform f on d.ap_form_no = f.ap_form_no
+        join users u on d.ap_doc_writer = u.user_id
+        where ap_doc_writer = #{apDocWriter} and ap_doc_status = 1
+        <include refid="criteria"></include>
+        order by ap_doc_status desc, ap_doc_no)
+        <![CDATA[where rownum <= #{cri.pageNum} * #{cri.amount}) where rn > (#{cri.pageNum} -1) * #{cri.amount} ]]>
+    </select>
+
     <!-- 방금 등록한 결재문서 조회 -->
     <select id="selectNewApDocNo" resultType="long">
         select Max(ap_doc_no) from approvaldoc where ap_form_no = #{apFormNo} and ap_doc_writer = #{apDocWriter}
@@ -63,11 +78,15 @@
 
     <!-- 진행중 or 임시저장 결재 문서 개수 -->
     <select id="selectCountApDoc" resultType="_int">
-        select NVL(Max(count(ap_doc_status)),0)
+<!--        select NVL(Max(count(ap_doc_status)),0)-->
+<!--        from approvaldoc-->
+<!--        where ap_doc_writer = #{apDocWriter} and ap_doc_status = #{apDocStatus}-->
+<!--        <include refid="criteria"></include>-->
+<!--        group by ap_doc_status-->
+
+        select NVL(count(*),0)
         from approvaldoc
         where ap_doc_writer = #{apDocWriter} and ap_doc_status = #{apDocStatus}
-        <include refid="criteria"></include>
-        group by ap_doc_status
     </select>
 
     <!-- 결재 대기 문서 개수 -->
@@ -77,6 +96,11 @@
         where a.ap_approver = #{apDocWriter}
         and a.ap_step = (select ap_doc_step from approvaldoc where ap_doc_no = a.ap_doc_no)
     </select>
+
+    <!-- 결재 완료 문서 개수 -->
+<!--    <select id="selectCountApComplete" resultType="_int">-->
+
+<!--    </select>-->
 
     <!-- 참조 문서 개수 -->
     <select id="selectCountApRefer" resultType="_int">
@@ -126,6 +150,12 @@
     <update id="updateLastApDoc">
         update approvaldoc
         set ap_doc_step = ap_doc_step+1, ap_doc_enddate = sysdate, ap_doc_status = 1
+        where ap_doc_no = #{apDocNo}
+    </update>
+
+    <update id="updateApDocReject">
+        update approvaldoc
+        set ap_doc_step = -1, ap_doc_status = 2
         where ap_doc_no = #{apDocNo}
     </update>
 

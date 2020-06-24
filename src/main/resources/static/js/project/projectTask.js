@@ -261,7 +261,13 @@ function fileUpload(target, taskCode){
 
 function fileDownload(target){
 	$(target).on('click', function(e){
-		var outputName = $(e.target).closest('tr').find('.output-name').text();
+		
+		var liObj = $(e.target)
+		var path = encodeURIComponent(liObj.closest('.output-name').data('path'));
+		console.log(liObj.text())
+		console.log(path);
+		self.location = '/output/download?fileName=' + path
+		/*var outputName = $(e.target).closest('tr').find('.output-name').text();
 		var outputPath = $(e.target).closest('tr').find('.output-name').data('path');
 		
 		$.ajax({
@@ -275,7 +281,7 @@ function fileDownload(target){
 			
 		}).fail(function(){
 			alert('output download fail')
-		})
+		})*/
 	})
 }
 

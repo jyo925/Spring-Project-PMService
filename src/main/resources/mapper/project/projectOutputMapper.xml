@@ -3,6 +3,24 @@
 PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.project.mapper.ProjectOutputMapper">
+
+	<select id="selectProjectDetailOutput" parameterType="String" resultType="com.project.bit.project.domain.ProjectOutputDTO">
+		SELECT
+			po.output_code AS output_code,
+			po.output_name AS output_name,
+			po.output_user AS output_user,
+			po.output_date AS output_date,
+			pot.output_type AS output_type_name,
+			pt.task_code AS task_code,
+			pt.task_name AS task_name
+		FROM project_outputs po
+			INNER JOIN project_output_types pot ON pot.output_type_code = po.output_type_code
+			INNER JOIN project_tasks pt ON pt.task_code = po.task_code
+			INNER JOIN project_task_groups ptg ON pt.taskGroup_code = ptg.taskGroup_code
+			INNER JOIN projects p ON p.project_code = ptg.project_code
+		WHERE
+			p.project_code = #{projectCode}
+	</select>
 	<select id="selectProjectOutput" resultType="com.project.bit.project.domain.ProjectOutputDTO">
 		SELECT
 			po.*,
@@ -16,14 +34,33 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			ptt.output_type
 	</select>
 	
+	<!-- <insert id="">
+	</insert>
+	
+	<update id="">
+	</update> -->
+	
 	<select id="selectProjectOutputType" resultType="com.project.bit.project.domain.ProjectOutputTypeDTO">
 		SELECT * FROM project_output_types
 	</select>
 	
 	<insert id="insertProjectOutput" parameterType="com.project.bit.project.domain.ProjectOutputDTO">
-		INSERT INTO project_outputs
+		INSERT INTO project_outputs(output_code, output_name, output_user, output_date, output_path, output_type_code, task_code)
 		VALUES(ID_SEQ.NEXTVAL, #{outputName}, #{outputUser}, (SELECT sysdate FROM dual), #{outputPath}, #{outputTypeCode}, #{taskCode})
 	</insert>
+	
+	<update id="updateProjectOutput" parameterType="com.project.bit.project.domain.ProjectOutputDTO">
+		UPDATE 
+			project_outputs
+		SET
+			output_name = #{outputName},
+			output_user = #{outputUser},
+			output_path = #{outputPath},
+			output_type_code = #{outputTypeCode},
+			task_code = #{taskCode}
+		WHERE
+			output_code = #{outputCode}
+	</update>
 	
 	<delete id="deleteProjectOutput" parameterType="String">
 		DELETE FROM project_outputs

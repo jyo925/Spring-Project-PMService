@@ -10,22 +10,42 @@
 
 <!-- 현제 페이지 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+	<script th:inline="javascript" src="/js/project/projectChartDashBoard.js"></script>
 </th:block>
 
 <div layout:fragment="content">
+    <select id="project-select" style="margin-bottom: 10px;">
+        <th:block th:each="project : ${projectNameList}">
+            <option th:value="${project.projectCode}" th:text="${project.projectName}">
+        </th:block>
+    </select>
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <select>
-                        <th:block th:each="project : ${projectNameList}">
-                            <option th:value="${project.projectCode}" th:text="${project.projectName}">
-                        </th:block>
-                    </select>
+                    <div>
+						
+						<span id="project-name"></span>
+						
+						<span id="project-start"></span>
+						
+						<span id="project-finish"></span>
+						
+						<span id="project-pm"></span>
+						
+						<span id="project-type"></span>
+						
+						<span id="project-task-account"></span>
+						
+						<span id="project-member-account"></span>
+					</div>
+                    
                 </div>
             </div>
         </div>
-    </div>
+        <div th:replace="/project/projectDetailChart :: project-detail-chart"></div>
+        
+    </div> <!-- row end -->
 </div>
 
 

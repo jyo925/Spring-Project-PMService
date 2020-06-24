@@ -17,13 +17,16 @@ public interface ApDocMapper {
     //결재 진행함 조회
     public List<ApDocDTO> selectApProgressList(String apDocWriter, Criteria cri);
 
+    //결재 완료함 조회
+    public List<ApDocDTO> selectApCompleteList(String apDocWriter, Criteria cri);
+
     //결재 대기 문서함 조회
     public List<ApDocDTO> selectApCheckList(String apDocWriter, Criteria cri);
 
     public Long selectNewApDocNo(ApDocDTO apDocDTO);
 
     //결재진행문서, 임시저장문서 개수 불러오기
-    public int selectCountApDoc(int apDocStatus, String apDocWriter, Criteria cri);
+    public int selectCountApDoc(int apDocStatus, String apDocWriter);
 
     //결재대기문서 개수 불러오기...
     public int selectCountApCheck(String apDocWriter);
@@ -48,5 +51,8 @@ public interface ApDocMapper {
     
     //기안자 명, 기안프로젝트 명 조회
     public ApDocWriterVO selectApDocWriterInfo(String userId);
+    
+    //반려시 
+    public int updateApDocReject(long apDocNo);
 
 }
