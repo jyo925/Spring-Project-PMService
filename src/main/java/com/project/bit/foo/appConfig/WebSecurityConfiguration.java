@@ -40,6 +40,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.passwordParameter("USER_PW")
 				.permitAll()
 			.and()
+				.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/login")
+			.and()
 				.csrf().disable();
 		
 		

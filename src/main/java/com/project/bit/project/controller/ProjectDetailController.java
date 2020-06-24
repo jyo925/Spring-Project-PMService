@@ -58,7 +58,7 @@ public class ProjectDetailController {
 	
 	// 프로젝트 등록 페이지로 이동
 	@GetMapping("/goProjectAdd")
-	public String goProjectAdd(@ModelAttribute ProjectDTO projectDTO) {
+	public String goProjectAdd(@ModelAttribute ProjectDTO projectDTO, Model model) {
 		return "/project/projectInsert";
 	}
 	

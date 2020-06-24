@@ -23,7 +23,9 @@ let stompClient = null;
 
 function connect() {
   let socket = new SockJS("/endpoint");
+  console.log(socket);
   stompClient = Stomp.over(socket);
+  console.log(stompClient);
   stompClient.connect({}, function (frame) {
     console.log("Connected" + frame);
     const dialogue = document.getElementById("chatTest");

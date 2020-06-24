@@ -5,6 +5,7 @@ $(function(){
 	outputInsert();
 	outputDelete();
 	outputUpdate();
+	outputDownload();
 
 	taskListAjax($('.output-input').find('.output-project'));
 	
@@ -13,6 +14,14 @@ $(function(){
 		taskListAjax($('#'+outputId+'').find('.output-project'));
 	})
 })
+
+function outputDownload(){
+	$('.output-download-btn').on('click', function(e){
+		var liObj = $(this)
+		var path = encodeURIComponent(liObj.closest('.output-tbody-tr').find('.output-name').data('path'));
+		self.location = '/output/download?fileName=' + path
+	})
+}
 
 function outputUpdate(){
 	$('.output-update-btn').on('click', function(e){
@@ -30,7 +39,7 @@ function outputUpdate(){
 			outputFilePath = item.find('.output-task-code').data('path');
 		}
 		
-		console.log()
+		console.log(outputFilePath);
 		
 		$.ajax({
 			url: '/output/update',

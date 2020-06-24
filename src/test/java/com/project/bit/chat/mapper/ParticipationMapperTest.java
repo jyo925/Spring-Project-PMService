@@ -30,8 +30,8 @@ class ParticipationMapperTest {
   @DisplayName("사용자가 처음 채팅방에 들어갔을시 참여 추가")
   public void test2() {
     List<Participation> participations = new ArrayList<>();
-    Participation user1 = Participation.builder().conversationId("1").userId("user003").build();
-    Participation user2 = Participation.builder().conversationId("1").userId("user004").build();
+    Participation user1 = Participation.builder().conversationId("9").userId("lcy0815").build();
+    Participation user2 = Participation.builder().conversationId("9").userId("user003").build();
 
     participations.add(user1);
     participations.add(user2);

@@ -3,7 +3,7 @@ package com.project.bit.userStatus.mapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.project.bit.userstatus.mapper.UserStatusMapper;
+import com.project.bit.userStatus.mapper.UserStatusMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;

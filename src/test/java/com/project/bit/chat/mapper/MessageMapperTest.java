@@ -37,9 +37,9 @@ class MessageMapperTest {
   @DisplayName("메세지 저장")
   public void test3() {
     Message message = Message.builder()
-      .authorId("user002")
+      .authorId("lcy0815")
       .content("안녕하세요2")
-      .conversationId("1").build();
+      .conversationId("9").build();
 
     messageMapper.save(message);
   }
