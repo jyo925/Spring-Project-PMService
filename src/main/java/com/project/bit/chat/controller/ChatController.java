@@ -2,7 +2,6 @@ package com.project.bit.chat.controller;
 
 import com.project.bit.chat.domain.ChatDTO;
 import com.project.bit.chat.domain.Message;
-import com.project.bit.chat.domain.MessageResponse;
 import com.project.bit.chat.service.ChatService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +32,7 @@ public class ChatController {
 
   @MessageMapping("/room/{room}")
   public void sendMessage(@DestinationVariable String roomNo, Message message) {
-    chatService.sendMessage(roomNo, message);
+    simpMessagingTemplate.convertAndSend("/topic/room/"+roomNo, HtmlUtils.htmlEscape(message.getContent()));
   }
 
   @GetMapping("/chat/initial")

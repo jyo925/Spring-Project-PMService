@@ -64,6 +64,8 @@ public class ChatServiceImpl implements ChatService {
   @Override
   public boolean inviteMessage(Message message) {
     ChatRoom chatRoom = new ChatRoom();
+    chatRoomMapper.save(chatRoom);
+
 
     return false;
   }
