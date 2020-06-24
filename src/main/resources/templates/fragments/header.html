@@ -204,11 +204,11 @@
                     <li class="nav-item nav-profile mt-4">
                         <div class="nav-link">
                             <div class="profile-image">
-                                <img src="/images/user.png" alt="image" class="bg-success">
+                                <img th:src="${#authentication.principal.Users.userPhoto}" alt="image" class="bg-success">
                             </div>
                             <div class="profile-name">
-                                <p class="name" sec:authentication="principal.username">User Name</p>
-                                <p class="designation">Developer</p>
+                                <p class="name" th:text="${#authentication.principal.Users.userName}"></p>
+                                <p class="designation" th:text="${#authentication.principal.Users.positionName}">Developer</p>
                             </div>
                         </div>
                     </li>

@@ -1,12 +1,14 @@
-package com.project.bit.userStatus.controller;
+package com.project.bit.userstatus.controller;
 
-import com.project.bit.userStatus.mapper.UserStatusMapper;
-import com.project.bit.userStatus.service.UserStatusService;
-import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.project.bit.userstatus.mapper.UserStatusMapper;
+import com.project.bit.userstatus.service.UserStatusService;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 
 @Log
 @Controller

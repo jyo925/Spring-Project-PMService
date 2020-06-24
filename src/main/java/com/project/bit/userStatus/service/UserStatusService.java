@@ -1,6 +1,6 @@
-package com.project.bit.userStatus.service;
+package com.project.bit.userstatus.service;
 
-import com.project.bit.userStatus.domain.UserStatusVO;
+import com.project.bit.userstatus.domain.UserStatusVO;
 
 import java.util.List;
 

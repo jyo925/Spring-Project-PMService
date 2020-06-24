@@ -7,7 +7,7 @@ public class MyProjectsVO {
 	
 	private String projectName;
 	private String projectPmo;
-	private String projectStatusCode;
+	private String projectStatus;
 	private String projectStart;
 	private String projectFinish;
 	private String taskName;
