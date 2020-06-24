@@ -2,7 +2,6 @@ package com.project.bit.userStatus.controller;
 
 import com.project.bit.approval.domain.Criteria;
 import com.project.bit.approval.domain.PageDTO;
-import com.project.bit.userStatus.mapper.UserStatusMapper;
 import com.project.bit.userStatus.service.UserStatusService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -22,7 +21,7 @@ public class UserStatusController {
     public String getUserStatusList(Criteria cri, Model model) {
 
         model.addAttribute("userStatusList", userStatusService.getUserStatusList(cri));
-        model.addAttribute("PageMaker", new PageDTO(cri,userStatusService.countUsersStatusList()));
+        model.addAttribute("pageMaker", new PageDTO(cri,userStatusService.countUsersStatusList()));
 
         return "userStatus/userStatusList";
 
