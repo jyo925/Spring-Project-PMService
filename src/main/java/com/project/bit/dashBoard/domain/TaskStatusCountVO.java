@@ -1,6 +1,9 @@
 package com.project.bit.dashBoard.domain;
 
+import lombok.Data;
+
+@Data
 public class TaskStatusCountVO {
-	private String status_name;
-    private int status_count;
+    private String taskStatusName;
+    private int taskStatus;
 }

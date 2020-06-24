@@ -199,23 +199,27 @@
             </div>
             <!-- partial -->
             <!-- partial:partials/_sidebar.html -->
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <nav class="sidebar sidebar-offcanvas" id="adminSidebar">
                 <ul class="nav">
                     <li class="nav-item nav-profile mt-4">
                         <div class="nav-link">
                             <div class="profile-image">
-                                <img src="/images/user.png" alt="image" class="bg-success">
+                                <img  alt="image" class="bg-success">
                             </div>
                             <div class="profile-name">
-                                <p class="name" sec:authentication="principal.username">User Name</p>
-                                <p class="designation">Developer</p>
+                                <p class="name" th:text="${#authentication.principal.Users.userName}"></p>
+                                <p class="designation" th:text="${#authentication.principal.Users.dutyName}">Developer</p>
                             </div>
                         </div>
                     </li>
+
+
+
+
                     <li class="nav-item"><a class="nav-link"
                                             data-toggle="collapse" href="#dashboard-nav"> <i
-                            class="fa fa-dashboard menu-icon"></i> <span class="menu-title">프로젝트
-								대시보드</span> <span class="badge"> </span> <!-- nav item 옆 down arrow -->
+                            class="fa fa-dashboard menu-icon"></i>
+                        <span class="menu-title">프로젝트 대시보드</span> <span class="badge"> </span> <!-- nav item 옆 down arrow -->
                     </a>
                         <div class="collapse" id="dashboard-nav">
                             <ul class="nav flex-column sub-menu">
@@ -223,7 +227,7 @@
                                     대시보드</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/dashBoardDetail">상세
                                     대시보드</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/">개인
+                                <li class="nav-item"><a class="nav-link" href="/dIndex">개인
                                     대시보드</a></li>
                             </ul>
                         </div>

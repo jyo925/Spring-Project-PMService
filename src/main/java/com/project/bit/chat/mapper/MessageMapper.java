@@ -10,5 +10,7 @@ public interface MessageMapper {
 
   List<Message> findAll();
   List<Message> findLastMessageByUserId(String userId);
+  List<Message> findByChatRoom(String conversationId);
+  boolean save(Message message);
 
 }

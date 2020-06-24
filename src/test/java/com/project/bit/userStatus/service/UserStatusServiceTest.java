@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.project.bit.userStatus.service.UserStatusService;
+
 @SpringBootTest
 public class UserStatusServiceTest {
 

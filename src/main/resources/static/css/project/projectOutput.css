@@ -39,6 +39,6 @@
 	cursor: pointer;
 }
 
-.fa-trash {
+.fa-trash, .fa-download{
 	cursor: pointer;
 }

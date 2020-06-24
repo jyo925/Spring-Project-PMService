@@ -1,3 +1,4 @@
+
 package com.project.bit.foo.controller;
 
 import java.security.Principal;
@@ -37,6 +38,7 @@ public class EventRestController {
 	@GetMapping("/calendarE")
 	public String calendarE(Model model, Principal principal) {
 		JSONArray json = eventService.selectEventById(principal.getName());
+		System.out.println(json);
 		return json.toString();
 	}
 	

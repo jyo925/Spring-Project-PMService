@@ -6,24 +6,49 @@
 <title id="pageTitle">MAIN</title>
 <!-- 현제 페이지 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+    <style>
+        /* select2 multiple dropdown arrow */
+        .select2-selection--multiple:before {
+            content: "";
+            position: absolute;
+            right: 7px;
+            top: 42%;
+            border-top: 5px solid #888;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+        }
+        .select2-container .select2-selection--single {
+            padding: 0 10px;
+            font-size: 0.9em;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 </th:block>
 
 <!-- 현제 페이지 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-	<script th:inline="javascript" src="/js/project/projectChartDashBoard.js"></script>
+	<script src="/js/dashBoard/projectChartDashBoard.js"></script>
+<!--    <script src="/js/project/projectChart.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 </th:block>
 
 <div layout:fragment="content">
-    <select id="project-select" style="margin-bottom: 10px;">
+    <div class="row">
+        <div class="col-12 grid-margin">
+    <select id="project-select" style="margin-bottom: 10px; width: 100%">
         <th:block th:each="project : ${projectNameList}">
             <option th:value="${project.projectCode}" th:text="${project.projectName}">
         </th:block>
     </select>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <div>
+                    <h6 class="card-title">프로젝트 정보</h6>
+                    <div class="row">
 						
 						<span id="project-name"></span>
 						
@@ -43,9 +68,39 @@
                 </div>
             </div>
         </div>
+    </div> <!-- row end -->
         <div th:replace="/project/projectDetailChart :: project-detail-chart"></div>
         
-    </div> <!-- row end -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
+    <script>
+        // select2 초기화
+        $('select').select2({
+        });
+    </script>
+
+    <!--<script type="text/javascript">
+        const btn = document.getElementById('btn');
+        btn.addEventListener('click', function () {
+            const searchb = document.getElementById('searchb');
+            getData('http://localhost:8080/search?keyword='+searchb.value, {})
+                .then(
+                    /* 처리할 코드 */
+                    response=>console.log(response)
+                );
+        });
+
+        async function getData(url = '', data = {}) {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.json();
+        }
+    </script>-->
+
 </div>
 
 

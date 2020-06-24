@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			po.output_name AS output_name,
 			po.output_user AS output_user,
 			po.output_date AS output_date,
+			po.output_path AS output_path,
 			pot.output_type AS output_type_name,
 			pt.task_code AS task_code,
 			pt.task_name AS task_name

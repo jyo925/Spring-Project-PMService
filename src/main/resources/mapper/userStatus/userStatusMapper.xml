@@ -4,37 +4,62 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.userStatus.mapper.UserStatusMapper">
 
-    <!-- 사용자현황 리스트 -->
-    <select id="selectUserStatus" resultType="com.project.bit.userStatus.domain.UserStatusVO">
-    select /*+ INDEX_ASC(users user_id) */
-        users.user_id
-        ,users.user_name
-        ,users.user_email
-        ,users.user_phone
-        ,count(project_tasks.taskGroup_code) as taskCountTotal
-        ,count(case when project_tasks.task_status_code = 'taskstatus100' then 1 end) as taskCountProcessing
-        ,count(case when project_tasks.task_status_code = 'taskstatus200' then 1 end) as taskCountComplete
-        ,count(case when project_tasks.task_status_code = 'taskstatus300' then 1 end) as taskCountStandBy
-    from users
-
-    INNER join project_members
-    on users.user_id = project_members.user_id
-
-    inner join project_task_groups
-    on project_members.project_code = project_task_groups.project_code
-
-    inner join project_tasks
-    on project_task_groups.taskGroup_code = project_tasks.taskGroup_code
-
-    group by users.user_id, users.user_name, users.user_email, users.user_phone
-
+    <select id="selectUserStatus" parameterType="com.project.bit.approval.domain.Criteria" resultType="com.project.bit.userStatus.domain.UserStatusVO">
+        SELELT *
+        FROM
+        (SELECT
+            ROWNUM RN
+            ,USER_ID
+            ,USER_NAME
+            ,USER_EMAIL
+            ,USER_PHONE
+            ,TASKCOUNTTOTAL
+            ,TASKCOUNTPROCESSING
+            ,TASKCOUNTCOMPLETE
+            ,TASKCOUNTSTANDBY
+        FROM
+        (SELECT
+             U.USER_ID
+            ,U.USER_NAME
+            ,U.USER_EMAIL
+            ,U.USER_PHONE
+            ,COUNT(project_tasks.taskGroup_code) as TASKCOUNTTOTAL
+            ,COUNT(CASE WHEN project_tasks.task_status_code = 'taskstatus100' THEN 1 END) AS TASKCOUNTPROCESSING
+            ,COUNT(CASE WHEN project_tasks.task_status_code = 'taskstatus200' THEN 1 END) AS TASKCOUNTCOMPLETE
+            ,COUNT(CASE WHEN project_tasks.task_status_code = 'taskstatus300' THEN 1 END) AS TASKCOUNTSTANDBY
+        FROM USERS U
+        INNER JOIN project_members
+            ON users.user_id = project_members.user_id
+        INNER JOIN project_task_groups
+            ON project_members.project_code = project_task_groups.project_code
+        INNER JOIN project_tasks
+          ON project_task_groups.taskGroup_code = project_tasks.taskGroup_code
+        WHERE 1=1
+        <trim prefix="AND">
+            <choose>
+                <when test="type == 'N'.toString()">
+                    user_name like '%'||#{keyword}||'%'
+                </when>
+                <when test="type == 'T'.toString()">
+                    team_name like '%'||#{keyword}||'%'
+                </when>
+            </choose>
+        </trim>
+        GROUP BY users.user_id, users.user_name, users.user_email, users.user_phone)
+        <![CDATA[
+         WHERE ROWNUM <= #{pageNum} * #{amount})
+     WHERE RN > (#{pageNum} -1) * #{amount}
+    ]]>
     </select>
 
-    <!-- 페이징처리-->
-    <select id="getListWithPaging" resultType="com.project.bit.userStatus.domain.UserStatusVO">
-
+    <!--Total Count-->
+    <select id="selectCountUserStatus" parameterType="com.project.bit.approval.domain.PageDTO" resultType="int">
+        <![CDATA[
+        SELECT
+            COUNT(USER_ID)
+        FROM USERS
+        ]]>
     </select>
-
-
 
 </mapper>
+

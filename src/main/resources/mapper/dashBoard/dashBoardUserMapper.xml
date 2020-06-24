@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.dashBoard.mapper.DashBoardUserMapper">
+    <select id="selectTaskCount" resultType="com.project.bit.dashBoard.domain.UserCountVO">
+		select count(t.task_code) as user_task_count
+		    from project_tasks t
+		    inner join project_task_managers tm
+		    on t.task_code=tm.task_code
+		    join users u on tm.task_manager_id=u.user_id
+		    where u.user_id=#{userId}
+	</select>
+	<select id="selectIssueCount" resultType="com.project.bit.dashBoard.domain.UserCountVO">
+		select count(i.issue_code) as user_issue_count
+			from project_issues i
+			inner join users u
+			on i.issue_user_id=u.user_id
+			where u.user_id=#{userId}
+	</select>
+	<select id="selectOutputCount" resultType="com.project.bit.dashBoard.domain.UserCountVO">
+		select count(o.output_code) as user_output_count
+			from project_outputs o
+			inner join users u
+			on o.output_name=u.user_id
+			where u.user_id=#{userId}
+	</select>
+	<select id="selectProjectCount" resultType="com.project.bit.dashBoard.domain.UserCountVO">
+		select count(p.project_code) as user_project_count
+			from projects p
+			inner join project_members pm
+			on p.project_code=pm.project_code
+			join users u
+			on pm.user_id=u.user_id
+			where u.user_id=#{userId}
+	</select>
+
+	<!-- user task status chart -->
+	<select id="selectTaskStatus" resultType="com.project.bit.dashBoard.domain.TaskStatusCountVO">
+		select count(t.task_status_code) as task_status,
+			ts.task_status as task_status_name
+			from project_tasks t, project_task_status ts, project_task_managers tm
+			where tm.task_manager_id=#{userId}
+			and tm.task_code=t.task_code
+			and t.task_status_code=ts.task_status_code
+			group by ts.task_status
+	</select>
+
+	<!-- user issue status chart -->
+	<select id="selectIssueStatus" resultType="com.project.bit.dashBoard.domain.IssueStatusCountVO">
+		select count(i.issue_code) as issue_status,
+			it.issue_type as issue_status_name
+			from project_issues i, project_issue_types it
+			where i.issue_user_id=#{userId}
+			and i.issue_type_code=it.issue_type_code
+			group by i.issue_code, it.issue_type
+	</select>
+
+	<!-- user newly task/project list -->
+	<select id="selectMyTaskList" resultType="com.project.bit.dashBoard.domain.UserTaskVO">
+		<![CDATA[
+        select * from
+			(select t.*, p.project_name, ts.task_status
+				from project_tasks t
+				inner join project_task_status ts
+				on t.task_status_code=ts.task_status_code
+				join project_task_groups tg
+				on t.taskGroup_code=tg.taskGroup_code
+				join projects p
+				on tg.project_code=p.project_code
+				join project_members pm
+				on p.project_code=pm.project_code
+		where pm.user_id=#{userId}
+		order by (select to_char(sysdate, 'YYYYMMDD') from dual) - to_char(p.project_start, 'YYYYMMDD') ASC)
+		where ROWNUM<=3 order by task_start ASC
+        ]]>
+	</select>
+
+	<!-- user output list -->
+	<select id="selectMyOutputList" resultType="com.project.bit.dashBoard.domain.UserOutputVO">
+		select pt.task_name, o.output_date, o.output_name, p.project_name
+			from project_outputs o
+			inner join project_tasks pt
+			on o.task_code=pt.task_code
+			join project_task_groups ptg
+			on pt.taskgroup_code=ptg.taskgroup_code
+			join projects p
+			on ptg.project_code=p.project_code
+			where o.output_user=#{userId}
+	</select>
+</mapper>

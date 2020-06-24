@@ -7,7 +7,7 @@ import com.project.bit.foo.domain.Users;
 
 public interface UserService {
 	
-	Optional<Users> selectUserById(String USER_ID);
+	Users selectUserById(String USER_ID);
 	
 	void insertUser(Users user);
 	

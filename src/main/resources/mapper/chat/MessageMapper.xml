@@ -13,6 +13,11 @@
         <result property="creationTime" column="creation_time"></result>
     </resultMap>
 
+    <insert id="save">
+        INSERT INTO messages (message_id, author_id, conversation_id, content)
+        VALUES (messages_seq.nextval, #{authorId}, #{conversationId}, #{content})
+    </insert>
+
     <select id="findAll" resultMap="Message">
         SELECT *
         FROM MESSAGES
@@ -29,5 +34,11 @@
         LEFT JOIN participations b
         ON a.conversation_id= b.conversation_id
         WHERE user_id = #{userId}
+    </select>
+
+    <select id="findByChatRoom" parameterType="String" resultMap="Message">
+        SELECT *
+        FROM messages
+        WHERE conversation_id = #{conversationId}
     </select>
 </mapper>

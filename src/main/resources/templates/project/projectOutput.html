@@ -31,7 +31,8 @@
 					<div>
 						<select>
 							<option value="all">전체카테고리</option>
-							<option></option>
+							<option th:each="outputType : ${outputTypeList}" th:value="${outputType.outputTypeCode}"
+							th:text="${outputType.outputType}"></option>
 						</select> 
 						
 						<input type="text" placeholder="산출물 이름" style="margin-left: 10px; margin-right: 10px;">
@@ -89,12 +90,14 @@
 							<tbody>
 								<tr class="output-tbody-tr" th:each="output : ${outputList}">
 									<td th:text="${outputStat.count}"></td>
-									<td><a class="output-name" th:data-taskCode="${output.taskCode}" th:data-mfp-src="'#' + ${output.outputCode}" th:data-id="${output.outputCode}" th:text="${output.outputName}"></a></td>
+									<td><a class="output-name" th:data-path="${output.outputPath}" 
+									th:data-taskCode="${output.taskCode}" th:data-mfp-src="'#' + ${output.outputCode}" 
+									th:data-id="${output.outputCode}" th:text="${output.outputName}"></a></td>
 									<td th:text="${output.outputTypeName}"></td>
 									<td th:text="${output.taskName}"></td>
 									<td th:text="${output.outputUser}"></td>
 									<td th:text="${output.outputDate}"></td>
-									<td><a><i class="fa fa-download"></i></a></td>
+									<td><a class="output-download-btn"><i class="fa fa-download"></i></a></td>
 									<td><a class="output-delete-btn"><i class="fa fa-trash"></i></a></td>
 									
 									<div th:id="${output.outputCode}" class="white-popup mfp-hide output-info">
