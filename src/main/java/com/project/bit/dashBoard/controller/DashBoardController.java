@@ -1,7 +1,10 @@
 package com.project.bit.dashBoard.controller;
 
+import com.project.bit.dashBoard.domain.IssueStatusCountVO;
+import com.project.bit.dashBoard.domain.TaskStatusCountVO;
 import com.project.bit.dashBoard.mapper.DashBoardAllMapper;
 import com.project.bit.dashBoard.service.DashBoardAllService;
+import com.project.bit.dashBoard.service.DashBoardUserService;
 import com.project.bit.project.service.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +29,8 @@ public class DashBoardController {
 	
 	private DashBoardDetailService dashBoardDetailService;
 	private DashBoardAllService dashBoardAllService;
-	private DashBoardAllMapper dashBoardAllMapper;
+	private DashBoardUserService dashBoardUserService;
+	private ProjectDetailService projectDetailService;
 	
 	@GetMapping("/dashBoardDetail")
 	public String goDashBoard(Model model) {
@@ -57,6 +61,7 @@ public class DashBoardController {
 	public ResponseEntity monthly() {
 		return new ResponseEntity(dashBoardAllService.getKeyProject(), HttpStatus.OK);
 	}
+
 	@GetMapping("/search")
 	@ResponseBody
 	public ResponseEntity search(String keyword) {
@@ -69,6 +74,19 @@ public class DashBoardController {
 		return projectDetailService.getProjectInfo(projectCode);
 	}
 
+
+	/* Chart */
+	@GetMapping("/dashBoard/chart/task")
+	@ResponseBody
+	public List<TaskStatusCountVO> TaskStatusChart(Principal principal) {
+		return dashBoardUserService.getTaskStatusCount(principal.getName());
+	}
+
+	@GetMapping("/dashBoard/chart/issue")
+	@ResponseBody
+	public List<IssueStatusCountVO> IssueStatusChart(Principal principal) {
+		return dashBoardUserService.getIssueStatusCount(principal.getName());
+	}
 
 	
 }

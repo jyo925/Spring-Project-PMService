@@ -48,6 +48,18 @@ function drawTaskChart(status){
         legend: 'none'
     };
 
+    if (data.getNumberOfRows() == 0) {
+        data.addRows([
+            ['없음', 1]
+        ]);
+        options.pieSliceTextStyle = {
+            color: 'black'
+        };
+        options.tooltip = {
+            trigger: 'none'
+        }
+    }
+
     var chart = new google.visualization.PieChart(document.getElementById('UserTaskStatusChart'));
     chart.draw(data, options);
 }
