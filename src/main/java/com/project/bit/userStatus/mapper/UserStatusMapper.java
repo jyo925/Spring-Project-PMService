@@ -3,7 +3,6 @@ package com.project.bit.userstatus.mapper;
 import java.util.List;
 
 import com.project.bit.approval.domain.Criteria;
-import com.project.bit.userStatus.domain.UserStatusVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.bit.approval.domain.Criteria;

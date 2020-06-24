@@ -2,8 +2,6 @@ package com.project.bit.userstatus.controller;
 
 import com.project.bit.approval.domain.Criteria;
 import com.project.bit.approval.domain.PageDTO;
-import com.project.bit.userStatus.mapper.UserStatusMapper;
-import com.project.bit.userStatus.service.UserStatusService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
