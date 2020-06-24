@@ -84,7 +84,8 @@
 				</select>
 			</div>
 			<div class="mb-3">
-				<label for="Project">Project</label> <select name="projectCode"
+				<label for="Project">Project</label> 
+				<select name="projectCode"
 					class="form-control">
 					<option value="">None</option>
 					<option th:each="el : ${projectList}" th:value="${el.projectCode}"

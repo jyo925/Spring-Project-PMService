@@ -8,6 +8,6 @@ import java.util.List;
 @Mapper
 public interface ChatRoomMapper {
 
-  int save();
+  int save(ChatRoom chatRoom);
 
 }

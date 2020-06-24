@@ -1,7 +1,8 @@
 package com.project.bit.userStatus.service;
 
-import com.project.bit.approval.domain.Criteria;
+
 import com.project.bit.userStatus.domain.UserStatusVO;
+import com.project.bit.approval.domain.Criteria;
 
 import java.util.List;
 

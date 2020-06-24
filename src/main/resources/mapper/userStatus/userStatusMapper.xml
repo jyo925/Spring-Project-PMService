@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.userStatus.mapper.UserStatusMapper">
 
-    <!-- 사용자현황 리스트 -->
     <select id="selectUserStatus" parameterType="com.project.bit.approval.domain.Criteria" resultType="com.project.bit.userStatus.domain.UserStatusVO">
         SELECT *
         FROM
@@ -65,8 +64,6 @@
         FROM USERS
         ]]>
     </select>
-
-
 
 </mapper>
 

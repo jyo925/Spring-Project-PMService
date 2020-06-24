@@ -19,8 +19,11 @@ public class DashBoardDetailServiceImpl implements DashBoardDetailService {
 	
 		return dashBoardDetailMapper.selectProjectList();
 	}
-	
-	
+
+	@Override
+	public List<ProjectDTO> searchProjectList(String keyword) {
+		return dashBoardDetailMapper.searchProjectList(keyword);
+	}
 	
 
 }

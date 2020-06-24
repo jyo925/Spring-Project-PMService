@@ -1,11 +1,11 @@
 package com.project.bit.userStatus.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 
 import com.project.bit.approval.domain.Criteria;
 import com.project.bit.userStatus.domain.UserStatusVO;
-import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 @Mapper
 public interface UserStatusMapper {

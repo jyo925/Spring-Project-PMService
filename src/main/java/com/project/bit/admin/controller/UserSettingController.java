@@ -39,7 +39,7 @@ public class UserSettingController {
 
         userSettingService.regitUserSetting(userVO);
 
-        return "redirect:/userSettingList";
+        return "redirect:/admin/userSettingList";
 
     }
 
@@ -64,6 +64,6 @@ public class UserSettingController {
 
         userSettingService.resetUserPw(userVO);
 
-        return "redirect:/userSettingList";
+        return "redirect:/admin/userSettingList";
     }
 }

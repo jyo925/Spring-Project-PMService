@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserSettingServiceImpl implements UserSettingService{
 
-    PasswordEncoder bCryptPasswordEncoder;
-    UserSettingMapper userSettingMapper;
+    private PasswordEncoder bCryptPasswordEncoder;
+    private UserSettingMapper userSettingMapper;
 
     //사용자 목록
     @Override

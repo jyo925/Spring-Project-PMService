@@ -22,13 +22,24 @@ class DashBoardControllerTest {
     public void test() throws Exception {
         mockMvc.perform((MockMvcRequestBuilders.get("/dashBoardAll")
         )).andDo(print());
+    }
 
-
+    @Test
+    @WithMockUser("user001")
+    public void test2() throws Exception {
+        mockMvc.perform((MockMvcRequestBuilders.get("/dIndex"))).andDo(print());
     }
 
     @Test
     @WithMockUser
-    public void test2() throws Exception {
+    public void test3() throws Exception {
+        mockMvc.perform((MockMvcRequestBuilders.get("/search"))
+                .param("keyword", "B")).andDo(print());
+    }
+
+    @Test
+    @WithMockUser
+    public void test4() throws Exception {
         mockMvc.perform((MockMvcRequestBuilders.get("/monthly"))).andDo(print());
     }
 

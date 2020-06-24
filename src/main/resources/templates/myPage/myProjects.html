@@ -19,20 +19,23 @@
 		<div class="col-12 grid-margin">
 			<div class="card">
 				<div class="card-body">
+					<div th:text="${#authentication.principal}">
+					</div>
 					<form>
 						<div class="row">
 							<div class="col">
-								<input id="projectProgress" type="text" class="form-control" placeholder="First name">
+								<select id="projectProgress">
+									<option th:each="el : ${projectStatusNames}" th:text="${el.projectStatus}"></option>
+								</select>
 							</div>
 							<div class="col">
-								<input id="projectName" type="text" class="form-control" placeholder="Last name">
+								<input id="projectName" type="text" class="form-control" placeholder="projectName">
 							</div>
 							<div class="input-group flex-nowrap col">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="addon-wrapping">🔎</span>
 								</div>
-								<input id="elasticSearch" type="text" class="form-control" placeholder="Username"
-									aria-label="Username" aria-describedby="addon-wrapping">
+								<input id="elasticSearch" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
 							</div>
 							<div class="col">
 								<button type="submit" class="btn btn-primary">Search</button>
@@ -50,19 +53,20 @@
 								<th>taskName</th>
 								<th>projectName</th>
 								<th>projectPmo</th>
-								<th>projectStatusCode</th>
+								<th>projectStatus</th>
 								<th>projectStart</th>
 								<th>projectFinish</th>
 							</tr>
 							</thead>
 							 <tbody>
 							<tr th:each="el : ${myProjects}" class="items">
-								<th th:text="${el.taskName}"></th>
+								<th th:text="${el.taskName==null? 'No any tasks': el.taskName}"></th>
 								<th th:text="${el.projectName}"></th>
-								<th th:text="${el.projectPmo}"></th>
-								<th th:text="${el.projectStatusCode}"></th>
+								<th th:text="${el.projectPmo==null? 'Empty': el.projectPmo}"></th>
+								<th th:text="${el.projectStatus}"></th>
 								<th th:text="${el.projectStart}"></th>
 								<th th:text="${el.projectFinish}"></th>
+								<th th:text="${el.taskName==null? '': el.taskName + el.projectName} + ${el.projectPmo==null? '': el.projectPmo} + ${el.projectName + el.projectStatus + el.projectStart + el.projectFinish}" hidden="" class="val"></th>
 							</tr>
 							</tbody>
 						</table>

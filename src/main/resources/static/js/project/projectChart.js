@@ -61,7 +61,8 @@ function drawChart(array){
 	
 	var options = {
 		chartArea: {width:'80%',height:'80%'},
-		pieHole: 0.4
+		pieHole: 0.4,
+		colors: ['#4FC1E9','#5D9CEC','#48CFAD','#A0D468','#FFCE54','#FC6E51']
 	};
 	
 	var chart = new google.visualization.PieChart(document.getElementById('projectTaskStatusChart'));
@@ -80,7 +81,8 @@ function drawChartIssue(array){
 	
 	var options = {
 		chartArea: {width:'80%',height:'80%'},
-		pieHole: 0.4
+		pieHole: 0.4,
+		colors: ['#4FC1E9','#5D9CEC','#48CFAD','#A0D468','#FFCE54','#FC6E51']
 	};
 	
 	var chart = new google.visualization.PieChart(document.getElementById('projectIssueStatusChart'));
