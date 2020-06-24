@@ -88,9 +88,11 @@ public class ApprovalController {
 
         int lastPage = ((apDocService.getApDocCount(principal.getName()).get(0))-1)/10+1;
 
-        return "redirect:/approval/getApProgressList?pageNum="+lastPage;
-//        return "redirect:/approval/getApProgressList";
+//        return "redirect:/approval/getApProgressList?pageNum="+lastPage;
+        return "redirect:/approval/apMain";
+
     }
+
 
     //결재 진행함 조회
     @GetMapping("/getApProgressList")
