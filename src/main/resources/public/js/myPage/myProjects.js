@@ -1,20 +1,17 @@
 $(document).ready(function() {
 	
+	let	elasticItems = $('.items .val');
 	$('#elasticSearch').on('input', function() {
 		
 		let value = new RegExp($(this).val().trim(), "gi");
-		let	elasticItems = $('.items th');
 		if(value != "/(?:)/gi") {
 			console.log("0");
-			console.log(elasticItems.text());
-			console.log(value);
 			elasticItems.each(function(element) {
-				//console.log($(this).text());
-				if($(this).text().search(value) == -1) {
+				if($(this).text().search(value) != -1) {
 					$(this).parent().show();
-					//$(element).parent().hide();
+					console.log($(this).text());
 					console.log("1");
-					console.log(value);
+					return;
 				} else {
 					$(this).parent().hide();
 					console.log("2");
@@ -23,7 +20,31 @@ $(document).ready(function() {
 		} else if (value == "/(?:)/gi") {
 			elasticItems.each(function(element) {
 				$('.items').show();
-				//$(element).parent().show();
+				console.log("3");
+			});
+		}
+		
+	});
+	
+	$('#projectProgress').on('change', function() {
+		
+		let value = new RegExp($(this).val().trim(), "gi");
+		if(value != "/(?:)/gi") {
+			console.log("0");
+			elasticItems.each(function(element) {
+				if($(this).text().search(value) != -1) {
+					$(this).parent().show();
+					console.log($(this).text());
+					console.log("1");
+					return;
+				} else {
+					$(this).parent().hide();
+					console.log("2");
+				}
+			});
+		} else if (value == "/(?:)/gi") {
+			elasticItems.each(function(element) {
+				$('.items').show();
 				console.log("3");
 			});
 		}

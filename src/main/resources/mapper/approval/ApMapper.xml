@@ -45,17 +45,29 @@
     </select>
     
     <select id="selectSuperiorApprover" resultType="com.project.bit.approval.domain.ApproverVO">
-        <![CDATA[select u.user_id, u.user_name, d.duty_name
+<!--        <![CDATA[select u.user_id, u.user_name, d.duty_name-->
+<!--        from project_members m-->
+<!--        inner join users u-->
+<!--        on m.user_id = u.user_id-->
+<!--        inner join dutys d-->
+<!--        on d.duty_code = m.duty_code-->
+<!--        where m.project_code =-->
+<!--        (select project_code from project_members where user_id = #{userId})-->
+<!--        and m.duty_code =-->
+<!--        (SELECT max(duty_code) FROM dutys-->
+<!--        where duty_code < (select duty_code from project_members where user_id = #{userId}))]]>-->
+
+        <![CDATA[select * from (select rownum, u.user_id, u.user_name, d.duty_name
         from project_members m
         inner join users u
         on m.user_id = u.user_id
-        inner join dutys d
-        on d.duty_code = m.duty_code
+        inner join dutys d on d.duty_code = m.duty_code
         where m.project_code =
         (select project_code from project_members where user_id = #{userId})
-        and m.duty_code =
-        (SELECT max(duty_code) FROM dutys
-        where duty_code < (select duty_code from project_members where user_id = #{userId}))]]>
+        and m.duty_code in
+        (SELECT duty_code FROM project_members
+        where duty_code < (select duty_code from project_members where user_id = #{userId}))]]>-->
+        ORDER by d.duty_code desc) where rownum = 1
     </select>
 
     <select id="selectApprovalList" resultType="com.project.bit.approval.domain.ApDTO">

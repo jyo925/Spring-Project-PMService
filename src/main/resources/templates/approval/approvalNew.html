@@ -38,10 +38,10 @@
                     <form th:action="@{/approval/postApDoc}" method="post" role="form">
                         <div class="form-group row">
                             <div class="col-lg-9">
-                                <h2 class="card-title" th:text="${form.getApFormName()}" readonly></h2>
+                                <h2 class="card-title" th:text="${form.getApFormName()}" readonly style="margin-top: 5px;"></h2>
                             </div>
 
-                            <div class="col-lg-3" style="padding-left: 0px; padding-right: 0px;">
+                            <div class="col-lg-3" style="padding-left: 30px; padding-right: 0px;">
                                 <th:block th:if="${approvers} != null">
                                     <table class="" border="1px" style="table-layout: fixed; box-sizing: border-box;
                                 border-color: #f4f4f4; text-align: center; float: left;">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <label class="col-form-label">제목</label>
                             </div>
                             <div class="col-lg-8">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <label class="col-form-label">기안자</label>
                             </div>
                             <div class="col-lg-8">
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <label class="col-form-label">프로젝트</label>
                             </div>
                             <div class="col-lg-8">
@@ -108,7 +108,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <label class="col-form-label">참조자</label>
                             </div>
                             <div class="col-lg-8">
@@ -119,10 +119,10 @@
                                         <input name="apReferrersId" type="text" value=" " hidden>
 
                                     </div>
-                                    <div class="col-2 col">
+                                    <div class="col-2 col" >
                                         <button type="button" id="selectReferrers" class="btn btn-primary btn"
                                                 data-toggle="modal"
-                                                data-target="#exampleModal" data-whatever="@mdo">선택
+                                                data-target="#exampleModal" data-whatever="@mdo" >선택
                                         </button>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <label class="col-form-label">첨부파일</label>
                             </div>
                             <div class="col-lg-8">
@@ -143,7 +143,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <label class="col-form-label" name="dateFormName">휴가 일자</label>
                             </div>
                             <div class="col-lg-8">
@@ -163,19 +163,20 @@
                         <input type="hidden" name="apDocContent" id="formData" th:value="${form.getApFormContent()}">
                         <input type="hidden" th:value="${approvers}" id="approvers"><br>
 
-                        <button type="submit" id="request" class="btn btn-success btn-fw"
-                                style="float: right; margin-left: 25px">결재 요청
-                        </button>
                         <button type="button" id="cancel" onclick="location.href = '/approval/apMain'"
-                                class="btn btn-inverse-dark btn-fw" style="float: right; margin-left: 25px">취소
+                                class="btn btn-inverse-dark btn-fw" style="float: right; margin-left: 15px">취소
                         </button>
+                        <button type="submit" id="request" class="btn btn-success btn-fw"
+                                style="float: right; margin-left: 15px">결재 요청
+                        </button>
+
 
                     </form>
 
                     <!-- 모달 -->
-                    <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="exampleModalLabel">참조자 지정</h4>
@@ -185,20 +186,6 @@
                                 </div>
                                 <div class="modal-body" style="padding: 10px;">
                                     <form>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">검색</label>
-                                            <div class="row">
-                                                <div class="col-4 col-sm-6">
-                                                    <input type="text" class="form-control" id=""
-                                                           placeholder="이름 또는 아이디를 입력하세요.">
-                                                </div>
-                                                <div class="col-2 col-sm-6">
-                                                    <a href="#" role="button" class="btn btn-secondary popover-test"
-                                                       title="Popover title"
-                                                       data-content="Popover body content is set in this attribute.">검색</a>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-6">
@@ -263,14 +250,13 @@
                     {
                         name: 'clipboard',
                         groups: ['clipboard', 'undo'],
-                        items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']
+                        items: ['Cut', 'Copy']
                     },
                     {
                         name: 'editing',
                         groups: ['find', 'selection', 'spellchecker'],
                         items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt']
                     },
-                    '/',
                     {
                         name: 'basicstyles',
                         groups: ['basicstyles', 'cleanup'],
@@ -279,18 +265,18 @@
                     {
                         name: 'paragraph',
                         groups: ['list', 'indent', 'blocks', 'align', 'bidi'],
-                        items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+                        items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
                     },
-                    {name: 'links', items: ['Link', 'Unlink', 'Anchor']},
-                    {name: 'insert', items: ['Image', 'Flash', 'Table', 'HorizontalRule']},
-                    '/',
+                    // {name: 'links', items: ['Link', 'Unlink', 'Anchor']},
+                    // {name: 'insert', items: ['Image', 'Flash', 'Table', 'HorizontalRule']},
+                    {name: 'insert', items: ['Table', 'HorizontalRule']},
                     {name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize']},
                     {name: 'colors', items: ['TextColor', 'BGColor']},
-                    {name: 'tools', items: ['Maximize', 'ShowBlocks']},
+                    {name: 'tools', items: ['Maximize']},
                     {name: 'others', items: ['-']},
                     {name: 'about', items: ['About']}
                 ],
-                width: '100%',
+                width: '75%',
                 height: '400px',
                 startupFocus: false
             });
@@ -363,8 +349,8 @@
                 var formObj = $("form[role='form']");
 
                 $("#request").on("click", function (e) {
-
                     e.preventDefault();
+
                     //1. 변경된 문서내용으로 업데이트
                     var updateFormData = CKEDITOR.instances.editor1.getData();
                     //console.log(updateFormData);
@@ -386,42 +372,49 @@
                         return false;
                     }
 
+                    var answer = confirm("결재 요청하시겠습니까?");
+                    if (answer != true) {
+                        console.log("취소");
+                        return;
+                    }else {
+                        //첨부파일 관련//////////////////////////////////////////////////////////////////////
+                        //첨부파일 formObj에 추가하여 controller로 전송
+                        var str = "";
 
-                    //첨부파일 관련//////////////////////////////////////////////////////////////////////
-                    //첨부파일 formObj에 추가하여 controller로 전송
-                    var str = "";
+                        $(".uploadResult ul li")
+                            .each(
+                                function (i, obj) {
 
-                    $(".uploadResult ul li")
-                        .each(
-                            function (i, obj) {
+                                    var jobj = $(obj);
 
-                                var jobj = $(obj);
+                                    str += "<input type='hidden' name='apFileName'"
+                                        + " value='"
+                                        + jobj
+                                            .data("filename")
+                                        + "*b*l*a*b*l*a*'>";
+                                    str += "<input type='hidden' name='apFileUuid'"
+                                        + " value='"
+                                        + jobj
+                                            .data("uuid")
+                                        + "'>";
+                                    str += "<input type='hidden' name='apFilePath'"
+                                        + " value='"
+                                        + jobj
+                                            .data("path")
+                                        + "'>";
+                                    str += "<input type='hidden' name='apFileType'"
+                                        + " value='"
+                                        + jobj
+                                            .data("type")
+                                        + "'>";
+                                });
 
-                                str += "<input type='hidden' name='apFileName'"
-                                    + " value='"
-                                    + jobj
-                                        .data("filename")
-                                    + "*b*l*a*b*l*a*'>";
-                                str += "<input type='hidden' name='apFileUuid'"
-                                    + " value='"
-                                    + jobj
-                                        .data("uuid")
-                                    + "'>";
-                                str += "<input type='hidden' name='apFilePath'"
-                                    + " value='"
-                                    + jobj
-                                        .data("path")
-                                    + "'>";
-                                str += "<input type='hidden' name='apFileType'"
-                                    + " value='"
-                                    + jobj
-                                        .data("type")
-                                    + "'>";
-                            });
+                        console.log(str);
+                        formObj.append(str).submit();
+                    }
 
-                    console.log(str);
-                    formObj.append(str).submit();
-                    //
+
+
                 });
 
 
@@ -507,12 +500,12 @@
                                         "/");
 
                                 str += "<li style='list-style:none'"
-                                str += "data-path='" + obj.apFilePath + "' data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='" + "file" + "' ><div>";
-                                str += "<i class='fa fa-file-o'></i><span> "
+                                str += "data-path='" + obj.apFilePath + "' data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='" + "file" + "' >";
+                                str += "<div style='padding-top: 5px;'><i class='fa fa-file-o'></i><span> "
                                     + obj.apFileName
                                     + "</span> &nbsp";
                                 str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' "
-                                str += "class='btn btn-info btn-xs'><i class='mdi mdi-delete'></i>Delete<br>";
+                                str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete<br>";
                                 str += "</a></div></li>";
 
                             });

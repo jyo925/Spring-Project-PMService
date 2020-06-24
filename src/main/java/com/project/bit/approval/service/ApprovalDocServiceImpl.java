@@ -18,13 +18,10 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
 
     @Autowired
     ApDocMapper apDocMapper;
-
     @Autowired
     ApMapper apMapper;
-
     @Autowired
     ApFileMapper apFileMapper;
-
     @Autowired
     ApReferrerMapper apReferrerMapper;
 
@@ -49,19 +46,28 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
         return apDocMapper.selectApProgressList(apDocWriter, cri);
     }
 
+    @Override
+    public List<ApDocDTO> getApCompleteList(String apDocWriter, Criteria cri) {
+        return apDocMapper.selectApCompleteList(apDocWriter, cri);
+    }
 
     @Override
-    public List<Integer> getApDocCount(String apDocWriter, Criteria cri) {
+    public List<Integer> getApDocCount(String apDocWriter) {
 
         List<Integer> apDocCountList = new ArrayList<Integer>();
+
+//        apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter, cri) +
+//                apDocMapper.selectCountApDoc(2, apDocWriter, cri));
+//        apDocCountList.add(apDocMapper.selectCountApCheck(apDocWriter));
+//        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter, cri));
+
         //결재진행(진행중, 반려) 개수
-        apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter, cri) +
-                apDocMapper.selectCountApDoc(2, apDocWriter, cri));
+        apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter) +
+                apDocMapper.selectCountApDoc(2, apDocWriter));
         //결재대기 개수
         apDocCountList.add(apDocMapper.selectCountApCheck(apDocWriter));
         //임시저장 개수
-        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter, cri));
-
+        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter));
         return apDocCountList;
     }
 
@@ -87,7 +93,6 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
                     .apFilePath(apFilePath[i])
                     .apFileType(apFileType[i]).build());
         }
-
         return 0;
     }
 
@@ -109,9 +114,15 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
 
     @Override
     public void putApDoc(ApDTO apDTO) {
-        //문서단계(+1) 업데이트 &  & 다음결재자 결재수신일자 업데이트
-        apDocMapper.updateApDocStep(apDTO.getApDocNo());
-        apMapper.updateNextApReceiveDate(apDTO);
+        if(apDTO.getApResult()=='1'){
+            //승인시 --->문서단계(+1) 업데이트 &  & 다음결재자 결재수신일자 업데이트
+            apDocMapper.updateApDocStep(apDTO.getApDocNo());
+            apMapper.updateNextApReceiveDate(apDTO);
+        }else {
+            //반려시 ---> 상태 2(반려)로, 단계 -1로
+            apDocMapper.updateApDocReject(apDTO.getApDocNo());
+        }
+
     }
 
     @Override
@@ -144,6 +155,11 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     @Override
     public int getApReferDocCount(String apReferrer) {
         return apDocMapper.selectCountApRefer(apReferrer);
+    }
+
+    @Override
+    public int getApCompleteDocCount(String apDocWriter) {
+        return apDocMapper.selectCountApDoc(1,apDocWriter);
     }
 
     @Override

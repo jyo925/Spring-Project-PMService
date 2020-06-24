@@ -12,9 +12,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -30,7 +34,6 @@ public class ApprovalFileController {
 
     // 년/월/일 폴더 만들기
     public String getFolder() {
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String str = sdf.format(date);
@@ -44,8 +47,8 @@ public class ApprovalFileController {
     @ResponseBody
     public ResponseEntity<String> deleteFile(String fileName, String type){
 
-        log.info(
-                "deleteFile: "+ fileName);
+        log.info("deleteFile: "+ fileName);
+
         File file;
         try {
             //디코딩 = 바이트 형식을 문자로 변환
@@ -58,27 +61,6 @@ public class ApprovalFileController {
         }
         return new ResponseEntity<String>("deleted", HttpStatus.OK);
     }
-
-
-    // 업로드 파일을 c드라이브에 저장
-//    @PostMapping("/uploadFormAction")
-//    public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
-//
-//        String uploadFoder = "C:\\upload";
-//        for (MultipartFile multipartFile : uploadFile) {
-//            log.info("--------------------------------------");
-//            log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-//            log.info("Upload File Size: " + multipartFile.getSize());
-//
-//            File saveFile = new File(uploadFoder, multipartFile.getOriginalFilename()); // 경로, 파일명 지정
-//            try {
-//                multipartFile.transferTo(saveFile);// 저장
-//            } catch (Exception e) {
-//                log.info(e.getMessage());
-//            }
-//        } // end for
-//    }
-
 
     // 파일 다운로드
     // IE도 서비스하는 경우 HttpServletRequest에 포함된 헤더 정보를 이용해서 브라우저 종류 확인
@@ -113,7 +95,6 @@ public class ApprovalFileController {
                 log.info("Chrome browser");
                 downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
             }
-//            log.info("downloadName: "+ downloadName);
 
             //한글파일 깨짐 처리
             headers.add("Content-Disposition", "attachment; filename="+downloadName);
@@ -123,7 +104,7 @@ public class ApprovalFileController {
         return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
     }
 
-    //파일 서버에 등록 및 등록 결과 뷰에 반영
+    //파일 서버(C드라이브)에 등록 및 등록 결과 뷰에 반영
     @PreAuthorize("isAuthenticated()")
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -177,6 +158,4 @@ public class ApprovalFileController {
         } // end for
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
-
 }

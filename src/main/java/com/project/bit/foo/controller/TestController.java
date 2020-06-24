@@ -44,6 +44,7 @@ public class TestController {
 			log.info(principal.getName());
 			System.err.println(principal.toString());
 		}
+		
 		return "index";
 	}
 

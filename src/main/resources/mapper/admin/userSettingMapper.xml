@@ -4,53 +4,93 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.admin.mapper.UserSettingMapper">
 
-<!--사용자 리스트-->
-    <select id="selectUser" resultType="com.project.bit.admin.domain.UserVO">
-     SELECT
-     U.USER_ID
-     ,U.USER_NAME
-     ,u.USER_EMAIL
-     ,U.USER_PHONE
-     ,T.TEAM_NAME
-     ,P.POSITION_NAME
-     ,U.USER_REGITDATE
-     FROM USERS U
-        INNER JOIN POSITIONS P ON  U.POSITION_CODE = P.POSITION_CODE
-        INNER JOIN TEAMS T ON U.TEAM_CODE = T.TEAM_CODE
+    <!--사용자 리스트-->
+    <select id="selectUser" parameterType="com.project.bit.approval.domain.Criteria" resultType="com.project.bit.admin.domain.UserVO">
+        SELECT *
+        FROM
+        (SELECT
+         ROWNUM RN
+        ,USER_ID
+        ,USER_NAME
+        ,USER_EMAIL
+        ,USER_PHONE
+        ,TEAM_NAME
+        ,POSITION_NAME
+        ,USER_REGITDATE
+        FROM
+        (SELECT
+         U.USER_ID
+        ,U.USER_NAME
+        ,U.USER_EMAIL
+        ,U.USER_PHONE
+        ,T.TEAM_NAME
+        ,P.POSITION_NAME
+        ,U.USER_REGITDATE
+        FROM USERS U
+        INNER JOIN POSITIONS P
+            ON  U.POSITION_CODE = P.POSITION_CODE
+        INNER JOIN TEAMS T
+            ON U.TEAM_CODE = T.TEAM_CODE
+        WHERE 1=1
+        <trim prefix="AND">
+            <choose>
+                <when test="type == 'N'.toString()">
+                    user_name like '%'||#{keyword}||'%'
+                </when>
+                <when test="type == 'T'.toString()">
+                    team_name like '%'||#{keyword}||'%'
+                </when>
+            </choose>
+        </trim>
+        ORDER BY USER_NAME, USER_ID)
+        <![CDATA[
+         WHERE ROWNUM <= #{pageNum} * #{amount})
+     WHERE RN > (#{pageNum} -1) * #{amount}
+    ]]>
     </select>
 
-<!--사용자 등록-->
+    <!--Total Count-->
+    <select id="selectCountUsers" parameterType="com.project.bit.approval.domain.PageDTO" resultType="int">
+        <![CDATA[
+        SELECT
+            COUNT(USER_ID)
+        FROM USERS
+        ]]>
+    </select>
+
+
+    <!--사용자 등록-->
     <insert id="insertUser">
       insert into users (
-       USER_ID
+        USER_ID
        ,USER_PW
        ,USER_NAME
        ,USER_EMAIL
        ,USER_PHONE
        ,POSITION_CODE
        ,TEAM_CODE
+       ,USER_REGITDATE
        )
       values(
-       #{userId}
+        #{userId}
        ,#{userPw}
        ,#{userName}
        ,#{userEmail}
-       ,#{userEmail}
+       ,#{userPhone}
        ,#{positionCode}
        ,#{teamCode}
+       ,sysdate
        )
     </insert>
 
+    <delete id="deleteUser">
+        Delete
+        from users
+        where user_id = #{userId}
 
-<!--    -->
-<!--    <delete id="deleteUser" parameterType="int">-->
-<!--        -->
-<!--        Delete *-->
-<!--        from users-->
-<!--        user_id = #{userId}-->
-<!--        -->
-<!--    </delete>-->
-    
+    </delete>
+
+
     <update id="resetUserPw" parameterType="com.project.bit.admin.domain.UserVO">
         update users
         set
