@@ -14,4 +14,5 @@ public class ProjectOutputDTO {
 	private String outputTypeCode;
 	private String outputTypeName;
 	private String taskCode;
+	private String taskName;
 }

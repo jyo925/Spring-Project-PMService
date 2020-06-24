@@ -1,9 +1,7 @@
 package com.project.bit.dashBoard.mapper;
 
 
-import com.project.bit.dashBoard.domain.IssueStatusCountVO;
-import com.project.bit.dashBoard.domain.TaskStatusCountVO;
-import com.project.bit.dashBoard.domain.UserCountVO;
+import com.project.bit.dashBoard.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.*;
@@ -11,34 +9,18 @@ import java.util.*;
 @Mapper
 public interface DashBoardUserMapper {
 
-    /**
-     * @param user_id
-     * @return
-     */
-    public UserCountVO selectCountProject(String user_id);
+    public UserCountVO selectTaskCount(String userId);
+    public UserCountVO selectProjectCount(String userId);
+    public UserCountVO selectIssueCount(String userId);
+    public UserCountVO selectOutputCount(String userId);
 
-    /**
-     * @param user_id
-     * @return
-     */
-    public List<TaskStatusCountVO> selectCountTaskStatus(String user_id);
 
-    /**
-     * @param user_id
-     * @return
-     */
-//    public List<OutputVO> selectMyOutputList(String user_id);
+    public List<TaskStatusCountVO> selectTaskStatus(String userId);
 
-    /**
-     * @param user_id
-     * @return
-     */
-    public List<IssueStatusCountVO> selectCountIssueStatus(String user_id);
+    public List<UserOutputVO> selectMyOutputList(String userId);
 
-    /**
-     * @param user_id
-     * @return
-     */
-//    public List<MyTaskVO> selectMyTaskList(String user_id);
+    public List<IssueStatusCountVO> selectIssueStatus(String userId);
+
+    public List<UserTaskVO> selectMyTaskList(String userId);
 
 }

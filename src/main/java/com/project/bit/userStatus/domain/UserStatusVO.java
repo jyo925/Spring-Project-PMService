@@ -1,8 +1,9 @@
-package com.project.bit.userStatus.domain;
+package com.project.bit.userstatus.domain;
+
+import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.apache.ibatis.type.Alias;
 
 @Data
 @AllArgsConstructor

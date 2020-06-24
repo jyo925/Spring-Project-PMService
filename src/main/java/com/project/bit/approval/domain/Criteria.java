@@ -17,6 +17,7 @@ public class Criteria {
     private String keyword;
 
     public Criteria() {
+
         this(1, 10);
     }
 
@@ -26,6 +27,7 @@ public class Criteria {
     }
 
     public String[] getTypeArr() {
+
         return type == null ? new String[] {} : type.split("");
     }
 

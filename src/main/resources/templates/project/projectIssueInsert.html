@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">s
+
+<title id="pageTitle">프로젝트 기본정보</title>
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/project/projectDetail.css">
+	<link rel="stylesheet" href="/css/project/projectIssueInsert.css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript" src="/js/project/projectIssueAdd.js"></script>
+</th:block>
+
+
+<div layout:fragment="content">
+	<!-- <div th:replace="/project/projectDetailChart :: project-top-nav"></div> -->
+	<div class="row">
+		<div class="col-12 grid-margin">
+			<div class="card">
+				<div class="card-body">
+					<h6>프로젝트 이슈 등록</h6>
+					<hr>
+					
+					<div class="issue-input-form">
+						<form id="issue-file-form" enctype="multipart/form-data" type="POST" th:action="@{/postProjectIssue}" th:object="${projectIssueDTO}" method="POST">
+							
+							<h5>이슈 명</h5>
+							<input class="issue-name" th:field="*{issueName}" type="text" placeholder=" 이슈 명">
+							
+							<h5>이슈 구분</h5>
+							<select th:field="*{issueTypeCode}">
+								<option value=""> 선택하세요</option>
+								<option th:each="issueType : ${issueTypeList}"
+									th:value="${issueType.issueTypeCode}" th:text="${issueType.issueType}"></option>
+							</select>
+							
+							<h5>프로젝트</h5>
+							<select class="project-list">
+								<option value=""> 선택하세요</option>
+								<option th:each="project : ${projectList}"
+									th:value="${project.projectCode}" th:text="${project.projectName}"></option>
+							</select>
+							
+							<h5>작업</h5>
+							<select class="issue-task-list" th:field="*{taskCode}">
+								<option value=""> 선택하세요</option>
+							</select>
+							
+							<h5>이슈 내용</h5>
+							<textarea th:field="*{issueDescription}" rows="5%" cols="100%"></textarea>
+							
+							<h5>이슈 파일</h5>
+							<input class="issue-file" name="issue_file" type="file">
+							
+							
+							
+							<h5>조치자</h5>
+							<select th:field="*{issueActionId}">
+								<option value=""> 선택하세요</option>
+								<option th:each="user : ${userList}" th:value="${user.userId}" th:text="${user.userId} + '  '+ ${user.userName}"></option>
+							</select>
+							
+							<h5>조치 희망일</h5>
+							<input th:field="*{issueActionDate}" type="date">
+							
+							<div style="margin-top: 10px; clear: both;">
+								<input id="issue-add-btn" type="submit" value="저장">
+								<button type="button">취소</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

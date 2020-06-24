@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.project.bit.foo.domain.Users;
 import com.project.bit.project.domain.PositionDTO;
@@ -14,13 +15,24 @@ import com.project.bit.project.domain.TeamDTO;
 @Mapper
 public interface UserMapper {
 	
-	@Select("select u.USER_ID, u.USER_PW, u.USER_NAME, u.POSITION_CODE, u.TEAM_CODE, u.USER_EMAIL, u.USER_PHONE, u.USER_REGITDATE, p.DUTY_CODE "
-			+ "from USERS u left join project_members p on u.USER_ID = p.USER_ID where u.USER_ID=#{userId}")
-	Optional<Users> selectUserById(String userId);
+	@Select("select u.*, p.DUTY_CODE from USERS u left join project_members p on u.USER_ID = p.USER_ID where u.USER_ID=#{userId}")
+	Users selectUserById(String userId);
 	
 	@Insert("insert into users(USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_PHONE, POSITION_CODE, TEAM_CODE) "
 			       + "values(#{userId}, #{userPw}, #{userName}, #{userEmail}, #{userEmail}, #{positionCode}, #{teamCode})")
 	void insertUser(Users user);
+	
+	@Select("SELECT * FROM USERS WHERE USER_ID=#{userId}")
+	Users selectUser(String userId);
+	
+	@Update("UPDATE USERS SET USER_WEBSITE=#{user.userWebsite}, USER_INFO=#{user.userInfo}, USER_NAME=#{user.userName}, USER_EMAIL=#{user.userEmail}, USER_PHONE=#{user.userPhone} WHERE USER_ID=#{userId}")
+	void updateUser(Users user, String userId);
+	
+	@Update("UPDATE USERS SET USER_PHOTO=#{user.userPhoto} WHERE USER_ID=#{userId}")
+	void updateUserPoto(Users user, String userId);
+	
+	@Update("UPDATE USERS SET USER_PW=#{user.userPw} WHERE USER_ID=#{userId}")
+	void updateUserPw(Users user, String userId);
 	
 	List<Users> selectAll();
 	
@@ -29,4 +41,8 @@ public interface UserMapper {
 	List<PositionDTO> selectPositionAll();
 	
 	List<Users> selectUserByTeam(int teamCode);
+	
+	
+	
+	
 }

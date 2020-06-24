@@ -30,6 +30,9 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown d-none d-lg-flex">
+					<a class="nav-link" href="/myPage">My Page</a>
+				</li>
+				<li class="nav-item dropdown d-none d-lg-flex">
 					<form action="/logout" method="post">
 						<input class="btn nav-link dropdown-toggle" type="submit" value="Sign Out" />
 					</form> 
@@ -196,23 +199,27 @@
             </div>
             <!-- partial -->
             <!-- partial:partials/_sidebar.html -->
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <nav class="sidebar sidebar-offcanvas" id="adminSidebar">
                 <ul class="nav">
                     <li class="nav-item nav-profile mt-4">
                         <div class="nav-link">
                             <div class="profile-image">
-                                <img src="/images/user.png" alt="image" class="bg-success">
+                                <img th:src="${#authentication.principal.Users.userPhoto}" alt="image" class="bg-success">
                             </div>
                             <div class="profile-name">
-                                <p class="name" sec:authentication="principal.username">User Name</p>
-                                <p class="designation">Developer</p>
+                                <p class="name" th:text="${#authentication.principal.Users.userName}"></p>
+                                <p class="designation" th:text="${#authentication.principal.Users.positionName}">Developer</p>
                             </div>
                         </div>
                     </li>
+
+
+
+
                     <li class="nav-item"><a class="nav-link"
                                             data-toggle="collapse" href="#dashboard-nav"> <i
-                            class="fa fa-dashboard menu-icon"></i> <span class="menu-title">프로젝트
-								대시보드</span> <span class="badge"> </span> <!-- nav item 옆 down arrow -->
+                            class="fa fa-dashboard menu-icon"></i>
+                        <span class="menu-title">프로젝트 대시보드</span> <span class="badge"> </span> <!-- nav item 옆 down arrow -->
                     </a>
                         <div class="collapse" id="dashboard-nav">
                             <ul class="nav flex-column sub-menu">
@@ -220,7 +227,7 @@
                                     대시보드</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/dashBoardDetail">상세
                                     대시보드</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/">개인
+                                <li class="nav-item"><a class="nav-link" href="/dIndex">개인
                                     대시보드</a></li>
                             </ul>
                         </div>
@@ -249,7 +256,7 @@
                         <div class="collapse" id="myWork-nav">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                                          href="#">내 작업</a></li>
+                                                                          href="/myProjects">내 작업</a></li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="/calendar">일정관리</a></li>
                             </ul>
@@ -263,7 +270,7 @@
                         <div class="collapse" id="defaultWork-nav">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                                          href="#">이슈관리</a></li>
+                                                                          href="/files">이슈관리</a></li>
                             </ul>
                         </div>
                     </li>
@@ -281,6 +288,9 @@
                                 </li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="/approval/getApProgressList">결재진행함</a>
+                                </li>
+                                <li class="nav-item d-none d-lg-block"><a class="nav-link"
+                                                                          href="/approval/getApEndList">결재완료함</a>
                                 </li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="/approval/getApTempList">임시저장함</a></li>

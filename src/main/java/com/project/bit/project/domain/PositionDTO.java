@@ -6,4 +6,6 @@ import lombok.Data;
 public class PositionDTO {
 	private int positionCode;
 	private String positionName;
+	
+	
 }

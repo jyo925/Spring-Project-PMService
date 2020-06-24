@@ -19,6 +19,8 @@ public class ApDocDTO {
     private int apDocStep;
     private Date apDocCreateDate;
     private Date apDocEndDate;
+    private String apDocProjectName;
+    private String apFormName; //추가
 
 
 

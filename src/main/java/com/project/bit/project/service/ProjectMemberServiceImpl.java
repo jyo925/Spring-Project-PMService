@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.bit.project.domain.ProjectMemberDTO;
 import com.project.bit.project.domain.ProjectMemberVO;
+import com.project.bit.project.domain.ProjectTaskVO;
 import com.project.bit.project.mapper.ProjectMemberMapper;
 
 @Service
@@ -28,6 +29,12 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
 	@Override
 	public void deleteProjectMember(String projectJoinCode) {
 		projectMemberMapper.deleteProjectMember(projectJoinCode);		
+	}
+
+	@Override
+	public List<ProjectTaskVO> getProjectMemberGantt(String projectCode) {
+		// TODO Auto-generated method stub
+		return projectMemberMapper.selectProjectMemberGantt(projectCode);
 	}
 
 }

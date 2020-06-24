@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<title id="pageTitle">MAIN</title>
+<!-- 현제 페이지 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- 현제 페이지 고유 스크립 추가 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" src="/js/myPage/myProjects.js"></script>
+</th:block>
+
+<div layout:fragment="content">
+	
+	<div class="row">
+		<div class="col-12 grid-margin">
+			<div class="card">
+				<div class="card-body">
+					<div th:text="${#authentication.principal.Users}">
+					</div>
+					<form>
+						<div class="row">
+							<div class="col">
+								<select id="projectProgress">
+									<option th:each="el : ${projectStatusNames}" th:text="${el.projectStatus}"></option>
+								</select>
+							</div>
+							<div class="col">
+								<input id="projectName" type="text" class="form-control" placeholder="projectName">
+							</div>
+							<div class="input-group flex-nowrap col">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="addon-wrapping">🔎</span>
+								</div>
+								<input id="elasticSearch" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+							</div>
+							<div class="col">
+								<button type="submit" class="btn btn-primary">Search</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-body">
+					<div>
+					    <table width="100%">
+					       <thead>
+							<tr>
+								<th>taskName</th>
+								<th>projectName</th>
+								<th>projectPmo</th>
+								<th>projectStatus</th>
+								<th>projectStart</th>
+								<th>projectFinish</th>
+							</tr>
+							</thead>
+							 <tbody>
+							<tr th:each="el : ${myProjects}" class="items">
+								<th th:text="${el.taskName==null? 'No any tasks': el.taskName}"></th>
+								<th th:text="${el.projectName}"></th>
+								<th th:text="${el.projectPmo==null? 'Empty': el.projectPmo}"></th>
+								<th th:text="${el.projectStatus}"></th>
+								<th th:text="${el.projectStart}"></th>
+								<th th:text="${el.projectFinish}"></th>
+								<th th:text="${el.taskName==null? '': el.taskName + el.projectName} + ${el.projectPmo==null? '': el.projectPmo} + ${el.projectName + el.projectStatus + el.projectStart + el.projectFinish}" hidden="" class="val"></th>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+
+</html>

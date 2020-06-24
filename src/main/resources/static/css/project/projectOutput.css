@@ -1,0 +1,44 @@
+.white-popup {
+	position: relative;
+	background: #FFF;
+	padding: 20px;
+	width: auto;
+	max-width: 600px;
+	margin: 20px auto;
+}
+
+.output-list {
+	margin-top: 2%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.output-list thead {
+	border-top : 1px solid black;
+	border-bottom : 1px solid black;
+}
+
+.output-input h5 {
+	margin-top: 2%;
+}
+
+.output-info h5 {
+	margin-top: 2%;
+}
+
+.output-btn-item {
+	margin-top: 5%;
+}
+
+.output-btn-item button {
+	width: 10%;
+	margin-right: 2%;
+}
+
+.output-name {
+	cursor: pointer;
+}
+
+.fa-trash {
+	cursor: pointer;
+}

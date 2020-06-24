@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<title id="pageTitle">모든 프로젝트 리스트</title>
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+ <link rel="stylesheet" href="/css/dropify.min.css"/>
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script src="/js/myPage/myPage.js"></script>
+</th:block>
+<div layout:fragment="content">
+	<div class="row user-profile">
+            <div class="col-lg-4 side-left d-flex align-items-stretch">
+              <div class="row">
+                <div class="col-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body avatar">
+                      <h4 class="card-title">Info</h4>
+                      <img th:src="${user.userPhoto}" alt="">
+                      <p class="name" th:text="${user.userName}"></p>
+                      <p class="d-block text-center text-dark" th:text="${user.userEmail}"></p>
+                      <p class="d-block text-center text-dark" th:text="${user.userPhone}"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 stretch-card">
+                  <div class="card">
+                    <div class="card-body overview">
+                      <ul class="achivements">
+                        <li><p>34</p><p>Projects</p></li>
+                        <li><p>23</p><p>Task</p></li>
+                        <li><p>29</p><p>Completed</p></li>
+                      </ul>
+                      <div class="wrapper about-user">
+                        <h4 class="card-title mt-4 mb-3">About</h4>
+                        <p th:text="${user.userInfo}"></p>
+                      </div>
+                      <div class="info-links">
+                        <a class="website" href="http://urbanui.com/">
+                          <i class="mdi mdi-earth text-gray"></i>
+                          <span th:text="${user.userWebsite}"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8 side-right stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
+                    <h4 class="card-title mb-0">Details</h4>
+                    <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-expanded="true">Info</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="avatar-tab" data-toggle="tab" href="#avatar" role="tab" aria-controls="avatar">Avatar</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="security-tab" data-toggle="tab" href="#security" role="tab" aria-controls="security">Security</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="wrapper">
+                    <hr>
+                    <div class="tab-content" id="myTabContent">
+                      <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info">
+                        <form action="/updateUser" method="post">
+                          <div class="form-group">
+                            <label for="name">Name</label>
+                            <input name="userName" type="text" class="form-control" id="name" th:value="${user.userName}" placeholder="Change user name">
+                          </div>
+                          <div class="form-group">
+                            <label for="mobile">Mobile Number</label>
+                            <input name="userPhone" type="text" class="form-control" id="mobile" th:value="${user.userPhone}" placeholder="Change mobile number">
+                          </div>
+                          <div class="form-group">
+                            <label for="email">Email</label>
+                            <input name="userEmail" type="email" class="form-control" id="email" th:value="${user.userEmail}" placeholder="Change email address">
+                          </div>
+                          <div class="form-group">
+                            <label for="email">About you</label>
+                            <textarea name="userInfo" class="form-control" id="info" th:text="${user.userInfo}" placeholder="Change your information"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label for="email">Website URL</label>
+                            <input name="userWebsite" type="text" class="form-control" id="website" th:value="${user.userWebsite}" placeholder="Change website url">
+                          </div>
+                          <div class="form-group mt-5">
+                            <button type="submit" class="btn btn-success mr-2">Update</button>
+                          </div>
+                        </form>
+                      </div><!-- tab content ends -->
+							<div class="tab-pane fade" id="avatar" role="tabpanel"
+								aria-labelledby="avatar-tab">
+								<div class="wrapper mb-5 mt-4">
+									<span class="badge badge-warning text-white">Note : </span>
+									<p class="d-inline ml-3 text-muted">Image size is limited
+										to not greater than 1MB .</p>
+								</div>
+								<form id="photo" action="/uploadImg" enctype="multipart/form-data" method="post">
+									<div class="dropify-wrapper has-preview">
+										<span class="file-icon"></span>
+										<div class="dropify-message">
+											<p>Drag and drop a file here or click</p>
+											<p class="dropify-error">Ooops, something wrong appended.</p>
+										</div>
+										<div class="dropify-loader" style="display: none;"></div>
+										<div class="dropify-errors-container">
+											<ul></ul>
+										</div>
+										<input type="file" name="files" class="dropify" th:data-default-file="${user.userPhoto}">
+										<button type="button" class="dropify-clear">Remove</button>
+										<div class="dropify-preview" style="display: block;">
+											<span class="dropify-render">
+											<img th:src="${user.userPhoto}"></span>
+											<div class="dropify-infos">
+												<div class="dropify-infos-inner">
+													<p class="dropify-filename">
+														<span class="file-icon"></span> 
+														<span class="dropify-filename-inner" th:text="${user.userPhoto}"></span>
+													</p>
+													<p class="dropify-infos-message">Drag and drop or click to replace</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group mt-5">
+										<button type="submit" class="btn btn-success mr-2">Update</button>
+										<button id="deletePhoto" class="btn btn-outline-danger">Delete</button>
+									</div>
+								</form>
+							</div>
+						  <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+						  	<div id="alert" class="alert alert-danger" role="alert" hi></div>
+	                        <form action="/updateUserPw" method="post" id="pwChange">
+	                          <div class="form-group">
+	                            <label for="change-password">Change password</label>
+	                            <input required="required" name="userPw" type="password" class="form-control" id="change-password" placeholder="Enter you new password">
+	                          </div>
+	                          <div class="form-group">
+	                            <input required="required" type="password" class="form-control" id="new-password" placeholder="Repeat new password">
+	                          </div>
+	                        </form>
+	                        <div class="form-group mt-5">
+	                            <button id="pwButton" class="btn btn-success mr-2">Update</button>
+	                            <button id="cancelButton" class="btn btn-outline-danger">Cancel</button>
+	                          </div>
+	                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+</div>
+</html>
