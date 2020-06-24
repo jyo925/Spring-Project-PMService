@@ -1,4 +1,4 @@
-package com.project.bit.userstatus.domain;
+package com.project.bit.userStatus.domain;
 
 import lombok.Data;
 
