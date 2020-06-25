@@ -1,0 +1,22 @@
+.card-title:after {
+    content: "";
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-top : 10px;
+    display: block;
+}
+
+/* select2 multiple dropdown arrow */
+.select2-selection--multiple:before {
+    content: "";
+    position: absolute;
+    right: 7px;
+    top: 42%;
+    border-top: 5px solid #888;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+.select2-container .select2-selection--single {
+    padding: 0 10px;
+    font-size: 0.9em;
+}
+/* select2 end */

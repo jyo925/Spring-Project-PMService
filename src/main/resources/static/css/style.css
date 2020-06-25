@@ -13550,13 +13550,6 @@ input[type="button"].btn-block {
   margin-bottom: 0.75rem;
 }
 
-.card-title:after {
-  content: "";
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  margin-top : 10px;
-  display: block;
-}
-
 .card-subtitle {
   margin-top: -0.375rem;
   margin-bottom: 0;

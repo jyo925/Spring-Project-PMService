@@ -20,5 +20,25 @@
         from project_types t
         left outer join projects p on t.project_typecode = p.project_typecode group by t.project_type
     </select>
+    <select id="selectProjectAllStatus" resultType="com.project.bit.dashBoard.domain.ProjectStatusCountVO">
+        select count(p.project_statuscode) as project_status,
+            ps.project_status as project_status_name
+        from projects p, project_status ps
+        where p.project_statuscode=ps.project_statuscode
+        group by ps.project_status
+    </select>
+    <select id="selectIssueAllStatus" resultType="com.project.bit.dashBoard.domain.IssueStatusCountVO">
+        select count(i.issue_code) as issue_status,
+            it.issue_type as issue_status_name
+        from project_issues i, project_issue_types it
+        where i.issue_type_code=it.issue_type_code
+        group by it.issue_type
+    </select>
+    <select id="selectMonthlyProjectStatus" resultType="com.project.bit.dashBoard.domain.MonthlyProjectCountVO">
+        select count(project_code) as project_count,
+            to_char(project_finish, 'yyyy-mm') as project_month
+        from projects
+        group by to_char(project_finish, 'yyyy-mm')
+    </select>
 
 </mapper>
