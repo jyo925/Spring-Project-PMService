@@ -18,7 +18,7 @@ public interface ApDocMapper {
     public List<ApDocDTO> selectApProgressList(String apDocWriter, Criteria cri);
 
     //결재 완료함 조회
-    public List<ApDocDTO> selectApCompleteList(String apDocWriter, Criteria cri);
+    public List<ApDocDTO> selectApCompleteList(String userId, Criteria cri);
 
     //결재 대기 문서함 조회
     public List<ApDocDTO> selectApCheckList(String apDocWriter, Criteria cri);
@@ -54,5 +54,8 @@ public interface ApDocMapper {
     
     //반려시 
     public int updateApDocReject(long apDocNo);
+    
+    //문서 삭제
+    public void deleteApDoc(String apDocNo, String apDocWriter);
 
 }

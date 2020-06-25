@@ -32,12 +32,13 @@ import java.util.UUID;
 @RequestMapping("approval")
 public class ApprovalFileController {
 
+    private static final String uploadDirectory = System.getProperty("user.dir") + "\\uploads\\";
+
     // 년/월/일 폴더 만들기
     public String getFolder() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String str = sdf.format(date);
-
         return str.replace("-", File.separator);
     }
 
@@ -48,11 +49,10 @@ public class ApprovalFileController {
     public ResponseEntity<String> deleteFile(String fileName, String type){
 
         log.info("deleteFile: "+ fileName);
-
         File file;
         try {
             //디코딩 = 바이트 형식을 문자로 변환
-            file = new File("C:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+            file = new File(uploadDirectory + URLDecoder.decode(fileName, "UTF-8"));
 
             file.delete();
         }catch (UnsupportedEncodingException e) {
@@ -70,12 +70,12 @@ public class ApprovalFileController {
     public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent")String userAgent, String fileName){
 
 		log.info("download file: "+ fileName);
-        Resource resource = new FileSystemResource("C:\\upload\\" + fileName);
+		log.info(uploadDirectory + fileName);
+        Resource resource = new FileSystemResource(uploadDirectory + fileName);
 
         if(resource.exists() == false) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         String resourceName = resource.getFilename();
         // remove UUID
         String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
@@ -114,7 +114,7 @@ public class ApprovalFileController {
 
         List<ApFileDTO> list = new ArrayList<>();
 
-        String uploadFolder = "C:\\upload";
+        String uploadFolder = uploadDirectory;
         String uploadFolderPath = getFolder();
 
         // 폴더 생성

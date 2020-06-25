@@ -2,7 +2,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="~{layout/default}">
 
-<title id="pageTitle">참조문서함</title>
+<title id="pageTitle">결재완료함</title>
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
@@ -14,24 +14,22 @@
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </th:block>
 
 <div layout:fragment="content">
-
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">참조문서함</h3>
+                    <h3 class="card-title" th:text="${apDocListTypeName}"></h3>
                     <hr>
 
                     <div class="table-responsive">
                         <!-- 검색 -->
                         <form id='searchForm' action="/approval/getReferenceList" method='get'
-                              class="form-inline repeater" >
+                              class="form-inline repeater">
                             <div data-repeater-list="group-a">
-                                <div data-repeater-item="" class="d-md-flex mb-2" >
+                                <div data-repeater-item="" class="d-md-flex mb-2">
                                     <div class="input-group mb-2 mr-md-2 mb-md-0">
                                         <div class="input-group-prepend">
                                         </div>
@@ -53,7 +51,7 @@
                                         <div class="input-group-prepend">
                                         </div>
                                         <input type="text" name="keyword" class="form-control" placeholder="Search Here"
-                                               th:value="${pageMaker.cri.keyword}" style="width: 250px">
+                                                th:value="${pageMaker.cri.keyword}" style="width: 250px">
                                         <input type='hidden' name='pageNum' th:value="${pageMaker.cri.pageNum}">
                                         <input type='hidden' name='amount' th:value="${pageMaker.cri.amount}">
                                     </div>
@@ -77,23 +75,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="apReference: ${apReferList}">
-                                <td th:text="${apReferenceStat.count}"></td>
-                                <td th:text="${apReference.apDocNo}"></td>
-                                <td th:text="${apReference.apFormName}"></td>
-                                <td style="text-align: left"><a th:text="${apReference.apDocTitle}"
-                                       th:href="'/approval/getApDoc?apDocNo='+${apReference.apDocNo}"></a></td>
-                                <td th:text="${#strings.substring(apReference.apDocProjectName,0,15)+'..'}"></td>
-                                <td th:text="${apReference.apDocWriterName}"></td>
-                                <td th:text="${#dates.format(apReference.apDocCreateDate, 'yyyy-MM-dd')}"></td>
-                                <td th:text="${#dates.format(apReference.apDocEndDate, 'yyyy-MM-dd')}"></td>
-                                <span th:if="${apReference.apDocStatus == 0}">
+                            <tr th:each="apDoc: ${apDocList}">
+                                <td th:text="${apDocStat.count}"></td>
+                                <td th:text="${apDoc.apDocNo}"></td>
+                                <td th:text="${apDoc.apFormName}"></td>
+                                <td style="text-align: left"><a th:text="${apDoc.apDocTitle}"
+                                       th:href="'/approval/getApDoc?apDocNo='+${apDoc.apDocNo}"></a></td>
+                                <td th:text="${#strings.substring(apDoc.apDocProjectName,0,15)+'..'}"></td>
+                                <td th:text="${apDoc.apDocWriterName}"></td>
+                                <td th:text="${#dates.format(apDoc.apDocCreateDate, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${#dates.format(apDoc.apDocEndDate, 'yyyy-MM-dd')}"></td>
+                                <span th:if="${apDoc.apDocStatus == 0}">
                                     <td><label class="badge badge-info">진행중</label></td>
                                 </span>
-                                <span th:if="${apReference.apDocStatus == 2}">
+                                <span th:if="${apDoc.apDocStatus == 2}">
                                     <td><label class="badge badge-danger">반려</label></td>
                                 </span>
-                                <span th:if="${apReference.apDocStatus == 1}">
+                                <span th:if="${apDoc.apDocStatus == 1}">
                                     <td><label class="badge badge-success">완료</label></td>
                                 </span>
                             </tr>
@@ -106,7 +104,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
                             <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">
-                                <p th:text="'Showing 1 to ' +${apReferList.size()}+ ' of '+${apReferList.size()} +' entries'">
+                                <p th:text="'Showing 1 to ' +${apDocList.size()}+ ' of '+${apDocList.size()} +' entries'">
 
                             </div>
                         </div>

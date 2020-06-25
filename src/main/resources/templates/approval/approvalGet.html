@@ -213,6 +213,10 @@
                     <form th:action="@{/approval/postApproval}" method="post" role="form">
                         <input name="apDocNo" hidden="hidden" th:value="${apDocData.getApDocNo()}">
                         <input hidden="hidden" value="" id="apResult" name="apResult">
+                        <input hidden="hidden" value="" id="apDelete" name="apDelete">
+
+                        <button th:if="${apDocData.apDocStatus == 2 and apDocData.apDocWriter eq #authentication.name}"
+                                id="apDocDelBtn" type="submit" class="btn btn-danger btn-fw" style="float: right">문서 삭제</button>
 
                         <div class="form-group row" style="display: none" id="apDiv">
                             <div class="col-lg-1">
@@ -231,10 +235,10 @@
                                         style="float: left; margin-right: 10px">반려
                                 </button>
                             </div>
+
                             <hr>
                         </div>
                     </form>
-
 
                     <input type="hidden" name="apDocContent" id="formData" th:value="${apDocData.getApDocContent()}">
 
@@ -348,6 +352,22 @@
 
                 });
 
+                //삭제 클릭시
+                $('#apDocDelBtn').on('click', function (e) {
+                    e.preventDefault();
+                    formObj.attr("action", "/approval/removeApproval");
+                    console.log(formObj);
+                    $('#apDelete').val("delete");
+
+                    var answer = confirm("삭제하시겠습니까?");
+                    if (answer == true) {
+                        formObj.submit();
+                    }
+                });
+
+
+
+
                 //첨부파일 불러오기
                 var apDocNo = $("input[name='apDocNo']").val();
                 $.getJSON(
@@ -386,9 +406,7 @@
                         //download
                         self.location = "/approval/download?fileName=" + path
                     });
-
             });//ready end
         </script>
-
     </div> <!-- content end -->
 </html>
