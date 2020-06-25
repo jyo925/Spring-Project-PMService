@@ -288,8 +288,9 @@
 
                 //결재 요청 후 뒤로가기 방지
                 window.history.pushState(null, null, "/approval/apMain");
+                window.history.pushState(null, null, location.href);
                 window.onpopstate = function (){
-                    // location.replace = "/approval/apMain";
+                    // location.href = "/approval/apMain";
                     history.go(1);
                 };
 
@@ -418,7 +419,7 @@
 
                 });
 
-
+                //-------------------------첨부파일 관련 ---------------------------------
                 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
                 var maxSize = 5242880; //5MB
 
@@ -441,9 +442,7 @@
                         function (e) {
 
                             var fileFormData = new FormData();
-
                             var inputFile = $("input[name='apFiles']");
-
                             var files = inputFile[0].files;
 
                             console.log(files);
@@ -462,10 +461,6 @@
                                 url: '/approval/uploadAjaxAction',
                                 processData: false,
                                 contentType: false,
-                                // beforeSend:function(xhr){
-                                //     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                                //     console.log(xhr);
-                                // },
                                 data: fileFormData,
                                 type: 'POST',
                                 dataType: 'json',
@@ -489,26 +484,44 @@
                         .each(
                             function (i, obj) {
 
-                                var fileCallPath = encodeURIComponent(obj.apFilePath
-                                    + "/"
-                                    + obj.apFileUuid
-                                    + "_"
-                                    + obj.apFileName);
-                                var fileLink = fileCallPath
-                                    .replace(
-                                        new RegExp(
-                                            /\\/g),
-                                        "/");
+                                //이미지 파일인 경우
+                                if (obj.apFileType == 'image') {
 
-                                str += "<li style='list-style:none'"
-                                str += "data-path='" + obj.apFilePath + "' data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='" + "file" + "' >";
-                                str += "<div style='padding-top: 5px;'><i class='fa fa-file-o'></i><span> "
-                                    + obj.apFileName
-                                    + "</span> &nbsp";
-                                str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' "
-                                str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete<br>";
-                                str += "</a></div></li>";
+                                    var fileCallPath = encodeURIComponent(obj.apFilePath
+                                        + "/s_"
+                                        + obj.apFileUuid
+                                        + "_"
+                                        + obj.apFileName);
 
+                                    str += "<li style='list-style:none' data-path='"+obj.apFilePath+"'";
+                                    str +=" data-uuid='"+obj.apFileUuid+"' data-filename='"+obj.apFileName+"' data-type='image'"+">";
+                                    str += "<div style='padding-top: 5px;'><span>"+obj.apFileName + "</span>";
+                                    str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='image' ";
+                                    str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete</button><br>";
+                                    str += "<img src='/approval/display?fileName=" + fileCallPath;
+                                    str += "'></div></li>";
+
+                                } else {
+                                    var fileCallPath = encodeURIComponent(obj.apFilePath
+                                        + "/"
+                                        + obj.apFileUuid
+                                        + "_"
+                                        + obj.apFileName);
+                                    var fileLink = fileCallPath
+                                        .replace(
+                                            new RegExp(
+                                                /\\/g),
+                                            "/");
+
+                                    str += "<li style='list-style:none'"
+                                    str += "data-path='" + obj.apFilePath + "' data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='" + "file" + "' >";
+                                    str += "<div style='padding-top: 5px;'><i class='fa fa-file-o'></i><span> "
+                                        + obj.apFileName
+                                        + "</span> &nbsp";
+                                    str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' "
+                                    str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete<br>";
+                                    str += "</a></div></li>";
+                                }
                             });
 
                     uploadUL.append(str);
@@ -529,9 +542,6 @@
                             fileName: targetFile,
                             type: type
                         },
-                        // beforeSend:function(xhr){
-                        //     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                        // },
                         dataType: 'text',
                         type: 'POST',
                         success: function (result) {
