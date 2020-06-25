@@ -1,19 +1,17 @@
 package com.project.bit.userStatus.domain;
 
-import org.apache.ibatis.type.Alias;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
-@Alias("UserStatusVO")
+//@Data
+//@AllArgsConstructor
+@Getter @Setter @ToString
 public class UserStatusVO {
 
-    private String user_id;
-    private String user_name;
-    private String user_email;
-    private String user_phone;
+    private String userId;
+    private String userName;
+    private String userEmail;
+    private String userPhone;
+    private String projectName;
     private int taskCountTotal;
     private int taskCountProcessing;  //진행중
     private int taskCountComplete; //완료

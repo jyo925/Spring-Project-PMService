@@ -1,0 +1,22 @@
+table.statusList {
+	border-collapse: separate;
+	border-spacing: 1px;
+	text-align: center;
+	line-height: 1.5;
+	margin: 20px 10px;
+	align-self: auto;
+}
+table.statusList th {
+	width: auto;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #0b0b0b;
+}
+table.statusList td {
+	width: available;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
