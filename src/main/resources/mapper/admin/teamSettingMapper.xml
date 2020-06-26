@@ -4,14 +4,41 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.admin.mapper.TeamSettingMapper">
 
-    <select id="selectTeamUpperForOption" resultType="com.project.bit.admin.domain.TeamDTO">
-    SELECT
-        TEAM_UPPER
-      FROM
+    <select id="selectTeamList" resultType="com.project.bit.admin.domain.TeamDTO">
+    SELECT LEVEL, (LPAD(' ',5*(LEVEL-1)) ||
+        TEAM_NAME) AS TEAM_NAME
+    FROM
         TEAMS
+    START WITH
+      TEAM_UPPER IS NULL
+    CONNECT BY PRIOR
+       TEAM_CODE=TEAM_UPPER
     </select>
 
+    <insert id="insertTeam">
+     INSERT INTO TEAMS(
+        TEAM_CODE
+       ,TEAM_NAME
+       ,TEAM_UPPER
+       ,TEAM_SEQ
+       ,TEAM_USE
+        )
+        VALUES(
+        #{teamCode}
+        ,#{teamName}
+        ,#{teamUpper}
+        ,#{teamSeq}
+        ,#{teamUse}
+        )
+    </insert>
 
+
+
+
+
+
+
+    <!--사용자 등록페이지 사용 팀 셀렉박스-->
     <select id="selectTeamForOption" resultType="com.project.bit.admin.domain.TeamDTO">
     SELECT
         TEAM_CODE

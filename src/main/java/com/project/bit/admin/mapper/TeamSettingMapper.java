@@ -7,6 +7,12 @@ import java.util.List;
 
 @Mapper
 public interface TeamSettingMapper {
-    public String selctTeamUpperForOption(TeamDTO teamDTO);
+
+    //부서리스트
+    public List<TeamDTO> selectTeamList();
+    //부서등록
+    public void insertTeam(TeamDTO teamDTO);
+
+    //사용자 등록페이지 셀렉박스
     public List<TeamDTO> selectTeamForOption();
 }

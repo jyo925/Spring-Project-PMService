@@ -8,6 +8,15 @@ import java.util.List;
 
 public interface TeamSettingService {
 
+    //부서리스트
+    List<TeamDTO> teamSettingList();
+    //부서등록
+    void regitTeam(TeamDTO teamDTO);
+
+
+
+    //사용자등록 셀렉박스
     public List<TeamDTO> getTeamForOption();
+
 
 }

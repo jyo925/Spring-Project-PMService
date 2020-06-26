@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/admindefault}">
+      layout:decorate="~{layout/admindefault}"
+>
 
-<title id="pageTitle">사용자 등록</title>
+<title id="pageTitle">부서 관리</title>
 
 <th:block layout:fragment="css">
     <link href="/css/jquery-ui.css" rel="stylesheet">
@@ -16,21 +17,60 @@
 </th:block>
 
 <div layout:fragment="content">
+
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">부서 관리</h3>
+                    <h4 class="card-title">부서 관리</h4>
+                    <div class="row" style="height: 70vh; padding-bottom: 20px">
+                        <div class="col-5" style="padding-left:30px;">
+                            <h4 style="padding-: 10px">부서 리스트</h4>
+                            <div class="col"
+                                 style="height:60vh; width:45vh; background: ghostwhite; padding: 40px;">
+                                <!--클릭하면 부서정보에 정보가 뜨도록-->
+                                <!--열리는거 생각해보기-->
+                                <th:block th:each="teamList : ${teamSettingList}">
+                                    <p th:if="${teamList.level == 1}" th:text="${teamList.teamName}"></p>
+                                    <p th:if="${teamList.level == 2}"
+                                       th:text="'&nbsp;&nbsp;&nbsp;'+${teamList.teamName}"></p>
+                                    <p th:if="${teamList.level == 3}"
+                                       th:text="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+${teamList.teamName}"></p>
+                                </th:block>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <h4 style="padding-: 10px">부서 정보</h4>
+                                <div style="padding: 20px">
+                                <form action="/admin/regitTeam" id="regitTeam">
+                                    <!--부서코드는 등록할 때마다 순차적으로 만들어져서 추가되는-->
 
-    Not yet
+                                    <label for="teamName">부서명</label>
+                                    <input id="teamName" type="text" class="text ui-widget-content"><br>
+                                    <label for="teamUpper">상위부서</label>
+                                    <select id="teamUpper" class="">
+                                    </select> <!--ajax로 상위부서를 띄우도록--><br>
+                                    <label for="teamSeq">순서</label>
+                                    <input id="teamSeq" type="number" class="text ui-widget-content"><br>
+                                    <label for="teamUse">사용여부</label>
+                                    <input id="teamUse" type="text" class="text ui-widget-content"><br>
+                                    <!--if문으로 Y이면 사용, N이면 리스트에 출력안되도록???-->
+                                    <input type="submit">
+                                </form>
+                                </div>
 
+                        </div>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
 <script>
 </script>
-
 
 
 </html>
