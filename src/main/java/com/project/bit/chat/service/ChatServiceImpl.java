@@ -9,6 +9,7 @@ import com.project.bit.chat.mapper.MessageMapper;
 import com.project.bit.chat.mapper.ParticipationMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
@@ -26,23 +27,12 @@ public class ChatServiceImpl implements ChatService {
   private ParticipationMapper participationMapper;
   private SimpMessagingTemplate simpMessagingTemplate;
 
-
-  @Override
-  public Map<String, Object> initialConnection(String userId) {
-
-    Map<String, Object> initialDataMap = new HashMap<>();
-    initialDataMap.put("ChatRooms", messageMapper.findLastMessageByUserId(userId));
-
-    return initialDataMap;
-  }
-
-  @Override
-  public boolean joinMessage(Message message, Principal principal) {
+  public boolean joinWithNewRoom(Message message, String AuthorId) {
     ChatRoom chatRoom = new ChatRoom();
     chatRoomMapper.save(chatRoom);
 
-    message.setConversationId(chatRoom.getConversationId());
-    message.setAuthorId(principal.getName());
+    message.setRoomNo(chatRoom.getConversationId());
+    message.setAuthorId(AuthorId);
     messageMapper.save(message);
 
     for ( Participation participation : message.getParticipations() ) {
@@ -50,15 +40,38 @@ public class ChatServiceImpl implements ChatService {
     }
 
     participating(message.getParticipations());
+    return true;
+  }
 
-    simpMessagingTemplate.convertAndSend("/topic/room"+chatRoom.getConversationId(), new MessageResponse(HtmlUtils.htmlEscape(message.getContent())) );
+  @Override
+  public Map<String, Object> initialConnection(String userId) {
+
+    Map<String, Object> initialDataMap = new HashMap<>();
+    initialDataMap.put("ChatRooms", messageMapper.findLastMessageByUserId(userId));
+    return initialDataMap;
+  }
+
+  @Override
+  public boolean joinMessage(Message message, Principal principal) {
+
+    message.setRoomNo(message.getRoomNo());
+    message.setAuthorId(principal.getName());
+    messageMapper.save(message);
+
+    for ( Participation participation : message.getParticipations() ) {
+      participation.setConversationId(message.getRoomNo());
+    }
+
+    participating(message.getParticipations());
+
+    simpMessagingTemplate.convertAndSend("/topic/room"+message.getRoomNo(), new MessageResponse(HtmlUtils.htmlEscape(message.getContent())) );
     return true;
   }
 
   @Override
   public boolean participating(List<Participation> participationList) {
     participationMapper.save(participationList);
-    return false;
+    return true;
   }
 
   @Override
@@ -72,9 +85,19 @@ public class ChatServiceImpl implements ChatService {
 
   @Override
   public boolean sendMessage(String roomNo, Message message) {
-    messageMapper.save(message);
-    simpMessagingTemplate.convertAndSend("/topic/room"+roomNo,
-      new MessageResponse(HtmlUtils.htmlEscape(message.getContent())));
+    Principal principal = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    switch (message.getType()) {
+      case "NEWJOIN" : joinWithNewRoom(message, principal.getName());
+                    break;
+      case "JOIN" : joinMessage(message, principal);
+                    break;
+      case "SEND" : messageMapper.save(message);
+                    simpMessagingTemplate.convertAndSend("/topic/room"+roomNo,
+                    new MessageResponse(HtmlUtils.htmlEscape(message.getContent())));
+                    break;
+    }
+
     return true;
   }
 

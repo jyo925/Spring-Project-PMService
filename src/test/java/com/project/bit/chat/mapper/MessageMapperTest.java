@@ -38,8 +38,8 @@ class MessageMapperTest {
   public void test3() {
     Message message = Message.builder()
       .authorId("user002")
-      .content("안녕하세요2")
-      .conversationId("1").build();
+      .content("안녕하세요3")
+      .roomNo("1").build();
 
     messageMapper.save(message);
   }

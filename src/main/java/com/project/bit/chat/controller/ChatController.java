@@ -9,12 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.util.HtmlUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 
@@ -23,7 +22,6 @@ import java.security.Principal;
 @Slf4j
 public class ChatController {
 
-  private SimpMessagingTemplate simpMessagingTemplate;
   private ChatService chatService;
 
   @GetMapping("/chat")
@@ -32,9 +30,18 @@ public class ChatController {
   }
 
   @MessageMapping("/room/{room}")
-  public void sendMessage(@DestinationVariable String roomNo, Message message) {
-    simpMessagingTemplate.convertAndSend("/topic/room/"+roomNo, HtmlUtils.htmlEscape(message.getContent()));
+  public void sendMessage(@DestinationVariable String room, Message message) {
+    chatService.sendMessage(room, message);
   }
+
+  @PostMapping("/test")
+  @ResponseBody
+  public ResponseEntity test(@RequestBody Message message) {
+    log.info(message.toString());
+    log.info(message.getParticipations().toString());
+    return new ResponseEntity(HttpStatus.OK);
+  }
+
 
   @GetMapping("/chat/initial")
   public ResponseEntity initialConnection(Principal principal) {

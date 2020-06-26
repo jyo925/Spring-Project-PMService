@@ -8,14 +8,14 @@
     <resultMap id="Message" type="com.project.bit.chat.domain.Message">
         <id property="messageId" column="message_id"></id>
         <result property="authorId" column="author_id"></result>
-        <result property="conversationId" column="conversation_id"></result>
+        <result property="roomNo" column="conversation_id"></result>
         <result property="content" column="content"></result>
         <result property="creationTime" column="creation_time"></result>
     </resultMap>
 
     <insert id="save">
         INSERT INTO messages (message_id, author_id, conversation_id, content)
-        VALUES (messages_seq.nextval, #{authorId}, #{conversationId}, #{content})
+        VALUES (messages_seq.nextval, #{authorId}, #{roomNo}, #{content})
     </insert>
 
     <select id="findAll" resultMap="Message">

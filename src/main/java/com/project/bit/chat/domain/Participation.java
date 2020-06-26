@@ -1,15 +1,13 @@
 package com.project.bit.chat.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Participation {
   private String userId;
   private String conversationId;

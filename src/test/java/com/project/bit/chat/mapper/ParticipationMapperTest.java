@@ -42,10 +42,10 @@ class ParticipationMapperTest {
 
   @Test
   @DisplayName("스프링 시큐리티 테스트")
-  @WithMockUser(username = "user001")
+  @WithMockUser(username = "user001", password = "1234")
   public void test3() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-    log.info(authentication.getAuthorities()+"");
+    log.info(authentication+"");
   }
 }

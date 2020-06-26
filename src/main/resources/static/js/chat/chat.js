@@ -27,11 +27,17 @@ function connect() {
   stompClient.connect({}, function (frame) {
     console.log("Connected" + frame);
     const dialogue = document.getElementById("chatTest");
+    const ulElement = document.createElement('ul');
+    ulElement.className = 'chat-list';
+    dialogue.append(ulElement);
     getData("http://localhost:8080/chat/initial")
       .then( data => data.ChatRooms)
       .then( chatRooms => chatRooms.map( chat => {
           console.log(chat);
-          dialogue.innerText += chat.content;
+          const liElement = document.createElement('li');
+          liElement.className = 'list';
+          liElement.innerText = chat.content;
+          ulElement.append(liElement);
           stompClient.subscribe("/topic/room/"+chat.conversationId, function (response) {
             console.log(response);
             dialogue.innerText = JSON.parse(response.body).content;
@@ -62,3 +68,17 @@ function send() {
 
 const messageBtnElem = document.getElementById('sendMessage btn');
 messageBtnElem.addEventListener("click", send);
+
+let message = {
+  type: "",
+  messageId: "",
+  authorId: "",
+  roomNo: "",
+  content: "",
+  creationTime: "",
+  participations: [{
+    userId:"",
+    conversationId:"",
+    joinTime:"",
+  }],
+}
