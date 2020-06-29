@@ -171,16 +171,21 @@ function insertTask(){
 
 function deleteTask(){
 	$('.task-delete-btn').on('click', function(event){
-		$task_code = $(event.target).closest('.task').find('.task-code').val();
+		var result = confirm('삭제하시겠습니까?');
 		
-		$.ajax({
-			url: '/task/remove/' + $task_code,
-			type: 'DELETE'
-		}).done(function(){
-			location.reload();
-		}).fail(function(){
-			alert('task delete fail')
-		})
+		if(result) {
+			$task_code = $(event.target).closest('.task').find('.task-code').val();
+			
+			$.ajax({
+				url: '/task/remove/' + $task_code,
+				type: 'DELETE'
+			}).done(function(){
+				location.reload();
+			}).fail(function(){
+				alert('task delete fail')
+			})			
+		}
+		
 	})
 }
 
@@ -210,22 +215,27 @@ function taskOutput(openTarget, closeTarget, fileTarget, taskCode){
 
 function taskOutputDelete(target, taskCode){
 	$(target).on('click', function(e){
-		var outputId = $(e.target).closest('tr').find('.output-name').data('id');
-		var outputName = $(e.target).closest('tr').find('.output-name').text();
-		var outputPath = $(e.target).closest('tr').find('.output-name').data('path');
+		var result = confirm('삭제하시겠습니까?');
+		if(result){
+			var outputId = $(e.target).closest('tr').find('.output-name').data('id');
+			var outputName = $(e.target).closest('tr').find('.output-name').text();
+			var outputPath = $(e.target).closest('tr').find('.output-name').data('path');
+			
+			$.ajax({
+				url: '/output/remove/' + outputId,
+				type: 'DELETE',
+				data: {
+					outputName: outputName,
+					outputPath: outputPath
+				}
+			}).done(function(){
+				$(e.target).closest('tr').remove();
+			}).fail(function(){
+				alert('output delete fail')
+			})			
+		}
 		
-		$.ajax({
-			url: '/output/remove/' + outputId,
-			type: 'DELETE',
-			data: {
-				outputName: outputName,
-				outputPath: outputPath
-			}
-		}).done(function(){
-			$(e.target).closest('tr').remove();
-		}).fail(function(){
-			alert('output delete fail')
-		})
+		
 	})
 }
 

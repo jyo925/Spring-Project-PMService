@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			po.output_name AS output_name,
 			po.output_user AS output_user,
 			po.output_date AS output_date,
+			po.output_path AS output_path,
 			pot.output_type AS output_type_name,
 			pt.task_code AS task_code,
 			pt.task_name AS task_name
@@ -66,4 +67,24 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		DELETE FROM project_outputs
 		WHERE output_code = #{outputId}
 	</delete>
+	
+	<select id="selectProjectOutputByType" resultType="com.project.bit.project.domain.ProjectOutputDTO">
+		SELECT
+			po.output_code AS output_code,
+			po.output_name AS output_name,
+			po.output_user AS output_user,
+			po.output_date AS output_date,
+			po.output_path AS output_path,
+			pot.output_type AS output_type_name,
+			pt.task_code AS task_code,
+			pt.task_name AS task_name
+		FROM project_outputs po
+			INNER JOIN project_output_types pot ON pot.output_type_code = po.output_type_code
+			INNER JOIN project_tasks pt ON pt.task_code = po.task_code
+			INNER JOIN project_task_groups ptg ON pt.taskGroup_code = ptg.taskGroup_code
+			INNER JOIN projects p ON p.project_code = ptg.project_code
+		WHERE
+			p.project_code = #{projectCode} AND
+			po.output_type_code = #{typeCode}
+	</select>
 </mapper>

@@ -9,7 +9,9 @@ import com.project.bit.userStatus.domain.UserStatusVO;
 import com.project.bit.userStatus.mapper.UserStatusMapper;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 
+@Log
 @Service
 @AllArgsConstructor
 public class UserStatusServiceImpl implements UserStatusService {
@@ -19,6 +21,8 @@ public class UserStatusServiceImpl implements UserStatusService {
     //사용자현황 목록
     @Override
     public List<UserStatusVO> getUserStatusList(Criteria cri) {
+
+        log.info(">>>>>>>>>>>>>>>>>>>>>>"+cri);
 
         return userStatusMapper.selectUserStatus(cri);
     }

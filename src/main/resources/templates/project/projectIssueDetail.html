@@ -80,7 +80,9 @@
 						<h5>조치 희망일</h5>
 						<input id="issue-action-date" th:value="${issue.issueActionDate}" type="date">
 						
-						<div style="margin-top: 10px; clear: both;">
+						<div th:if="${#authentication.Principal.users.userId} == ${issue.issueUserId} OR
+						${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'" 
+						style="margin-top: 10px; clear: both;">
 							<button type="button" id="issue-update-btn">수정</button>
 							<button type="button" onclick="location.href='/projectList'">취소</button>
 							<button type="button" id="issue-delete-btn">삭제</button>

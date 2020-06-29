@@ -16,8 +16,10 @@
         WHERE user_id = #{userId}
     </select>
 
-    <insert id="save" parameterType="com.project.bit.chat.domain.Participation">
-        INSERT INTO participations (user_id, conversation_id)
-        VALUES (#{userId}, #{conversationId})
+    <insert id="save" parameterType="list">
+        <foreach collection="list" item="item" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+        INTO participations (user_id, conversation_id)
+        VALUES (#{item.userId}, #{item.conversationId})
+        </foreach>
     </insert>
 </mapper>

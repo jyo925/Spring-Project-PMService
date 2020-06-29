@@ -27,15 +27,16 @@
 				<div class="card-body">
 					<h6>프로젝트 산출물</h6>
 					<hr>
+					<input id="user-id" type="hidden" th:value="${#authentication.Principal.users.userId}">
 					
 					<div>
-						<select>
+						<select class="output-category">
 							<option value="all">전체카테고리</option>
-							<option></option>
+							<option th:each="outputType : ${outputTypeList}" th:value="${outputType.outputTypeCode}"
+							th:text="${outputType.outputType}"></option>
 						</select> 
 						
-						<input type="text" placeholder="산출물 이름" style="margin-left: 10px; margin-right: 10px;">
-						<button id="" type="button">검색</button>
+						<input id="project-code" type="hidden" th:value="${project.projectCode}">
 						<button id="output-add" data-mfp-src="#output-add-modal" type="button" style="float: right;">+산출물 등록</button>
 					</div>
 					
@@ -77,25 +78,29 @@
 							<thead>
 								<tr width="100%">
 									<th width="5%">No</th>
-									<th width="30%">파일 이름</th>
+									<th width="20%">파일 이름</th>
 									<th width="20%">파일 카테고리</th>
-									<th width="10%">프로젝트 작업</th>
+									<th width="20%">프로젝트 작업</th>
 									<th width="10%">등록자</th>
 									<th width="10%">등록일</th>
 									<th width="10%">다운로드</th>
 									<th width="5%">삭제</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody class="output-tbody">
 								<tr class="output-tbody-tr" th:each="output : ${outputList}">
 									<td th:text="${outputStat.count}"></td>
-									<td><a class="output-name" th:data-taskCode="${output.taskCode}" th:data-mfp-src="'#' + ${output.outputCode}" th:data-id="${output.outputCode}" th:text="${output.outputName}"></a></td>
+									<td><a class="output-name" th:data-path="${output.outputPath}" 
+									th:data-taskCode="${output.taskCode}" th:data-mfp-src="'#' + ${output.outputCode}" 
+									th:data-id="${output.outputCode}" th:text="${output.outputName}"></a></td>
 									<td th:text="${output.outputTypeName}"></td>
 									<td th:text="${output.taskName}"></td>
 									<td th:text="${output.outputUser}"></td>
 									<td th:text="${output.outputDate}"></td>
-									<td><a><i class="fa fa-download"></i></a></td>
-									<td><a class="output-delete-btn"><i class="fa fa-trash"></i></a></td>
+									<td><a class="output-download-btn"><i class="fa fa-download"></i></a></td>
+									<td><a th:if="${#authentication.Principal.users.userId} == ${output.outputUser} OR
+													${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'"
+													class="output-delete-btn"><i class="fa fa-trash"></i></a></td>
 									
 									<div th:id="${output.outputCode}" class="white-popup mfp-hide output-info">
 										<h5>산출물 수정</h5>
@@ -129,7 +134,9 @@
 										</select>
 										
 										<div class="output-btn-item">
-											<button class="output-update-btn" type="button">수정</button>
+											<button th:if="${#authentication.Principal.users.userId} == ${output.outputUser} OR
+													${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'" 
+													class="output-update-btn" type="button">수정</button>
 											<button class="output-cancel-btn" type="button">취소</button>
 										</div>
 									</div>

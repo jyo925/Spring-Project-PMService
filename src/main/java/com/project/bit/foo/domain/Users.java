@@ -18,6 +18,7 @@ public class Users {
 	private String userPhone;
 	private Date userRregitdate;
 	private String dutyCode;
+	private String dutyName;
 	
 	private String userPhoto;
 	private String userWebsite;

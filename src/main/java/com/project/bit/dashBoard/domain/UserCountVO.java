@@ -1,8 +1,13 @@
 package com.project.bit.dashBoard.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class UserCountVO {
-	private int project_count;
-    private int task_count;
-    private int issue_count;
-    private int output_count;
+    private int userProjectCount;
+    private int userTaskCount;
+    private int userIssueCount;
+    private int userOutputCount;
 }

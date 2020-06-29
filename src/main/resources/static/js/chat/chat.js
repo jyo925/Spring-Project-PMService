@@ -23,7 +23,9 @@ let stompClient = null;
 
 function connect() {
   let socket = new SockJS("/endpoint");
+  console.log(socket);
   stompClient = Stomp.over(socket);
+  console.log(stompClient);
   stompClient.connect({}, function (frame) {
     console.log("Connected" + frame);
     const dialogue = document.getElementById("chatTest");
@@ -33,7 +35,8 @@ function connect() {
           console.log(chat);
           dialogue.innerText += chat.content;
           stompClient.subscribe("/topic/room/"+chat.conversationId, function (response) {
-            console.log(response)
+            console.log(response);
+            dialogue.innerText = JSON.parse(response.body).content;
           });
         })
       );
@@ -51,3 +54,13 @@ function sendMessage() {
   stompClient.send("/room/1", {}, JSON.stringify({}));
 }
 
+function send() {
+  const messageElem = document.getElementById('sendMessage');
+  const roomNo = document.getElementById('roomNo');
+  stompClient.send("/topic/room/"+roomNo.value, {}, JSON.stringify({
+    content: messageElem.value,
+  }));
+}
+
+const messageBtnElem = document.getElementById('sendMessage btn');
+messageBtnElem.addEventListener("click", send);

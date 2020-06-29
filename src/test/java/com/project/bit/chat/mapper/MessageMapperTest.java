@@ -33,4 +33,20 @@ class MessageMapperTest {
     messages.forEach(message -> log.info(message+""));
   }
 
+  @Test
+  @DisplayName("메세지 저장")
+  public void test3() {
+    Message message = Message.builder()
+      .authorId("lcy0815")
+      .content("안녕하세요2")
+      .conversationId("9").build();
+
+    messageMapper.save(message);
+  }
+
+  @Test
+  @DisplayName("채팅방의 모든 메세지 조회")
+  public void test4() {
+    messageMapper.findByChatRoom("1");
+  }
 }

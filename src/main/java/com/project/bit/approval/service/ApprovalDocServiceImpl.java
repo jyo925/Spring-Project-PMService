@@ -40,6 +40,12 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
         return apDocMapper.selectNewApDocNo(apDocDTO);
     }
 
+    @Override
+    public void removeApDoc(String apDocNo, String apDocWriter) {
+        log.info("서비스단");
+        apDocMapper.deleteApDoc(apDocNo, apDocWriter);
+    }
+
     //진행문서함
     @Override
     public List<ApDocDTO> getApProgressList(String apDocWriter, Criteria cri) {
@@ -47,8 +53,8 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     }
 
     @Override
-    public List<ApDocDTO> getApCompleteList(String apDocWriter, Criteria cri) {
-        return apDocMapper.selectApCompleteList(apDocWriter, cri);
+    public List<ApDocDTO> getApCompleteList(String userId, Criteria cri) {
+        return apDocMapper.selectApCompleteList(userId, cri);
     }
 
     @Override

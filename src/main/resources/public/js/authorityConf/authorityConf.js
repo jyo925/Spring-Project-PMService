@@ -6,4 +6,6 @@ $(document).ready(function() {
 	
 	$('.hiden').hide();
 	
+	if()
+	
 });

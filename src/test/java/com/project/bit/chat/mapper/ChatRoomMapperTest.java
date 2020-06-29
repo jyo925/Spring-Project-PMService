@@ -1,5 +1,6 @@
 package com.project.bit.chat.mapper;
 
+import com.project.bit.chat.domain.ChatRoom;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,8 +18,8 @@ class ChatRoomMapperTest {
   @Test
   @DisplayName("채팅방 개설")
   public void save() {
-    for (int i = 0; i < 10; i++) {
-      chatRoomMapper.save();
-    }
+    ChatRoom chatRoom = new ChatRoom();
+    chatRoomMapper.save(chatRoom);
+    log.info("뿌이이잉" + chatRoom.getConversationId());
   }
 }
