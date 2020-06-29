@@ -10,7 +10,7 @@ import com.project.bit.project.domain.ProjectVO;
 
 
 public interface ProjectService {
-	public List<ProjectVO> getProjectListAll();
+	public List<ProjectVO> getProjectListAll(ProjectCriteria cri);
 	public List<ProjectVO> getProjectListByType(ProjectCriteria cri, String typeCode);
 	public List<ProjectVO> getProjectSearch(ProjectCriteria cri, String typeCode, String projectName);
 	
