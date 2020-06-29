@@ -38,7 +38,8 @@
                     <form th:action="@{/approval/postApDoc}" method="post" role="form">
                         <div class="form-group row">
                             <div class="col-lg-9">
-                                <h2 class="card-title" th:text="${form.getApFormName()}" readonly style="margin-top: 5px;"></h2>
+                                <h2 class="card-title" th:text="${form.getApFormName()}" readonly
+                                    style="margin-top: 5px;"></h2>
                             </div>
 
                             <div class="col-lg-3" style="padding-left: 30px; padding-right: 0px;">
@@ -119,10 +120,10 @@
                                         <input name="apReferrersId" type="text" value=" " hidden>
 
                                     </div>
-                                    <div class="col-2 col" >
+                                    <div class="col-2 col">
                                         <button type="button" id="selectReferrers" class="btn btn-primary btn"
                                                 data-toggle="modal"
-                                                data-target="#exampleModal" data-whatever="@mdo" >선택
+                                                data-target="#exampleModal" data-whatever="@mdo">선택
                                         </button>
                                     </div>
                                 </div>
@@ -169,8 +170,6 @@
                         <button type="submit" id="request" class="btn btn-success btn-fw"
                                 style="float: right; margin-left: 15px">결재 요청
                         </button>
-
-
                     </form>
 
                     <!-- 모달 -->
@@ -287,7 +286,15 @@
 
             $(document).ready(function (e) {
 
-                //참조자 모달 관련 ///////////////////////////////////////////////////////////////
+                //결재 요청 후 뒤로가기 방지
+                window.history.pushState(null, null, "/approval/apMain");
+                window.history.pushState(null, null, location.href);
+                window.onpopstate = function (){
+                    // location.href = "/approval/apMain";
+                    history.go(1);
+                };
+
+                //----------------------참조자 모달 관련----------------------
                 $("#browser").treeview();
 
                 $('#browser li ul li').hover(function () {
@@ -302,8 +309,8 @@
 
                     selectedReferArr.splice(indexId, 1);
                     selectedReferNameArr.splice(indexId, 1);
-                    console.log("id배열:  " + selectedReferArr);
-                    console.log("name배열:  " + selectedReferNameArr);
+                    // console.log("id배열:  " + selectedReferArr);
+                    // console.log("name배열:  " + selectedReferNameArr);
                     e.preventDefault();
                     $(this).remove();
                 });
@@ -337,12 +344,7 @@
                 $('#referrersApply').on('click', function (e) {
                     $("input[name='apReferrers']").val(selectedReferNameArr);
                     $("input[name='apReferrersId']").val(selectedReferArr); //input hidden controller로 id 전송
-                    console.log($("input[name='apReferrersId']").val());
                 });
-
-                //선택 버튼 누를 경우 참조자 배열, input 란 초기화 굳이?
-                // $('#selectReferrers').on('click', function (e) {
-                // });
 
 
                 //---------------------결재 요청 클릭시 ----------------------
@@ -353,30 +355,32 @@
 
                     //1. 변경된 문서내용으로 업데이트
                     var updateFormData = CKEDITOR.instances.editor1.getData();
-                    //console.log(updateFormData);
                     $("#formData").val(updateFormData);
+
+                    if (formData == updateFormData) {
+                        alert("내용을 입력해주세요.");
+                        return;
+                    }
 
                     //2. 입력란 유효성 검사
                     var apDocTitle = $("#apDocTitle");
                     var apDocContent = $("#apDocContent");
-                    console.log(apDocTitle.val());
 
                     if (apDocTitle.val() == "") {
                         alert("제목을 입력해 주세요");
                         apDocTitle.focus();
-                        return false;
+
                     }
                     if (apDocContent.val() == "" || apDocContent.val() == formData) {
                         alert("내용을 입력해 주세요");
                         apDocContent.focus();
-                        return false;
+                        return;
                     }
 
                     var answer = confirm("결재 요청하시겠습니까?");
                     if (answer != true) {
-                        console.log("취소");
                         return;
-                    }else {
+                    } else {
                         //첨부파일 관련//////////////////////////////////////////////////////////////////////
                         //첨부파일 formObj에 추가하여 controller로 전송
                         var str = "";
@@ -409,15 +413,13 @@
                                         + "'>";
                                 });
 
-                        console.log(str);
                         formObj.append(str).submit();
                     }
 
 
-
                 });
 
-
+                //-------------------------첨부파일 관련 ---------------------------------
                 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
                 var maxSize = 5242880; //5MB
 
@@ -440,9 +442,7 @@
                         function (e) {
 
                             var fileFormData = new FormData();
-
                             var inputFile = $("input[name='apFiles']");
-
                             var files = inputFile[0].files;
 
                             console.log(files);
@@ -461,10 +461,6 @@
                                 url: '/approval/uploadAjaxAction',
                                 processData: false,
                                 contentType: false,
-                                // beforeSend:function(xhr){
-                                //     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                                //     console.log(xhr);
-                                // },
                                 data: fileFormData,
                                 type: 'POST',
                                 dataType: 'json',
@@ -488,26 +484,44 @@
                         .each(
                             function (i, obj) {
 
-                                var fileCallPath = encodeURIComponent(obj.apFilePath
-                                    + "/"
-                                    + obj.apFileUuid
-                                    + "_"
-                                    + obj.apFileName);
-                                var fileLink = fileCallPath
-                                    .replace(
-                                        new RegExp(
-                                            /\\/g),
-                                        "/");
+                                //이미지 파일인 경우
+                                if (obj.apFileType == 'image') {
 
-                                str += "<li style='list-style:none'"
-                                str += "data-path='" + obj.apFilePath + "' data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='" + "file" + "' >";
-                                str += "<div style='padding-top: 5px;'><i class='fa fa-file-o'></i><span> "
-                                    + obj.apFileName
-                                    + "</span> &nbsp";
-                                str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' "
-                                str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete<br>";
-                                str += "</a></div></li>";
+                                    var fileCallPath = encodeURIComponent(obj.apFilePath
+                                        + "/s_"
+                                        + obj.apFileUuid
+                                        + "_"
+                                        + obj.apFileName);
 
+                                    str += "<li style='list-style:none' data-path='"+obj.apFilePath+"'";
+                                    str +=" data-uuid='"+obj.apFileUuid+"' data-filename='"+obj.apFileName+"' data-type='image'"+">";
+                                    str += "<div style='padding-top: 5px;'><span>"+obj.apFileName + "</span>";
+                                    str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='image' ";
+                                    str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete</button><br>";
+                                    str += "<img src='/approval/display?fileName=" + fileCallPath;
+                                    str += "'></div></li>";
+
+                                } else {
+                                    var fileCallPath = encodeURIComponent(obj.apFilePath
+                                        + "/"
+                                        + obj.apFileUuid
+                                        + "_"
+                                        + obj.apFileName);
+                                    var fileLink = fileCallPath
+                                        .replace(
+                                            new RegExp(
+                                                /\\/g),
+                                            "/");
+
+                                    str += "<li style='list-style:none'"
+                                    str += "data-path='" + obj.apFilePath + "' data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='" + "file" + "' >";
+                                    str += "<div style='padding-top: 5px;'><i class='fa fa-file-o'></i><span> "
+                                        + obj.apFileName
+                                        + "</span> &nbsp";
+                                    str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' "
+                                    str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete<br>";
+                                    str += "</a></div></li>";
+                                }
                             });
 
                     uploadUL.append(str);
@@ -528,9 +542,6 @@
                             fileName: targetFile,
                             type: type
                         },
-                        // beforeSend:function(xhr){
-                        //     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                        // },
                         dataType: 'text',
                         type: 'POST',
                         success: function (result) {
