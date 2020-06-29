@@ -206,7 +206,9 @@
 													 th:data-path="${output.outputPath}"><a class="output-download" th:text="${output.outputName}"></a></td>
 													<td th:text="${output.outputUser}"></td>
 													<td th:text="${output.outputDate}"></td>
-													<td><a class="output-delete">x</a></td>
+													<td><a th:if="${#authentication.Principal.users.userId} == ${output.outputUser} OR
+													${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'" 
+													class="output-delete">x</a></td>
 												</tr>
 											</tbody>
 										</table>

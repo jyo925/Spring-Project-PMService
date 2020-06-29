@@ -3,6 +3,28 @@
 PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.project.mapper.ProjectMemberMapper">
+<!-- 	<select id="selectProjectMemberAccount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			project_members
+		WHERE
+			project_code = #{projectCode} AND
+			duty_code = #{dutyCode}
+	</select> -->
+	
+	<select id="selectUserNoMember" resultType="com.project.bit.foo.domain.Users">
+		SELECT
+		    u.*,
+		    t.team_name AS team_name,
+		    pos.position_name AS position_name
+		FROM users u
+		    INNER JOIN positions pos ON u.position_code = pos.position_code
+		    INNER JOIN teams t ON u.team_code = t.team_code
+		WHERE
+		    (SELECT count(*) FROM project_members pm WHERE u.user_id = pm.user_id) = 0
+	</select>
+	
 	<select id="selectProjectMember" parameterType="String" resultType="com.project.bit.project.domain.ProjectMemberVO">
 		SELECT
 			pmem.project_joinCode AS project_joinCode,
@@ -16,7 +38,8 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			INNER JOIN teams t ON u.team_code = t.team_code
 			INNER JOIN positions pos ON u.position_code = pos.position_code
 			INNER JOIN dutys d ON pmem.duty_code = d.duty_code
-		WHERE pmem.project_code = #{projectId}
+		WHERE
+			pmem.project_code = #{projectId}
 	</select>
 	
 	<select id="selectProjectMemberGantt" parameterType="String" resultType="com.project.bit.project.domain.ProjectTaskVO">
@@ -36,9 +59,18 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		
 	</select>
 	
+	<!-- <select id="selectProjectMemberById" parameterType="String" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			project_members
+		WHERE
+			user_id = #{userId}
+	</select> -->
+	
 	<insert id="insertProjectMember" parameterType="com.project.bit.project.domain.ProjectMemberDTO">
 		INSERT INTO project_members
-		VALUES(ID_SEQ.nextval||'-'||(SELECT project_subName FROM projects WHERE project_code = #{projectCode})||'-'||'DEVELOPER',#{projectCode},#{userId},'duty400')
+		VALUES(ID_SEQ.nextval||'-'||(SELECT project_subName FROM projects WHERE project_code = #{projectCode}),#{projectCode},#{userId},'duty400')
 	</insert>
 	
 	<delete id="deleteProjectMember" parameterType="String">

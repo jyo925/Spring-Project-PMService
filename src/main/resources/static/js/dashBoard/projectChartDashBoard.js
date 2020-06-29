@@ -63,7 +63,7 @@ function ajaxMethod(target){
 	})
 	
 	$.ajax({
-		url: '/projectMember/gantt',
+		url: '/projectMemberInfo/gantt',
 		type: 'get',
 		data: {projectCode : target.val()},
 		dataType: 'JSON'

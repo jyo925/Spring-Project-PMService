@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.bit.foo.domain.Users;
 import com.project.bit.project.domain.ProjectMemberDTO;
 import com.project.bit.project.domain.ProjectMemberVO;
 import com.project.bit.project.domain.ProjectTaskVO;
@@ -35,6 +36,11 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
 	public List<ProjectTaskVO> getProjectMemberGantt(String projectCode) {
 		// TODO Auto-generated method stub
 		return projectMemberMapper.selectProjectMemberGantt(projectCode);
+	}
+
+	@Override
+	public List<Users> getUserNoMember() {
+		return projectMemberMapper.selectUserNoMember();
 	}
 
 }
