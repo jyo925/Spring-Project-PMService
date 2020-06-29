@@ -14,16 +14,14 @@
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </th:block>
 
 <div layout:fragment="content">
-
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">결재완료함</h3>
+                    <h3 class="card-title" th:text="${apDocListTypeName}"></h3>
                     <hr>
 
                     <div class="table-responsive">
@@ -77,23 +75,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="apComplete: ${apCompleteList}">
-                                <td th:text="${apCompleteStat.count}"></td>
-                                <td th:text="${apComplete.apDocNo}"></td>
-                                <td th:text="${apComplete.apFormName}"></td>
-                                <td style="text-align: left"><a th:text="${apComplete.apDocTitle}"
-                                       th:href="'/approval/getApDoc?apDocNo='+${apComplete.apDocNo}"></a></td>
-                                <td th:text="${#strings.substring(apComplete.apDocProjectName,0,10)+'...'}"></td>
-                                <td th:text="${apComplete.apDocWriterName}"></td>
-                                <td th:text="${#dates.format(apComplete.apDocCreateDate, 'yyyy-MM-dd')}"></td>
-                                <td th:text="${#dates.format(apComplete.apDocEndDate, 'yyyy-MM-dd')}"></td>
-                                <span th:if="${apComplete.apDocStatus == 0}">
+                            <tr th:each="apDoc: ${apDocList}">
+                                <td th:text="${apDocStat.count}"></td>
+                                <td th:text="${apDoc.apDocNo}"></td>
+                                <td th:text="${apDoc.apFormName}"></td>
+                                <td style="text-align: left"><a th:text="${apDoc.apDocTitle}"
+                                       th:href="'/approval/getApDoc?apDocNo='+${apDoc.apDocNo}"></a></td>
+                                <td th:text="${#strings.substring(apDoc.apDocProjectName,0,15)+'..'}"></td>
+                                <td th:text="${apDoc.apDocWriterName}"></td>
+                                <td th:text="${#dates.format(apDoc.apDocCreateDate, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${#dates.format(apDoc.apDocEndDate, 'yyyy-MM-dd')}"></td>
+                                <span th:if="${apDoc.apDocStatus == 0}">
                                     <td><label class="badge badge-info">진행중</label></td>
                                 </span>
-                                <span th:if="${apComplete.apDocStatus == 2}">
+                                <span th:if="${apDoc.apDocStatus == 2}">
                                     <td><label class="badge badge-danger">반려</label></td>
                                 </span>
-                                <span th:if="${apComplete.apDocStatus == 1}">
+                                <span th:if="${apDoc.apDocStatus == 1}">
                                     <td><label class="badge badge-success">완료</label></td>
                                 </span>
                             </tr>
@@ -106,7 +104,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
                             <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">
-                                <p th:text="'Showing 1 to ' +${apCompleteList.size()}+ ' of '+${apCompleteList.size()} +' entries'">
+                                <p th:text="'Showing 1 to ' +${apDocList.size()}+ ' of '+${apDocList.size()} +' entries'">
 
                             </div>
                         </div>

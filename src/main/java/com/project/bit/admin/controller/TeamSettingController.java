@@ -17,6 +17,7 @@ import java.util.List;
 @Log
 @Controller
 @ResponseBody
+@RequestMapping("/admin")
 @AllArgsConstructor
 public class TeamSettingController {
 

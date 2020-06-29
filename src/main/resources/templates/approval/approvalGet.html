@@ -9,13 +9,13 @@
         span:hover {
             color: blue;
         }
+        .attachImg:hover {
+            opacity: 0.5;
+        }
     </style>
 </th:block>
 <div layout:fragment="content">
     <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
-    <!--    <script th:src="@{/js/approval/jquery.treeview.js}"></script>-->
-    <!--    <link rel="stylesheet" th:href="@{/js/approval/jquery.treeview.css}"/>-->
-
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="card">
@@ -213,6 +213,10 @@
                     <form th:action="@{/approval/postApproval}" method="post" role="form">
                         <input name="apDocNo" hidden="hidden" th:value="${apDocData.getApDocNo()}">
                         <input hidden="hidden" value="" id="apResult" name="apResult">
+                        <input hidden="hidden" value="" id="apDelete" name="apDelete">
+
+                        <button th:if="${apDocData.apDocStatus == 2 and apDocData.apDocWriter eq #authentication.name}"
+                                id="apDocDelBtn" type="submit" class="btn btn-danger btn-fw" style="float: right">문서 삭제</button>
 
                         <div class="form-group row" style="display: none" id="apDiv">
                             <div class="col-lg-1">
@@ -231,10 +235,10 @@
                                         style="float: left; margin-right: 10px">반려
                                 </button>
                             </div>
+
                             <hr>
                         </div>
                     </form>
-
 
                     <input type="hidden" name="apDocContent" id="formData" th:value="${apDocData.getApDocContent()}">
 
@@ -348,6 +352,20 @@
 
                 });
 
+                //삭제 클릭시
+                $('#apDocDelBtn').on('click', function (e) {
+                    e.preventDefault();
+                    formObj.attr("action", "/approval/removeApproval");
+                    console.log(formObj);
+                    $('#apDelete').val("delete");
+
+                    var answer = confirm("삭제하시겠습니까?");
+                    if (answer == true) {
+                        formObj.submit();
+                    }
+                });
+
+
                 //첨부파일 불러오기
                 var apDocNo = $("input[name='apDocNo']").val();
                 $.getJSON(
@@ -362,10 +380,26 @@
                             .each(
                                 function (i,
                                           attach) {
-                                    str += "<li style='list-style:none;' data-path='" + attach.apFilePath + "' data-uuid='" + attach.apFileUuid + "' data-filename='" + attach.apFileName + "' data-type='" + attach.apFileType + "' ><div>";
-                                    str += "<span><i class='fa fa-file-o'></i>&nbsp;&nbsp;"
-                                        + attach.apFileName
-                                        + "</span><br/></div></li>";
+
+                                    if (attach.apFileType == 'image') {
+                                        var fileCallPath = encodeURIComponent(attach.apFilePath
+                                            + "/s_"
+                                            + attach.apFileUuid
+                                            + "_"
+                                            + attach.apFileName);
+
+                                        str += "<li style='list-style:none;' data-path='"+attach.apFilePath+"' data-uuid='"+attach.apFileUuid+"' data-filename='"+attach.apFileName+"' data-type='"+attach.fileType+"' ><div style='margin-bottom: 10px;'>";
+                                        str += "<img class ='attachImg' src='/approval/display?fileName="
+                                            + fileCallPath;
+                                        str += "'></div></li>";
+
+                                    } else {
+
+                                        str += "<li style='list-style:none;' data-path='" + attach.apFilePath + "' data-uuid='" + attach.apFileUuid + "' data-filename='" + attach.apFileName + "' data-type='" + attach.apFileType + "' ><div style='margin-bottom: 10px;'>";
+                                        str += "<span><i class='fa fa-file-o'></i>&nbsp;&nbsp;"
+                                            + attach.apFileName
+                                            + "</span><br/></div></li>";
+                                    }
                                 });
                         $(".uploadResult ul").html(str);
                     });//end getjson
@@ -386,9 +420,7 @@
                         //download
                         self.location = "/approval/download?fileName=" + path
                     });
-
             });//ready end
         </script>
-
     </div> <!-- content end -->
 </html>

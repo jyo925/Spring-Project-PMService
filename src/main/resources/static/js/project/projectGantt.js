@@ -1,10 +1,11 @@
 $(function(){
 	gantt();
+
 })
 
 function gantt(){
 	$.ajax({
-		url: '/projectMember/gantt',
+		url: '/projectMemberInfo/gantt',
 		type: 'get',
 		data: {projectCode : $('#project-code').val()},
 		dataType: 'JSON'
@@ -20,6 +21,7 @@ function gantt(){
 
 function drawChart(list){
 	var lists = [];
+	var container = document.getElementById('gantt-div');
 	var data = new google.visualization.DataTable();
 	data.addColumn({type: 'string', id: 'User ID'});
 	data.addColumn({type: 'string', id: 'Task Name'});
@@ -48,7 +50,20 @@ function drawChart(list){
 		}
 	};
 
-	var chart = new google.visualization.Timeline(document.getElementById('gantt-div'));
+	var chart = new google.visualization.Timeline(container);
+
+	google.visualization.events.addListener(chart, 'select', function(){
+		location.href = '/projectTask/' + $('#project-code').val()
+		console.log($('#project-code').val());
+		/*rect.addEventListener('click', function(e){
+            console.log($(e.target));
+        })*/
+		/*Array.prototype.forEach.call(rect, function(label){
+            label.addEventListener('click', function(e){
+                console.log($(e.target));
+            })
+        })*/
+	});
 
 	chart.draw(data, options);
 }

@@ -29,7 +29,7 @@
 					
 					<div id="user_div">
 						<ul id="user" style="list-style:none; padding-left:0px;">
-							<li th:id="userId" th:each="user : ${userList}" 
+							<li th:id="userId" th:each="user : ${noJoinUserList}" 
 							th:data-id="${user.userId}" th:data-name="${user.userName}"
 							th:data-team="${user.teamName}" th:data-pos="${user.positionName}"
 							th:text="${user.teamName} + ' / ' + ${user.userName} + ' / '
@@ -37,7 +37,7 @@
 						</ul>
 					</div>
 					
-					<div>
+					<div th:if="${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'">
 						<button type="button" id="memberAdd_btn"> 추가 &gt; </button>
 						<button type="button" id="memberRemove_btn"> &lt; 삭제 </button>
 					</div>

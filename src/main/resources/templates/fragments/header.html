@@ -32,6 +32,9 @@
                 <li class="nav-item dropdown d-none d-lg-flex">
 					<a class="nav-link" href="/myPage">My Page</a>
 				</li>
+                <li class="nav-item dropdown d-none d-lg-flex">
+                    <a class="nav-link" href="/admin/main">Admin</a>
+                </li>
 				<li class="nav-item dropdown d-none d-lg-flex">
 					<form action="/logout" method="post">
 						<input class="btn nav-link dropdown-toggle" type="submit" value="Sign Out" />
@@ -204,7 +207,8 @@
                     <li class="nav-item nav-profile mt-4">
                         <div class="nav-link">
                             <div class="profile-image">
-                                <img  alt="image" class="bg-success">
+                                <img th:if="${#authentication.principal.Users.userPhoto != null}" th:src="${#authentication.principal.Users.userPhoto}" class="bg-success">
+                                <img th:if="${#authentication.principal.Users.userPhoto == null}" src="/img/user.png" class="bg-success">
                             </div>
                             <div class="profile-name">
                                 <p class="name" th:text="${#authentication.principal.Users.userName}"></p>
@@ -310,7 +314,7 @@
                         <div class="collapse" id="user-nav">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                                          href="#">사용자 현황</a></li>
+                                                                          href="/userStatusList">사용자 현황</a></li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="#">사용자 배정현황</a></li>
                             </ul>

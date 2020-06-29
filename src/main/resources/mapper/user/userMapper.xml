@@ -25,6 +25,8 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			u.user_id AS user_id
 		FROM users u
 		INNER JOIN teams t ON u.team_code = t.team_code
-		WHERE t.team_code = #{teamCode}
+		WHERE 
+			t.team_code = #{teamCode} AND
+			(SELECT count(*) FROM project_members pm WHERE u.user_id = pm.user_id) = 0
 	</select>
 </mapper>

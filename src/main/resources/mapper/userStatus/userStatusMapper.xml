@@ -5,47 +5,51 @@
 <mapper namespace="com.project.bit.userStatus.mapper.UserStatusMapper">
 
     <select id="selectUserStatus" parameterType="com.project.bit.approval.domain.Criteria" resultType="com.project.bit.userStatus.domain.UserStatusVO">
-        SELELT *
+        SELECT *
         FROM
         (SELECT
-            ROWNUM RN
+             ROWNUM RN
             ,USER_ID
             ,USER_NAME
             ,USER_EMAIL
             ,USER_PHONE
+            ,PROJECT_NAME
             ,TASKCOUNTTOTAL
             ,TASKCOUNTPROCESSING
             ,TASKCOUNTCOMPLETE
             ,TASKCOUNTSTANDBY
         FROM
         (SELECT
-             U.USER_ID
-            ,U.USER_NAME
-            ,U.USER_EMAIL
-            ,U.USER_PHONE
-            ,COUNT(project_tasks.taskGroup_code) as TASKCOUNTTOTAL
-            ,COUNT(CASE WHEN project_tasks.task_status_code = 'taskstatus100' THEN 1 END) AS TASKCOUNTPROCESSING
-            ,COUNT(CASE WHEN project_tasks.task_status_code = 'taskstatus200' THEN 1 END) AS TASKCOUNTCOMPLETE
-            ,COUNT(CASE WHEN project_tasks.task_status_code = 'taskstatus300' THEN 1 END) AS TASKCOUNTSTANDBY
-        FROM USERS U
-        INNER JOIN project_members
-            ON users.user_id = project_members.user_id
-        INNER JOIN project_task_groups
-            ON project_members.project_code = project_task_groups.project_code
-        INNER JOIN project_tasks
-          ON project_task_groups.taskGroup_code = project_tasks.taskGroup_code
-        WHERE 1=1
+             USERS.USER_ID
+            ,USERS.USER_NAME
+            ,USERS.USER_EMAIL
+            ,USERS.USER_PHONE
+            ,PROJECTS.PROJECT_NAME
+            ,COUNT(PROJECT_TASKS.TASKGROUP_CODE) as TASKCOUNTTOTAL
+            ,COUNT(CASE WHEN PROJECT_TASKS.TASK_STATUS_CODE = 'taskstatus100' THEN 1 END) AS TASKCOUNTPROCESSING
+            ,COUNT(CASE WHEN PROJECT_TASKS.TASK_STATUS_CODE = 'taskstatus200' THEN 1 END) AS TASKCOUNTCOMPLETE
+            ,COUNT(CASE WHEN PROJECT_TASKS.TASK_STATUS_CODE = 'taskstatus300' THEN 1 END) AS TASKCOUNTSTANDBY
+        FROM USERS
+        INNER JOIN PROJECT_MEMBERS
+            ON USERS.USER_ID = PROJECT_MEMBERS.USER_ID
+        INNER JOIN PROJECTS
+            ON PROJECT_MEMBERS.PROJECT_CODE = PROJECTS.PROJECT_CODE
+        INNER JOIN PROJECT_TASK_GROUPS
+            ON PROJECTS.PROJECT_CODE = PROJECT_TASK_GROUPS.PROJECT_CODE
+        INNER JOIN PROJECT_TASKS
+          ON PROJECT_TASK_GROUPS.TASKGROUP_CODE = PROJECT_TASKS.TASKGROUP_CODE
         <trim prefix="AND">
             <choose>
                 <when test="type == 'N'.toString()">
                     user_name like '%'||#{keyword}||'%'
                 </when>
-                <when test="type == 'T'.toString()">
-                    team_name like '%'||#{keyword}||'%'
+                <when test="type == 'P'.toString()">
+                    project_name like '%'||#{keyword}||'%'
                 </when>
             </choose>
         </trim>
-        GROUP BY users.user_id, users.user_name, users.user_email, users.user_phone)
+        GROUP BY (USERS.USER_ID, USERS.USER_NAME, USERS.USER_EMAIL, USERS.USER_PHONE,PROJECTS.PROJECT_NAME)
+        ORDER BY USER_ID, USER_NAME)
         <![CDATA[
          WHERE ROWNUM <= #{pageNum} * #{amount})
      WHERE RN > (#{pageNum} -1) * #{amount}

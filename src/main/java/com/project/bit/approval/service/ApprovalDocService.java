@@ -30,6 +30,9 @@ public interface ApprovalDocService {
     //등록한 결재문서 번호 조회
     public Long getNewApDocNo(ApDocDTO apDocDTO);
 
+    //문서 삭제
+    public void removeApDoc(String apDocNo, String apDocWriter);
+
 
 
 
@@ -49,7 +52,7 @@ public interface ApprovalDocService {
     public List<ApDocDTO> getApProgressList(String apDocWriter, Criteria cri);
     
     //결재완료함 조회
-    public List<ApDocDTO> getApCompleteList(String apDocWriter, Criteria cri);
+    public List<ApDocDTO> getApCompleteList(String userId, Criteria cri);
 
     //결재 대기 문서함 조회
     public List<ApDocDTO> getApCheckList(String apDocWriter, Criteria cri);

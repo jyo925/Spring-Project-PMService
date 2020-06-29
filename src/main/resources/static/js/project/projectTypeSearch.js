@@ -1,5 +1,7 @@
 $(function(){
-	elementEvent();
+	//elementEvent();
+	typeSearch();
+	nameSearch();
 })
 
 /*function typeSearch(){
@@ -9,6 +11,21 @@ $(function(){
 	
 } // type search end*/
 
+function typeSearch(){
+	$('#projectTypeChoice').on('change', function(){
+		var typeCode = $(this).val();
+		var name = $('#projectName').val();
+		location.href = "/project/type/search/" + typeCode;
+	})
+}
+
+function nameSearch(){
+	$('#search_btn').on('click', function(){
+		var typeCode = $('#projectTypeChoice').val();
+		var name = $('#projectName').val();
+		location.href = "/project/name/search/" + typeCode + "/" + name;
+	})
+}
 
 // typeSearch() START
 function elementEvent(){

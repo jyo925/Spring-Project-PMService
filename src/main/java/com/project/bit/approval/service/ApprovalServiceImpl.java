@@ -45,9 +45,7 @@ public class ApprovalServiceImpl implements ApprovalService {
             approvers.add(apMapper.selectSuperiorApprover(userId));
             log.info("추가된 상위 결재자 정보: "+ apMapper.selectSuperiorApprover(userId));
         }
-
-
-
+        log.info(approvers+"");
         return approvers;
     }
 

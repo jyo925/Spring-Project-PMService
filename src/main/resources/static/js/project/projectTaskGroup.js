@@ -7,16 +7,20 @@ $(function(){
 
 function deleteGroup(){
 	$('.group-remove-btn').on('click', function(event){
-		var groupId = $(event.target).closest('.taskGroup-div').find('.taskGroup').data('id');
-		// console.log(groupId)
-		$.ajax({
-			url : '/task/groupRemove/' + groupId,
-			type : 'DELETE'
-		}).done(function(){
-			location.reload();			
-		}).fail(function(){
-			alert('group delete fail')
-		})
+		if(confirm('삭제하시겠습니까?')){
+			var groupId = $(event.target).closest('.taskGroup-div').find('.taskGroup').data('id');
+			// console.log(groupId)
+			$.ajax({
+				url : '/task/groupRemove/' + groupId,
+				type : 'DELETE'
+			}).done(function(){
+				location.reload();			
+			}).fail(function(){
+				alert('group delete fail')
+			})			
+		}
+		
+		
 	})
 	
 }

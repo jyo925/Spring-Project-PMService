@@ -31,10 +31,11 @@ public class ResponseProjectController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/search")
-	public List<ProjectVO> getProjectListBySearch(String typeCode, String projectName){
-		return projectService.getProjectSearch(typeCode, projectName);
-	}
+	/*
+	 * @GetMapping("/search") public List<ProjectVO> getProjectListBySearch(String
+	 * typeCode, String projectName){ return
+	 * projectService.getProjectSearch(typeCode, projectName); }
+	 */
 	
 	@GetMapping("/detail/taskChart")
 	public List<ProjectTaskStatusVO> getProjectTaskChart(String projectId){
