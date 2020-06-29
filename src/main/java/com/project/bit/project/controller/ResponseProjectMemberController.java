@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.bit.project.domain.ProjectMemberDTO;
@@ -15,13 +14,12 @@ import com.project.bit.project.domain.ProjectTaskVO;
 import com.project.bit.project.service.ProjectMemberService;
 
 @RestController
-@RequestMapping("/projectMember")
 public class ResponseProjectMemberController {
 
 	@Autowired
 	private ProjectMemberService projectMemberService;
 	
-	@PostMapping("/add")
+	@PostMapping("/projectMember/add")
 	public void postProjectMember(@RequestBody List<ProjectMemberDTO> projectMemberList) {
 		
 		for(ProjectMemberDTO member : projectMemberList) {
@@ -29,7 +27,7 @@ public class ResponseProjectMemberController {
 		}
 	}
 	
-	@DeleteMapping("/remove")
+	@DeleteMapping("/projectMember/remove")
 	public void removeProjectMember(@RequestBody List<String> projectJoinCode) {
 		
 		for(String str : projectJoinCode) {
@@ -38,7 +36,7 @@ public class ResponseProjectMemberController {
 		}
 	}
 	
-	@GetMapping("/gantt")
+	@GetMapping("/projectMemberInfo/gantt")
 	public List<ProjectTaskVO> getProjectMemberGantt(String projectCode){
 		System.err.println(projectCode);
 		return projectMemberService.getProjectMemberGantt(projectCode);

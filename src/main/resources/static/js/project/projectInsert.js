@@ -2,7 +2,9 @@ $(function(){
 	dropDownEvent();
 	insertProject();
 	deleteProject();
-})
+	regExp();
+	insert();
+})							
 
 function dropDownEvent(){
 	/* dropDown */
@@ -92,4 +94,20 @@ function deleteProject(){
 			location.href = "/projectDelete/" + $('#projectCode').val();
 		}
 	})
+}
+
+function regExp(){
+	$('#project-subName').keyup(function(e){
+		var pattern = /^[A-Z]{3,4}$/;
+		var str = $(this).val();
+		
+		if(!pattern.test(str)) {
+			var item = '<span>* 규칙에 맞게 입력해주세요</span>';
+			$('#project-subName-div').html(item);
+		} else if(pattern.test(str)){
+			var item = '<span style="color: green;">* 정상적으로 입력하셨습니다</span>';
+			$('#project-subName-div').html(item);
+		}
+	})
+
 }

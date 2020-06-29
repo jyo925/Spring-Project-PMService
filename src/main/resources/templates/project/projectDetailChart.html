@@ -18,8 +18,9 @@
 <div layout:fragment="content">
 	<div class="detail-top-nav" th:fragment="project-top-nav">
 		<a th:href="'/project/'+${project.projectCode}">요약정보</a>
-		<a th:href="'/project/detail/'+${project.projectCode}">기본정보</a>
-		<a th:href="'/projectMember/'+${project.projectCode}">리소스</a>
+		<a th:if="${#authentication.Principal.users.dutyCode} == 'duty100' or ${#authentication.Principal.users.dutyCode} == 'duty200'"
+		 th:href="'/project/detailInfo/'+${project.projectCode}">기본정보</a>
+		<a th:href="'/projectMemberInfo/'+${project.projectCode}">리소스</a>
 		<a th:href="'/projectTask/'+${project.projectCode}">프로젝트 작업</a>
 		<a th:href="'/projectGantt/'+${project.projectCode}">배정현황</a>
 		<a th:href="'/projectIssue/'+${project.projectCode}">이슈</a>
