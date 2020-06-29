@@ -9,6 +9,7 @@ import com.project.bit.project.domain.ProjectTaskDTO;
 import com.project.bit.project.domain.ProjectTaskGroupDTO;
 import com.project.bit.project.domain.ProjectTaskManagerDTO;
 import com.project.bit.project.domain.ProjectTaskStatusDTO;
+import com.project.bit.project.domain.ProjectTaskVO;
 
 @Mapper
 public interface ProjectTaskMapper {

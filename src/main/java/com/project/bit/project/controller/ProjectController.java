@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.project.bit.approval.domain.Criteria;
 import com.project.bit.project.domain.ProjectCriteria;
 import com.project.bit.project.domain.ProjectDTO;
 import com.project.bit.project.domain.ProjectPage;
 import com.project.bit.project.domain.ProjectStatusDTO;
 import com.project.bit.project.domain.ProjectTypeDTO;
 import com.project.bit.project.service.ProjectService;
+import com.project.bit.project.service.ProjectTaskService;
 
 @Controller
 public class ProjectController {
 
-	@Autowired
-	private ProjectService projectService;	
+	@Autowired private ProjectService projectService;
+	@Autowired private ProjectTaskService projectTaskService;
 	
 	// main으로 이동
 	@GetMapping("/index")
@@ -66,10 +68,7 @@ public class ProjectController {
 	public String postProject(ProjectDTO projectDTO) {
 		projectService.postProject(projectDTO);
 		return "redirect:/projectList";
-	}	
-	
-	
-	
+	}		
 	
 	// 프로젝트 유형 리스트
 	@ModelAttribute("projectTypeList")
