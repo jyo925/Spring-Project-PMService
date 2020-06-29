@@ -111,12 +111,6 @@ public class ApprovalController {
         return "approval/approvalDocList_1";
     }
 
-    //임시저장함 조회
-    @GetMapping("/getApTempList")
-    public String getApTempList(Criteria cri, Principal principal, Model model) {
-        return "approval/approvalTemp";
-    }
-
     //참조문서함 조회
     @GetMapping("/getReferenceList")
     public String getReferenceList(Criteria cri, Principal principal, Model model) {
@@ -162,8 +156,6 @@ public class ApprovalController {
         if(formNo == 1 || formNo == 2 || formNo == 3){
             //날짜 데이터 가져오기
             model.addAttribute("apDocTerm", apDocService.getApDocTerm(apDocNo));
-            log.info("------------------------테스트");
-            log.info(apDocService.getApDocTerm(apDocNo).getApStartDate());
         }
         return "approval/approvalGet";
     }

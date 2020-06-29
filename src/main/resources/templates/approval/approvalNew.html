@@ -10,7 +10,7 @@
         label {
             float: right;
         }
-        .col-lg-1 {
+        .col-xs-1 {
             /*background-color: whitesmoke;*/
             /*background-color: #EDF8FA;*/
             background-color: #E3ECF3;
@@ -63,7 +63,7 @@
                                         <thead>
                                         <tr>
                                             <td rules="none" width="28px"
-                                                style="background-color:whitesmoke; border-bottom-color:whitesmoke">결
+                                                style="background-color:#e6e9ed; border-bottom-color:#e6e9ed">결
                                             </td>
                                             <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
                                                 <!--class="table-primary" -->
@@ -76,7 +76,7 @@
                                         <tbody>
                                         <tr>
                                             <td rules="none" width="28px"
-                                                style="background-color:whitesmoke; border-bottom-color:whitesmoke">재
+                                                style="background-color:#e6e9ed; border-bottom-color:#e6e9ed">재
                                             </td>
                                             <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
                                                 <td width="70px" height="50px"
@@ -84,7 +84,7 @@
                                             </th:block>
                                         </tr>
                                         <tr>
-                                            <td rules="none" width="28px" style="background-color:whitesmoke;">선</td>
+                                            <td rules="none" width="28px" style="background-color:#e6e9ed;">선</td>
                                             <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
                                                 <td width="70px" style="padding: 3px;">미결</td>
                                             </th:block>
@@ -95,20 +95,20 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">제목</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <input class="form-control" maxlength="20" name="apDocTitle" type="text"
                                        id="apDocTitle"
                                        placeholder="제목을 입력하세요.">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">기안자</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <input class="form-control" maxlength="100" name="apDocWriter" hidden="hidden"
                                        th:value="${#authentication.name}" type="text" readonly>
                                 <input class="form-control" maxlength="100" name="apDocWriterName"
@@ -116,19 +116,19 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">프로젝트</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <input class="form-control" maxlength="100" name="apDocProjectName"
                                        th:value="${writer.projectName}" type="text" readonly style="background-color: white;">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">참조자</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <div class="row">
                                     <div class="col-10 col">
                                         <input class="form-control" maxlength="200" name="apReferrers" type="text"
@@ -137,7 +137,7 @@
 
                                     </div>
                                     <div class="col-2 col">
-                                        <button type="button" id="selectReferrers" class="btn btn-inverse-primary btn-sm"
+                                        <button type="button" id="selectReferrers" class="btn btn-inverse-dark btn-sm"
                                                 data-toggle="modal"
                                                 data-target="#exampleModal" data-whatever="@mdo">+
                                         </button>
@@ -147,10 +147,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">첨부파일</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <input class="form-control" maxlength="100" name="apFiles" type="file" multiple
                                        readonly style="background-color: white;">
                                 <div class="uploadResult">
@@ -162,10 +162,10 @@
                         <div class="form-group row" id="excutionDateForm">
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">문서내용</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <div class="document-editor">
                                     <div class="document-editor__toolbar"></div>
                                     <div class="document-editor__editable-container">
@@ -312,18 +312,16 @@
                 var formType = $("input[name='apFormNo']").val();
                 if(formType =='1' || formType=='2' || formType=='3'){
                     $('#excutionDateForm').html("" +
-                        "                            <div class='col-lg-1'>\n" +
+                        "                            <div class='col-xs-1 col-lg-1'>\n" +
                         "                                <label class='col-form-label' name='dateFormName'>적용기간</label>\n" +
                         "                            </div>\n" +
-                        "                            <div class='col-lg-3'>\n" +
+                        "                            <div class='col-xs-3 col-lg-3'>\n" +
                         "                                <input type='date' class='form-control' name='apStartDate'>\n" +
                         "                            </div>\n" +
                         "                            -\n" +
-                        "                            <div class='col-lg-3'>\n" +
+                        "                            <div class='col-xs-3 col-lg-3'>\n" +
                         "                                <input type='date' class='form-control' name='apEndDate'>\n" +
                         "                            </div>");
-                }else {
-                    return;
                 }
 
                 //----------------------참조자 모달 관련----------------------
@@ -331,9 +329,7 @@
 
                 $('#browser li ul li').hover(function () {
                     $(this).children().css('background-color', 'rgba(0,0,0,0.1)');
-                    // $(this).children().css('color', 'red');
                 }, function () {
-                    // $(this).children().css('color', 'black');
                     $(this).children().css('background-color', '');
                 });
 
@@ -598,10 +594,6 @@
                         }
                     }); //ajax end
                 });
-
-                //////////////////////////////////////////////////////////////////////////////
-
-
             });//end
         </script>
 

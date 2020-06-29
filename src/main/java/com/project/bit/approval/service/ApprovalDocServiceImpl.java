@@ -57,7 +57,6 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
 
     @Override
     public void removeApDoc(String apDocNo, String apDocWriter) {
-        log.info("서비스단");
         apDocMapper.deleteApDoc(apDocNo, apDocWriter);
     }
 
@@ -76,19 +75,13 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     public List<Integer> getApDocCount(String apDocWriter) {
 
         List<Integer> apDocCountList = new ArrayList<Integer>();
-
-//        apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter, cri) +
-//                apDocMapper.selectCountApDoc(2, apDocWriter, cri));
-//        apDocCountList.add(apDocMapper.selectCountApCheck(apDocWriter));
-//        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter, cri));
-
-        //결재진행(진행중, 반려) 개수
+        
+        //결재 진행(진행중, 반려) 개수
         apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter) +
                 apDocMapper.selectCountApDoc(2, apDocWriter));
-        //결재대기 개수
+        //결재 대기 개수
         apDocCountList.add(apDocMapper.selectCountApCheck(apDocWriter));
-        //임시저장 개수
-        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter));
+
         return apDocCountList;
     }
 
@@ -143,7 +136,6 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
             //반려시 ---> 상태 2(반려)로, 단계 -1로
             apDocMapper.updateApDocReject(apDTO.getApDocNo());
         }
-
     }
 
     @Override
