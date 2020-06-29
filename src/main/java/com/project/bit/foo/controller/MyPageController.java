@@ -5,8 +5,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.bit.foo.domain.Users;
+import com.project.bit.foo.domain.UsersPrincipal;
 import com.project.bit.foo.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,20 +43,23 @@ public class MyPageController {
 
 	@GetMapping("/myPage")
 	public String myPage(Principal principal, Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(authentication.getAuthorities());
 		model.addAttribute("user", userService.selectUser(principal.getName()));
+		System.out.println(userService.selectUser(principal.getName()));
 		return "myPage/myPage";
 	}
 
 	@PostMapping("/updateUser")
 	public String updateUser(Users user, Principal principal) {
 		userService.updateUser(user, principal.getName());
+		Users principal2 = userService.selectUserById(principal.getName());
+		UsersPrincipal usersPrincipal = new UsersPrincipal(principal2);
+		Authentication auth = new UsernamePasswordAuthenticationToken(usersPrincipal, usersPrincipal.getUsername(), usersPrincipal.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(auth);
 		return "redirect:/myPage";
 	}
 
 	@PostMapping("/uploadImg")
-	public String uploadImg(Model model, @RequestParam("files") MultipartFile files, Principal principal, Users user) {
+	public String uploadImg(@RequestParam("files") MultipartFile files, Principal principal, Users user, SecurityContextHolder  session) {
 		MultipartFile file = files;
 		Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
 		log.info(uploadDirectory);
@@ -58,7 +70,10 @@ public class MyPageController {
 		}
 		user.setUserPhoto("/img/"+file.getOriginalFilename());
 		userService.updateUserPoto(user, principal.getName());
-
+		Users principal2 = userService.selectUserById(principal.getName());
+		UsersPrincipal usersPrincipal = new UsersPrincipal(principal2);
+		Authentication auth = new UsernamePasswordAuthenticationToken(usersPrincipal, usersPrincipal.getUsername(), usersPrincipal.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(auth);
 		return "redirect:/myPage";
 		
 	}

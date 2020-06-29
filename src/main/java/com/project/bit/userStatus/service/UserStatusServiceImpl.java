@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import com.project.bit.approval.domain.Criteria;
 import com.project.bit.userStatus.domain.UserStatusVO;
 import com.project.bit.userStatus.mapper.UserStatusMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-
 
 @Log
 @Service
