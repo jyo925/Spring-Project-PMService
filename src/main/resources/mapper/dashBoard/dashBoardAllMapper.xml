@@ -47,5 +47,13 @@
 		GROUP BY to_char(p.project_finish, 'yyyy-MM')
 		ORDER BY to_char(p.project_finish, 'yyyy-MM')
     </select>
+    <select id="selectProjectAllType" resultType="com.project.bit.dashBoard.domain.ProjectTypeCountVO">
+    	SELECT
+			count(p.project_typeCode) as project_type_account,
+			pt.project_type as project_type_name
+		FROM projects p 
+			INNER JOIN project_types pt ON p.project_typeCode = pt.project_typeCode
+		GROUP BY (p.project_typeCode, pt.project_type)
+    </select>
 
 </mapper>

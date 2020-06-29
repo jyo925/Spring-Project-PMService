@@ -56,4 +56,9 @@ public class ResponseProjectController {
 	public int putProject(@PathVariable String projectCode, ProjectDTO projectDTO) {
 		return projectService.putProject(projectDTO);
 	}
+	
+	@GetMapping("/subName/check")
+	public int checkProject(String subName) {
+		return projectService.checkProjectSubName(subName);
+	}
 }
