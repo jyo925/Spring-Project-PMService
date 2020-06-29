@@ -1,6 +1,7 @@
 $(function(){
 	dropDownEvent();
 	insertProject();
+	deleteProject();
 })
 
 function dropDownEvent(){
@@ -81,5 +82,14 @@ function insertProject(){
 		}).fail(function(){
 			alert('다시 입력해주세요')
 		})
+	})
+}
+
+function deleteProject(){
+	$('#delete_btn').on('click', function(){
+		var result = confirm('삭제하시겠습니까?');
+		if(result) {
+			location.href = "/projectDelete/" + $('#projectCode').val();
+		}
 	})
 }

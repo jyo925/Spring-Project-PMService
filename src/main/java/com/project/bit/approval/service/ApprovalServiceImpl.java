@@ -30,7 +30,7 @@ public class ApprovalServiceImpl implements ApprovalService {
         for(ApproverVO approver : apMapper.selectApproverList(path, userId)){
             //결재선에 자기가 결재자로 들어가면 삭제
             if(approver.getUserId().equals(userId)){
-                log.info(approver.getUserId() + " == " + userId);
+//                log.info(approver.getUserId() + " == " + userId);
                 continue;
             }
             if(dutyName.indexOf(userDutyName)>dutyName.indexOf(approver.getDutyName())){
@@ -43,11 +43,8 @@ public class ApprovalServiceImpl implements ApprovalService {
         //그래도 없으면 두단계 윗직급 불러오는지?
         if(approvers.size() == 0){
             approvers.add(apMapper.selectSuperiorApprover(userId));
-            log.info("추가된 상위 결재자 정보: "+ apMapper.selectSuperiorApprover(userId));
+//            log.info("추가된 상위 결재자 정보: "+ apMapper.selectSuperiorApprover(userId));
         }
-
-
-
         return approvers;
     }
 

@@ -28,6 +28,8 @@ $(function(){
     }).fail(function(){
         alert('chart fail!!')
     })
+    
+    
 })
 
 function drawTaskChart(status){

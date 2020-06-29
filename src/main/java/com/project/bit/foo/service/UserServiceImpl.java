@@ -1,7 +1,6 @@
 package com.project.bit.foo.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.bit.foo.domain.Users;
 import com.project.bit.foo.mapper.UserMapper;
+import com.project.bit.project.mapper.ProjectMemberMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired private ProjectMemberMapper projectMemberMapper;
 
 	public UserServiceImpl() {
 		
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Users> selectUserByTeam(int teamCode) {
 		// TODO Auto-generated method stub
+		if(teamCode == 0) return projectMemberMapper.selectUserNoMember();
 		return userMapper.selectUserByTeam(teamCode);
 	}
 

@@ -6,6 +6,20 @@
 <title id="pageTitle">새 결재 작성</title>
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+    <style>
+        label {
+            float: right;
+        }
+        .col-xs-1 {
+            /*background-color: whitesmoke;*/
+            /*background-color: #EDF8FA;*/
+            background-color: #E3ECF3;
+        }
+        .col-form-label{
+            font-weight: bold;
+        }
+
+    </style>
 
 </th:block>
 
@@ -38,27 +52,30 @@
                     <form th:action="@{/approval/postApDoc}" method="post" role="form">
                         <div class="form-group row">
                             <div class="col-lg-9">
-                                <h2 class="card-title" th:text="${form.getApFormName()}" readonly style="margin-top: 5px;"></h2>
+                                <h2 class="card-title" th:text="${form.getApFormName()}" readonly
+                                    style="margin-top: 5px;"></h2>
                             </div>
 
                             <div class="col-lg-3" style="padding-left: 30px; padding-right: 0px;">
                                 <th:block th:if="${approvers} != null">
-                                    <table class="" border="1px" style="table-layout: fixed; box-sizing: border-box;
-                                border-color: #f4f4f4; text-align: center; float: left;">
+                                    <table border="1px" style="table-layout: fixed; box-sizing: border-box;
+                                border-color: silver; text-align: center; float: left;">
                                         <thead>
                                         <tr>
-                                            <td rules="none" width="25px"
+                                            <td rules="none" width="28px"
                                                 style="background-color:#e6e9ed; border-bottom-color:#e6e9ed">결
                                             </td>
                                             <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                                <th class="table-primary" width="70px"
-                                                    th:text="${approvers.get(i).getDutyName()}"></th>
+                                                <!--class="table-primary" -->
+                                                <th width="70px" style="color: black;padding: 3px;"
+                                                    th:text="${approvers.get(i).getDutyName()}">
+                                                </th>
                                             </th:block>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td rules="none" width="25px"
+                                            <td rules="none" width="28px"
                                                 style="background-color:#e6e9ed; border-bottom-color:#e6e9ed">재
                                             </td>
                                             <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
@@ -67,9 +84,9 @@
                                             </th:block>
                                         </tr>
                                         <tr>
-                                            <td rules="none" width="25px" style="background-color:#e6e9ed;">선</td>
+                                            <td rules="none" width="28px" style="background-color:#e6e9ed;">선</td>
                                             <th:block th:each="i : ${#numbers.sequence( 0, approvers.size()-1)}">
-                                                <td width="70px" style="background-color:#e6e9ed;">미결</td>
+                                                <td width="70px" style="padding: 3px;">미결</td>
                                             </th:block>
                                         </tr>
                                         </tbody>
@@ -78,51 +95,51 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">제목</label>
                             </div>
-                            <div class="col-lg-8">
-                                <input class="form-control" maxlength="100" name="apDocTitle" type="text"
+                            <div class="col-xs-8 col-lg-8">
+                                <input class="form-control" maxlength="20" name="apDocTitle" type="text"
                                        id="apDocTitle"
                                        placeholder="제목을 입력하세요.">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">기안자</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <input class="form-control" maxlength="100" name="apDocWriter" hidden="hidden"
                                        th:value="${#authentication.name}" type="text" readonly>
                                 <input class="form-control" maxlength="100" name="apDocWriterName"
-                                       th:value="${writer.userName}" type="text" readonly>
+                                       th:value="${writer.userName}" type="text" readonly style="background-color: white;">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">프로젝트</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <input class="form-control" maxlength="100" name="apDocProjectName"
-                                       th:value="${writer.projectName}" type="text" readonly>
+                                       th:value="${writer.projectName}" type="text" readonly style="background-color: white;">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">참조자</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <div class="row">
                                     <div class="col-10 col">
                                         <input class="form-control" maxlength="200" name="apReferrers" type="text"
-                                               placeholder="참조자를 선택하세요." readonly>
+                                               placeholder="참조자를 선택하세요." readonly style="background-color: white;">
                                         <input name="apReferrersId" type="text" value=" " hidden>
 
                                     </div>
-                                    <div class="col-2 col" >
-                                        <button type="button" id="selectReferrers" class="btn btn-primary btn"
+                                    <div class="col-2 col">
+                                        <button type="button" id="selectReferrers" class="btn btn-inverse-dark btn-sm"
                                                 data-toggle="modal"
-                                                data-target="#exampleModal" data-whatever="@mdo" >선택
+                                                data-target="#exampleModal" data-whatever="@mdo">+
                                         </button>
                                     </div>
                                 </div>
@@ -130,47 +147,43 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-lg-1">
+                            <div class="col-xs-1 col-lg-1">
                                 <label class="col-form-label">첨부파일</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xs-8 col-lg-8">
                                 <input class="form-control" maxlength="100" name="apFiles" type="file" multiple
-                                       readonly>
+                                       readonly style="background-color: white;">
                                 <div class="uploadResult">
                                     <ul>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-lg-1">
-                                <label class="col-form-label" name="dateFormName">휴가 일자</label>
-                            </div>
-                            <div class="col-lg-8">
-                                <input type="date" class="form-control" name="apExecutionDate">
-                            </div>
+                        <div class="form-group row" id="excutionDateForm">
                         </div>
-                        <br>
-                        <label class="col-form-label">문서 내용</label>
-                        <div class="document-editor">
-                            <div class="document-editor__toolbar"></div>
-                            <div class="document-editor__editable-container">
-                                <div class="document-editor__editable" name="editor1">
+                        <div class="form-group row">
+                            <div class="col-xs-1 col-lg-1">
+                                <label class="col-form-label">문서내용</label>
+                            </div>
+                            <div class="col-xs-8 col-lg-8">
+                                <div class="document-editor">
+                                    <div class="document-editor__toolbar"></div>
+                                    <div class="document-editor__editable-container">
+                                        <div class="document-editor__editable" name="editor1">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <input type="hidden" name="apFormNo" th:value="${form.getApFormNo()}">
                         <input type="hidden" name="apDocContent" id="formData" th:value="${form.getApFormContent()}">
                         <input type="hidden" th:value="${approvers}" id="approvers"><br>
-
                         <button type="button" id="cancel" onclick="location.href = '/approval/apMain'"
                                 class="btn btn-inverse-dark btn-fw" style="float: right; margin-left: 15px">취소
                         </button>
                         <button type="submit" id="request" class="btn btn-success btn-fw"
                                 style="float: right; margin-left: 15px">결재 요청
                         </button>
-
-
                     </form>
 
                     <!-- 모달 -->
@@ -178,7 +191,7 @@
                          aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
+                                <div class="modal-header" style="padding: 15px;">
                                     <h4 class="modal-title" id="exampleModalLabel">참조자 지정</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
@@ -189,34 +202,40 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <label for="message-text" class="col-form-label">참조자 정보</label>
-                                                    <div class="col-sm-6">
-                                                        <!-- 참조자 리스트 -->
-                                                        <ul id="browser" class="filetree treeview"
-                                                            style="width: 200px;">
-                                                            <li th:each="team: ${teams}" class="closed expandable">
-                                                                <div class="hitarea closed-hitarea expandable-hitarea"></div>
-                                                                <span class="folder" th:text="${team}"></span>
-                                                                <ul style="display: block;">
-                                                                    <th:block th:each="referrer:${referrers}"
-                                                                              th:if="${team}==${referrer.teamName}">
-                                                                        <li class="last">
+                                                    <div class="row">
+                                                        <label class="col-form-label"><h5 style="margin-bottom: 0px;margin-left: 20px;">참조자 정보</h5></label></div>
+                                                    <div class="card" style=" height: 80%;">
+                                                        <div class="card-body">
+                                                            <!-- 참조자 리스트 -->
+                                                            <ul id="browser" class="filetree treeview"
+                                                                style="width: 200px;">
+                                                                <li th:each="team: ${teams}" class="closed expandable">
+                                                                    <div class="hitarea closed-hitarea expandable-hitarea"></div>
+                                                                    <span class="folder" th:text="${team}"></span>
+                                                                    <ul style="display: block;">
+                                                                        <th:block th:each="referrer:${referrers}"
+                                                                                  th:if="${team}==${referrer.teamName}">
+                                                                            <li class="last">
                                                                             <span hidden="hidden"
                                                                                   th:text="${referrer.userId}"></span>
-                                                                            <span class="file"
-                                                                                  th:text="${referrer.userName}+' '+${referrer.positionName}"></span>
-                                                                        </li>
-                                                                    </th:block>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
+                                                                                <span class="file"
+                                                                                      th:text="${referrer.userName}+' '+${referrer.positionName}"></span>
+                                                                            </li>
+                                                                        </th:block>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <label for="message-text" class="col-form-label">선택된 참조자</label>
-                                                    <div class="col-sm-6" id="selectedRefer">
-                                                        <ul>
-                                                        </ul>
+                                                    <div class="row">
+                                                        <label class="col-form-label"><h5 style="margin-bottom: 0px;margin-left: 20px;">선택된 참조자</h5></label></div>
+                                                    <div class="card" style=" height: 80%;">
+                                                        <div class="card-body" id="selectedRefer">
+                                                            <ul>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,14 +251,12 @@
                             </div>
                         </div>
                     </div><!-- 모달 end -->
-
                     <div id="js-legend" class="chartjs-legend mt-4 mb-5"></div>
                 </div> <!--card body end-->
             </div>
         </div>
 
         <script>
-            //에디터 띄우기
             CKEDITOR.replace(document.querySelector('.document-editor__editable'), {
                 toolbar: [
                     {
@@ -267,8 +284,6 @@
                         groups: ['list', 'indent', 'blocks', 'align', 'bidi'],
                         items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
                     },
-                    // {name: 'links', items: ['Link', 'Unlink', 'Anchor']},
-                    // {name: 'insert', items: ['Image', 'Flash', 'Table', 'HorizontalRule']},
                     {name: 'insert', items: ['Table', 'HorizontalRule']},
                     {name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize']},
                     {name: 'colors', items: ['TextColor', 'BGColor']},
@@ -276,7 +291,7 @@
                     {name: 'others', items: ['-']},
                     {name: 'about', items: ['About']}
                 ],
-                width: '75%',
+                width: '100%',
                 height: '400px',
                 startupFocus: false
             });
@@ -284,16 +299,38 @@
             var formData = document.querySelector('#formData').value;
             CKEDITOR.instances.editor1.setData(formData);
 
-
             $(document).ready(function (e) {
 
-                //참조자 모달 관련 ///////////////////////////////////////////////////////////////
+                //결재 요청 후 뒤로가기 방지 ---> 미해결
+                // window.history.pushState(null, null, location.href);
+                // window.history.pushState(null, null, "/approval/apMain");
+                // window.onpopstate = function (){
+                //     location.href="/approval/apMain";
+                //     history.go(1);
+                // };
+
+                var formType = $("input[name='apFormNo']").val();
+                if(formType =='1' || formType=='2' || formType=='3'){
+                    $('#excutionDateForm').html("" +
+                        "                            <div class='col-xs-1 col-lg-1'>\n" +
+                        "                                <label class='col-form-label' name='dateFormName'>적용기간</label>\n" +
+                        "                            </div>\n" +
+                        "                            <div class='col-xs-3 col-lg-3'>\n" +
+                        "                                <input type='date' class='form-control' name='apStartDate'>\n" +
+                        "                            </div>\n" +
+                        "                            -\n" +
+                        "                            <div class='col-xs-3 col-lg-3'>\n" +
+                        "                                <input type='date' class='form-control' name='apEndDate'>\n" +
+                        "                            </div>");
+                }
+
+                //----------------------참조자 모달 관련----------------------
                 $("#browser").treeview();
 
                 $('#browser li ul li').hover(function () {
-                    $(this).children().css('color', 'red');
+                    $(this).children().css('background-color', 'rgba(0,0,0,0.1)');
                 }, function () {
-                    $(this).children().css('color', 'black');
+                    $(this).children().css('background-color', '');
                 });
 
                 //선택된 참조자 클릭시 참조 목록에서 제외
@@ -302,8 +339,8 @@
 
                     selectedReferArr.splice(indexId, 1);
                     selectedReferNameArr.splice(indexId, 1);
-                    console.log("id배열:  " + selectedReferArr);
-                    console.log("name배열:  " + selectedReferNameArr);
+                    // console.log("id배열:  " + selectedReferArr);
+                    // console.log("name배열:  " + selectedReferNameArr);
                     e.preventDefault();
                     $(this).remove();
                 });
@@ -327,9 +364,10 @@
                         confirm("이미 선택된 참조자입니다.");
                     }
                     $('#selectedRefer ul li').hover(function () {
-                        $(this).css('color', 'red');
+
+                        $(this).css('background-color', 'rgba(0,0,0,0.1)');
                     }, function () {
-                        $(this).css('color', 'black');
+                        $(this).css('background-color', '');
                     });
 
                 });
@@ -337,12 +375,7 @@
                 $('#referrersApply').on('click', function (e) {
                     $("input[name='apReferrers']").val(selectedReferNameArr);
                     $("input[name='apReferrersId']").val(selectedReferArr); //input hidden controller로 id 전송
-                    console.log($("input[name='apReferrersId']").val());
                 });
-
-                //선택 버튼 누를 경우 참조자 배열, input 란 초기화 굳이?
-                // $('#selectReferrers').on('click', function (e) {
-                // });
 
 
                 //---------------------결재 요청 클릭시 ----------------------
@@ -353,30 +386,48 @@
 
                     //1. 변경된 문서내용으로 업데이트
                     var updateFormData = CKEDITOR.instances.editor1.getData();
-                    //console.log(updateFormData);
                     $("#formData").val(updateFormData);
+
+                    if (formData == updateFormData) {
+                        alert("내용을 입력해주세요.");
+                        return;
+                    }
 
                     //2. 입력란 유효성 검사
                     var apDocTitle = $("#apDocTitle");
                     var apDocContent = $("#apDocContent");
-                    console.log(apDocTitle.val());
 
                     if (apDocTitle.val() == "") {
-                        alert("제목을 입력해 주세요");
+                        alert("제목을 입력하세요.");
                         apDocTitle.focus();
-                        return false;
+
                     }
                     if (apDocContent.val() == "" || apDocContent.val() == formData) {
-                        alert("내용을 입력해 주세요");
+                        alert("내용을 입력하세요.");
                         apDocContent.focus();
-                        return false;
+                        return;
+                    }
+
+                    if(formType =='1' || formType=='2' || formType=='3'){
+
+                        if($("input[name='apStartDate']").val() == "" || $("input[name='apEndDate']").val() == ""){
+                            alert("날짜를 선택하세요.");
+                            return;
+                        }
+                        // var d1 = new Date($("input[name='apStartDate']").val());
+                        // var d2 = new Date($("input[name='apEndDate']").val());
+                        // console.log( d1 <= d2 );
+
+                        if($("input[name='apStartDate']").val()>$("input[name='apEndDate']").val()){
+                            alert("시작 일자가 종료 일자보다 늦습니다. 날짜를 다시 선택하세요.");
+                            return;
+                        }
                     }
 
                     var answer = confirm("결재 요청하시겠습니까?");
                     if (answer != true) {
-                        console.log("취소");
                         return;
-                    }else {
+                    } else {
                         //첨부파일 관련//////////////////////////////////////////////////////////////////////
                         //첨부파일 formObj에 추가하여 controller로 전송
                         var str = "";
@@ -408,16 +459,11 @@
                                             .data("type")
                                         + "'>";
                                 });
-
-                        console.log(str);
                         formObj.append(str).submit();
                     }
-
-
-
                 });
 
-
+                //-------------------------첨부파일 관련 ---------------------------------
                 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
                 var maxSize = 5242880; //5MB
 
@@ -440,12 +486,10 @@
                         function (e) {
 
                             var fileFormData = new FormData();
-
                             var inputFile = $("input[name='apFiles']");
-
                             var files = inputFile[0].files;
 
-                            console.log(files);
+                            // console.log(files);
 
                             for (var i = 0; i < files.length; i++) {
                                 if (!checkExtension( //파일사이즈 체크해서 못하게 수정해야함
@@ -461,10 +505,6 @@
                                 url: '/approval/uploadAjaxAction',
                                 processData: false,
                                 contentType: false,
-                                // beforeSend:function(xhr){
-                                //     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                                //     console.log(xhr);
-                                // },
                                 data: fileFormData,
                                 type: 'POST',
                                 dataType: 'json',
@@ -488,26 +528,44 @@
                         .each(
                             function (i, obj) {
 
-                                var fileCallPath = encodeURIComponent(obj.apFilePath
-                                    + "/"
-                                    + obj.apFileUuid
-                                    + "_"
-                                    + obj.apFileName);
-                                var fileLink = fileCallPath
-                                    .replace(
-                                        new RegExp(
-                                            /\\/g),
-                                        "/");
+                                //이미지 파일인 경우
+                                if (obj.apFileType == 'image') {
 
-                                str += "<li style='list-style:none'"
-                                str += "data-path='" + obj.apFilePath + "' data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='" + "file" + "' >";
-                                str += "<div style='padding-top: 5px;'><i class='fa fa-file-o'></i><span> "
-                                    + obj.apFileName
-                                    + "</span> &nbsp";
-                                str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' "
-                                str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete<br>";
-                                str += "</a></div></li>";
+                                    var fileCallPath = encodeURIComponent(obj.apFilePath
+                                        + "/s_"
+                                        + obj.apFileUuid
+                                        + "_"
+                                        + obj.apFileName);
 
+                                    str += "<li style='list-style:none' data-path='" + obj.apFilePath + "'";
+                                    str += " data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='image'" + ">";
+                                    str += "<div style='padding-top: 5px;'><i class='fa fa-file-image-o'></i>&nbsp;&nbsp;<span>" + obj.apFileName + "</span>&nbsp;&nbsp;";
+                                    str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='image' ";
+                                    str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete</button><br>";
+                                    str += "<img src='/approval/display?fileName=" + fileCallPath;
+                                    str += "'></div></li>";
+
+                                } else {
+                                    var fileCallPath = encodeURIComponent(obj.apFilePath
+                                        + "/"
+                                        + obj.apFileUuid
+                                        + "_"
+                                        + obj.apFileName);
+                                    var fileLink = fileCallPath
+                                        .replace(
+                                            new RegExp(
+                                                /\\/g),
+                                            "/");
+
+                                    str += "<li style='list-style:none'"
+                                    str += "data-path='" + obj.apFilePath + "' data-uuid='" + obj.apFileUuid + "' data-filename='" + obj.apFileName + "' data-type='" + "file" + "' >";
+                                    str += "<div style='padding-top: 5px;'><i class='fa fa-file-o'></i>&nbsp;&nbsp;<span>"
+                                        + obj.apFileName
+                                        + "</span> &nbsp;&nbsp;";
+                                    str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file' "
+                                    str += "class='btn btn-secondary btn-xs'><i class='mdi mdi-delete'></i>Delete<br>";
+                                    str += "</a></div></li>";
+                                }
                             });
 
                     uploadUL.append(str);
@@ -528,9 +586,6 @@
                             fileName: targetFile,
                             type: type
                         },
-                        // beforeSend:function(xhr){
-                        //     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                        // },
                         dataType: 'text',
                         type: 'POST',
                         success: function (result) {
@@ -539,19 +594,6 @@
                         }
                     }); //ajax end
                 });
-
-                //////////////////////////////////////////////////////////////////////////////
-
-                var formType = $("input[name='apFormNo']").val();
-                switch (formType) {
-                    case '2':
-                        // $("input[name='apExecutionDate']").hidden;
-                        break;
-                    default :
-                        $("label[name='dateFormName']").hide();
-                        $("input[name='apExecutionDate']").hide();
-                }
-
             });//end
         </script>
 

@@ -7,12 +7,12 @@
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<link rel="stylesheet" href="/css/project/projectDetail.css">
+	<link rel="stylesheet" href="/css/project/projectInsert.css">
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-	<script th:inline="javascript" src="/js/project/projectDetail.js"></script>
+	<script th:inline="javascript" src="/js/project/projectInsert.js"></script>
 </th:block>
 
 <div layout:fragment="content">
@@ -26,42 +26,53 @@
 					<hr>
 
 					<!-- form START -->
-					<form action="#" th:action="@{/projectInsert}" th:object="${projectDTO}" method="POST">
+					<form id="project-insert-form" th:action="@{/projectInsert}" th:object="${projectDTO}" method="POST">
 						<div>
-							<input type="text" th:field="*{projectName}" placeholder="프로젝트명" style="width: 70%;">
-							<div style="margin-top: 5px;">
-								<input type="text" th:field="*{projectSubName}" placeholder="프로젝트약어">
-							</div>
+							<input id="project-name" type="text" th:field="*{projectName}" placeholder="프로젝트명" style="width: 50%; margin-bottom: 20px;" required="required">
+							<div></div>
+							
+							<input id="project-subName" type="text" th:field="*{projectSubName}" placeholder="프로젝트약어" required="required"> 
+							<span class="project-reg-text" id="project-subName-div"></span>
+							<h6 class="reg-text" style="margin-top: 5px;">
+								영어 대문자 3~4 글자
+							</h6>
 						</div>
 
 						<div style="margin-top: 10px;">
 							<h5>개발 형태</h5>
-							<select th:field="*{projectTypeCode}">
+							<select id="project-type" th:field="*{projectTypeCode}" style="margin-bottom: 20px;" required="required">
 								<option value="">개발 형태</option>
 								<option th:each="projectType : ${projectTypeList}"
 									th:value="${projectType.projectTypeCode}"
 									th:text="${projectType.projectType}"></option>
 							</select>
-							<input type="date" th:field="*{projectStart}">
-							<input type="date" th:field="*{projectFinish}">
+							<span class="project-reg-text" id="project-type-span"></span> <br>
+							
+							<input id="project-start" type="date" th:field="*{projectStart}" required="required">
+							<span class="project-reg-text" id="project-start-span"></span>
+							
+							<input id="project-finish" type="date" th:field="*{projectFinish}" required="required">
+							<span class="project-reg-text" id="project-finish-span"></span>
+							
 						</div>
 
-						<div style="margin-top: 10px;">
+						<div class="project-pm" style="margin-top: 10px;">
 							<h5>PM</h5>
 							<select th:id="pmTeamChoice">
-								<option value="">부서</option>
+								<option value="0">부서</option>
 								<option th:each="team : ${teamList}" th:value="${team.teamCode}"
 									th:text="${team.teamName}"></option>
 							</select> 
-							<select th:id="pmIdChoice" th:field="*{projectPm}">
+							<select th:id="pmIdChoice" th:field="*{projectPm}" required="required">
 								<option value="">아이디</option>
 								<option th:each="user : ${userList}" th:value="${user.userId}"
 									th:text="${user.userName} + ' : ' + ${user.userId}"></option>
 							</select>
+							<span class="project-reg-text" id="project-pm-span"></span>
 
 							<h5>PMO</h5>
 							<select th:id="pmoTeamChoice">
-								<option value="">부서</option>
+								<option value="0">부서</option>
 								<option th:each="dept : ${teamList}" th:value="${dept.teamCode}"
 									th:text="${dept.teamName}"></option>
 							</select> 
@@ -79,16 +90,17 @@
 						</div>
 						
 						<div>
-							<select th:id="projectStatusChoice" th:field="*{projectStatusCode}">
+							<select th:id="projectStatusChoice" th:field="*{projectStatusCode}" required="required">
 								<option value=""> 상태  </option>
 								<option th:each="status : ${projectStatus}" 
 									th:value="${status.projectStatusCode}"
 									th:text="${status.projectStatus}"></option>
 							</select>
+							<span class="project-reg-text" id="project-status-span"></span>
 						</div>
 
 						<div style="margin-top: 20px;">
-							<button id="insert_btn" type="submit" onclick="alert('등록되었습니다.')">저장</button>
+							<button id="insert_btn" type="submit">저장</button>
 							<button type="button" onclick="location.href='/projectList'">취소</button>
 						</div>
 					</form>

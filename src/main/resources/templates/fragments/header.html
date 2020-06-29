@@ -169,6 +169,7 @@
             </button>
         </div>
     </nav>
+
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <div class="row row-offcanvas row-offcanvas-right">
@@ -207,11 +208,12 @@
                     <li class="nav-item nav-profile mt-4">
                         <div class="nav-link">
                             <div class="profile-image">
-                                <img  alt="image" class="bg-success">
+                                <img th:if="${#authentication.Principal.Users.userPhoto != null}" th:src="${#authentication.principal.Users.userPhoto}" class="bg-success">
+                                <img th:if="${#authentication.Principal.Users.userPhoto == null}" src="/img/user.png" class="bg-success">
                             </div>
                             <div class="profile-name">
-                                <p class="name" th:text="${#authentication.principal.Users.userName}"></p>
-                                <p class="designation" th:text="${#authentication.principal.Users.dutyName}">Developer</p>
+                                <p class="name" th:text="${#authentication.Principal.Users.userName}"></p>
+                                <p class="designation" th:text="${#authentication.Principal.Users.dutyName}">Developer</p>
                             </div>
                         </div>
                     </li>
@@ -245,9 +247,9 @@
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="/projectList">프로젝트 센터</a></li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                                          href="#">프로젝트 산출물</a></li>
+                                                                          href="/files">File upload</a></li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                                          href="#">프로젝트 작업 승인</a></li>
+                                                                          href="#">프로젝트 산출물</a></li>
                             </ul>
                         </div>
                     </li>
@@ -273,7 +275,7 @@
                         <div class="collapse" id="defaultWork-nav">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                                          href="/files">이슈관리</a></li>
+                                                                          href="#">이슈관리</a></li>
                             </ul>
                         </div>
                     </li>
@@ -295,8 +297,6 @@
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="/approval/getApEndList">결재완료함</a>
                                 </li>
-                                <li class="nav-item d-none d-lg-block"><a class="nav-link"
-                                                                          href="/approval/getApTempList">임시저장함</a></li>
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                                                           href="/approval/getReferenceList">참조문서함</a>
                                 </li>
@@ -327,4 +327,6 @@
                 </ul>
             </nav>
             <div class="content-wrapper">
+                <div id="socketAlert" class="alert alert-success" role="alert" style="display: none;"></div>
+
 </html>

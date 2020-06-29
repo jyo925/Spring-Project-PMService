@@ -32,17 +32,21 @@ public class ApprovalController {
     //새 결재 작성하기
     @GetMapping("/apMain")
     public String apMain(Criteria cri, Principal principal, Model model) {
-        //결재 문서별 개수 조회
         model.addAttribute("apDocCount", apDocService.getApDocCount(principal.getName()));
         return "approval/apMain";
     }
 
     //새 결재 작성화면으로 이동
     @GetMapping("/goNewApDoc")
-    public String goNewApDoc(@RequestParam("apFormNo") String apFormNo, Principal principal, Model model, RedirectAttributes rttr) {
+    public String goNewApDoc(String apFormNo, Principal principal, Model model, RedirectAttributes rttr) {
 
+        List<ApproverVO> approvers = apService.getApproverList(apFormNo, principal.getName());
+        if(approvers.get(0) == null){
+            rttr.addFlashAttribute("notApprovers", "상위 결재자가 없습니다. Admin에게 문의 바랍니다.");
+            return "redirect:/approval/apMain";
+        }
+        model.addAttribute("approvers", approvers);
         model.addAttribute("form", apDocService.getApForm(apFormNo));
-        model.addAttribute("approvers", apService.getApproverList(apFormNo, principal.getName()));
         model.addAttribute("writer", apDocService.getApDocWriterInfo(principal.getName()));
 
         List<String> teamList = new ArrayList<>();
@@ -52,7 +56,6 @@ public class ApprovalController {
                 teamList.add(referrerVO.get(i).getTeamName());
             }
         }
-        //참조자 리스트 정보 추가
         model.addAttribute("teams", teamList);
         model.addAttribute("referrers", referrerVO);
 
@@ -61,103 +64,99 @@ public class ApprovalController {
 
     //결재 요청(등록)
     @PostMapping("/postApDoc")
-    public String postApDoc(ApDocDTO apDocDTO, ApFileDTO apFileDTO, Model model, Principal principal, String apReferrersId) {
+    public String postApDoc(ApDocDTO apDocDTO, ApFileDTO apFileDTO,
+                            Model model, Principal principal, String apReferrersId, ApDateDTO apDateDTO) {
 
-        //임시서장 시 문서상태를 3으로 변경하여 첫번째 결재자가 결재하거나 결재리스트에 뜨는 일이 없도록////////////////////////////////////////////
+        log.info("새 결재 문서 등록: " + apDocService.postApDoc(apDocDTO));
 
-        //결재문서 등록
-        log.info("새 결재 문서 등록 결과: " + apDocService.postApDoc(apDocDTO));
-
-        //등록된 결재문서 번호 조회... -> 결재선, 참조자, 첨부파일 등록
         long apDocNo = apDocService.getNewApDocNo(apDocDTO);
 
-        //결재선 정보 등록
         log.info("결재자 등록 수: " +
                 apService.postApprovers(
                         apService.getApproverList("" + apDocDTO.getApFormNo(), principal.getName()), apDocNo));
 
-        //첨부파일 등록
         if (!(apFileDTO.getApFileName() == null)) {
             apFileDTO.setApDocNo(apDocNo);
             apDocService.postApDocFiles(apFileDTO);
         }
-        //참조자 등록
         if (!apReferrersId.equals(" ")) {
             apDocService.postApDocReferrers(apDocNo, apReferrersId);
         }
+        if(apDateDTO.getApStartDate() != null && apDateDTO.getApEndDate() != null){
+            apDateDTO.setApDocNo(apDocNo);
+            apDocService.postApDocTerm(apDateDTO);
+        }
 
-        int lastPage = ((apDocService.getApDocCount(principal.getName()).get(0))-1)/10+1;
 
-        return "redirect:/approval/getApProgressList?pageNum="+lastPage;
-//        return "redirect:/approval/getApProgressList";
+        //int lastPage = ((apDocService.getApDocCount(principal.getName()).get(0))-1)/10+1;
+//        return "redirect:/approval/getApProgressList?pageNum="+lastPage;
+        return "redirect:/approval/apMain";
     }
 
     //결재 진행함 조회
     @GetMapping("/getApProgressList")
     public String getApProgressList(Criteria cri, Principal principal, Model model) {
-        model.addAttribute("apProgressList", apDocService.getApProgressList(principal.getName(), cri));
+        model.addAttribute("apDocListTypeName", "결재 진행함");
+        model.addAttribute("apDocList", apDocService.getApProgressList(principal.getName(), cri));
         model.addAttribute("pageMaker", new PageDTO(cri, apDocService.getApDocCount(principal.getName()).get(0)));
-        return "approval/approvalProgress";
+        return "approval/approvalDocList_1";
     }
 
     //결재 대기함 조회
     @GetMapping("/getApCheckList")
     public String getApCheckList(Criteria cri, Principal principal, Model model) {
-        model.addAttribute("apCheckList", apDocService.getApCheckList(principal.getName(), cri));
+        model.addAttribute("apDocListTypeName", "결재 대기 문서");
+        model.addAttribute("apDocList", apDocService.getApCheckList(principal.getName(), cri));
         model.addAttribute("pageMaker", new PageDTO(cri, apDocService.getApDocCount(principal.getName()).get(1)));
-        return "approval/approvalCheck";
-    }
-
-    //임시저장함 조회
-    @GetMapping("/getApTempList")
-    public String getApTempList(Criteria cri, Principal principal, Model model) {
-        return "approval/approvalTemp";
+        return "approval/approvalDocList_1";
     }
 
     //참조문서함 조회
     @GetMapping("/getReferenceList")
     public String getReferenceList(Criteria cri, Principal principal, Model model) {
-        model.addAttribute("apReferList", apDocService.getApReferList(principal.getName(), cri));
+        model.addAttribute("apDocListTypeName", "참조 문서함");
+        model.addAttribute("apDocList", apDocService.getApReferList(principal.getName(), cri));
         model.addAttribute("pageMaker", new PageDTO(cri, apDocService.getApReferDocCount(principal.getName())));
-        return "approval/approvalReference";
+        return "approval/approvalDocList_2";
     }
 
     //결재완료함 조회
     @GetMapping("/getApEndList")
     public String getApEndList(Criteria cri, Principal principal, Model model) {
-        model.addAttribute("apCompleteList", apDocService.getApCompleteList(principal.getName(), cri));
+        model.addAttribute("apDocListTypeName", "결재 완료함");
+        model.addAttribute("apDocList", apDocService.getApCompleteList(principal.getName(), cri));
         model.addAttribute("pageMaker", new PageDTO(cri, apDocService.getApCompleteDocCount(principal.getName())));
-        return "approval/approvalComplete";
+        return "approval/approvalDocList_2";
     }
 
     //결재문서 상세조회
     @GetMapping("/getApDoc")
-    public String getApDoc(@RequestParam("apDocNo") String apDocNo, Model model, Principal principal) {
+    public String getApDoc(String apDocNo, Model model, Principal principal) {
 
         //조회 권한 체크
         if (!apDocService.getApDocViewableUsers(apDocNo).contains(principal.getName())) {
             return "redirect:apMain"; //임시로, 추후 안내페이지 이동하거나...///////////////////////
         }
-        //해당 결재문서 데이터 조회
         ApDocDTO apDocData = apDocService.getApDoc(apDocNo);
         model.addAttribute("apDocData", apDocData);
 
-        //결재문서에 대한 결재자 및 결재 정보 조회
         List<ApDTO> approvalData = apService.getApprovalList(apDocNo);
         model.addAttribute("approvalData", approvalData);
 
         //만약 조회자=결재자 ===> 승인/반려 처리할 수 있도록 따로 값을 추가로 전달
-        for (ApDTO approver : approvalData
-        ) {
+        for (ApDTO approver : approvalData){
             if ((approver.getApApprover().equals(principal.getName())) &&
-                    apDocData.getApDocStep() == approver.getApStep()
-            ) {
+                    apDocData.getApDocStep() == approver.getApStep()){
                 model.addAttribute("checkApprover", true);
             }
         }
-        //참조자 불러오기
         model.addAttribute("apReferrers", apDocService.getApDocReferrers(apDocNo));
-
+        
+        long formNo = apDocData.getApFormNo();
+        if(formNo == 1 || formNo == 2 || formNo == 3){
+            //날짜 데이터 가져오기
+            model.addAttribute("apDocTerm", apDocService.getApDocTerm(apDocNo));
+        }
         return "approval/approvalGet";
     }
 
@@ -166,7 +165,7 @@ public class ApprovalController {
     @PostMapping("/postApproval")
     public String postApproval(Model model, Principal principal, ApDTO apDTO) {
         String approver = principal.getName();
-        //결재 정보 업데이트(결재 결과, 결재 의견, 결재 일자)
+
         apDTO.setApApprover(approver);
         apService.putApproval(apDTO);
 
@@ -175,9 +174,16 @@ public class ApprovalController {
                 && apDTO.getApResult() == '1') {
             apDocService.putLastApDoc(apDTO.getApDocNo());
         } else {
-            //그냥 승인 or 반려시
             apDocService.putApDoc(apDTO);
         }
-        return "redirect:/approval/getApCheckList"; //결재진행화면으로변경하기
+        return "redirect:/approval/getApCheckList";
+    }
+    
+    //문서 삭제 처리
+    @PostMapping("/removeApproval")
+    public String removeApproval(Principal principal, String apDelete, String apDocNo){
+
+        apDocService.removeApDoc(apDocNo, principal.getName());
+        return "redirect:/approval/apMain";
     }
 }

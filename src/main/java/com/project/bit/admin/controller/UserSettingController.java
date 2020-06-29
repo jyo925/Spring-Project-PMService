@@ -36,9 +36,7 @@ public class UserSettingController {
     //사용자 등록
     @GetMapping(value = "/regitUser")
     public String regitUserSetting(UserVO userVO) {
-
-        userSettingService.regitUserSetting(userVO);
-
+		userSettingService.regitUserSetting(userVO);
         return "redirect:/admin/userSettingList";
 
     }

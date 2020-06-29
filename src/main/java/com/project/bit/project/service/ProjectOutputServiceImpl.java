@@ -107,4 +107,9 @@ public class ProjectOutputServiceImpl implements ProjectOutputService {
 		
 		projectOutputMapper.updateProjectOutput(projectOutputDTO);
 	}
+
+	@Override
+	public List<ProjectOutputDTO> getProjectOutputByCategory(String projectCode, String typeCode) {
+		return projectOutputMapper.selectProjectOutputByType(projectCode, typeCode);
+	}
 }

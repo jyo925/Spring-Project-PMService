@@ -20,5 +20,32 @@
         from project_types t
         left outer join projects p on t.project_typecode = p.project_typecode group by t.project_type
     </select>
+    <select id="selectProjectAllStatus" resultType="com.project.bit.dashBoard.domain.ProjectStatusCountVO">
+        select count(p.project_statuscode) as project_status,
+            ps.project_status as project_status_name
+        from projects p, project_status ps
+        where p.project_statuscode=ps.project_statuscode
+        group by ps.project_status
+    </select>
+    <select id="selectIssueAllStatus" resultType="com.project.bit.dashBoard.domain.IssueStatusCountVO">
+        select count(i.issue_code) as issue_status,
+            it.issue_type as issue_status_name
+        from project_issues i, project_issue_types it
+        where i.issue_type_code=it.issue_type_code
+        group by it.issue_type
+    </select>
+    <select id="selectMonthlyProjectStatus" resultType="com.project.bit.dashBoard.domain.MonthlyProjectCountVO">
+        SELECT
+			TO_CHAR(p.project_finish, 'yyyy-MM') AS project_month,
+			COUNT(*) as project_count,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype100' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType100,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype200' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType200,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype300' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType300,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype400' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType400,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype500' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType500
+		FROM projects p 
+		GROUP BY to_char(p.project_finish, 'yyyy-MM')
+		ORDER BY to_char(p.project_finish, 'yyyy-MM')
+    </select>
 
 </mapper>

@@ -15,6 +15,7 @@ import com.project.bit.foo.service.PositionsService;
 import com.project.bit.foo.service.TeamsService;
 import com.project.bit.foo.service.UserService;
 import com.project.bit.project.domain.PositionDTO;
+import com.project.bit.project.domain.ProjectCriteria;
 import com.project.bit.project.domain.ProjectDTO;
 import com.project.bit.project.domain.ProjectIssueTypeDTO;
 import com.project.bit.project.domain.ProjectOutputTypeDTO;
@@ -50,7 +51,7 @@ public class ProjectDetailController {
 	}
 	
 	// 프로젝트 상세 정보
-	@GetMapping("/project/detail/{projectId}")
+	@GetMapping("/project/detailInfo/{projectId}")
 	public String getProjectDetail(@PathVariable String projectId, Model model) {
 		model.addAttribute("project", projectDetailService.getProjectOne(projectId));
 		return "/project/projectDetail";
@@ -70,7 +71,7 @@ public class ProjectDetailController {
 	}
 	
 	// 프로젝트 멤버 페이지로 이동
-	@GetMapping("/projectMember/{projectId}")
+	@GetMapping("/projectMemberInfo/{projectId}")
 	public String getProjectMember(@PathVariable String projectId, Model model) {
 		model.addAttribute("project", projectDetailService.getProjectOne(projectId));
 		model.addAttribute("projectMembers", projectMemberService.getProjectMember(projectId));
@@ -94,15 +95,6 @@ public class ProjectDetailController {
 		return "project/projectTask";
 	}
 	
-	// 프로젝트 상세 산출물 페이지로 이동
-	@GetMapping("/projectOutput/{projectCode}")
-	public String goProjectOutput(@PathVariable String projectCode, Model model) {
-		model.addAttribute("project", projectDetailService.getProjectOne(projectCode));
-		model.addAttribute("projectList", projectService.getProjectListAll());
-		model.addAttribute("outputList", projectOutputService.getProjectDetailOutput(projectCode));
-		return "project/projectOutput";
-	}
-	
 	// 프로젝트 간트차트 페이지로 이동 
 	@GetMapping("/projectGantt/{projectCode}")
 	public String goProjectGantt(@PathVariable String projectCode, Model model) {
@@ -110,7 +102,20 @@ public class ProjectDetailController {
 		model.addAttribute("taskMember", projectMemberService.getProjectMemberGantt(projectCode));
 		return "project/projectGantt";
 	}
-
+	
+	// 프로젝트 상세 산출물 페이지로 이동
+	@GetMapping("/projectOutput/{projectCode}")
+	public String goProjectOutput(ProjectCriteria cri, @PathVariable String projectCode, Model model) {
+		model.addAttribute("project", projectDetailService.getProjectOne(projectCode));
+		model.addAttribute("projectList", projectService.getProjectListAll(cri));
+		model.addAttribute("outputList", projectOutputService.getProjectDetailOutput(projectCode));
+		return "project/projectOutput";
+	}
+	
+	
+	
+	
+	
 	
 	
 	
@@ -155,7 +160,12 @@ public class ProjectDetailController {
 	// 유저 리스트
 	@ModelAttribute("userList")
 	public List<Users> getUser(){
-		return userService.selectAll();
+		return projectMemberService.getUserNoMember();
+	}
+	
+	@ModelAttribute("noJoinUserList")
+	public List<Users> getUserNoMember(){
+		return projectMemberService.getUserNoMember();
 	}
 	
 	@ModelAttribute("issueTypeList")

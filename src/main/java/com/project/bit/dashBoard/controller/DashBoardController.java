@@ -1,6 +1,8 @@
 package com.project.bit.dashBoard.controller;
 
 import com.project.bit.dashBoard.domain.IssueStatusCountVO;
+import com.project.bit.dashBoard.domain.MonthlyProjectCountVO;
+import com.project.bit.dashBoard.domain.ProjectStatusCountVO;
 import com.project.bit.dashBoard.domain.TaskStatusCountVO;
 import com.project.bit.dashBoard.mapper.DashBoardAllMapper;
 import com.project.bit.dashBoard.service.DashBoardAllService;
@@ -56,12 +58,6 @@ public class DashBoardController {
 	}
 
 	/* Response */
-	@GetMapping("/monthly")
-	@ResponseBody /**/
-	public ResponseEntity monthly() {
-		return new ResponseEntity(dashBoardAllService.getKeyProject(), HttpStatus.OK);
-	}
-
 	@GetMapping("/search")
 	@ResponseBody
 	public ResponseEntity search(String keyword) {
@@ -88,5 +84,22 @@ public class DashBoardController {
 		return dashBoardUserService.getIssueStatusCount(principal.getName());
 	}
 
+	@GetMapping("/dashBoard/chart/projectAll")
+	@ResponseBody
+	public List<ProjectStatusCountVO> ProjectAllStatusChart() {
+		return dashBoardAllService.getProjectAllStatus();
+	}
+
+	@GetMapping("/dashBoard/chart/issueAll")
+	@ResponseBody
+	public List<IssueStatusCountVO> IssueAllStatusChart() {
+		return dashBoardAllService.getIssueAllStatus();
+	}
+
+	@GetMapping("/dashBoard/chart/monthlyProject")
+	@ResponseBody
+	public List<MonthlyProjectCountVO> MonthlyProjectChart() {
+		return dashBoardAllService.getMonthlyProject();
+	}
 	
 }
