@@ -22,7 +22,7 @@
         <div class="col-12 grid-margin">
     <select id="project-select" style="margin-bottom: 10px; width: 100%">
         <th:block th:each="project : ${projectNameList}">
-            <option th:value="${project.projectCode}" th:text="${project.projectName}">
+            <option th:value="${project.projectCode}" th:text="${project.projectName}" th:selected="${defaultProject.projectCode} == ${project.projectCode}">
         </th:block>
     </select>
         </div>

@@ -9,6 +9,7 @@ import com.project.bit.dashBoard.domain.IssueStatusCountVO;
 import com.project.bit.dashBoard.domain.MonthlyProjectCountVO;
 import com.project.bit.dashBoard.domain.ProjectStatusCountVO;
 import com.project.bit.dashBoard.domain.ProjectStatusVO;
+import com.project.bit.dashBoard.domain.ProjectTypeCountVO;
 import com.project.bit.dashBoard.mapper.DashBoardAllMapper;
 import com.project.bit.project.domain.ProjectDTO;
 
@@ -39,4 +40,10 @@ public class DashBoardAllServiceImpl implements DashBoardAllService {
     public List<ProjectDTO> getKeyProject() {
         return dashBoardAllMapper.selectKeyProject();
     }
+
+	@Override
+	public List<ProjectTypeCountVO> getProjectAllType() {
+		// TODO Auto-generated method stub
+		return dashBoardAllMapper.selectProjectAllType();
+	}
 }

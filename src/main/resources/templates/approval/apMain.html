@@ -40,25 +40,18 @@
 
                     <h4>결재 현황</h4><br>
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 d-flex justify-content-center border-right">
+                        <div class="col-md-6 col-sm-6 d-flex justify-content-center border-right">
                             <div class="wrapper text-center">
                                 <h3 class="card-title">결재 진행 문서</h3>
                                 <h2 class="card-description" th:text="${apDocCount.get(0)}+' 건'"></h2>
-                                <button class="btn btn-outline-success" onclick="location.href = '/approval/getApProgressList'">View</button>
+                                <button class="btn btn-inverse-success" onclick="location.href = '/approval/getApProgressList'">View</button>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6 d-flex justify-content-center border-right">
+                        <div class="col-md-6 col-sm-6 d-flex justify-content-center border-right">
                             <div class="wrapper text-center">
                                 <h3 class="card-title">결재 대기 문서</h3>
                                 <h2 class="card-description" th:text="${apDocCount.get(1)}+' 건'"></h2>
-                                <button class="btn btn-outline-success" onclick="location.href = '/approval/getApCheckList'">View</button>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 d-flex justify-content-center">
-                            <div class="wrapper text-center">
-                                <h3 class="card-title">임시 저장 문서</h3>
-                                <h2 class="card-description" th:text="${apDocCount.get(2)}+' 건'"></h2>
-                                <button class="btn btn-outline-success" onclick="location.href = '/approval/getApTempList'">View</button>
+                                <button class="btn btn-inverse-success" onclick="location.href = '/approval/getApCheckList'">View</button>
                             </div>
                         </div>
                     </div>
@@ -69,17 +62,14 @@
             </div>
         </div>
     </div>
-
-
-
     <script>
         $(document)
             .ready(
                 function () {
+
                     if($('#notApprovers').val()){
                         confirm($('#notApprovers').val());
                     }
-
 
                     $('button[name=apFormNo]').on('click', function (e) {
 

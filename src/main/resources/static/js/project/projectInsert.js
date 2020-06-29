@@ -1,9 +1,10 @@
-$(function(){
+$(function(){	
 	dropDownEvent();
 	insertProject();
 	deleteProject();
 	regExp();
-	insert();
+	check();
+	
 })							
 
 function dropDownEvent(){
@@ -84,7 +85,7 @@ function insertProject(){
 		}).fail(function(){
 			alert('다시 입력해주세요')
 		})
-	})
+	})		
 }
 
 function deleteProject(){
@@ -102,7 +103,7 @@ function regExp(){
 		var str = $(this).val();
 		
 		if(!pattern.test(str)) {
-			var item = '<span>* 규칙에 맞게 입력해주세요</span>';
+			var item = '<span style="color: red" >* 규칙에 맞게 입력해주세요</span>';
 			$('#project-subName-div').html(item);
 		} else if(pattern.test(str)){
 			var item = '<span style="color: green;">* 정상적으로 입력하셨습니다</span>';
@@ -110,4 +111,19 @@ function regExp(){
 		}
 	})
 
+}
+
+function check(){
+	$('#check_btn').on('click', function(){
+		$.ajax({
+			url: '/project/subName/check',
+			type: 'GET',
+			data: {subName : $('#project-subName').val()}
+		}).done(function(num){
+			if(num <= 0) alert('사용가능합니다.')
+			else if(num > 0) alert('이미 사용중입니다.')
+		}).fail(function(){
+			alert('subName check fail')
+		})
+	})
 }
