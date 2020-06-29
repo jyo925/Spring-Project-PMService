@@ -35,10 +35,12 @@
         group by it.issue_type
     </select>
     <select id="selectMonthlyProjectStatus" resultType="com.project.bit.dashBoard.domain.MonthlyProjectCountVO">
-        select count(project_code) as project_count,
-            to_char(project_finish, 'yyyy-mm') as project_month
-        from projects
-        group by to_char(project_finish, 'yyyy-mm')
+        select to_char(p.project_finish, 'yyyy-mm') as project_month,
+            p.project_typeCode as project_type,
+            count(p.project_code) as project_count
+        from projects p
+        group by  to_char(p.project_finish, 'yyyy-mm'), p.project_typeCode
+        order by to_char(p.project_finish, 'yyyy-mm')
     </select>
 
 </mapper>

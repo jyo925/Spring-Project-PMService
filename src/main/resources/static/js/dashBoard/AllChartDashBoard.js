@@ -119,12 +119,13 @@ function drawIssueAllChart(status){
 function drawMonthlyProjectChart(status){
     var lists = new Array();
     var data = new google.visualization.DataTable();
-    data.addColumn('string', 'name');
+    data.addColumn('string', 'month');
+    data.addColumn('string', 'type');
     data.addColumn('number', 'count');
     console.log(status);
     // lists.push('dd',1);
     status.forEach(function(element){
-        lists.push([element.projectMonth,element.projectCount]);
+        lists.push([[element.projectMonth, element.projectType], element.projectCount]);
     });
     data.addRows(lists);
 

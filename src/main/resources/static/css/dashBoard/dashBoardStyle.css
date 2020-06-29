@@ -20,3 +20,8 @@
     font-size: 0.9em;
 }
 /* select2 end */
+
+/* table */
+.table thead > tr > th  {
+    font-weight: bold;
+}

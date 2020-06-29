@@ -21,8 +21,8 @@
                 <div class="card-body">
                     <h6 class="card-title">주요 프로젝트<a href="#"><span class="float-right">+more</span></a></h6>
                     <div>
-                        <table width="100%">
-                            <thead>
+                        <table class="table text-center" width="100%">
+                            <thead class="thead-light">
                             <tr>
                                 <th>No.</th>
                                 <th>프로젝트</th>
@@ -53,14 +53,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">프로젝트 진행현황</h6>
                     <div>
-                        <table width="100%">
+                        <table class="table table-bordered table-hover text-center" width="100%">
                             <thead>
-                            <tr>
+                            <tr class="thead-light">
                                 <th>개발형태</th>
                                 <th>전체</th>
                                 <th>진행중</th>
@@ -71,7 +71,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="statusCount : ${projectStatusCount}" th:object="${statusCount}">
-                                <td th:text="*{projectStatusName}"></td>
+                                <td th:text="*{projectStatusName}" class="table-secondary"></td>
                                 <td th:text="*{projectStatusAll}"></td>
                                 <td th:text="*{projectStatusProcess}"></td>
                                 <td th:text="*{projectStatusStandBy}"></td>
@@ -85,31 +85,31 @@
             </div>
         </div>
 
-        <div class="col-6 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">프로젝트 현황<a href="#"><span class="float-right">+more</span></a></h6>
-                    <div id="ProjectAllStatusChart"></div>
+                    <div class="align-middle" id="ProjectAllStatusChart"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-6 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">프로젝트 현황<a href="#"><span class="float-right">+more</span></a></h6>
-                    <div id="IssueAllStatusChart"></div>
+                    <div class="align-middle h-100" id="IssueAllStatusChart"></div>
                 </div>
             </div>
         </div>
 
-        <div class="col-6 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">프로젝트 현황<a href="#"><span class="float-right">+more</span></a></h6>
-                    <div id="MonthlyProjectChart"></div>
+                    <div class="align-middle h-100" id="MonthlyProjectChart"></div>
                 </div>
             </div>
         </div>

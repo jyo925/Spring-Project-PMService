@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">작업 진행상태</h6>
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">이슈 현황</h6>
@@ -74,8 +74,8 @@
                 <div class="card-body">
                     <h6 class="card-title">예정작업</h6>
                     <div class="row">
-                        <table>
-                            <thead>
+                        <table class="table table-hover text-center" width="100%">
+                            <thead class="thead-light">
                             <tr>
                                 <th>프로젝트명</th>
                                 <th>작업명</th>
@@ -89,8 +89,8 @@
                                 <td th:text="*{projectName}"></td>
                                 <td th:text="*{taskName}"></td>
                                 <td th:text="*{taskStatus}"></td>
-                                <td th:text="*{taskStart}"></td>
-                                <td th:text="*{taskFinish}"></td>
+                                <td th:text="*{#dates.format(taskStart, 'yyyy-MM-dd')}"></td>
+                                <td th:text="*{#dates.format(taskFinish, 'yyyy-MM-dd')}"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -105,8 +105,8 @@
                 <div class="card-body">
                     <h6 class="card-title">내 산출물</h6>
                     <div class="row">
-                        <table>
-                            <thead>
+                        <table class="table table-hover text-center" width="100%">
+                            <thead class="thead-light">
                             <tr>
                                 <th>프로젝트</th>
                                 <th>작업</th>
