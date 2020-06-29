@@ -1,7 +1,13 @@
 spring:
+<<<<<<< HEAD
+  datasource:  
+    url: jdbc:oracle:thin:@localhost:1521:root
+    driver-class-name: oracle.jdbc.OracleDriver
+=======
   datasource:
     url: jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+>>>>>>> 34869b6c4feeae05c9da20c2cc5a9d9e52d2a6ad
     username: root
     password: 1234
 
