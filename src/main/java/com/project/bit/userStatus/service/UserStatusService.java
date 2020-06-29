@@ -1,11 +1,10 @@
-package com.project.bit.userstatus.service;
+package com.project.bit.userStatus.service;
 
-
-import com.project.bit.userstatus.domain.UserStatusVO;
-import com.project.bit.approval.domain.Criteria;
-import com.project.bit.userStatus.domain.UserStatusVO;
 
 import java.util.List;
+
+import com.project.bit.approval.domain.Criteria;
+import com.project.bit.userStatus.domain.UserStatusVO;
 
 public interface UserStatusService {
 

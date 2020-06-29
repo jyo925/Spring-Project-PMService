@@ -1,0 +1,31 @@
+<?xmlversion ="1.0"encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.foo.mapper.MyFilesMapper">
+
+	<select id="selectMyFiles" resultType="com.project.bit.foo.domain.files.FilesVO">
+		SELECT po.*
+			   ,(SELECT p.PROJECT_NAME
+				FROM PROJECTS p
+				INNER JOIN PROJECT_TASK_GROUPS ptg ON p.PROJECT_CODE = ptg.PROJECT_CODE
+				INNER JOIN PROJECT_TASKS pt ON pt.TASKGROUP_CODE = ptg.TASKGROUP_CODE
+				WHERE pt.TASK_CODE = po.TASK_CODE)AS PROJECT_NAME
+		       ,pot.OUTPUT_TYPE
+		       ,pt.TASK_NAME
+		FROM PROJECT_OUTPUTS po
+		INNER JOIN PROJECT_OUTPUT_TYPES pot ON po.OUTPUT_TYPE_CODE = pot.OUTPUT_TYPE_CODE
+		INNER JOIN PROJECT_TASKS pt ON pt.TASK_CODE = po.TASK_CODE
+		WHERE OUTPUT_USER=#{userId}
+	</select>
+	
+	<update id="updateFile">
+		UPDATE PROJECT_OUTPUTS SET OUTPUT_TYPE_CODE=#{fileOutput.outputTypeCode}, TASK_CODE=#{fileOutput.taskCode} WHERE OUTPUT_CODE=#{outputCode}
+	</update>
+	
+	<delete id="deleteFile">
+		DELETE FROM PROJECT_OUTPUTS WHERE OUTPUT_CODE=#{fileId}
+	</delete>
+	
+	<select id="selectFile" resultType="com.project.bit.foo.domain.files.FilesVO">
+		SELECT * FROM PROJECT_OUTPUTS WHERE OUTPUT_CODE=#{fileId}
+	</select>
+</mapper>
