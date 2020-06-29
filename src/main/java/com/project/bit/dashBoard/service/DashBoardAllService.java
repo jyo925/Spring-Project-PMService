@@ -1,6 +1,6 @@
 package com.project.bit.dashBoard.service;
 
-import java.util.*;
+import java.util.List;
 
 import com.project.bit.dashBoard.domain.IssueStatusCountVO;
 import com.project.bit.dashBoard.domain.MonthlyProjectCountVO;

@@ -57,7 +57,7 @@ function memberAdd(array){
 		}).done(function(){
 			array = [];
 			console.log(array);
-			// location.reload();
+			location.reload();
 		}).fail(function(){
 			alert('member add fail');
 		})

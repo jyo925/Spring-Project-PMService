@@ -35,12 +35,17 @@
         group by it.issue_type
     </select>
     <select id="selectMonthlyProjectStatus" resultType="com.project.bit.dashBoard.domain.MonthlyProjectCountVO">
-        select to_char(p.project_finish, 'yyyy-mm') as project_month,
-            p.project_typeCode as project_type,
-            count(p.project_code) as project_count
-        from projects p
-        group by  to_char(p.project_finish, 'yyyy-mm'), p.project_typeCode
-        order by to_char(p.project_finish, 'yyyy-mm')
+        SELECT
+			TO_CHAR(p.project_finish, 'yyyy-MM') AS project_month,
+			COUNT(*) as project_count,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype100' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType100,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype200' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType200,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype300' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType300,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype400' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType400,
+			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype500' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType500
+		FROM projects p
+		GROUP BY to_char(p.project_finish, 'yyyy-MM')
+		ORDER BY to_char(p.project_finish, 'yyyy-MM')
     </select>
 
 </mapper>

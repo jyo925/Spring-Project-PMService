@@ -34,14 +34,14 @@ $(function(){
         url : '/dashBoard/chart/monthlyProject',
         type : 'GET',
         dataType : 'json'
-    }).done(function(status){
-        console.log(status);
+    }).done(function(list){
+        console.log(list);
         google.charts.load('current', {'packages':['corechart','bar']});
         google.charts.setOnLoadCallback(function(){
-            drawMonthlyProjectChart(status);
+            drawMonthlyProjectChart(list);
         });
     }).fail(function(){
-        alert('chart fail!!')
+        alert('chart stack fail!!')
     })
 })
 
@@ -116,16 +116,18 @@ function drawIssueAllChart(status){
     chart.draw(data, options);
 }
 
-function drawMonthlyProjectChart(status){
+function drawMonthlyProjectChart(list){
     var lists = new Array();
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'month');
-    data.addColumn('string', 'type');
-    data.addColumn('number', 'count');
-    console.log(status);
+    data.addColumn('number', '연구');
+    data.addColumn('number', '개발');
+    data.addColumn('number', '디자인');
+    data.addColumn('number', '품질');
+    data.addColumn('number', '유지보수');
     // lists.push('dd',1);
-    status.forEach(function(element){
-        lists.push([[element.projectMonth, element.projectType], element.projectCount]);
+    list.forEach(function(element){
+        lists.push([element.projectMonth + ' (' + element.projectCount + ') ', element.devType100, element.devType200, element.devType300, element.devType400, element.devType500]);
     });
     data.addRows(lists);
 

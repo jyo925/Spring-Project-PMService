@@ -2,11 +2,13 @@ package com.project.bit.dashBoard.domain;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class MonthlyProjectCountVO {
-    private int projectCount;
-    private String projectType;
-    private String projectMonth;
+	private String projectMonth;
+	private int projectCount;
+	private int devType100;
+	private int devType200;
+	private int devType300;
+	private int devType400;
+	private int devType500;
 }
