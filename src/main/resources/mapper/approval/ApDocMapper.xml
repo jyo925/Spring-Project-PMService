@@ -186,4 +186,18 @@
         DELETE FROM approvaldoc
         WHERE ap_doc_no = #{apDocNo} and ap_doc_writer = #{apDocWriter}
     </delete>
+
+    <insert id="insertApDocTerm">
+        insert into approvaldate
+        values(
+        #{apDocNo},
+        #{apStartDate},
+        #{apEndDate})
+    </insert>
+
+    <select id="selectApDocTerm" resultType="com.project.bit.approval.domain.ApDateDTO">
+        select ap_start_date, ap_end_date
+        from approvaldate
+        where ap_doc_no = #{apDocNo}
+    </select>
 </mapper>

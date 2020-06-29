@@ -36,6 +36,21 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     }
 
     @Override
+    public void postApDocTerm(ApDateDTO apDateDTO) {
+        apDocMapper.insertApDocTerm(apDateDTO);
+    }
+
+    @Override
+    public ApDateDTO getApDocTerm(String apDocNo) {
+
+        ApDateDTO apDateDTO = apDocMapper.selectApDocTerm(apDocNo);
+        apDateDTO.setApStartDate(apDateDTO.getApStartDate().substring(0,10));
+        apDateDTO.setApEndDate(apDateDTO.getApEndDate().substring(0,10));
+
+        return apDateDTO;
+    }
+
+    @Override
     public Long getNewApDocNo(ApDocDTO apDocDTO) {
         return apDocMapper.selectNewApDocNo(apDocDTO);
     }

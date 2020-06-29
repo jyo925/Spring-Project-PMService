@@ -9,7 +9,41 @@
 			© 2020 bitcamp JAVA_152 Final_2Team.</span> <span
             class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">PMService</span>
     </div>
+    <script>
+        var socket = null;
 
+        $(document).ready(function () {
+            connect();
+        });
+        function connect() {
+
+            var ws = new WebSocket("ws://localhost:8080/approval/approvalGet");
+            socket =ws;
+
+            //메시지가 왔을 때 받는 것
+            ws.onopen = function () {
+                console.log('Info: connection opened.');
+                ws.onmessage = function (event) {
+                    console.log("ReceiveMessage ----> "+event.data+'\n');
+
+                    //화면에 표시
+                    let $socketAlert = $('div#socketAlert');
+                    $socketAlert.html(event.data);
+                    $socketAlert.css('display', 'block');
+
+                    setTimeout( function () {
+                        $socketAlert.css('display', 'none');
+                    }, 3000);
+
+                };
+            };
+            ws.onclose = function (event) {
+                console.log('Info: connection closed.');
+                // setTimeout( function(){ connect(); }, 1000); // 1초에 한번씩 retry connection!!
+            };
+            ws.onerror = function (err) { console.log('Error', err); };
+        }
+    </script>
 </footer>
 </div><!-- content-wrapper ends -->
 </div><!-- row-offcanvas ends -->

@@ -28,9 +28,9 @@
                     <div class="table-responsive">
                         <!-- 검색 -->
                         <form id='searchForm' action="/approval/getApProgressList" method='get'
-                              class="form-inline repeater">
-                            <div data-repeater-list="group-a">
-                                <div data-repeater-item="" class="d-md-flex mb-2">
+                              class="form-inline repeater float-right">
+                            <div data-repeater-list="group-a" style="margin-bottom: 10px;">
+                                <div data-repeater-item="" class="d-md-flex mb-2" >
                                     <div class="input-group mb-2 mr-md-2 mb-md-0">
                                         <div class="input-group-prepend">
                                         </div>
@@ -73,7 +73,8 @@
                                 <td th:text="${apDoc.apDocNo}"></td>
                                 <td th:text="${apDoc.apFormName}"></td>
                                 <td style="text-align: left"><a th:text="${apDoc.apDocTitle}" th:href="'/approval/getApDoc?apDocNo='+${apDoc.apDocNo}"></a></td>
-                                <td th:text="${#strings.substring(apDoc.apDocProjectName,0,15)+'..'}"></td>
+                                <td th:text="${apDoc.apDocProjectName}"></td>
+<!--                                <td th:text="${#strings.substring(apDoc.apDocProjectName,0,15)+'..'}"></td>-->
                                 <td th:text="${apDoc.apDocWriterName}"></td>
                                 <td th:text="${#dates.format(apDoc.apDocCreateDate, 'yyyy-MM-dd')}"></td>
                                 <span th:if="${apDoc.apDocStatus == 0}">

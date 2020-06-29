@@ -58,4 +58,10 @@ public interface ApDocMapper {
     //문서 삭제
     public void deleteApDoc(String apDocNo, String apDocWriter);
 
+    //기간 등록 (휴가 or 출장 ...)
+    public void insertApDocTerm(ApDateDTO apDateDTO);
+
+    //기간 조회
+    public ApDateDTO selectApDocTerm(String apDocNo);
+
 }
