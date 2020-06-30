@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,35 +24,21 @@ public class ChatController {
 
   private ChatService chatService;
   private UserService userService;
-
-  @GetMapping("/chat")
-  public String chatPage() {
-    return "chat/test";
-  }
+  private SimpMessagingTemplate simpMessagingTemplate;
 
   @MessageMapping("/room/{room}")
   public void sendMessage(@DestinationVariable String room, @RequestBody Message message, Principal principal) {
     chatService.sendMessage(room, message, principal);
   }
 
-  @MessageMapping("/chat/{type}")
-  public void initialMessage(@DestinationVariable String type) {
-
+  @MessageMapping("/chat/{username}")
+  public void initialMessage(@DestinationVariable String username) {
+    simpMessagingTemplate.convertAndSend("/topic/chat/"+username, chatService.initialConnection(username));
   }
 
-
-  @PostMapping("/test")
-  @ResponseBody
-  public ResponseEntity test(@RequestBody Message message) {
-    log.info(message.toString());
-    log.info(message.getParticipations().toString());
-    return new ResponseEntity(HttpStatus.OK);
-  }
-
-
-  @GetMapping("/chat/initial")
-  public ResponseEntity initialConnection(Principal principal) {
-    return new ResponseEntity(chatService.initialConnection(principal.getName()), HttpStatus.OK);
+  @MessageMapping("/init/{username}")
+  public void initConnection(@DestinationVariable String username) {
+    simpMessagingTemplate.convertAndSend("/topic/init/"+username, chatService.initialConnection(username));
   }
 
   @PostMapping("/chat/invite")
@@ -70,11 +57,5 @@ public class ChatController {
     return new ResponseEntity(userService.selectAll().stream().filter( user ->
             !user.getUserId().equals(principal.getName())).collect(Collectors.toList())
             , HttpStatus.OK);
-  }
-
-  @GetMapping("/aaa")
-  public ResponseEntity receive(@RequestBody ChatDTO chatDTO) {
-    log.info(chatDTO.toString());
-    return new ResponseEntity(HttpStatus.OK);
   }
 }

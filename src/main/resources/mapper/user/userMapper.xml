@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper 
-PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.foo.mapper.UserMapper">
 	<select id="selectAll" resultType="com.project.bit.foo.domain.Users">
@@ -10,15 +10,15 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			INNER JOIN positions pos on u.position_code = pos.position_code
 		ORDER BY t.team_code
 	</select>
-	
+
 	<select id="selectTeamAll" resultType="com.project.bit.project.domain.TeamDTO">
 		SELECT * FROM teams
 	</select>
-	
+
 	<select id="selectPositionAll" resultType="com.project.bit.project.domain.PositionDTO">
 		SELECT * FROM positions
 	</select>
-	
+
 	<select id="selectUserByTeam" parameterType="int" resultType="com.project.bit.foo.domain.Users">
 		SELECT
 			u.user_name AS user_name,
@@ -26,5 +26,12 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		FROM users u
 		INNER JOIN teams t ON u.team_code = t.team_code
 		WHERE t.team_code = #{teamCode}
+	</select>
+
+	<select id="findUsersByConversationId" parameterType="String" resultType="com.project.bit.foo.domain.Users">
+		SELECT u.*
+		FROM users u
+		INNER JOIN (SELECT * FROM PARTICIPATIONS WHERE conversation_id = #{conversationId}) p
+		ON u.user_id = p.user_id
 	</select>
 </mapper>

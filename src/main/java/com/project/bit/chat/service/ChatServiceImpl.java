@@ -7,6 +7,7 @@ import com.project.bit.chat.domain.Participation;
 import com.project.bit.chat.mapper.ChatRoomMapper;
 import com.project.bit.chat.mapper.MessageMapper;
 import com.project.bit.chat.mapper.ParticipationMapper;
+import com.project.bit.foo.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -27,6 +28,7 @@ public class ChatServiceImpl implements ChatService {
 
   private MessageMapper messageMapper;
   private ChatRoomMapper chatRoomMapper;
+  private UserMapper userMapper;
   private ParticipationMapper participationMapper;
   private SimpMessagingTemplate simpMessagingTemplate;
 
@@ -53,7 +55,7 @@ public class ChatServiceImpl implements ChatService {
 
     participating(message.getParticipations());
 
-    simpMessagingTemplate.convertAndSend("/topic/room"+message.getRoomNo(), new MessageResponse(HtmlUtils.htmlEscape(message.getContent())) );
+    /*simpMessagingTemplate.convertAndSend("/topic/room"+message.getRoomNo(), new MessageResponse(HtmlUtils.htmlEscape(message.getContent())) );*/
     return true;
   }
 
@@ -83,6 +85,9 @@ public class ChatServiceImpl implements ChatService {
       case "NEWJOIN" : joinWithNewRoom(message, principal.getName());
                     break;
       case "JOIN" : joinMessage(message, principal);
+                    break;
+      case "ENTER" : simpMessagingTemplate.convertAndSend("/topic/room/"+roomNo,
+        new MessageResponse(messageMapper.findByChatRoom(roomNo), userMapper.findUsersByConversationId(roomNo)));
                     break;
       case "SEND" : simpMessagingTemplate.convertAndSend("/topic/room/"+roomNo,
                     sendProcess(message));

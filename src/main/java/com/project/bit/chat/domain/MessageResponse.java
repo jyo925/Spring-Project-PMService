@@ -1,13 +1,20 @@
 package com.project.bit.chat.domain;
 
-import lombok.Getter;
+import com.project.bit.foo.domain.Users;
+import lombok.*;
+
+import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class MessageResponse {
 
-  private String content;
+  private List<Message> messageList;
+  private List<Users> usersList;
 
-  public MessageResponse(String content) {
-    this.content = content;
+  @Builder
+  public MessageResponse(List<Message> messageList, List<Users> usersList) {
+    this.messageList = messageList;
+    this.usersList = usersList;
   }
 }
