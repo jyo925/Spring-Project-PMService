@@ -65,7 +65,7 @@ public class ApprovalController {
     //결재 요청(등록)
     @PostMapping("/postApDoc")
     public String postApDoc(ApDocDTO apDocDTO, ApFileDTO apFileDTO,
-                            Model model, Principal principal, String apReferrersId) {
+                            Model model, Principal principal, String apReferrersId, ApDateDTO apDateDTO) {
 
         log.info("새 결재 문서 등록: " + apDocService.postApDoc(apDocDTO));
 
@@ -82,6 +82,12 @@ public class ApprovalController {
         if (!apReferrersId.equals(" ")) {
             apDocService.postApDocReferrers(apDocNo, apReferrersId);
         }
+        if(apDateDTO.getApStartDate() != null && apDateDTO.getApEndDate() != null){
+            apDateDTO.setApDocNo(apDocNo);
+            apDocService.postApDocTerm(apDateDTO);
+        }
+
+
         //int lastPage = ((apDocService.getApDocCount(principal.getName()).get(0))-1)/10+1;
 //        return "redirect:/approval/getApProgressList?pageNum="+lastPage;
         return "redirect:/approval/apMain";
@@ -103,12 +109,6 @@ public class ApprovalController {
         model.addAttribute("apDocList", apDocService.getApCheckList(principal.getName(), cri));
         model.addAttribute("pageMaker", new PageDTO(cri, apDocService.getApDocCount(principal.getName()).get(1)));
         return "approval/approvalDocList_1";
-    }
-
-    //임시저장함 조회
-    @GetMapping("/getApTempList")
-    public String getApTempList(Criteria cri, Principal principal, Model model) {
-        return "approval/approvalTemp";
     }
 
     //참조문서함 조회
@@ -151,7 +151,12 @@ public class ApprovalController {
             }
         }
         model.addAttribute("apReferrers", apDocService.getApDocReferrers(apDocNo));
-
+        
+        long formNo = apDocData.getApFormNo();
+        if(formNo == 1 || formNo == 2 || formNo == 3){
+            //날짜 데이터 가져오기
+            model.addAttribute("apDocTerm", apDocService.getApDocTerm(apDocNo));
+        }
         return "approval/approvalGet";
     }
 

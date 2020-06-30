@@ -16,12 +16,13 @@ import com.project.bit.project.domain.ProjectPage;
 import com.project.bit.project.domain.ProjectStatusDTO;
 import com.project.bit.project.domain.ProjectTypeDTO;
 import com.project.bit.project.service.ProjectService;
+import com.project.bit.project.service.ProjectTaskService;
 
 @Controller
 public class ProjectController {
 
-	@Autowired
-	private ProjectService projectService;	
+	@Autowired private ProjectService projectService;
+	@Autowired private ProjectTaskService projectTaskService;
 	
 	// main으로 이동
 	@GetMapping("/index")
@@ -32,7 +33,7 @@ public class ProjectController {
 	// 프로젝트 리스트
 	@GetMapping("/projectList")
 	public String getProjectList(ProjectCriteria cri, Model model) {
-		model.addAttribute("projectList", projectService.getProjectListAll());
+		model.addAttribute("projectList", projectService.getProjectListAll(cri));
 		model.addAttribute("pageMaker", new ProjectPage(cri,projectService.getProjectListAllAccount()));
 		model.addAttribute("typCode", "all");
 		return "/project/getProjectList";
@@ -66,10 +67,7 @@ public class ProjectController {
 	public String postProject(ProjectDTO projectDTO) {
 		projectService.postProject(projectDTO);
 		return "redirect:/projectList";
-	}	
-	
-	
-	
+	}		
 	
 	// 프로젝트 유형 리스트
 	@ModelAttribute("projectTypeList")

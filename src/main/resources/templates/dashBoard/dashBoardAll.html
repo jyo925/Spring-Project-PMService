@@ -6,22 +6,23 @@
 <title id="pageTitle">종합 대시보드</title>
 <!-- 현재 페이지 고유 CSS 추가 -->
 <th:block layout:fragment="css">
+    <link rel="stylesheet" href="/css/dashBoard/dashBoardStyle.css">
 </th:block>
 
 <!-- 현재 페이지 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+    <script src="/js/dashBoard/AllChartDashBoard.js"></script>
 </th:block>
 
 <div layout:fragment="content">
-
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">주요 프로젝트<a href="#"><span class="float-right">+more</span></a></h6>
+                    <h6 class="card-title">주요 프로젝트<a href="/projectList"><span class="float-right">+more</span></a></h6>
                     <div>
-                        <table width="100%">
-                            <thead>
+                        <table class="table text-center" width="100%">
+                            <thead class="thead-light">
                             <tr>
                                 <th>No.</th>
                                 <th>프로젝트</th>
@@ -40,9 +41,7 @@
                                 <td th:text="*{projectStatusName}"></td>
                                 <td th:text="*{projectStart}"></td>
                                 <td th:text="*{projectFinish}"></td>
-                                <td><!-- 해당 프로젝트의 상세 대시보드로 이동하는 자리
-                                ProjectDetailController 참고
-                                @RequestMapping("/project/{projectId}")--></td>
+                                <td><a th:href="'/dashBoardDetail/' + *{projectCode}"><i class="fa fa-search"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -52,14 +51,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">프로젝트 진행현황</h6>
                     <div>
-                        <table width="100%">
+                        <table class="table table-bordered table-hover text-center" width="100%">
                             <thead>
-                            <tr>
+                            <tr class="thead-light">
                                 <th>개발형태</th>
                                 <th>전체</th>
                                 <th>진행중</th>
@@ -70,7 +69,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="statusCount : ${projectStatusCount}" th:object="${statusCount}">
-                                <td th:text="*{projectStatusName}"></td>
+                                <td th:text="*{projectStatusName}" class="table-secondary"></td>
                                 <td th:text="*{projectStatusAll}"></td>
                                 <td th:text="*{projectStatusProcess}"></td>
                                 <td th:text="*{projectStatusStandBy}"></td>
@@ -84,66 +83,39 @@
             </div>
         </div>
 
-        <div class="col-6 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">프로젝트 현황<a href="#"><span class="float-right">+more</span></a></h6>
-                    <div>
-                        <table>
-                            <thead>
-                            <tr width="100%">
-                                <th width="5%">No.</th>
-                                <th width="45%">프로젝트</th>
-                                <th width="10%">개발 형태</th>
-                                <th width="10%">시작일</th>
-                                <th width="10%">완료일</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="keyProject : ${keyProjectList}" th:object="${keyProject}">
-                                <td th:text="${keyProjectStat.count}"></td> <!-- search -->
-                                <td th:text="*{projectName}"></td>
-                                <td th:text="*{projectTypeName}"></td>
-                                <td th:text="*{projectStart}"></td>
-                                <td th:text="*{projectFinish}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div id="ajaxdiv"></div>
-                        <button id="monthly">run</button>
-                    </div>
+                    <h6 class="card-title">프로젝트 현황<a id="type-btn"><span class="float-right" style="cursor: pointer;">유형별</span>
+                    </a><a id="status-btn"><span class="float-right" style="cursor: pointer;">상태별</span></a></h6>
+                    <div class="align-middle" id="ProjectAllStatusChart"></div>
+                    <span id="all-account"></span>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        const jsmonth = document.getElementById('monthly');
-        console.log(jsmonth);
-        const jsdiv = document.getElementById('ajaxdiv');
 
-        jsmonth.addEventListener('click', function () {
-            getData('http://localhost:8081/monthly', {})
-                .then(
-                    data => {
-                        console.log(data);
-                        data.map(project => {
-                            jsdiv.innerHTML += project.projectPm;
-                        })
-                    }
-                );
-        });
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">이슈 현황<a href="#"><span class="float-right">+more</span></a></h6>
+                    <div class="align-middle h-100" id="IssueAllStatusChart"></div>
+                    <span id="issue-all-account"></span>
+                </div>
+            </div>
+        </div>
 
-        async function getData(url = '', data = {}) {
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            return response.json();
-        }
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">프로젝트 현황<a href="#"><span class="float-right">+more</span></a></h6>
+                    <div class="align-middle h-100" id="MonthlyProjectChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    </script>
 </div>
 
 

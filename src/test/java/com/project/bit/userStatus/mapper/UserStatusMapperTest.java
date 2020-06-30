@@ -4,7 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.project.bit.userStatus.mapper.UserStatusMapper;
+<<<<<<< HEAD
 
+=======
+>>>>>>> ebb6baa905f6c30fe3c35231d31280b77daf82c1
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 

@@ -5,12 +5,26 @@
 <mapper namespace="com.project.bit.approval.mapper.ApFileMapper">
 
     <insert id="insertApFile" parameterType="com.project.bit.approval.domain.ApFileDTO">
-        insert into approvalfile (AP_FILE_NO, AP_DOC_NO, AP_FILE_NAME, AP_FILE_PATH, AP_FILE_TYPE, AP_FILE_UUID)
-        values (ap_file_seq.nextval, #{apDocNo}, #{apFileName}, #{apFilePath}, #{apFileType}, #{apFileUuid})
+        insert into approvalfile (
+        AP_FILE_NO,
+        AP_DOC_NO,
+        AP_FILE_NAME,
+        AP_FILE_PATH,
+        AP_FILE_TYPE,
+        AP_FILE_UUID)
+        values (
+        ap_file_seq.nextval,
+        #{apDocNo},
+        #{apFileName},
+        #{apFilePath},
+        #{apFileType},
+        #{apFileUuid})
     </insert>
 
     <select id="selectApFiles" resultType="com.project.bit.approval.domain.ApFileDTO">
-        select * from approvalfile where ap_doc_no = #{apDocNo}
+        select *
+        from approvalfile
+        where ap_doc_no = #{apDocNo}
     </select>
 
 </mapper>

@@ -15,6 +15,7 @@ import com.project.bit.foo.service.PositionsService;
 import com.project.bit.foo.service.TeamsService;
 import com.project.bit.foo.service.UserService;
 import com.project.bit.project.domain.PositionDTO;
+import com.project.bit.project.domain.ProjectCriteria;
 import com.project.bit.project.domain.ProjectDTO;
 import com.project.bit.project.domain.ProjectIssueTypeDTO;
 import com.project.bit.project.domain.ProjectOutputTypeDTO;
@@ -104,9 +105,9 @@ public class ProjectDetailController {
 	
 	// 프로젝트 상세 산출물 페이지로 이동
 	@GetMapping("/projectOutput/{projectCode}")
-	public String goProjectOutput(@PathVariable String projectCode, Model model) {
+	public String goProjectOutput(ProjectCriteria cri, @PathVariable String projectCode, Model model) {
 		model.addAttribute("project", projectDetailService.getProjectOne(projectCode));
-		model.addAttribute("projectList", projectService.getProjectListAll());
+		model.addAttribute("projectList", projectService.getProjectListAll(cri));
 		model.addAttribute("outputList", projectOutputService.getProjectDetailOutput(projectCode));
 		return "project/projectOutput";
 	}
