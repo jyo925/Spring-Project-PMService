@@ -2,8 +2,11 @@ package com.project.bit.foo.controller;
 
 import java.security.Principal;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -38,8 +41,8 @@ public class TestController {
 			log.info(principal.getName());
 			System.err.println(principal.toString());
 		}
-		
-		return "index";
+
+		return "dashBoard/dashBoardUser";
 	}
 
 	@GetMapping("/admin")
@@ -54,7 +57,6 @@ public class TestController {
 
 	@PostMapping("/registration")
 	public String registrationPost(Users user) {
-		System.out.println(user);
 		user.setUserPw(bCryptPasswordEncoder.encode(user.getUserPw()));
 		userServiceImpl.insertUser(user);
 		return "redirect:/";
@@ -81,7 +83,12 @@ public class TestController {
 	}
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model, HttpSession session) {
+		Object error = session.getAttribute("error");
+		if (error != null) {
+			model.addAttribute("error", error);
+			session.removeAttribute("error");
+		}
 		return "login";
 	}
 
