@@ -29,14 +29,13 @@ public class ApprovalController {
         return "approval/apTest";
     }
 
-    //새 결재 작성하기
     @GetMapping("/apMain")
     public String apMain(Criteria cri, Principal principal, Model model) {
         model.addAttribute("apDocCount", apDocService.getApDocCount(principal.getName()));
         return "approval/apMain";
     }
 
-    //새 결재 작성화면으로 이동
+    //새 결재 작성 화면
     @GetMapping("/goNewApDoc")
     public String goNewApDoc(String apFormNo, Principal principal, Model model, RedirectAttributes rttr) {
 
@@ -62,7 +61,7 @@ public class ApprovalController {
         return "approval/approvalNew";
     }
 
-    //결재 요청(등록)
+    //결재 요청
     @PostMapping("/postApDoc")
     public String postApDoc(ApDocDTO apDocDTO, ApFileDTO apFileDTO,
                             Model model, Principal principal, String apReferrersId, ApDateDTO apDateDTO) {
@@ -71,7 +70,7 @@ public class ApprovalController {
 
         long apDocNo = apDocService.getNewApDocNo(apDocDTO);
 
-        log.info("결재자 등록 수: " +
+        log.info("등록된 결재자 수: " +
                 apService.postApprovers(
                         apService.getApproverList("" + apDocDTO.getApFormNo(), principal.getName()), apDocNo));
 
@@ -86,7 +85,6 @@ public class ApprovalController {
             apDateDTO.setApDocNo(apDocNo);
             apDocService.postApDocTerm(apDateDTO);
         }
-
 
         //int lastPage = ((apDocService.getApDocCount(principal.getName()).get(0))-1)/10+1;
 //        return "redirect:/approval/getApProgressList?pageNum="+lastPage;
@@ -182,7 +180,6 @@ public class ApprovalController {
     //문서 삭제 처리
     @PostMapping("/removeApproval")
     public String removeApproval(Principal principal, String apDelete, String apDocNo){
-
         apDocService.removeApDoc(apDocNo, principal.getName());
         return "redirect:/approval/apMain";
     }

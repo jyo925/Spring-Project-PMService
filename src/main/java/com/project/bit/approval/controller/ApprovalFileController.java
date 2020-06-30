@@ -14,11 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import net.coobird.thumbnailator.Thumbnailator;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -56,14 +53,12 @@ public class ApprovalFileController {
         return false;
     }
 
-
     //첨부파일 삭제
-    @PreAuthorize("isAuthenticated()")
     @PostMapping("/deleteFile")
     @ResponseBody
     public ResponseEntity<String> deleteFile(String fileName, String type){
 
-        log.info("deleteFile: "+ fileName);
+//        log.info("deleteFile: "+ fileName);
         File file;
         try {
             //디코딩 = 바이트 형식을 문자로 변환
@@ -73,7 +68,7 @@ public class ApprovalFileController {
             //파일이 이미지인 경우 원본 삭제
             if(type.equals("image")) {
                 String largeFileName = file.getAbsolutePath().replace("s_", "");
-                log.info("largeFileName: " + largeFileName);
+//                log.info("largeFileName: " + largeFileName);
                 file = new File(largeFileName);
                 file.delete();
             }
@@ -97,7 +92,9 @@ public class ApprovalFileController {
             HttpHeaders header = new HttpHeaders();
 
             header.add("Content-Type", Files.probeContentType(file.toPath()));
+
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,8 +108,8 @@ public class ApprovalFileController {
     @ResponseBody
     public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent")String userAgent, String fileName){
 
-		log.info("download file: "+ fileName);
-		log.info(uploadDirectory + fileName);
+//		log.info("download file: "+ fileName);
+//		log.info(uploadDirectory + fileName);
         Resource resource = new FileSystemResource(uploadDirectory + fileName);
 
         if(resource.exists() == false) {
@@ -129,12 +126,12 @@ public class ApprovalFileController {
 
             //IE 브라우저 엔진 이름
             if(userAgent.contains("Trident")) {
-                log.info("IE browser");
+//                log.info("IE browser");
                 downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("\\+", " ");
             }else if(userAgent.contains("Edge")){
                 downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8");
             }else {
-                log.info("Chrome browser");
+//                log.info("Chrome browser");
                 downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
             }
 
@@ -147,19 +144,17 @@ public class ApprovalFileController {
     }
 
     //파일 서버(C드라이브)에 등록 및 등록 결과 뷰에 반영
-    @PreAuthorize("isAuthenticated()")
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<ApFileDTO>> uploadAjaxPost(MultipartFile[] apFiles) {
 
-        log.info("update ajax post......");
+//        log.info("update ajax post......");
 
         List<ApFileDTO> list = new ArrayList<>();
 
         String uploadFolder = uploadDirectory;
         String uploadFolderPath = getFolder();
 
-        // 폴더 생성
         File uploadPath = new File(uploadFolder, uploadFolderPath);
 
         // 해당 경로가 있는지 검사하고 없으면 mkdirs 명령을 통해 생성
@@ -174,7 +169,7 @@ public class ApprovalFileController {
             String uploadFileName = multipartFile.getOriginalFilename();
 
             // IE has file path
-            // IE의 경우 전체 파일 경로가 전송되므로 마지막 '\'를 기준으로 잘라낸 문자열이 실제 파일 이름이 됨
+            // IE의 경우 전체 파일 경로가 전송되므로 마지막 '\'를 기준으로 잘라낸 문자열이 실제 파일 이름
             uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 
             apFileDTO.setApFileName(uploadFileName);
@@ -198,9 +193,7 @@ public class ApprovalFileController {
                     thumbnail.getParentFile().mkdirs();
                     Thumbnails.of(saveFile).size(100, 100).outputFormat("png").toFile(thumbnail);
                 }
-
-
-                log.info("apFileDTO==================="+apFileDTO);
+//                log.info("apFileDTO==================="+apFileDTO);
                 // add to List
                 list.add(apFileDTO);
 

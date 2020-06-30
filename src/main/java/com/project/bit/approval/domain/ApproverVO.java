@@ -6,8 +6,8 @@ import org.apache.ibatis.type.Alias;
 @Data
 public class ApproverVO {
 
-    private String userId; //user_id
-    private String userName; //user_name
+    private String userId;
+    private String userName;
     private String dutyName;
 
 }

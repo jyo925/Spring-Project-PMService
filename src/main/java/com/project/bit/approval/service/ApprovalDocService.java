@@ -43,7 +43,7 @@ public interface ApprovalDocService {
 
 
 
-    //문서 개수 조회 결재진행, 결재대기, 임시저장 순
+    //문서 개수 조회 결재진행, 결재대기 순
     public List<Integer> getApDocCount(String apDocWriter);
 
     //참조문서 개수

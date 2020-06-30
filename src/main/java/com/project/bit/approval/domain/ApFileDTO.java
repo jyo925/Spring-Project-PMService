@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 public class ApFileDTO {
 
     private long apFileNo;
+    private long apDocNo;
     private String apFileName;
     private String apFilePath;
     private String apFileType;
     private String apFileUuid;
 
-    private long apDocNo;
 
 }
