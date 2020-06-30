@@ -2,10 +2,11 @@ package com.project.bit.admin.controller;
 
 import com.project.bit.admin.domain.TeamDTO;
 import com.project.bit.admin.service.TeamSettingService;
-import com.project.bit.admin.service.TeamSettingServiceImpl;
+import com.project.bit.approval.domain.ApFileDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +27,28 @@ public class TeamSettingController {
     public String teamSettingList(Model model){
 
         model.addAttribute("teamSettingList",teamSettingService.teamSettingList());
-        log.info("여기요>>>>>>>>>>>>>>>>>"+teamSettingService.teamSettingList());
+        //log.info("여기요>>>>>>>>>>>>>>>>>"+teamSettingService.teamSettingList());
 
         return "admin/teamSettingList";
+    }
+
+    //부서 상세
+    @GetMapping(value = "/getTeamDetail")
+    @ResponseBody
+    public ResponseEntity<TeamDTO>  getTeamDetail(int teamCode){
+
+        TeamDTO teamDTO = teamSettingService.getTeamDetail(teamCode);
+
+        return new ResponseEntity<>(teamDTO, HttpStatus.OK);
+    }
+
+    //부서 정보수정
+    @PostMapping(value = "/modifyTeam")
+    public String modify(TeamDTO teamDTO){
+
+        teamSettingService.modifyTeam(teamDTO);
+
+        return "redirect:/admin/regitTeam";
     }
 
     //부서등록
@@ -36,6 +56,15 @@ public class TeamSettingController {
     public String regitTeam(TeamDTO teamDTO){
 
         teamSettingService.regitTeam(teamDTO);
+
+        return "redirect:/admin/regitTeam";
+    }
+
+    //부서삭제 우선보류
+    @PostMapping(value = "/deleteTeam")
+    public String removeTeam(int teamCode){
+
+        teamSettingService.removeTeam(teamCode);
 
         return "redirect:/admin/regitTeam";
     }
@@ -48,9 +77,8 @@ public class TeamSettingController {
     @RequestMapping(value="/getTeamForOption", method= RequestMethod.POST)
     public @ResponseBody List<TeamDTO> getTeamForOption(TeamDTO teamDTO) {
 
-        System.out.println("getTeamForOption");
 
-        log.info(">>>>>"+teamSettingService.getTeamForOption());
+        log.info("셀렉박스 팀옵션>>>>>"+teamSettingService.getTeamForOption());
 
         return teamSettingService.getTeamForOption();
     }
