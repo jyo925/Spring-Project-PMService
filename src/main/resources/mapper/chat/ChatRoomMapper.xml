@@ -10,8 +10,8 @@
     </resultMap>
 
     <insert id="save" parameterType="com.project.bit.chat.domain.ChatRoom">
-        <selectKey keyProperty="conversationId" resultType="String" order="BEFORE">
-            select chatrooms_seq.nextval from dual
+        <selectKey keyProperty="conversationId" resultType="String" order="AFTER">
+            SELECT max(conversation_id) FROM chatrooms
         </selectKey>
         INSERT INTO chatrooms (conversation_id)
         VALUES (chatrooms_seq.NEXTVAL)

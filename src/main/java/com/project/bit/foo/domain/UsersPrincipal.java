@@ -32,7 +32,7 @@ public class UsersPrincipal implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authority = new ArrayList<GrantedAuthority>();
-		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(this.users.getDutyCode());
+		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(this.users.getPositionCode()+"");
 		authority.add(grantedAuthority);
 		
 		return authority;

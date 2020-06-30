@@ -18,4 +18,8 @@ public class Participation {
     this.userId = userId;
     this.conversationId = conversationId;
   }
+
+  public Participation(String userId) {
+    this.userId = userId;
+  }
 }

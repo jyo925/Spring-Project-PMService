@@ -14,9 +14,18 @@
     </resultMap>
 
     <insert id="save">
+        <selectKey keyProperty="messageId" resultType="int" order="AFTER">
+            SELECT max(message_id) FROM messages
+        </selectKey>
         INSERT INTO messages (message_id, author_id, conversation_id, content)
         VALUES (messages_seq.nextval, #{authorId}, #{roomNo}, #{content})
     </insert>
+
+    <select id="findByMessageId" parameterType="int" resultMap="Message">
+        SELECT *
+        FROM MESSAGES
+        WHERE message_id=#{messageId}
+    </select>
 
     <select id="findAll" resultMap="Message">
         SELECT *

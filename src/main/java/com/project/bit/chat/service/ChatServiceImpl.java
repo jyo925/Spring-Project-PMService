@@ -8,8 +8,10 @@ import com.project.bit.chat.mapper.ChatRoomMapper;
 import com.project.bit.chat.mapper.MessageMapper;
 import com.project.bit.chat.mapper.ParticipationMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
@@ -20,6 +22,7 @@ import java.util.Map;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ChatServiceImpl implements ChatService {
 
   private MessageMapper messageMapper;
@@ -27,22 +30,8 @@ public class ChatServiceImpl implements ChatService {
   private ParticipationMapper participationMapper;
   private SimpMessagingTemplate simpMessagingTemplate;
 
-  public boolean joinWithNewRoom(Message message, String AuthorId) {
-    ChatRoom chatRoom = new ChatRoom();
-    chatRoomMapper.save(chatRoom);
 
-    message.setRoomNo(chatRoom.getConversationId());
-    message.setAuthorId(AuthorId);
-    messageMapper.save(message);
-
-    for ( Participation participation : message.getParticipations() ) {
-      participation.setConversationId(chatRoom.getConversationId());
-    }
-
-    participating(message.getParticipations());
-    return true;
-  }
-
+  /* 처음 접속시 채팅방 리스트 */
   @Override
   public Map<String, Object> initialConnection(String userId) {
 
@@ -74,32 +63,58 @@ public class ChatServiceImpl implements ChatService {
     return true;
   }
 
+  /* 채팅방 초대 메시지 */
   @Override
-  public boolean inviteMessage(Message message) {
-    ChatRoom chatRoom = new ChatRoom();
-    chatRoomMapper.save(chatRoom);
+  public Message inviteMessage(Message message) {
+    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    try {
+      joinWithNewRoom(message, userDetails.getUsername());
+    } catch (Exception e) {
+      log.error("fail to create ChatRooms");
+    }
 
-
-    return false;
+    return message;
   }
 
   @Override
-  public boolean sendMessage(String roomNo, Message message) {
-    Principal principal = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+  public boolean sendMessage(String roomNo, Message message, Principal principal) {
+    message.setAuthorId(principal.getName());
     switch (message.getType()) {
       case "NEWJOIN" : joinWithNewRoom(message, principal.getName());
                     break;
       case "JOIN" : joinMessage(message, principal);
                     break;
-      case "SEND" : messageMapper.save(message);
-                    simpMessagingTemplate.convertAndSend("/topic/room"+roomNo,
-                    new MessageResponse(HtmlUtils.htmlEscape(message.getContent())));
+      case "SEND" : simpMessagingTemplate.convertAndSend("/topic/room/"+roomNo,
+                    sendProcess(message));
                     break;
     }
-
     return true;
   }
 
+  /* @params
+     author_id, conversation_id, content
+  */
+  public Message sendProcess(Message message) {
+    messageMapper.save(message);
+    return messageMapper.findByMessageId(message.getMessageId());
+  }
+
+  public Message joinWithNewRoom(Message message, String AuthorId) {
+    ChatRoom chatRoom = new ChatRoom();
+    chatRoomMapper.save(chatRoom);
+
+    message.setRoomNo(chatRoom.getConversationId());
+    message.setAuthorId(AuthorId);
+    messageMapper.save(message);
+
+    message.getParticipations().add(new Participation(AuthorId));
+
+    for ( Participation participation : message.getParticipations() ) {
+      participation.setConversationId(chatRoom.getConversationId());
+    }
+
+    participating(message.getParticipations());
+    return message;
+  }
 
 }
