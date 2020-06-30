@@ -5,6 +5,35 @@
     display: block;
 }
 
+.start-box {
+    background: rgba(3,169,243,0.1);
+    border: 1px solid #03a9f3;
+    color: #03a9f3;
+    padding: 0.56rem 1.13rem;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.finish-box {
+    background: rgba(251,150,120,0.1);
+    border: 1px solid #fb8a69;
+    color: #fb8a69;
+    padding: 0.56rem 1.13rem;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.card-title > a {
+    font-weight: normal;
+    font-size: small;
+    cursor: pointer;
+
+}
+
+.card-title > a:hover {
+    color: #03a9f3 !important;
+}
+
 /* select2 multiple dropdown arrow */
 .select2-selection--multiple:before {
     content: "";
@@ -24,4 +53,24 @@
 /* table */
 .table thead > tr > th  {
     font-weight: bold;
+}
+
+/* dashBoardAll */
+
+/* dashBoardDetail */
+
+/* dashBoardUser */
+.status-icon {
+    color: #000;
+    opacity: 0.1;
+    font-size: 3em;
+    vertical-align: middle;
+}
+
+.opacity-1 {
+    opacity: 0.1;
+}
+
+.opacity-5 {
+    opacity: 0.5;
 }

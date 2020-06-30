@@ -20,17 +20,17 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">주요 프로젝트<a href="/projectList"><span class="float-right">+more</span></a></h6>
-                    <div>
-                        <table class="table text-center" width="100%">
+                    <div class="overflow-auto">
+                        <table class="table table-over table-hover text-center">
                             <thead class="thead-light">
                             <tr>
                                 <th>No.</th>
                                 <th>프로젝트</th>
-                                <th>개발형태</th>
-                                <th>상태</th>
+                                <th width="10%">개발형태</th>
+                                <th width="15%">상태</th>
                                 <th>시작일</th>
                                 <th>완료일</th>
-                                <th>상세보기</th>
+                                <th width="10%">상세보기</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -38,10 +38,22 @@
                                 <td th:text="${keyProjectStat.count}"></td>
                                 <td><a th:text="*{projectName}" th:href="'/project/' + *{projectCode}"></a></td>
                                 <td th:text="*{projectTypeName}"></td>
-                                <td th:text="*{projectStatusName}"></td>
+<!--                                <td th:text="*{projectStatusName}"></td>-->
+                                <td th:if="*{projectStatusName == '진행중'}">
+                                    <span class="badge badge-primary">진행중</span>
+                                </td>
+                                <td th:if="*{projectStatusName == '진행예정'}">
+                                    <span class="badge badge-info">진행예정</span>
+                                </td>
+                                <td th:if="*{projectStatusName == '완료'}">
+                                    <span class="badge badge-success">완료</span>
+                                </td>
+                                <td th:if="*{projectStatusName == '중단'}">
+                                    <span class="badge badge-danger">중단</span>
+                                </td>
                                 <td th:text="*{projectStart}"></td>
                                 <td th:text="*{projectFinish}"></td>
-                                <td><a th:href="'/dashBoardDetail/' + *{projectCode}"><i class="fa fa-search"></i></a></td>
+                                <td><a th:href="'/dashBoardDetail/' + *{projectCode}"><i class="fa fa-search text-gray"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -57,8 +69,8 @@
                     <h6 class="card-title">프로젝트 진행현황</h6>
                     <div>
                         <table class="table table-bordered table-hover text-center" width="100%">
-                            <thead>
-                            <tr class="thead-light">
+                            <thead class="thead-light">
+                            <tr>
                                 <th>개발형태</th>
                                 <th>전체</th>
                                 <th>진행중</th>
@@ -86,10 +98,15 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">프로젝트 현황<a id="type-btn"><span class="float-right" style="cursor: pointer;">유형별</span>
-                    </a><a id="status-btn"><span class="float-right" style="cursor: pointer;">상태별</span></a></h6>
-                    <div class="align-middle" id="ProjectAllStatusChart"></div>
-                    <span id="all-account"></span>
+                    <h6 class="card-title">프로젝트 현황
+                        <a id="type-btn"><span class="float-right ml-3">유형별</span></a>
+                        <a id="status-btn"><span class="float-right">상태별</span></a>
+                    </h6>
+                    <div class="google-chart-container text-center">
+                        <div class="google-charts" id="ProjectAllStatusChart"></div>
+                        <span class="text-gray text-small" id="all-account"></span>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -100,8 +117,11 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">이슈 현황<a href="#"><span class="float-right">+more</span></a></h6>
-                    <div class="align-middle h-100" id="IssueAllStatusChart"></div>
-                    <span id="issue-all-account"></span>
+                    <div class="google-chart-container text-center">
+                        <div class="google-charts" id="IssueAllStatusChart"></div>
+                        <span class="text-gray text-small" id="issue-all-account"></span>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -109,8 +129,10 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">프로젝트 현황<a href="#"><span class="float-right">+more</span></a></h6>
-                    <div class="align-middle h-100" id="MonthlyProjectChart"></div>
+                    <h6 class="card-title">월별 프로젝트<a href="#"><span class="float-right">+more</span></a></h6>
+                    <div class="google-chart-container">
+                        <div class="google-charts" id="MonthlyProjectChart"></div>
+                    </div>
                 </div>
             </div>
         </div>

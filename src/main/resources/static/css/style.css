@@ -13067,7 +13067,8 @@ input[type="button"].btn-block {
     padding: 0.375rem 0.75rem;
     line-height: 1.5;
     color: #495057;
-    content: "Browse";
+    font-family: "FontAwesome";
+    content: "\f0c6";
     background-color: #e9ecef;
     border-left: inherit;
     border-radius: 0 0.25rem 0.25rem 0;
@@ -13752,13 +13753,6 @@ input[type="button"].btn-block {
     margin-bottom: 0.75rem;
 }
 
-.card-title:after {
-    content: "";
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-    display: block;
-}
-
 .card-subtitle {
     margin-top: -0.375rem;
     margin-bottom: 0;
@@ -14131,7 +14125,7 @@ input[type="button"].btn-block {
     vertical-align: baseline;
 }
 
-.badge::before {
+li .badge::before {
     content: "\f107";
     font-family: 'FontAwesome';
     color: #c9c9c9;
@@ -30500,4 +30494,6 @@ div.tagsinput span.tag a {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-/*# sourceMappingURL=maps/style.css.map */
+.table-over {
+    min-width: 600px !important;
+}

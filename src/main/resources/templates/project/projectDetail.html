@@ -1,104 +1,125 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/default">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
 <title id="pageTitle">프로젝트 기본정보</title>
 
-<!-- index.html 고유 CSS 추가 -->
+<!-- page 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<link rel="stylesheet" href="/css/project/projectDetail.css">
 </th:block>
 
-<!-- index.html 고유 스크립트 추가 -->
+<!-- page 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-	<script th:inline="javascript" src="/js/project/projectDetail.js"></script>
+    <script th:inline="javascript" src="/js/project/projectDetail.js"></script>
 </th:block>
 
 
 <div layout:fragment="content">
-	<div th:replace="/project/projectDetailChart :: project-top-nav"></div>
-	<div class="row">
-		<div class="col-12 grid-margin">
-			<div class="card">
-				<div class="card-body">
+    <div th:replace="/project/projectDetailChart :: project-top-nav"></div>
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">프로젝트 상세정보</h6>
+                    <hr>
 
-					<h6 class="card-title">프로젝트 상세정보</h6>
-					<hr>
-					
-					<div>
-						<h5> 프로젝트 명 </h5>
-						<input type="hidden" th:value="${project.projectCode}" th:id="projectCode" readOnly>
-						<input type="text" th:value="${project.projectName}" th:id="projectName" style="width:70%;" >
-						<div>
-							<input type="text" th:value="${project.projectSubName}" th:id="projectSubName" style="margin-top:5px; width:5%;">
-						</div>
-					</div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>프로젝트 명</label>
+                                <input class="form-control" type="hidden" th:value="${project.projectCode}"
+                                       th:id="projectCode" readOnly>
+                                <div class="input-group">
+                                    <input class="form-control mr-2" type="text" th:value="${project.projectName}"
+                                           th:id="projectName">
+                                    <input class="form-control" type="text" th:value="${project.projectSubName}"
+                                           th:id="projectSubName">
+                                </div>
+                            </div>
 
-					<div style="margin-top: 10px;">
-						<h5>개발 형태</h5>
-						<select id="projectTypeChoice">
-							<option value="">개발 형태</option>
-							<option th:each="projectType : ${projectTypeList}" 
-								th:value="${projectType.projectTypeCode}"
-								th:text="${projectType.projectType}"
-								th:selected="${projectType.projectType} == ${project.projectTypeName}"></option>
-						</select>
-						<input type="date" th:value="${project.projectStart}" th:id="projectStart">
-						<input type="date" th:value="${project.projectFinish}" th:id="projectFinish">
-					</div>
+                            <div class="form-group">
+                                <label>개발 형태</label>
+                                <div class="input-group">
+                                    <select class="form-control mr-2" id="projectTypeChoice">
+                                        <option value="">개발 형태</option>
+                                        <option th:each="projectType : ${projectTypeList}"
+                                                th:value="${projectType.projectTypeCode}"
+                                                th:text="${projectType.projectType}"
+                                                th:selected="${projectType.projectType} == ${project.projectTypeName}"></option>
+                                    </select>
+                                    <input class="form-control mr-2" type="date" th:value="${project.projectStart}"
+                                           th:id="projectStart">
+                                    <input class="form-control" type="date" th:value="${project.projectFinish}"
+                                           th:id="projectFinish">
+                                </div>
+                            </div>
 
-					<div style="margin-top: 10px;">
-						<h5>PM</h5>
-						<select th:id="pmTeamChoice">
-							<option>부서</option>
-							<option th:each="team : ${teamList}" th:value="${team.teamCode}"
-								th:text="${team.teamName}"></option>
-						</select> 
-						<select th:id="pmIdChoice">
-							<option>아이디</option>
-							<option th:id="pmIdList" th:each="user : ${userList}" th:value="${user.userId}"
-								th:text="${user.userName} + ' : ' + ${user.userId}" th:selected="${project.projectPm} == ${user.userId}"></option>
-						</select>
+                            <div class="form-group">
+                                <label>PM</label>
+                                <div class="input-group">
+                                    <select class="form-control mr-2" th:id="pmTeamChoice">
+                                        <option>부서</option>
+                                        <option th:each="team : ${teamList}" th:value="${team.teamCode}"
+                                                th:text="${team.teamName}"></option>
+                                    </select>
+                                    <select class="form-control w-auto" th:id="pmIdChoice">
+                                        <option>아이디</option>
+                                        <option th:id="pmIdList" th:each="user : ${userList}" th:value="${user.userId}"
+                                                th:text="${user.userName} + ' : ' + ${user.userId}"
+                                                th:selected="${project.projectPm} == ${user.userId}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>PMO</label>
+                                <div class="input-group">
+                                    <select class="form-control mr-2" th:id="pmoTeamChoice">
+                                        <option>부서</option>
+                                        <option th:each="team : ${teamList}" th:value="${team.teamCode}"
+                                                th:text="${team.teamName}"></option>
+                                    </select>
+                                    <select class="form-control w-auto" th:id="pmoIdChoice">
+                                        <option value="">아이디</option>
+                                        <option th:each="user : ${userList}" th:value="${user.userId}"
+                                                th:text="${user.userName} + ' : ' + ${user.userId}"
+                                                th:selected="${project.projectPmo} == ${user.userId}"></option>
+                                    </select>
+                                </div>
+                            </div>
 
-						<h5>PMO</h5>
-						<select th:id="pmoTeamChoice">
-							<option>부서</option>
-							<option th:each="team : ${teamList}" th:value="${team.teamCode}"
-								th:text="${team.teamName}"></option>
-						</select> 
-						<select th:id="pmoIdChoice">
-							<option value="">아이디</option>
-							<option th:each="user : ${userList}" th:value="${user.userId}"
-								th:text="${user.userName} + ' : ' + ${user.userId}" th:selected="${project.projectPmo} == ${user.userId}"></option>
-						</select>
-					</div>
+                            <div class="form-group">
+                                <label>프로젝트 설명</label>
+                                <textarea class="form-control" rows="5" th:text="${project.projectDescription}"
+                                          maxlength="500"
+                                          th:id="projectDescription"></textarea>
+                            </div>
 
-					<div>
-						<h5>프로젝트 설명</h5>
-						<textarea rows="10px" cols="100px" th:text="${project.projectDescription}" maxlength="500" th:id="projectDescription"></textarea>
-					</div>
-					
-					<div>
-						<select th:id="projectStatusChoice">
-							<option value=""> 상태  </option>
-							<option th:each="status : ${projectStatus}" 
-								th:value="${status.projectStatusCode}"
-								th:text="${status.projectStatus}"
-								th:selected="${status.projectStatus} == ${project.projectStatusName}"></option>
-						</select>
-					</div>
+                            <div class="form-group">
+                                <label>프로젝트 상태</label>
+                                <select class="form-control" th:id="projectStatusChoice">
+                                    <option value="">선택하세요</option>
+                                    <option th:each="status : ${projectStatus}"
+                                            th:value="${status.projectStatusCode}"
+                                            th:text="${status.projectStatus}"
+                                            th:selected="${status.projectStatus} == ${project.projectStatusName}"></option>
+                                </select>
+                            </div>
 
-					<div style="margin-top: 20px;">
-						<button type="button" id="delete_btn">삭제</button>
-						<button type="button" id="update_btn">저장</button>
-						<button type="button" onclick="location.href='/projectList'">취소</button>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	</div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="button" id="update_btn">저장</button>
+                                <button class="btn btn-outline-primary" type="button"
+                                        onclick="location.href='/projectList'">취소
+                                </button>
+                                <button class="btn btn-outline-secondary float-right" type="button" id="delete_btn">삭제
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 </html>
