@@ -1,76 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/default">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
 <title id="pageTitle">프로젝트 기본정보</title>
 
-<!-- index.html 고유 CSS 추가 -->
+<!-- page 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<link rel="stylesheet" href="/css/project/projectDetail.css">
-	<link rel="stylesheet" href="/css/project/projectIssue.css">
 </th:block>
 
-<!-- index.html 고유 스크립트 추가 -->
+<!-- page 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-	<script th:inline="javascript" src="/js/project/projectIssueSearch.js"></script>
+    <script th:inline="javascript" src="/js/project/projectIssueSearch.js"></script>
 </th:block>
 
 
 <div layout:fragment="content">
-	<div th:replace="/project/projectDetailChart :: project-top-nav"></div>
-	<div class="row">
-		<div class="col-12 grid-margin">
-			<div class="card">
-				<div class="card-body">
-					<h6>프로젝트 이슈</h6>
-					<hr>
-					
-					<input class="project-code" type="hidden" th:value="${project.projectCode}">
-					
-					<div>
-						<select id="issueTypeChoice" name="issueTypeChoice">
-							<option value="all">전체타입</option>
-							<option th:each="issueType : ${issueTypeList}"
-								th:value="${issueType.issueTypeCode}"
-								th:text="${issueType.issueType}"></option>
-						</select> 
-						
-						<input id="issueName" type="text" placeholder="이슈 명" style="margin-left: 10px; margin-right: 10px;">
-						<button id="issue-search-btn" type="button">검색</button>
-						<button type="button" onclick="location.href='/goProjectIssueAdd'" style="float: right;">+이슈 등록</button>
-					</div>
-					
-					<div class="issue-list">
-						<table class="table text-center table-hover" width="100%">
-							<thead class="thead-light">
-								<tr width="100%">
-									<th width="10%">No</th>
-									<th width="30%">이슈 명</th>
-									<th width="10%">구분</th>
-									<th width="10%">제기자</th>
-									<th width="10%">조치자</th>
-									<th width="10%">조치 희망일</th>
-									<th width="10%">등록일</th>
-								</tr>
-							</thead>
-							<tbody id="issue-list-tbody">
-								<tr th:each="issue : ${issueList}">
-									<td th:text="${issueStat.count}"></td>
-									<td><a th:href="'/projectIssueDetail/'+${issue.issueCode}" th:text="${issue.issueName}"></a></td>
-									<td th:text="${issue.issueTypeName}"></td>
-									<td th:text="${issue.issueUserId}"></td>
-									<td th:text="${issue.issueActionId}"></td>
-									<td th:text="${issue.issueActionDate}"></td>
-									<td th:text="${issue.issueDate}"></td>
-								</tr>
-							</tbody>
-						</table>
-					
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div th:replace="/project/projectDetailChart :: project-top-nav"></div>
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6>프로젝트 이슈</h6>
+                    <hr>
+
+                    <input class="project-code" type="hidden" th:value="${project.projectCode}">
+                    <div class="row">
+                        <div class="input-group col-md-6 col-sm-12 mb-2">
+                            <select class="form-control mr-2" id="issueTypeChoice" name="issueTypeChoice">
+                                <option value="all">전체</option>
+                                <option th:each="issueType : ${issueTypeList}"
+                                        th:value="${issueType.issueTypeCode}"
+                                        th:text="${issueType.issueType}"></option>
+                            </select>
+                            <input class="form-control mr-2 w-auto" id="issueName" type="text" placeholder="이슈명">
+                            <button class="btn btn-primary" id="issue-search-btn" type="button">검색</button>
+                        </div>
+                        <div class="col-md-6 col-sm-12 mb-2">
+                            <button class="btn btn-outline-primary float-right" type="button"
+                                    onclick="location.href='/goProjectIssueAdd'">+이슈 등록
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 issue-list overflow-auto">
+                            <table class="table text-center table-hover table-over">
+                                <thead class="thead-light">
+                                <tr width="100%">
+                                    <th width="10%">No</th>
+                                    <th width="30%">이슈 명</th>
+                                    <th width="10%">구분</th>
+                                    <th width="10%">제기자</th>
+                                    <th width="10%">조치자</th>
+                                    <th width="10%">조치 희망일</th>
+                                    <th width="10%">등록일</th>
+                                </tr>
+                                </thead>
+                                <tbody id="issue-list-tbody">
+                                <tr th:each="issue : ${issueList}">
+                                    <td th:text="${issueStat.count}"></td>
+                                    <td><a th:href="'/projectIssueDetail/'+${issue.issueCode}"
+                                           th:text="${issue.issueName}"></a></td>
+                                    <td th:text="${issue.issueTypeName}"></td>
+                                    <td th:text="${issue.issueUserId}"></td>
+                                    <td th:text="${issue.issueActionId}"></td>
+                                    <td th:text="${issue.issueActionDate}"></td>
+                                    <td th:text="${issue.issueDate}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </html>

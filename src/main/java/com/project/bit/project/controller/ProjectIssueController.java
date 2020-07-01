@@ -34,7 +34,7 @@ public class ProjectIssueController {
 	
 	@GetMapping("/goProjectIssueAdd")
 	public String goProjectIssueAdd(@ModelAttribute ProjectIssueDTO projectIssueDTO, Model model, ProjectCriteria cri) {
-		model.addAttribute("projectList", projectService.getProjectListAll(cri));
+		model.addAttribute("projectList", projectService.getProjectAll());
 		return "/project/projectIssueInsert";
 	}
 	

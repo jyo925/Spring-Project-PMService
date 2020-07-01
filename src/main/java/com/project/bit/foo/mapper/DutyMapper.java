@@ -1,20 +1,18 @@
 package com.project.bit.foo.mapper;
 
-import org.apache.ibatis.annotations.Insert;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import com.project.bit.foo.domain.Duty;
 
 @Mapper
 public interface DutyMapper {
 	
-	@Insert("insert into dutys(DUTY_CODE, DUTY_NAME) values(#{DUTY_CODE}, #{DUTY_NAME})")
-	void insertDuty(String DUTY_CODE, String DUTY_NAME);
-
+	@Select("SELECT * FROM DUTYS")
+	List<Duty> getDutys();
 	
-	/*
-	 * mybatis: type-aliases-package: com.project.bit.projects.mapper
-	 * mapper-locations: classpath:/mapperMapper.xml configuration:
-	 * map-underscore-to-camel-case: true
-	 */
 }
 
 

@@ -12,11 +12,11 @@ class DashBoardAllMapperTest {
 
     @Test
     public void test1() {
-        dashBoardAllMapper.selectKeyProject();
+        dashBoardAllMapper.selectMonthlyProjectStatus();
     }
 
     @Test
     public void test2() {
-        dashBoardAllMapper.selectProjectAllStatusCount();
+        dashBoardAllMapper.selectIssueAllStatus();
     }
 }

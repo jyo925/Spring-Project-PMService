@@ -60,6 +60,21 @@ function dropDownEvent(){
 
 function insertProject(){
 	$('#update_btn').on('click',function(){
+		
+		var projectPm = $('#pmIdChoice').val();
+		var projectPmo = $('#pmoIdChoice').val();
+		
+		var projectPmId = '';
+		if(projectPm == '' || projectPm == null) {
+			projectPmId = $('#project-pm').val();
+		}
+		
+		var projectPmoId = '';
+		if(projectPmo == '' || projectPmo == null) {
+			projectPmoId = $('#project-pm').val();
+		}
+		
+		
 		$.ajax({
 			url : '/project/'+$('#projectCode').val(),
 			type : 'PUT',
@@ -69,8 +84,8 @@ function insertProject(){
 				projectTypeCode : $('#projectTypeChoice').val(),
 				projectStart : $('#projectStart').val(),
 				projectFinish : $('#projectFinish').val(),
-				projectPm : $('#pmIdChoice').val(),
-				projectPmo : $('#pmoIdChoice').val(),
+				projectPm : projectPmId,
+				projectPmo : projectPmoId,
 				projectDescription : $('#projectDescription').val(),
 				projectStatusCode : $('#projectStatusChoice').val()
 			},

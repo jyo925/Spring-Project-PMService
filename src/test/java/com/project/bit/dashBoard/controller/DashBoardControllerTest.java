@@ -20,7 +20,7 @@ class DashBoardControllerTest {
 
     @Test
     public void test() throws Exception {
-        mockMvc.perform((MockMvcRequestBuilders.get("/dashBoardAll")
+        mockMvc.perform((MockMvcRequestBuilders.get("/dashBoardUser")
         )).andDo(print());
     }
 
