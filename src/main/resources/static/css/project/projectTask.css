@@ -104,8 +104,13 @@ p {
 	display: none;
 }
 
-.group-btn ul, .task-btn ul, .success-task-btn ul{
+.group-btn ul{
 	float: right;
+}
+
+.task-btn ul, .success-task-btn ul {
+	float: right;
+	clear: both;
 }
 
 ul li{

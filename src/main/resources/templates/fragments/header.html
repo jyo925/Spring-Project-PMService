@@ -200,7 +200,7 @@
                     <li class="nav-item nav-profile mt-4">
                         <div class="nav-link">
                             <div class="profile-image">
-                                <img th:if="${#authentication.Principal.Users.userPhoto != null}" th:src="${#authentication.principal.Users.userPhoto}" class="bg-success">
+                                <img th:if="${#authentication.Principal.Users.userPhoto != null}" th:src="${#authentication.Principal.Users.userPhoto}" class="bg-success">
                                 <img th:if="${#authentication.Principal.Users.userPhoto == null}" src="/img/user.png" class="bg-success">
                             </div>
                             <div class="profile-name">

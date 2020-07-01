@@ -95,23 +95,28 @@
 							<!-- 모달 끝 -->
 							
 							<div class="task" th:each="task : ${taskGroup.projectTasks}" th:if="${task.taskStatusName} != '완료'">
-								<input class="task-code" type="hidden" th:value="${task.taskCode}">
 								
-								<p class="task-status-name" th:text="${task.taskStatusName}"></p>
-								<span class="task-name" th:data-mfp-src="'#' + ${task.taskCode}" th:text="${task.taskName}" id="task_name">프로젝트 작업 명</span>
-								
-								<i class="fa fa-caret-down task-btn-list"></i>
-								
-								<div class="task-btn">
-									<ul>
-										<li>
-											<a class="task-success-btn">작업 완료</a>
-										</li>
-										<li>
-											<a class="task-delete-btn">작업 삭제</a>							
-										</li>
-									</ul>
+									<input class="task-code" type="hidden" th:value="${task.taskCode}">
+									
+									<p class="task-status-name" th:text="${task.taskStatusName}"></p>
+								<div>
+									<span class="task-name" th:data-mfp-src="'#' + ${task.taskCode}" th:text="${task.taskName}" id="task_name">프로젝트 작업 명</span>
+									
+									<i class="fa fa-caret-down task-btn-list"></i>
+									
+									<div class="task-btn">
+										<ul>
+											<li>
+												<a class="task-success-btn">작업 완료</a>
+											</li>
+											<li>
+												<a class="task-delete-btn">작업 삭제</a>							
+											</li>
+										</ul>
+									</div>
+									
 								</div>
+								
 								
 								<p th:text="${task.taskDescription}"> 작업 설명 </p>
 								<p th:text="${task.taskStart} + ' ~ ' + ${task.taskFinish}" style="margin-top: 50px;"> 시작일 ~ 완료일 </p>
