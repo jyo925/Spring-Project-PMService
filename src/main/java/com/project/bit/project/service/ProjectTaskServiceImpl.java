@@ -86,4 +86,10 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	public List<ProjectTaskStatusDTO> getTaskStatus() {
 		return projectTaskMapper.selectTaskStatus();
 	}
+
+	@Override
+	public void removeProjectTaskManager(String managerCode) {
+		projectTaskMapper.deleteProjectTaskManager(managerCode);
+		
+	}
 }

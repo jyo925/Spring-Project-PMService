@@ -88,7 +88,7 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	
 	<!-- 프로젝트 그룹 -->
 	<select id="selectProjectTaskGroup" parameterType="String" resultMap="taskGroup">
-		SELECT * FROM project_task_groups WHERE project_code = #{projectId}
+		SELECT * FROM project_task_groups WHERE project_code = #{projectId} ORDER BY taskGroup_code
 	</select>
 	
 	<update id="updateProjectTaskGroup" parameterType="com.project.bit.project.domain.ProjectTaskGroupDTO">
@@ -111,5 +111,9 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	<select id="selectTaskStatus" resultType="com.project.bit.project.domain.ProjectTaskStatusDTO">
 		SELECT * FROM project_task_status
 	</select>
+	
+	<delete id="deleteProjectTaskManager" parameterType="String">
+		DELETE FROM project_task_managers WHERE task_manager_code = #{managerCode}
+	</delete>
 	
 </mapper>
