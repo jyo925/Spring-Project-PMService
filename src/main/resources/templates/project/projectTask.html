@@ -175,7 +175,8 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="task-top-nav">
-                                                    <a class="task-info-btn mr-2" th:data-mfp-src="'#' + ${task.taskCode}">작업
+                                                    <a class="task-info-btn mr-2"
+                                                       th:data-mfp-src="'#' + ${task.taskCode}">작업
                                                         정보</a>
                                                     <a class="task-file-btn"
                                                        th:data-mfp-src="'#' + ${task.taskCode} + 'file'">작업
@@ -200,8 +201,9 @@
                                                 <div class="form-group">
                                                     <label>담당자</label>
                                                     <ul class="task-manager-list">
-                                    <span class="manager-id" th:each="manager : ${task.projectTaskManagers}"
-                                          th:text="${manager.taskManagerId}"></span>
+                                                        <li class="manager-id"
+                                                            th:each="manager : ${task.projectTaskManagers}"
+                                                            th:text="${manager.taskManagerId}"></li>
                                                     </ul>
                                                     <select class="task-manager form-control">
                                                         <option value="">담당자</option>
@@ -247,7 +249,8 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="task-top-nav">
-                                                    <a class="task-info-btn mr-2" th:data-mfp-src="'#' + ${task.taskCode}">작업
+                                                    <a class="task-info-btn mr-2"
+                                                       th:data-mfp-src="'#' + ${task.taskCode}">작업
                                                         정보</a>
                                                     <a class="task-file-btn"
                                                        th:data-mfp-src="'#' + ${task.taskCode} + 'file'">작업
@@ -393,8 +396,9 @@
                                                     <div class="form-group">
                                                         <label>담당자</label>
                                                         <ul class="task-manager-list">
-                                        <span class="manager-id" th:each="manager : ${task.projectTaskManagers}"
-                                              th:text="${manager.taskManagerId}"></span>
+                                                            <li class="manager-id"
+                                                                th:each="manager : ${task.projectTaskManagers}"
+                                                                th:text="${manager.taskManagerId}"></li>
                                                         </ul>
                                                         <select class="task-manager form-control">
                                                             <option value="">담당자</option>

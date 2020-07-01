@@ -156,7 +156,7 @@
                                     <td><a class="output-download-btn"><i class="fa fa-download"></i></a></td>
                                     <td><a th:if="${#authentication.Principal.users.userId} == ${output.outputUser} OR
 													${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'"
-                                           class="output-delete-btn"><i class="fa fa-times fa-lg text-danger"></i></a></td>
+                                           class="output-delete-btn"><i class="fa fa-times text-danger"></i></a></td>
 
                                     <div th:id="${output.outputCode}" class="white-popup mfp-hide output-info">
                                         <h5>산출물 수정</h5>

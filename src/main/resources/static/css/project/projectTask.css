@@ -33,14 +33,15 @@
 .task-manager-list {
 	border: 1px solid #f3f3f3;
 	background-color: #fff;
-	height: 35px;
+	padding: .4375rem .75rem;
 	align-items: center;
+	height: 40px;
 }
 
-.task-manager-list span {
-	margin-left: 5px;
-	background-color: #808080;
-	color: #ffffff;
+.task-manager-list li {
+	float: left;
+	background-color: #f3f3f3;
+	margin-right: 5px;
 }
 
 .task {
@@ -103,12 +104,33 @@ a:hover {
 }
 
 .group-btn ul, .task-btn ul, .success-task-btn ul{
-	display: flow-root !important;
 	float: right;
 }
 
 .success-task-btn {
+	position: absolute;
+	background: #fff;
+	border: 1px solid #f3f3f3;
+	padding: 1rem;
+	text-align: center;
+}
 
+.success-task-btn ul {
+	padding: 0 !important;
+	margin: 0;
+}
+
+.task-btn {
+	position: absolute;
+	background: #fff;
+	border: 1px solid #f3f3f3;
+	padding: 1rem !important;
+	text-align: center;
+}
+
+.task-btn ul {
+	padding: 0 !important;
+	margin: 0;
 }
 
 ul li{

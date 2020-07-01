@@ -298,7 +298,7 @@ function fileDownload(target){
 function taskManager(target){
 	$(target).on('change', function(event){
 		var userId = $(event.target).val()
-		var value = '<span class="add-manager-id">' + userId + '</span>';
+		var value = '<li class="add-manager-id">' + userId + '</li>';
 		$('.task-manager-list').append(value);
 	})
 	
