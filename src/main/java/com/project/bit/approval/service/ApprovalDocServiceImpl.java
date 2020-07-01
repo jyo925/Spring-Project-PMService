@@ -60,7 +60,6 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
         apDocMapper.deleteApDoc(apDocNo, apDocWriter);
     }
 
-    //진행문서함
     @Override
     public List<ApDocDTO> getApProgressList(String apDocWriter, Criteria cri) {
         return apDocMapper.selectApProgressList(apDocWriter, cri);
@@ -85,7 +84,7 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
         return apDocCountList;
     }
 
-    //결재 대기 문서함
+
     @Override
     public List<ApDocDTO> getApCheckList(String apDocWriter, Criteria cri) {
         return apDocMapper.selectApCheckList(apDocWriter, cri);

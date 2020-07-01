@@ -3,6 +3,10 @@ package com.project.bit.approval.controller;
 import com.project.bit.approval.domain.*;
 import com.project.bit.approval.service.ApprovalDocService;
 import com.project.bit.approval.service.ApprovalService;
+import com.project.bit.foo.domain.event.Event;
+import com.project.bit.foo.domain.event.EventGroup;
+import com.project.bit.foo.service.EventService.EventGroupService;
+import com.project.bit.foo.service.EventService.EventService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,20 +27,42 @@ public class ApprovalController {
     ApprovalDocService apDocService;
     @Autowired
     ApprovalService apService;
+    @Autowired
+    EventService eventService;
+    @Autowired
+    EventGroupService eventGroupService;
+
+
+    public boolean postEvent(String apDocNo){
+
+        //문서번호를 이용하여 Event 등록해야하는 결재인지 확인 (문서 종류가 1,2,3인 경우만)
+        //apDocServie.getPostEventCheck(apDocNo);
+        //return 값으로 문서 종류 -->ex : username 휴가 , 이찬영 출장, 정상구 교육
+
+        //event 제목: 이찬영 PM 출장
+        //시작일, 종료일+1 해줘야함
+        //        eventService.insertEvent(event);
+        
+        //같은 프로젝트 멤버 아이디 eventgroup에 셋팅해야함
+        //        eventGroupService.insertMember(eventGroup, event);
+        
+        return false;
+    };
+
+
 
     @GetMapping("/apTest")
     public String apTest(){
         return "approval/apTest";
     }
 
-    //새 결재 작성하기
     @GetMapping("/apMain")
     public String apMain(Criteria cri, Principal principal, Model model) {
         model.addAttribute("apDocCount", apDocService.getApDocCount(principal.getName()));
         return "approval/apMain";
     }
 
-    //새 결재 작성화면으로 이동
+    //새 결재 작성 화면
     @GetMapping("/goNewApDoc")
     public String goNewApDoc(String apFormNo, Principal principal, Model model, RedirectAttributes rttr) {
 
@@ -62,18 +88,17 @@ public class ApprovalController {
         return "approval/approvalNew";
     }
 
-    //결재 요청(등록)
+    //결재 요청
     @PostMapping("/postApDoc")
     public String postApDoc(ApDocDTO apDocDTO, ApFileDTO apFileDTO,
                             Model model, Principal principal, String apReferrersId, ApDateDTO apDateDTO) {
 
-        log.info("새 결재 문서 등록: " + apDocService.postApDoc(apDocDTO));
+        apDocService.postApDoc(apDocDTO);
 
         long apDocNo = apDocService.getNewApDocNo(apDocDTO);
 
-        log.info("결재자 등록 수: " +
-                apService.postApprovers(
-                        apService.getApproverList("" + apDocDTO.getApFormNo(), principal.getName()), apDocNo));
+        apService.postApprovers(
+            apService.getApproverList("" + apDocDTO.getApFormNo(), principal.getName()), apDocNo);
 
         if (!(apFileDTO.getApFileName() == null)) {
             apFileDTO.setApDocNo(apDocNo);
@@ -87,9 +112,6 @@ public class ApprovalController {
             apDocService.postApDocTerm(apDateDTO);
         }
 
-
-        //int lastPage = ((apDocService.getApDocCount(principal.getName()).get(0))-1)/10+1;
-//        return "redirect:/approval/getApProgressList?pageNum="+lastPage;
         return "redirect:/approval/apMain";
     }
 
@@ -173,6 +195,8 @@ public class ApprovalController {
         if (apService.getLastApprover(String.valueOf(apDTO.getApDocNo())).equals(approver)
                 && apDTO.getApResult() == '1') {
             apDocService.putLastApDoc(apDTO.getApDocNo());
+            //이벤트 등록 처리 메소드로 처리
+            
         } else {
             apDocService.putApDoc(apDTO);
         }
@@ -182,7 +206,6 @@ public class ApprovalController {
     //문서 삭제 처리
     @PostMapping("/removeApproval")
     public String removeApproval(Principal principal, String apDelete, String apDocNo){
-
         apDocService.removeApDoc(apDocNo, principal.getName());
         return "redirect:/approval/apMain";
     }
