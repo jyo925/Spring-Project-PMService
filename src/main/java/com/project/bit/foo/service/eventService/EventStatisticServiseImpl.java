@@ -1,4 +1,4 @@
-package com.project.bit.foo.service.eventService;
+package com.project.bit.foo.service.EventService;
 
 import java.util.List;
 
@@ -10,8 +10,9 @@ import com.project.bit.foo.mapper.EventStatisticMapper;
 @Service
 public class EventStatisticServiseImpl implements EventStatisticService {
 
+
 	private final EventStatisticMapper eventStatisticMapper;
-	
+
 	public EventStatisticServiseImpl(EventStatisticMapper eventStatisticMapper) {
 		this.eventStatisticMapper = eventStatisticMapper;
 	}
