@@ -43,12 +43,12 @@ public class TeamSettingController {
     }
 
     //부서 정보수정
-    @PostMapping(value = "/modifyTeam")
-    public String modify(TeamDTO teamDTO){
+    @PostMapping(value = "/updateTeam")
+    public String modifyTeam(TeamDTO teamDTO){
 
         teamSettingService.modifyTeam(teamDTO);
 
-        return "redirect:/admin/regitTeam";
+        return "redirect:/admin/teamSettingList";
     }
 
     //부서등록
@@ -57,20 +57,22 @@ public class TeamSettingController {
 
         teamSettingService.regitTeam(teamDTO);
 
-        return "redirect:/admin/regitTeam";
+        log.info("등록이라네~!!!!!>>>>"+teamDTO);
+
+        return "redirect:/admin/teamSettingList";
     }
 
-    //부서삭제 우선보류
+    //부서삭제
     @PostMapping(value = "/deleteTeam")
-    public String removeTeam(int teamCode){
+    @ResponseBody
+    public ResponseEntity<String> removeTeam(int teamCode){
 
         teamSettingService.removeTeam(teamCode);
 
-        return "redirect:/admin/regitTeam";
+        log.info("삭제삭제삭제삭제삭제삭제삭제삭제>>>>>"+teamCode);
+
+        return new ResponseEntity<String>("delete", HttpStatus.OK);
     }
-
-
-
 
 
     //사용자등록 셀렉박스

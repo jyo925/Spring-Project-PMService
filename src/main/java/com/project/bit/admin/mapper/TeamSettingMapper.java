@@ -20,7 +20,7 @@ public interface TeamSettingMapper {
     List<Map<String, Object>> selectTeamUpperList(int depth, int teamCode);
 
     //부서 정보수정
-    public int updateTeam(TeamDTO teamDTO);
+    public void updateTeam(TeamDTO teamDTO);
 
     //부서등록
     public void insertTeam(TeamDTO teamDTO);

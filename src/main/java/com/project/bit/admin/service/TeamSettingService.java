@@ -17,7 +17,7 @@ public interface TeamSettingService {
     TeamDTO getTeamDetail(int teamCode);
 
     //부서 정보수정
-    boolean modifyTeam(TeamDTO teamDTO);
+    void modifyTeam(TeamDTO teamDTO);
 
     //부서등록
     void regitTeam(TeamDTO teamDTO);

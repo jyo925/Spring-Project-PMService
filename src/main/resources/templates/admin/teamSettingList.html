@@ -7,14 +7,15 @@
 <title id="pageTitle">부서 관리</title>
 
 <th:block layout:fragment="css">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="/css/jquery-ui.css" rel="stylesheet">
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-    <script src="/js/jquery-ui.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
     <script>
         $(document).ready(function () {
             $('.teamListWithLevel').on('click', function () {
@@ -24,19 +25,74 @@
                 var tdArr = new Array();	// 배열 선언
 
                 var teamCd = $(this).find('p:eq(0)').text();
-                //alert(teamCd);
+
 
                 getTeamDetail(teamCd);
 
-                //callTeamSelectBox();
+
 
                 if ($(this).find('p:eq(1)').attr('name') != 'teamLevel3') {
                     $('#upperTeam').hide();
+                    // $('#upperTeam').val(teamCd.teamUpper).hide();
                 } else {
                     $('#upperTeam').show();
                 }
 
             })
+
+
+        $('#deleteTeam').on('click', function () {
+            var confirm_val = confirm("삭제하시겠습니까?");
+            if (confirm_val) {
+
+                var delTeamCd = {"teamCode": parseInt($('#teamCode').val())};
+                //alert(parseInt($('#teamCode').val()));
+
+                $.ajax({
+                    url: "/admin/deleteTeam",
+                    type: "post",
+                    data:  delTeamCd,
+
+                }).done(function(result){
+                    location.href = "/admin/teamSettingList"
+                    console.log("성공"+result);
+
+                }).error(function (error){
+
+                    console.log(error);
+                    alert("삭제하지 못했습니다.");
+                });
+            }
+        });
+
+        $('#regitTeamBtn').on('click', function () {
+            $('#dialog-form').dialog('open');
+
+        });
+
+        function addUser() {
+            $('#regitTeam').submit();
+        }
+
+        $('#dialog-form').dialog({
+            title: '부서 등록',
+            autoOpen: false,
+            modal: true,
+            width: 400,
+            height: 700,
+
+            buttons: {
+                "등록": addUser ,
+
+                "취소": function () {
+                    $('#dialog-form').dialog('close');
+                }
+            }
+
+        });
+
+        callTeamSelectBox();
+
         });
 
         function getTeamDetail(teamCd) {
@@ -65,6 +121,32 @@
             });
         }
 
+        function callTeamSelectBox() {
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/getTeamForOption",
+                dataType: "json",
+                data: {param: ""},
+                contentType: "application/json;charset=UTF-8",
+                success: function (result) {
+
+                    //SELECT BOX 초기화
+                    $('#regitTeamUpCode').find('option').remove().end().append('<option value=" " >선택</option>');
+
+                    //배열 개수 만큼 option 추가
+                    $.each(result, function (i) {
+                        $('#regitTeamUpCode').append("<option value='" + result[i].teamCode + "'>" + "[" + result[i].teamCode + "]  " + result[i].teamName + "</option>")
+                    });
+                    $('#regitTeamUpCode').append("<option value='0'>" + '선택하지 않음' + "</option>");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("오류가 발생하였습니다.");
+                }
+            });
+
+        }
+
     </script>
 
 </th:block>
@@ -75,12 +157,13 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">부서 관리</h3>
-                    <div class="row" style="height: 70vh; padding-bottom: 20px">
+                    <h3 class="card-title" style="padding-bottom: 20px;">부서 관리</h3>
+                    <div class="row" style="height:auto; padding-bottom: 20px">
                         <div class="col-5" style="padding-left:30px;">
+                            <!--Team List Start-->
                             <h4 style="padding-: 10px" class="card-title">부서 리스트</h4>
                                 <div class="col"
-                                     style="height:60vh; width:45vh; background: ghostwhite; padding: 40px;">
+                                     style="height:content-box; width:45vh; background:#E5E5E5; padding: 40px;">
                                     <div class="teamListWithLevel" th:each="teamList : ${teamSettingList}">
                                         <p th:text="${teamList.teamCode}" class="d-none"></p>
                                         <p th:if="${teamList.level == 1}" th:text="${teamList.teamName}"></p>
@@ -91,48 +174,52 @@
                                            name="teamLevel3"></p>
                                 </div>
                             </div>
+                            <!--Team List Start-->
+                            <br>
+                            <button type="button" id="regitTeamBtn" class="btn btn-inverse-success btn-fw">부서 등록</button>
                         </div>
 
+                        <!-- Registration of Team Start 수정-->
+                        <div id="dialog-form" title="regitTeam">
+                            <form action="/admin/regitTeam" id="regitTeam">
+                                <label  for="regitTeamUpCode">상위부서</label>
+                                <select name="teamUpper" id="regitTeamUpCode" class="form-control mb-3">
+                                </select>
+                                <label for="regitTeamCode">부서코드</label>
+                                <input name="teamCode" id="regitTeamCode" type="text" class="text ui-widget-content ui-corner-all form-control mb-3">
+                                <label for="regitTeamName">부서명</label>
+                                <input name="teamName" id="regitTeamName" type="text"
+                                       class="text ui-widget-content ui-corner-all form-control mb-3">
+                                <label for="regitTeamSeq">순서</label>
+                                <input name="teamSeq" id="regitTeamSeq" type="number"
+                                       class="text ui-widget-content ui-corner-all form-control mb-3">
+                            </form>
+                        </div>
+                        <!-- Registration of Team End -->
+
                         <!--부서 상세 정보-->
+                        <br>
                         <div class="col-3">
                             <h4 style="padding-: 10px" class="card-title">부서 정보</h4>
-
-                            <div style="padding: 20px">
-
-                                <!--                                <div class="form-group row">-->
-                                <!--                                    <div class="col-xs-2 col-lg-2">-->
-                                <!--                                        <label for="teamCode">부서코드</label>-->
-                                <!--                                    </div>-->
-                                <!--                                    <div class="col-xs-6 col-lg-6">-->
-                                <!--                                        <input id="teamCode" type="text" class="text ui-widget-content"><br>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
-
-
-                                <form action="/admin/getTeamDetail,/admin/updateTeam" id="getDetailAndUpdateTeam">
+                            <div style="padding: 20px" >
+                                <form action="/admin/updateTeam" method="post">
                                     <label style="width: 100px" for="teamCode">부서코드</label>
-                                    <input id="teamCode" type="text" class="text ui-widget-content"><br>
+                                    <input name="teamCode" id="teamCode" type="text" class="text ui-widget-content"><br>
                                     <label style="width: 100px" for="teamName">부서명</label>
-                                    <input id="teamName" type="text" class="text ui-widget-content"><br>
+                                    <input name="teamName" id="teamName" type="text" class="text ui-widget-content"><br>
                                     <div id="upperTeam">
                                         <label style="width: 100px" for="teamUpperCode">상위부서</label>
-                                        <select style="width: 175px" id="teamUpperCode" class="">
+                                        <select name="teamUpper" id="teamUpperCode" style="width: 175px">
                                         </select><br>
                                     </div>
                                     <label style="width: 100px" for="teamSeq">순서</label>
-                                    <input id="teamSeq" type="number" class="text ui-widget-content"><br><br>
-                                    <button type="submit" class="btn btn-inverse-dark btn-fw" style="float: right; ">
+                                    <input id="teamSeq" name="teamSeq" type="number" class="text ui-widget-content"><br><br>
+                                    <button type="button" id="deleteTeam" class="btn btn-inverse-dark btn-fw" style="float: right;">
                                         삭제
                                     </button>
-                                    <button type="submit" id="updateTeam" class="btn btn-success"
-                                            style="float: right; margin-right: 10px">변경 혹은 저장
+                                    <button type="submit" id="updateTeam" data-oper class="btn btn-success" style="float: right; margin-right: 10px">
+                                        변경 혹은 저장
                                     </button>
-
-
-                                    <!--등록에서 아래 시퀀스 생성으로 해볼 것-->
-                                    <!--DB에 시퀀스 생성. 시작번호는 106까지 등록되어 있어서 저렇게 함 이후 101로 수정되면 수정해도..-->
-                                    <!--SQL >> CREATE SEQUENCE TEAM_CODE_SEQ START WITH 106 MAXVALUE 10000 NOCYCLE;-->
-                                    <!-- 삭제버튼 -->
                                 </form>
                             </div>
 

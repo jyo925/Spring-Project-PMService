@@ -7,7 +7,6 @@
     <resultMap id="teamUpperMap" type="HashMap" >
         <result column="TEAM_CODE" property="teamCode" />
         <result column="TEAM_NAME" property="teamName" />
-
     </resultMap>
 
     <select id="selectTeamList" parameterType="com.project.bit.admin.domain.TeamDTO" resultType="com.project.bit.admin.domain.TeamDTO">
@@ -17,9 +16,11 @@
     FROM
         TEAMS
     START WITH
-      TEAM_UPPER IS NULL
+      TEAM_UPPER = 0
     CONNECT BY PRIOR
        TEAM_CODE=TEAM_UPPER
+    ORDER SIBLINGS BY
+        TEAM_SEQ
     </select>
 
     <select id="selectTeamUpperList" resultMap="teamUpperMap">
@@ -31,7 +32,7 @@
         FROM
         TEAMS
         START WITH
-        TEAM_UPPER IS NULL
+        TEAM_UPPER = 0
         CONNECT BY PRIOR
         TEAM_CODE=TEAM_UPPER
         <trim prefix="AND">
@@ -56,11 +57,11 @@
             TEAM_CODE=#{teamCode}
     </select>
 
-    <update id="updateTeam">
+    <update id="updateTeam" parameterType="com.project.bit.admin.domain.TeamDTO">
       UPDATE TEAMS
       SET
         TEAM_CODE =#{teamCode}
-        ,TEAM_NAEM = #{teamName}
+        ,TEAM_NAME = #{teamName}
         ,TEAM_UPPER = #{teamUpper}
         ,TEAM_SEQ = #{teamSeq}
       WHERE TEAM_CODE = #{teamCode}
@@ -68,7 +69,7 @@
 
 
     <!-- 팀 등록 -->
-    <insert id="insertTeam">
+    <insert id="insertTeam" parameterType="com.project.bit.admin.domain.TeamDTO">
      INSERT INTO TEAMS(
         TEAM_CODE
        ,TEAM_NAME
@@ -87,7 +88,7 @@
     <delete id="deleteTeam">
         DELETE
         FROM TEAMS
-        WHERE TEAM_CODE = {#teamCode}
+        WHERE TEAM_CODE = #{teamCode}
     </delete>
 
 

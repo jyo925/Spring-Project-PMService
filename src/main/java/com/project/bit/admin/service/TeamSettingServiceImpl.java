@@ -37,12 +37,13 @@ public class TeamSettingServiceImpl implements TeamSettingService{
 
     //부서 정보수정
     @Override
-    public boolean modifyTeam(TeamDTO teamDTO) {
+    public void modifyTeam(TeamDTO teamDTO) {
 
-        return teamSettingMapper.updateTeam(teamDTO)==1;
+        teamSettingMapper.updateTeam(teamDTO);
+
     }
 
-
+    //부서등록
     @Override
     public void regitTeam(TeamDTO teamDTO) {
 
@@ -51,6 +52,7 @@ public class TeamSettingServiceImpl implements TeamSettingService{
 
     }
 
+    //부서삭제
     @Override
     public boolean removeTeam(int teamCode) {
 
