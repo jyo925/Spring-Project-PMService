@@ -39,6 +39,8 @@ public class EventRestController {
 	public String calendarE(Model model, Principal principal) {
 		JSONArray json = eventService.selectEventById(principal.getName());
 		System.out.println("here"+json);
+
+
 		return json.toString();
 	}
 	

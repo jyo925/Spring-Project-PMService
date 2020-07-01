@@ -16,6 +16,7 @@ import com.project.bit.dashBoard.domain.MonthlyProjectCountVO;
 import com.project.bit.dashBoard.domain.ProjectStatusCountVO;
 import com.project.bit.dashBoard.domain.ProjectTypeCountVO;
 import com.project.bit.dashBoard.domain.TaskStatusCountVO;
+import com.project.bit.dashBoard.domain.UserCountVO;
 import com.project.bit.dashBoard.service.DashBoardAllService;
 import com.project.bit.dashBoard.service.DashBoardDetailService;
 import com.project.bit.dashBoard.service.DashBoardUserService;
@@ -64,9 +65,11 @@ public class DashBoardController {
 	}
 
 	/* dashBoard User */
-	@GetMapping("/dIndex")
+	@GetMapping("/")
 	public String dashBoardUserCont(Model model, Principal principal) {
-		model.addAttribute("userStatusCount", dashBoardUserService.getDashBoardUserCount(principal.getName()));
+		UserCountVO vo = dashBoardUserService.getDashBoardUserCount(principal.getName());
+		System.err.println(vo);
+		model.addAttribute("userStatusCount", vo);
 		model.addAttribute("userTaskList", dashBoardUserService.getMyTaskList(principal.getName()));
 		model.addAttribute("userOutputList", dashBoardUserService.getMyOutputList(principal.getName()));
 		return "dashBoard/dashBoardUser";
@@ -89,19 +92,19 @@ public class DashBoardController {
 	/* Chart */
 	@GetMapping("/dashBoard/chart/task")
 	@ResponseBody
-	public List<TaskStatusCountVO> TaskStatusChart(Principal principal) {
+	public List<TaskStatusCountVO> taskStatusChart(Principal principal) {
 		return dashBoardUserService.getTaskStatusCount(principal.getName());
 	}
 
 	@GetMapping("/dashBoard/chart/issue")
 	@ResponseBody
-	public List<IssueStatusCountVO> IssueStatusChart(Principal principal) {
+	public List<IssueStatusCountVO> issueStatusChart(Principal principal) {
 		return dashBoardUserService.getIssueStatusCount(principal.getName());
 	}
 
 	@GetMapping("/dashBoard/chart/projectAll")
 	@ResponseBody
-	public List<ProjectStatusCountVO> ProjectAllStatusChart() {
+	public List<ProjectStatusCountVO> projectAllStatusChart() {
 		return dashBoardAllService.getProjectAllStatus();
 	}
 	
@@ -113,13 +116,13 @@ public class DashBoardController {
 
 	@GetMapping("/dashBoard/chart/issueAll")
 	@ResponseBody
-	public List<IssueStatusCountVO> IssueAllStatusChart() {
+	public List<IssueStatusCountVO> issueAllStatusChart() {
 		return dashBoardAllService.getIssueAllStatus();
 	}
 
 	@GetMapping("/dashBoard/chart/monthlyProject")
 	@ResponseBody
-	public List<MonthlyProjectCountVO> MonthlyProjectChart() {
+	public List<MonthlyProjectCountVO> monthlyProjectChart() {
 		return dashBoardAllService.getMonthlyProject();
 	}
 	

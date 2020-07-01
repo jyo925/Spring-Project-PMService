@@ -9,10 +9,10 @@ import java.util.*;
 @Mapper
 public interface DashBoardUserMapper {
 
-    public UserCountVO selectTaskCount(String userId);
-    public UserCountVO selectProjectCount(String userId);
-    public UserCountVO selectIssueCount(String userId);
-    public UserCountVO selectOutputCount(String userId);
+    public int selectTaskCount(String userId);
+    public int selectProjectCount(String userId);
+    public int selectIssueCount(String userId);
+    public int selectOutputCount(String userId);
 
 
     public List<TaskStatusCountVO> selectTaskStatus(String userId);

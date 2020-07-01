@@ -30,4 +30,6 @@ public interface ProjectService {
 	 */
 	int getPageTotal(String typeCode, String name);
 	int checkProjectSubName(String subName);
+	
+	List<ProjectVO> getProjectAll();
 }
