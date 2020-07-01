@@ -35,15 +35,13 @@ public class TestController {
 	private PasswordEncoder bCryptPasswordEncoder;
 	private EventMapper eventMapper;
 
-	@GetMapping("/")
-	public String Main(Principal principal) {
-		if (principal != null) {
-			log.info(principal.getName());
-			System.err.println(principal.toString());
-		}
-
-		return "dashBoard/dashBoardUser";
-	}
+	/*
+	 * @GetMapping("/") public String Main(Principal principal) { if (principal !=
+	 * null) { log.info(principal.getName());
+	 * System.err.println(principal.toString()); }
+	 * 
+	 * return "dashBoard/dashBoardUser"; }
+	 */
 
 	@GetMapping("/admin")
 	public String admin() {

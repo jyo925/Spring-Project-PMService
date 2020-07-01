@@ -19,6 +19,8 @@ public interface ProjectMapper {
 	public List<ProjectVO> selectProjectListByTypeAndName(@Param("cri") ProjectCriteria cri, 
 			@Param("typeCode") String typeCode, @Param("projectName") String projectName);
 	
+	public List<ProjectVO> selectProjectAll();
+	
 	public void updateProject(ProjectDTO projectDTO);
 	public void insertProject(ProjectDTO projectDTO);
 	public void deleteProject(String projectCode);

@@ -53,7 +53,7 @@
 	</div>
 	<!-- add event window -->
 	<div id="dialog-window">
-		<form class="needs-validation" id="newEvent" action="/addEvent"
+		<form class="needs-validation" id="newEvent" th:action="@{/addEvent}"
 			method="post">
 			<div class="mb-3">
 				<label for="title">title</label> <input name="eventTitle"

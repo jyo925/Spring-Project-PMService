@@ -16,6 +16,7 @@ import com.project.bit.dashBoard.domain.MonthlyProjectCountVO;
 import com.project.bit.dashBoard.domain.ProjectStatusCountVO;
 import com.project.bit.dashBoard.domain.ProjectTypeCountVO;
 import com.project.bit.dashBoard.domain.TaskStatusCountVO;
+import com.project.bit.dashBoard.domain.UserCountVO;
 import com.project.bit.dashBoard.service.DashBoardAllService;
 import com.project.bit.dashBoard.service.DashBoardDetailService;
 import com.project.bit.dashBoard.service.DashBoardUserService;
@@ -64,9 +65,11 @@ public class DashBoardController {
 	}
 
 	/* dashBoard User */
-	@GetMapping("/dIndex")
+	@GetMapping("/")
 	public String dashBoardUserCont(Model model, Principal principal) {
-		model.addAttribute("userStatusCount", dashBoardUserService.getDashBoardUserCount(principal.getName()));
+		UserCountVO vo = dashBoardUserService.getDashBoardUserCount(principal.getName());
+		System.err.println(vo);
+		model.addAttribute("userStatusCount", vo);
 		model.addAttribute("userTaskList", dashBoardUserService.getMyTaskList(principal.getName()));
 		model.addAttribute("userOutputList", dashBoardUserService.getMyOutputList(principal.getName()));
 		return "dashBoard/dashBoardUser";

@@ -111,4 +111,10 @@ public class ProjectServiceImpl implements ProjectService {
 		// TODO Auto-generated method stub
 		return projectMapper.checkProjectSubName(subName);
 	}
+
+	@Override
+	public List<ProjectVO> getProjectAll() {
+		// TODO Auto-generated method stub
+		return projectMapper.selectProjectAll();
+	}
 }

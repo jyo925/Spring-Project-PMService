@@ -31,6 +31,7 @@
                     <hr>
                     <div class="row">
                         <div style="max-width:100%">
+                        	<input type="hidden" th:value="${project.projectCode}" id="project-code">
                             <div class="taskGroup-div" th:each="taskGroup : ${taskGroupList}">
                                 <!-- 작업 그룹 -->
                                 <div class="taskGroup-list">

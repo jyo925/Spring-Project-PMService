@@ -56,7 +56,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label>PM</label>
+                            	<input id="project-pm" type="hidden" th:value="${project.projectPm}">
+                                <label th:text="'PM  (' + ${project.projectPm} + ')'">PM</label>
                                 <div class="input-group">
                                     <select class="form-control mr-2" th:id="pmTeamChoice">
                                         <option>부서</option>
@@ -64,7 +65,7 @@
                                                 th:text="${team.teamName}"></option>
                                     </select>
                                     <select class="form-control w-auto" th:id="pmIdChoice">
-                                        <option>아이디</option>
+                                        <option value="">아이디</option>
                                         <option th:id="pmIdList" th:each="user : ${userList}" th:value="${user.userId}"
                                                 th:text="${user.userName} + ' : ' + ${user.userId}"
                                                 th:selected="${project.projectPm} == ${user.userId}"></option>
@@ -73,6 +74,7 @@
                             </div>
                             <div class="form-group">
                                 <label>PMO</label>
+                                <input id="project-pmo" type="hidden" th:value="${project.projectPmo}">
                                 <div class="input-group">
                                     <select class="form-control mr-2" th:id="pmoTeamChoice">
                                         <option>부서</option>
