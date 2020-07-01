@@ -34,10 +34,12 @@ $(function(){
 
 function drawTaskChart(status){
     var lists = [];
+    var allAccount = 0;
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'name');
     data.addColumn('number', 'count');
     status.forEach(function(element){
+    	allAccount += element.taskStatus;
         lists.push([element.taskStatusName,element.taskStatus]);
     });
     data.addRows(lists);
@@ -64,16 +66,19 @@ function drawTaskChart(status){
 
     var chart = new google.visualization.PieChart(document.getElementById('UserTaskStatusChart'));
     chart.draw(data, options);
+    $('#task-status-all').html('총  '+allAccount + '건');
 }
 
 function drawIssueChart(status){
     var lists = new Array();
+    var allAccount = 0;
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'name');
     data.addColumn('number', 'count');
     console.log(status);
    // lists.push('dd',1);
     status.forEach(function(element){
+    	allAccount += element.issueStatus;
         lists.push([element.issueStatusName,element.issueStatus]);
     });
     data.addRows(lists);
@@ -101,4 +106,5 @@ function drawIssueChart(status){
 
     var chart = new google.visualization.PieChart(document.getElementById('UserIssueStatusChart'));
     chart.draw(data, options);
+    $('#issue-status-all').html('총  ' + allAccount + '건');
 }

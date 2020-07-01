@@ -10,12 +10,6 @@ h5 {
 	margin-right: 10%;
 }
 
-.issue-list thead {
-	/* background-color: gray; */
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-}
-
 .issue-name {
 	width: 40%;
 }

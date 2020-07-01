@@ -9,6 +9,8 @@ public class ProjectsMembersVO {
 		// TODO Auto-generated constructor stub
 	}
 	
+	private String projectJoincode;
+	private String projectCode;
 	private String userName;
 	private String userId;
 	private String dutyCode;

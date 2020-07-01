@@ -21,14 +21,13 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectMapper projectMapper;
 	
 	@Override
-	public List<ProjectVO> getProjectListAll() {
-		ProjectCriteria cri = new ProjectCriteria();
+	public List<ProjectVO> getProjectListAll(ProjectCriteria cri) {
 		return projectMapper.selectProjectListAll(cri);
 	}
 
 	@Override
 	public List<ProjectVO> getProjectListByType(ProjectCriteria cri, String typeCode) {
-		if(typeCode.equals("all")) return this.getProjectListAll();
+		if(typeCode.equals("all")) return projectMapper.selectProjectListAll(cri);
 		else return projectMapper.selectProjectListByType(cri, typeCode);
 	}
 
@@ -72,11 +71,11 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		projectMapper.insertProject(projectDTO);
 		
-		if(projectDTO.getProjectPm() != null) {
+		if(projectDTO.getProjectPm() != "" ) {
 			projectMapper.insertProjectPm(projectDTO);		
 		}
 		
-		if(projectDTO.getProjectPmo() != null) {
+		if(projectDTO.getProjectPmo() != "") {
 			projectMapper.insertProjectPmo(projectDTO);
 		}
 		
@@ -107,13 +106,9 @@ public class ProjectServiceImpl implements ProjectService {
 		
 	}
 
-	/*
-	 * @Override public int selectProjectListAccountByName(String projectName) { //
-	 * TODO Auto-generated method stub return
-	 * projectMapper.selectProjectListAccountByName(projectName); }
-	 * 
-	 * @Override public int selectProjectListAccountByNameAndType(String typeCode,
-	 * String projectName) { // TODO Auto-generated method stub return
-	 * projectMapper.selectProjectListAccountByNameAndType(typeCode, projectName); }
-	 */
+	@Override
+	public int checkProjectSubName(String subName) {
+		// TODO Auto-generated method stub
+		return projectMapper.checkProjectSubName(subName);
+	}
 }

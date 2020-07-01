@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.project.bit.approval.domain.Criteria;
 import com.project.bit.project.domain.ProjectCriteria;
 import com.project.bit.project.domain.ProjectDTO;
 import com.project.bit.project.domain.ProjectPage;
@@ -34,7 +33,7 @@ public class ProjectController {
 	// 프로젝트 리스트
 	@GetMapping("/projectList")
 	public String getProjectList(ProjectCriteria cri, Model model) {
-		model.addAttribute("projectList", projectService.getProjectListAll());
+		model.addAttribute("projectList", projectService.getProjectListAll(cri));
 		model.addAttribute("pageMaker", new ProjectPage(cri,projectService.getProjectListAllAccount()));
 		model.addAttribute("typCode", "all");
 		return "/project/getProjectList";

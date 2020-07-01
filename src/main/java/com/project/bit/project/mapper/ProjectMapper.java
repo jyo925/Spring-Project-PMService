@@ -32,5 +32,6 @@ public interface ProjectMapper {
 	int selectProjectListAccount(String typeCode);
 	int selectProjectListAccountByName(String projectName);
 	int selectProjectListAccountByNameAndType(@Param("typeCode") String typeCode, @Param("projectName") String projectName);
+	int checkProjectSubName(String subName);
 }	
 

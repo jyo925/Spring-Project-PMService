@@ -19,7 +19,7 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">주요 프로젝트<a href="#"><span class="float-right">+more</span></a></h6>
+                    <h6 class="card-title">주요 프로젝트<a href="/projectList"><span class="float-right">+more</span></a></h6>
                     <div>
                         <table class="table text-center" width="100%">
                             <thead class="thead-light">
@@ -41,9 +41,7 @@
                                 <td th:text="*{projectStatusName}"></td>
                                 <td th:text="*{projectStart}"></td>
                                 <td th:text="*{projectFinish}"></td>
-                                <td><!-- 해당 프로젝트의 상세 대시보드로 이동하는 자리
-                                ProjectDetailController 참고
-                                @RequestMapping("/project/{projectId}")--></td>
+                                <td><a th:href="'/dashBoardDetail/' + *{projectCode}"><i class="fa fa-search"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -88,8 +86,10 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">프로젝트 현황<a href="#"><span class="float-right">+more</span></a></h6>
+                    <h6 class="card-title">프로젝트 현황<a id="type-btn"><span class="float-right" style="cursor: pointer;">유형별</span>
+                    </a><a id="status-btn"><span class="float-right" style="cursor: pointer;">상태별</span></a></h6>
                     <div class="align-middle" id="ProjectAllStatusChart"></div>
+                    <span id="all-account"></span>
                 </div>
             </div>
         </div>
@@ -99,8 +99,9 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">프로젝트 현황<a href="#"><span class="float-right">+more</span></a></h6>
+                    <h6 class="card-title">이슈 현황<a href="#"><span class="float-right">+more</span></a></h6>
                     <div class="align-middle h-100" id="IssueAllStatusChart"></div>
+                    <span id="issue-all-account"></span>
                 </div>
             </div>
         </div>
