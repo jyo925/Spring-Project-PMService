@@ -60,13 +60,14 @@ function groupAddModal(){
 	});
 	
 	$('#group-add-btn').on('click', function(){
+		console.log($('#project-code').val())
 		$.ajax({
 			url: '/task/groupAdd',
 			type: 'POST',
 			data: {
 				taskGroupName: $('#group-name').val(),
 				taskGroupDescription: $('#group-description').val(),
-				projectCode: $('.taskGroup').data('proj')
+				projectCode: $('#project-code').val()
 			}
 		}).done(function(){
 			$.magnificPopup.instance.close();

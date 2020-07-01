@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 public class UserCountVO {
     private int userProjectCount;
     private int userTaskCount;

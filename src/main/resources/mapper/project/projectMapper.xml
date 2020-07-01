@@ -4,6 +4,13 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.bit.project.mapper.ProjectMapper">
+	<select id="selectProjectAll" resultType="com.project.bit.project.domain.ProjectVO">
+		SELECT * FROM projects
+	</select>
+	<select id="checkProjectSubName" parameterType="String" resultType="int">
+		SELECT count(*) FROM projects WHERE project_subName = #{subName}
+	</select>
+	
 	<select id="selectProjectListAll" resultType="com.project.bit.project.domain.ProjectVO">
 		<![CDATA[
 			SELECT
@@ -34,9 +41,9 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 				*
 			FROM
 				(SELECT rownum rn, projectList.* FROM projectList 
-				WHERE project_name LIKE '%'||#{projectName}||'%' AND rownum <= #{cri.pageNum} * #{amount})
+				WHERE project_name LIKE '%'||#{projectName}||'%' AND rownum <= #{cri.pageNum} * #{cri.amount})
 			WHERE
-				rn > (#{pageNum} - 1) * #{amount}
+				rn > (#{cri.pageNum} - 1) * #{cri.amount}
 		]]>
 	</select>
 	

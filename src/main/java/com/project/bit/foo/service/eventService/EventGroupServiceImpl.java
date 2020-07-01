@@ -1,4 +1,4 @@
-package com.project.bit.foo.service.eventService;
+package com.project.bit.foo.service.EventService;
 
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class EventGroupServiceImpl implements EventGroupService {
 	private final EventServiceImpl eventService;
 	
 	public EventGroupServiceImpl(EventGroupMapper eventGroupMapper,
-			  					 EventServiceImpl eventService) {
+								 EventServiceImpl eventService) {
 		this.eventGroupMapper = eventGroupMapper;
 		this.eventService = eventService;
 	}

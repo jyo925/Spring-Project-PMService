@@ -106,13 +106,15 @@ public class ProjectServiceImpl implements ProjectService {
 		
 	}
 
-	/*
-	 * @Override public int selectProjectListAccountByName(String projectName) { //
-	 * TODO Auto-generated method stub return
-	 * projectMapper.selectProjectListAccountByName(projectName); }
-	 * 
-	 * @Override public int selectProjectListAccountByNameAndType(String typeCode,
-	 * String projectName) { // TODO Auto-generated method stub return
-	 * projectMapper.selectProjectListAccountByNameAndType(typeCode, projectName); }
-	 */
+	@Override
+	public int checkProjectSubName(String subName) {
+		// TODO Auto-generated method stub
+		return projectMapper.checkProjectSubName(subName);
+	}
+
+	@Override
+	public List<ProjectVO> getProjectAll() {
+		// TODO Auto-generated method stub
+		return projectMapper.selectProjectAll();
+	}
 }

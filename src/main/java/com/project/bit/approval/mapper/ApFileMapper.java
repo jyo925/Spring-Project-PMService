@@ -10,10 +10,9 @@ import java.util.List;
 @Mapper
 public interface ApFileMapper {
 
-    //첨부파일 등록하기
+
     public int insertApFile(ApFileDTO apFileDTO);
 
-    //첨부파일 조회
     public List<ApFileDTO> selectApFiles(String apDocNo);
 
 

@@ -25,7 +25,6 @@ public class ApprovalRestController {
     public ResponseEntity<List<ApFileDTO>> getApprovalFiles(String apDocNo) {
 
         return new ResponseEntity<>(apDocService.getApFiles(apDocNo), HttpStatus.OK);
-
     }
 
 }

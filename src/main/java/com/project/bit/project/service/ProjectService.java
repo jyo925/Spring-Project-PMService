@@ -29,4 +29,7 @@ public interface ProjectService {
 	 * selectProjectListAccountByNameAndType(String typeCode, String projectName);
 	 */
 	int getPageTotal(String typeCode, String name);
+	int checkProjectSubName(String subName);
+	
+	List<ProjectVO> getProjectAll();
 }
