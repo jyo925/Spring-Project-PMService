@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.bit.foo.domain.Users;
 import com.project.bit.foo.domain.UsersPrincipal;
+import com.project.bit.foo.mapper.UserInfoMapper;
 import com.project.bit.foo.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,13 +37,19 @@ public class MyPageController {
 	public static String uploadDirectory = System.getProperty("user.dir") + "/uploads";
 
 	private final UserService userService;
+	private final UserInfoMapper userInfoMapper;
 
-	public MyPageController(UserService userService) {
+	public MyPageController(UserService userService
+						   ,UserInfoMapper userInfoMapper) {
 		this.userService = userService;
+		this.userInfoMapper = userInfoMapper;
 	}
 
 	@GetMapping("/myPage")
 	public String myPage(Principal principal, Model model) {
+		model.addAttribute("projects", userInfoMapper.getProjects(principal.getName()));
+		model.addAttribute("tasks", userInfoMapper.getTasks(principal.getName()));
+		model.addAttribute("finished", userInfoMapper.getFinished(principal.getName()));
 		model.addAttribute("user", userService.selectUser(principal.getName()));
 		System.out.println(userService.selectUser(principal.getName()));
 		return "myPage/myPage";

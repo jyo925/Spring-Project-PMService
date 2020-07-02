@@ -5,6 +5,7 @@
 	<select id="getProjects" resultType="com.project.bit.foo.domain.projectView.MyProjectsVO">
 		SELECT p.PROJECT_NAME as PROJECT_NAME,
 			   p.PROJECT_PMO as PROJECT_PMO,
+			   p.PROJECT_CODE as PROJECT_CODE,
 			   (SELECT ps.PROJECT_STATUS FROM PROJECT_STATUS ps INNER JOIN PROJECTS p ON ps.PROJECT_STATUSCODE = p.PROJECT_STATUSCODE
 			   											 INNER JOIN PROJECT_MEMBERS pm ON pm.project_code = p.project_code WHERE pm.user_id=#{userId}) as PROJECT_STATUS,
 			   p.PROJECT_START as PROJECT_START,

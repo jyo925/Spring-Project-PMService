@@ -6,6 +6,6 @@ import com.project.bit.foo.domain.event.EventStatisticVO;
 
 public interface EventStatisticService {
 	
-	List<EventStatisticVO> getStatistic();
+	List<EventStatisticVO> getStatistic(String userId);
 
 }

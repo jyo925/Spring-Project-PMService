@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class MyProjectsVO {
 	
+	private String projectCode;
 	private String projectName;
 	private String projectPmo;
 	private String projectStatus;
