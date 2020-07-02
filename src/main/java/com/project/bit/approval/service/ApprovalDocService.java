@@ -1,6 +1,8 @@
 package com.project.bit.approval.service;
 
 import com.project.bit.approval.domain.*;
+import com.project.bit.foo.domain.event.Event;
+import com.project.bit.foo.domain.event.EventGroup;
 
 import java.util.List;
 
@@ -43,7 +45,7 @@ public interface ApprovalDocService {
 
 
 
-    //문서 개수 조회 결재진행, 결재대기, 임시저장 순
+    //문서 개수 조회 결재진행, 결재대기 순
     public List<Integer> getApDocCount(String apDocWriter);
 
     //참조문서 개수
@@ -84,4 +86,10 @@ public interface ApprovalDocService {
 
     //참조자 목록 불러오기
     public String getApDocReferrers(String apDocNo);
-}
+    
+    
+    //이벤트 연동
+    public Event getPostEvent(String apDocNo);
+    //이벤트 멤버 조회
+    public EventGroup getEventMemebers(String apDocNo);
+};

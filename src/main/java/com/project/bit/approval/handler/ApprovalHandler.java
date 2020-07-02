@@ -14,7 +14,7 @@ import java.util.Map;
 public class ApprovalHandler extends TextWebSocketHandler {
 
     //모든 사용자에게 날리기 위해서 접속되어있는 세션을 List에 모두 저장
-    List<WebSocketSession> sessions = new ArrayList<>();
+//    List<WebSocketSession> sessions = new ArrayList<>();
     Map<String, WebSocketSession> userSessions = new HashMap<>();
 
 
@@ -53,7 +53,6 @@ public class ApprovalHandler extends TextWebSocketHandler {
                     TextMessage tmpMsg = new TextMessage(approver + "님이 " +
                             "<a href='/approval/getApDoc?apDocNo="+apDocNo+"'>"+apDocNo+"</a>번 결재문서를 결재 처리하였습니다.");
                     apDocWriterSession.sendMessage(tmpMsg);
-
                 }
             }
         }
@@ -69,7 +68,6 @@ public class ApprovalHandler extends TextWebSocketHandler {
         Map<String, Object> httpSesstion = session.getAttributes();
         String user = session.getPrincipal().getName();
 //        System.out.println("user아이디 학인------------------------>"+user);
-
         if(user == null)
             return session.getId();
         else

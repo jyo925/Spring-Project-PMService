@@ -43,7 +43,7 @@
 			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype300' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType300,
 			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype400' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType400,
 			(SELECT COUNT(*) FROM projects p1 WHERE p1.project_typecode = 'devtype500' AND TO_CHAR(p1.project_finish, 'yyyy-MM') = TO_CHAR(p.project_finish, 'yyyy-MM')) AS devType500
-		FROM projects p 
+		FROM projects p
 		GROUP BY to_char(p.project_finish, 'yyyy-MM')
 		ORDER BY to_char(p.project_finish, 'yyyy-MM')
     </select>

@@ -25,7 +25,7 @@ public class ApprovalServiceImpl implements ApprovalService {
         List<ApproverVO> approvers = new ArrayList<ApproverVO>();
 
         List<String> dutyName = new ArrayList<>(Arrays.asList("developer", "manager", "PM", "PMO"));
-        String userDutyName = apMapper.selectApproverDutyName(userId); //pm인경우 manager가 나오면 안됨
+        String userDutyName = apMapper.selectApproverDutyName(userId);
 
         for(ApproverVO approver : apMapper.selectApproverList(path, userId)){
             //결재선에 자기가 결재자로 들어가면 삭제
@@ -39,8 +39,7 @@ public class ApprovalServiceImpl implements ApprovalService {
             approvers.add(approver);
         }
 
-        //결재선이 텅 비었다면?...바로 윗 직급 불러와서 결재선 셋팅
-        //그래도 없으면 두단계 윗직급 불러오는지?
+        //결재선이 비었다면?...바로 윗 직급 불러와서 결재선 셋팅
         if(approvers.size() == 0){
             approvers.add(apMapper.selectSuperiorApprover(userId));
 //            log.info("추가된 상위 결재자 정보: "+ apMapper.selectSuperiorApprover(userId));

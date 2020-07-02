@@ -22,6 +22,7 @@ public interface ProjectTaskService {
 	void putProjectTaskStatus(String taskCode, String statusCode);
 	
 	void postProjectTaskManager(ProjectTaskManagerDTO manager);
+	void removeProjectTaskManager(String managerCode);
 	
 	List<ProjectTaskStatusDTO> getTaskStatus();
 }

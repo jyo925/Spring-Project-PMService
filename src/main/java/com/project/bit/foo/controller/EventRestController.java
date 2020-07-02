@@ -38,7 +38,9 @@ public class EventRestController {
 	@GetMapping("/calendarE")
 	public String calendarE(Model model, Principal principal) {
 		JSONArray json = eventService.selectEventById(principal.getName());
-		System.out.println(json);
+		System.out.println("here"+json);
+
+
 		return json.toString();
 	}
 	

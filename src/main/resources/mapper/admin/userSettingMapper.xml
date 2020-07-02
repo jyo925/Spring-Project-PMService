@@ -90,7 +90,6 @@
 
     </delete>
 
-
     <update id="resetUserPw" parameterType="com.project.bit.admin.domain.UserVO">
         update users
         set

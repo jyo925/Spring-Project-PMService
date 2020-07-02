@@ -85,5 +85,11 @@ public class ResponseProjectTaskController {
 			projectTaskService.postProjectTaskManager(manager);
 		}
 	}
+	
+	@DeleteMapping("/manager/delete/{managerCode}")
+	public void removeProjectTaskManager(@PathVariable String managerCode) {
+		System.err.println(managerCode);
+		projectTaskService.removeProjectTaskManager(managerCode);
+	}
 
 }

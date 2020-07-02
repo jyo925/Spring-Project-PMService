@@ -19,6 +19,9 @@ public interface ProjectMapper {
 	public List<ProjectVO> selectProjectListByTypeAndName(@Param("cri") ProjectCriteria cri, 
 			@Param("typeCode") String typeCode, @Param("projectName") String projectName);
 	
+	public List<ProjectVO> selectProjectAll();
+	public List<ProjectVO> selectMyProjectListAll(@Param("cri") ProjectCriteria cri, @Param("userId") String userId);
+	
 	public void updateProject(ProjectDTO projectDTO);
 	public void insertProject(ProjectDTO projectDTO);
 	public void deleteProject(String projectCode);
@@ -29,6 +32,7 @@ public interface ProjectMapper {
 	public List<ProjectStatusDTO> selectProjectStatusListAll();
 	
 	public int getProjectListAllAccount();
+	public int selectMyProjectListAllAccount(String userId);
 	int selectProjectListAccount(String typeCode);
 	int selectProjectListAccountByName(String projectName);
 	int selectProjectListAccountByNameAndType(@Param("typeCode") String typeCode, @Param("projectName") String projectName);

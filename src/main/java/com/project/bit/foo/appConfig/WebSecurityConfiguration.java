@@ -31,7 +31,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 				.antMatchers("/registration","/userStatusList").permitAll()          //userStatus Test 위해 추가함
 				.antMatchers("/addDuty","/addMembers","/calendar","/calendarE").hasAnyAuthority("duty100","duty200","duty300","duty400")
-				.antMatchers("/adminMain", "/admin/userSetting", "/goProjectAdd", "/project/detailInfo/**", "/projectMember/**").hasAnyAuthority("duty100","duty200")
+				.antMatchers("/authorityConfig/{projectCode}").hasAuthority("duty100")
+				.antMatchers("/adminMain","/main", "/main/outputAllStatus", "/teamSettingList", "/getTeamDetail", "/updateTeam", "/admin/**/**", "/admin/userSetting", "/goProjectAdd", "/project/detailInfo/**", "/projectMember/**", "/dashBoardAll", "/dashBoardDetail/**").hasAnyAuthority("duty100","duty200")
 				.anyRequest().authenticated()
 			.and()
 				.formLogin()
@@ -43,8 +44,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.permitAll()
 			.and()
 				.logout()
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/login")
+					.logoutUrl("/logout")
+					.logoutSuccessUrl("/login")
 			.and()
 				.csrf().disable();
 		

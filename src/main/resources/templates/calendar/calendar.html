@@ -53,7 +53,7 @@
 	</div>
 	<!-- add event window -->
 	<div id="dialog-window">
-		<form class="needs-validation" id="newEvent" action="/addEvent"
+		<form class="needs-validation" id="newEvent" th:action="@{/addEvent}"
 			method="post">
 			<div class="mb-3">
 				<label for="title">title</label> <input name="eventTitle"
@@ -62,11 +62,10 @@
 			<br>
 			<div class="mb-3">
 				<label for="start">start</label> <input name="eventStartDate"
-					type="text" class="form-control date-start" id="start">
+					type="text" class="form-control date-start" id="start" required="required">
 			</div>
 			<div class="mb-3">
-				<label for="finish">finish</label> <input name="eventFinishDate"
-					type="text" class="form-control date-finish" id="finish" required="required">
+				<label for="finish">finish</label> <input name="eventFinishDate" type="text" class="form-control date-finish" id="finish" required="required">
 			</div>
 			<div class="mb-3">
 				<label for="description">description</label>
@@ -101,7 +100,7 @@
 			<div class="mb-3">
 				<label for="Project">Members:</label>
 				<textarea name="eventMembers" id="textList" readonly="readonly"
-					class="form-control"></textarea>
+					class="form-control" required="required"></textarea>
 			</div>
 			<div class="mb-3">
 				<label for="Project">Add:</label>
