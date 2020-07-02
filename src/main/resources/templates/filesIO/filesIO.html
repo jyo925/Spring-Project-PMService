@@ -22,7 +22,7 @@
 		<div class="card">
 		<div class="card-body">
 			<div class="text-center">
-				<h3>Files</h3>
+				<h3>프로젝트 산출물</h3>
 				<p class="lead">All your uploaded files is here.</p>
 				<hr class="my-4">
 			</div>
@@ -38,8 +38,7 @@
 									<div class="row">
 										<div class="col">
 											<select id="projectProgress" class="form-control">
-												<option value="" class="form-control">Choose
-													project progress</option>
+												<option value="" class="form-control">프로젝트 상태</option>
 												<option class="form-control"
 													th:each="el : ${projectStatusNames}"
 													th:text="${el.projectStatus}"></option>
@@ -47,7 +46,7 @@
 										</div>
 										<div class="col">
 											<input id="projectName" type="text" class="form-control"
-												placeholder="projectName">
+												placeholder="프로젝트 이름">
 										</div>
 										<div class="input-group flex-nowrap col">
 											<div class="input-group-prepend">
@@ -63,7 +62,7 @@
 												</span>
 											</div>
 											<input id="elasticSearch" type="text" class="form-control"
-												placeholder="Keyword" aria-label="Username"
+												placeholder="키워드" aria-label="Username"
 												aria-describedby="addon-wrapping">
 										</div>
 										<!-- <div class="col">
@@ -87,13 +86,13 @@
 			<div class="card">
 				<div class="card-body">
 					<div>
-					    <table width="100%" class="table">
+					    <table width="100%" class="table" style="text-align: center">
 					       <thead>
 							<tr class="card-header">
-								<th>File</th>
-								<th>Project</th>
-								<th>Type</th>
-								<th>Task</th>
+								<th>파일명</th>
+								<th>프로젝트</th>
+								<th>산출물 타입</th>
+								<th>작업</th>
 								<th></th>
 								<th></th>
 								<th></th>

@@ -1,5 +1,6 @@
 package com.project.bit.admin.domain;
 
+import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
