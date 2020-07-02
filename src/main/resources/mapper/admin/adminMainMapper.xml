@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bit.admin.mapper.AdminMainMapper">
+
+    <select id="selectOutputAllStatus"  resultType="com.project.bit.admin.domain.OutputStatusCountVO">
+        SELECT
+            COUNT(O.OUTPUT_CODE) as OUTPUT_STATUS,
+            OT.OUTPUT_TYPE as OUTPUT_STATUS_NAME
+        FROM
+            PROJECT_OUTPUTS O , PROJECT_OUTPUT_TYPES OT
+        WHERE
+            O.OUTPUT_TYPE_CODE=OT.OUTPUT_TYPE_CODE
+        GROUP BY OT.OUTPUT_TYPE
+    </select>
+
+
+
+
+
+</mapper>
