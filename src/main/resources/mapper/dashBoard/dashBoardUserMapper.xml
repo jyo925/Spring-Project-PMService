@@ -21,7 +21,7 @@
 		select count(o.output_code) as user_output_count
 			from project_outputs o
 			inner join users u
-			on o.output_name=u.user_id
+			on o.output_user=u.user_id
 			where u.user_id=#{userId}
 	</select>
 	<select id="selectProjectCount" resultType="int">
