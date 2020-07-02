@@ -1,6 +1,7 @@
 $(function(){
 	dropDownEvent();
 	insertProject();
+	deleteProject();
 })
 
 function dropDownEvent(){
@@ -59,6 +60,21 @@ function dropDownEvent(){
 
 function insertProject(){
 	$('#update_btn').on('click',function(){
+		
+		var projectPm = $('#pmIdChoice').val();
+		var projectPmo = $('#pmoIdChoice').val();
+		
+		var projectPmId = '';
+		if(projectPm == '' || projectPm == null) {
+			projectPmId = $('#project-pm').val();
+		}
+		
+		var projectPmoId = '';
+		if(projectPmo == '' || projectPmo == null) {
+			projectPmoId = $('#project-pm').val();
+		}
+		
+		
 		$.ajax({
 			url : '/project/'+$('#projectCode').val(),
 			type : 'PUT',
@@ -68,8 +84,8 @@ function insertProject(){
 				projectTypeCode : $('#projectTypeChoice').val(),
 				projectStart : $('#projectStart').val(),
 				projectFinish : $('#projectFinish').val(),
-				projectPm : $('#pmIdChoice').val(),
-				projectPmo : $('#pmoIdChoice').val(),
+				projectPm : projectPmId,
+				projectPmo : projectPmoId,
 				projectDescription : $('#projectDescription').val(),
 				projectStatusCode : $('#projectStatusChoice').val()
 			},
@@ -81,5 +97,14 @@ function insertProject(){
 		}).fail(function(){
 			alert('다시 입력해주세요')
 		})
+	})
+}
+
+function deleteProject(){
+	$('#delete_btn').on('click', function(){
+		var result = confirm('삭제하시겠습니까?');
+		if(result) {
+			location.href = "/projectDelete/" + $('#projectCode').val();
+		}
 	})
 }

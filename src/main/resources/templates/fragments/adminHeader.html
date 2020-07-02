@@ -30,6 +30,9 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown d-none d-lg-flex">
+                    <a class="nav-link" href="/index">Main</a>
+                </li>
+                <li class="nav-item dropdown d-none d-lg-flex">
 					<form action="/logout" method="post">
 						<input class="btn nav-link dropdown-toggle" type="submit" value="Sign Out" />
 					</form> 
@@ -200,30 +203,31 @@
                     <li class="nav-item nav-profile mt-4">
                         <div class="nav-link">
                             <div class="profile-image">
-                                <img src="/images/user.png" alt="image" class="bg-success">
+                                <img th:if="${#authentication.Principal.Users.userPhoto != null}" th:src="${#authentication.principal.Users.userPhoto}" class="bg-success">
+                                <img th:if="${#authentication.Principal.Users.userPhoto == null}" src="/img/user.png" class="bg-success">
                             </div>
                             <div class="profile-name">
-                                <p class="name" sec:authentication="principal.username">User Name</p>
-                                <p class="designation">Developer</p>
+                                <p class="name" th:text="${#authentication.Principal.Users.userName}"></p>
+                                <p class="designation" th:text="${#authentication.Principal.Users.dutyName}">Developer</p>
                             </div>
                         </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/adminMain">
-                            <i class="icon-bell menu-icon"></i>
+                        <a class="nav-link" href="/admin/main">
+                            <i class="fa fa-home menu-icon"></i>
                             <span class="menu-title">관리자 홈</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/userSettingList">
-                            <i class="icon-bell menu-icon"></i>
+                        <a class="nav-link" href="/admin/userSettingList">
+                            <i class="fa fa-users menu-icon"></i>
                             <span class="menu-title">사용자 관리</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/teaSettingList">
-                            <i class="icon-bell menu-icon"></i>
+                        <a class="nav-link" href="/admin/teamSettingList">
+                            <i class="fa fa-sitemap menu-icon"></i>
                             <span class="menu-title">부서 관리</span>
                         </a>
                     </li>

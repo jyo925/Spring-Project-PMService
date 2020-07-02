@@ -1,95 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/default">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
 <title id="pageTitle">프로젝트 기본정보</title>
 
-<!-- index.html 고유 CSS 추가 -->
+<!-- page 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<link rel="stylesheet" href="/css/project/projectDetail.css">
-	<link rel="stylesheet" href="/css/project/projectIssueDetail.css">
 </th:block>
 
-<!-- index.html 고유 스크립트 추가 -->
+<!-- page 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-	<script th:inline="javascript" src="/js/project/projectIssueDetail.js"></script>
+    <script th:inline="javascript" src="/js/project/projectIssueDetail.js"></script>
 </th:block>
 
 
 <div layout:fragment="content">
-	<!-- <div th:replace="/project/projectDetailChart :: project-top-nav"></div> -->
-	<div class="row">
-		<div class="col-12 grid-margin">
-			<div class="card">
-				<div class="card-body">
-					<h6>프로젝트 이슈 등록</h6>
-					<hr>
-					
-					<div class="issue-input-form">
-							
-						<h5>이슈 명</h5>
-						<input class="issue-name" th:data-code="${issue.issueCode}" th:data-user="${issue.issueUserId}"
-						 th:data-date="${issue.issueDate}"
-						 id="issue-name" type="text" placeholder=" 이슈 명" th:value="${issue.issueName}">
-						
-						<h5>이슈 구분</h5>
-						<select id="issue-type">
-							<option value=""> 선택하세요</option>
-							<option th:each="issueType : ${issueTypeList}"
-								th:selected="${issueType.issueTypeCode} == ${issue.issueTypeCode}"
-								th:value="${issueType.issueTypeCode}" 
-								th:text="${issueType.issueType}"></option>
-						</select>
-						<input id="issue-task" type="hidden" th:value="${issue.taskCode}">
-						<h5>프로젝트</h5>
-						<select class="project-id" id="project-id">
-							<option value=""> 선택하세요</option>
-							<option th:each="project : ${projectList}" th:selected="${project.projectName} == ${issue.projectName}"
-								th:value="${project.projectCode}" th:text="${project.projectName}"></option>
-						</select>
-						
-						<h5>작업</h5>
-						<select class="issue-task-list" id="issue-task-list">
-							<option value=""> 선택하세요</option>
-						</select>
-						
-						<h5>이슈 내용</h5>
-						<textarea id="issue-description" th:text="${issue.issueDescription}" rows="5%" cols="100%"></textarea>
-						
-						<h5>이슈 파일</h5>
-						<input class="issue-file" id="issue-file" name="issue_file" type="file">
-						<p></p>
-						
-						<div class="issue-file-div">
-							<a><span class="issue-file-item" id="issue-file-item" 
-							th:data-path="${issue.issueFilePath}" th:text=${issue.issueFileName}></span></a>
-							<a th:if="${issue.issueFileName != null}" class="issue-file-delete" id="issue-file-delete">x</a>
-						</div>
-						
-						
-						
-						<h5>조치자</h5>
-						<select id="issue-action-user">
-							<option value=""> 선택하세요</option>
-							<option th:each="user : ${userList}" th:value="${user.userId}"
-							th:selected="${user.userId} == ${issue.issueActionId}" 
-							th:text="${user.userId} + '  '+ ${user.userName}"></option>
-						</select>
-						
-						<h5>조치 희망일</h5>
-						<input id="issue-action-date" th:value="${issue.issueActionDate}" type="date">
-						
-						<div style="margin-top: 10px; clear: both;">
-							<button type="button" id="issue-update-btn">수정</button>
-							<button type="button" onclick="location.href='/projectList'">취소</button>
-							<button type="button" id="issue-delete-btn">삭제</button>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- <div th:replace="/project/projectDetailChart :: project-top-nav"></div> -->
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">프로젝트 이슈 등록</h6>
+                    <hr>
+
+                    <div class="row issue-input-form">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>이슈 명</label>
+                                <input class="issue-name form-control" th:data-code="${issue.issueCode}"
+                                       th:data-user="${issue.issueUserId}"
+                                       th:data-date="${issue.issueDate}"
+                                       id="issue-name" type="text" placeholder=" 이슈 명" th:value="${issue.issueName}">
+                            </div>
+                            <div class="form-group">
+                                <label>이슈 구분</label>
+                                <select class="form-control" id="issue-type">
+                                    <option value=""> 선택하세요</option>
+                                    <option th:each="issueType : ${issueTypeList}"
+                                            th:selected="${issueType.issueTypeCode} == ${issue.issueTypeCode}"
+                                            th:value="${issueType.issueTypeCode}"
+                                            th:text="${issueType.issueType}"></option>
+                                </select>
+                            </div>
+                            <input id="issue-task" type="hidden" th:value="${issue.taskCode}">
+                            <div class="form-group">
+                                <label>프로젝트</label>
+                                <select class="project-id form-control" id="project-id">
+                                    <option value=""> 선택하세요</option>
+                                    <option th:each="project : ${projectList}"
+                                            th:selected="${project.projectName} == ${issue.projectName}"
+                                            th:value="${project.projectCode}" th:text="${project.projectName}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>작업</label>
+                                <select class="issue-task-list form-control" id="issue-task-list">
+                                    <option value=""> 선택하세요</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>이슈 내용</label>
+                                <textarea class="form-control" id="issue-description" th:text="${issue.issueDescription}" rows="5"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <lable>이슈 파일</lable>
+                                <input class="issue-file form-control" id="issue-file" name="issue_file" type="file">
+                                <p></p>
+                            </div>
+                            <div class="form-group">
+                                <div class="issue-file-div">
+                                    <a><span class="issue-file-item" id="issue-file-item"
+                                             th:data-path="${issue.issueFilePath}"
+                                             th:text=${issue.issueFileName}></span></a>
+                                    <a th:if="${issue.issueFileName != null}" class="issue-file-delete"
+                                       id="issue-file-delete"><i class="fa fa-times text-danger"></i></a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>조치자</label>
+                                <select class="form-control" id="issue-action-user">
+                                    <option value=""> 선택하세요</option>
+                                    <option th:each="user : ${userList}" th:value="${user.userId}"
+                                            th:selected="${user.userId} == ${issue.issueActionId}"
+                                            th:text="${user.userId} + '  '+ ${user.userName}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>조치 희망일</label>
+                                <input class="form-control" id="issue-action-date" th:value="${issue.issueActionDate}" type="date">
+                            </div>
+                            <div th:if="${#authentication.Principal.users.userId} == ${issue.issueUserId} OR
+						${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'"
+                                 style="margin-top: 10px; clear: both;">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="button" id="issue-update-btn">수정</button>
+                                    <button class="btn btn-outline-primary" type="button" onclick="location.href='/projectList'">취소</button>
+                                    <button class="btn btn-secondary float-right" type="button" id="issue-delete-btn">삭제</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </html>

@@ -1,148 +1,216 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/default">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
 <title id="pageTitle">프로젝트 기본정보</title>
 
-<!-- index.html 고유 CSS 추가 -->
+<!-- page 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<link rel="stylesheet" href="/css/project/projectDetail.css">
-	<link rel="stylesheet" href="/css/project/projectOutput.css">
-	<link rel="stylesheet" href="/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/project/projectStyle.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
 </th:block>
 
-<!-- index.html 고유 스크립트 추가 -->
+<!-- page 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-	<script th:inline="javascript" src="/js/project/projectOutput.js"></script>
-	<script th:inline="javascript" src="/js/magnific-popup.js"></script>
+    <script th:inline="javascript" src="/js/project/projectOutput.js"></script>
+    <script th:inline="javascript" src="/js/magnific-popup.js"></script>
 </th:block>
 
 
 <div layout:fragment="content">
-	<div th:replace="/project/projectDetailChart :: project-top-nav"></div>
-	<div class="row">
-		<div class="col-12 grid-margin">
-			<div class="card">
-				<div class="card-body">
-					<h6>프로젝트 산출물</h6>
-					<hr>
-					
-					<div>
-						<select>
-							<option value="all">전체카테고리</option>
-							<option></option>
-						</select> 
-						
-						<input type="text" placeholder="산출물 이름" style="margin-left: 10px; margin-right: 10px;">
-						<button id="" type="button">검색</button>
-						<button id="output-add" data-mfp-src="#output-add-modal" type="button" style="float: right;">+산출물 등록</button>
-					</div>
-					
-					<!-- 산출물 등록 모달 -->
-					<div id="output-add-modal" class="white-popup mfp-hide output-input">
-						<h5>산출물 등록</h5>
-						<hr>
-						
-						<h5>산출물</h5>
-						<input id="output-file" type="file">
-						
-						<h5>프로젝트</h5>
-						<select class="output-project">
-							<option value=""> 프로젝트를 선택해주세요</option>
-							<option th:each="projectOne : ${projectList}" th:value="${projectOne.projectCode}"
-								th:text="${projectOne.projectName}" th:selected="${projectOne.projectCode} == ${project.projectCode}"></option>
-						</select>
-						
-						<h5>작업</h5>
-						<select id="output-task-list" class="output-task-list">
-							<option value=""> 작업을 선택해주세요</option>
-						</select>
-						
-						<h5>카테고리</h5>
-						<select id="output-type">
-							<option value=""> 카테고리를 선택해주세요</option>
-							<option th:each="outputType : ${outputTypeList}" th:value="${outputType.outputTypeCode}"
-								th:text="${outputType.outputType}"></option>
-						</select>
-						
-						<div class="output-btn-item">
-							<button class="output-save-btn" type="button">등록</button>
-							<button class="output-cancel-btn" type="button">취소</button>
-						</div>
-					</div>
-					
-					<div class="output-list">
-						<table style="text-align: center;">
-							<thead>
-								<tr width="100%">
-									<th width="5%">No</th>
-									<th width="30%">파일 이름</th>
-									<th width="20%">파일 카테고리</th>
-									<th width="10%">프로젝트 작업</th>
-									<th width="10%">등록자</th>
-									<th width="10%">등록일</th>
-									<th width="10%">다운로드</th>
-									<th width="5%">삭제</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="output-tbody-tr" th:each="output : ${outputList}">
-									<td th:text="${outputStat.count}"></td>
-									<td><a class="output-name" th:data-taskCode="${output.taskCode}" th:data-mfp-src="'#' + ${output.outputCode}" th:data-id="${output.outputCode}" th:text="${output.outputName}"></a></td>
-									<td th:text="${output.outputTypeName}"></td>
-									<td th:text="${output.taskName}"></td>
-									<td th:text="${output.outputUser}"></td>
-									<td th:text="${output.outputDate}"></td>
-									<td><a><i class="fa fa-download"></i></a></td>
-									<td><a class="output-delete-btn"><i class="fa fa-trash"></i></a></td>
-									
-									<div th:id="${output.outputCode}" class="white-popup mfp-hide output-info">
-										<h5>산출물 수정</h5>
-										<hr>
-										<span class="output-date" th:text="${output.outputDate}"></span>
-										
-										<h5>산출물</h5>
-										<input class="output-file" id="output-file" type="file">
-										
-										<br>
-										<span class="output-file-name" th:text="${output.outputName}"></span>
-										
-										<h5>프로젝트</h5>
-										<select class="output-project">
-											<option value=""> 프로젝트를 선택해주세요</option>
-											<option th:each="projectOne : ${projectList}" th:value="${projectOne.projectCode}"
-												th:text="${projectOne.projectName}" th:selected="${projectOne.projectCode} == ${project.projectCode}"></option>
-										</select>
-										
-										<input class="output-task-code" type="hidden" th:data-path="${output.outputPath}" th:value="${output.taskCode}">
-										<h5>작업</h5>
-										<select id="output-task-list" class="output-task-list">
-											<option value=""> 작업을 선택해주세요</option>
-										</select>
-										
-										<h5>카테고리</h5>
-										<select class="output-type" id="output-type">
-											<option value=""> 카테고리를 선택해주세요</option>
-											<option th:each="outputType : ${outputTypeList}" th:value="${outputType.outputTypeCode}"
-												th:text="${outputType.outputType}" th:selected="${output.outputTypeName} == ${outputType.outputType}"></option>
-										</select>
-										
-										<div class="output-btn-item">
-											<button class="output-update-btn" type="button">수정</button>
-											<button class="output-cancel-btn" type="button">취소</button>
-										</div>
-									</div>
-								</tr>
-								
-								
-							</tbody>
-						</table>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	</div>
+    <div th:replace="/project/projectDetailChart :: project-top-nav"></div>
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6>프로젝트 산출물</h6>
+                    <hr>
+                    <input id="user-id" type="hidden" th:value="${#authentication.Principal.users.userId}">
+
+                    <div class="row">
+                        <div class="input-group col-md-6 col-sm-12 mb-2">
+                            <select class="form-control output-category">
+                                <option value="all">전체 카테고리</option>
+                                <option th:each="outputType : ${outputTypeList}" th:value="${outputType.outputTypeCode}"
+                                        th:text="${outputType.outputType}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-sm-12 mb-2">
+                            <input id="project-code" type="hidden" th:value="${project.projectCode}">
+                            <button class="btn btn-outline-primary float-right" id="output-add"
+                                    data-mfp-src="#output-add-modal" type="button">+산출물 등록
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 산출물 등록 모달 -->
+                    <!--<div id="output-add-modal" class="white-popup mfp-hide output-input">
+                        <h5>산출물 등록</h5>
+                        <hr>
+
+                        <h5>산출물</h5>
+                        <input id="output-file" type="file">
+
+                        <h5>프로젝트</h5>
+                        <select class="output-project">
+                            <option value="">프로젝트를 선택해주세요</option>
+                            <option th:each="projectOne : ${projectList}" th:value="${projectOne.projectCode}"
+                                    th:text="${projectOne.projectName}"
+                                    th:selected="${projectOne.projectCode} == ${project.projectCode}"></option>
+                        </select>
+
+                        <h5>작업</h5>
+                        <select id="output-task-list" class="output-task-list">
+                            <option value="">작업을 선택해주세요</option>
+                        </select>
+
+                        <h5>카테고리</h5>
+                        <select id="output-type">
+                            <option value="">카테고리를 선택해주세요</option>
+                            <option th:each="outputType : ${outputTypeList}" th:value="${outputType.outputTypeCode}"
+                                    th:text="${outputType.outputType}"></option>
+                        </select>
+
+                        <div class="output-btn-item">
+                            <button class="output-save-btn" type="button">등록</button>
+                            <button class="output-cancel-btn" type="button">취소</button>
+                        </div>
+                    </div>-->
+                    <div id="output-add-modal" class="white-popup mfp-hide output-input">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">산출물 등록</h5>
+                                <hr>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>산출물</label>
+                                    <div class="input-group mb-3">
+                                        <div class="custom-file">
+                                            <input class="form-control" id="output-file" type="file">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>프로젝트</label>
+                                    <select class="output-project form-control">
+                                        <option value="">프로젝트를 선택해주세요</option>
+                                        <option th:each="projectOne : ${projectList}"
+                                                th:value="${projectOne.projectCode}"
+                                                th:text="${projectOne.projectName}"
+                                                th:selected="${projectOne.projectCode} == ${project.projectCode}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>작업</label>
+                                    <select id="output-task-list" class="output-task-list form-control">
+                                        <option value="">작업을 선택해주세요</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>카테고리</label>
+                                    <select id="output-type" class="form-control">
+                                        <option value="">카테고리를 선택해주세요</option>
+                                        <option th:each="outputType : ${outputTypeList}"
+                                                th:value="${outputType.outputTypeCode}"
+                                                th:text="${outputType.outputType}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="output-save-btn btn btn-primary" type="button">등록</button>
+                                <button class="output-cancel-btn btn btn-outline-primary" type="button">취소</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="output-list col-12 overflow-auto">
+                            <table class="table text-center table-hover table-over">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>파일 이름</th>
+                                    <th>파일 카테고리</th>
+                                    <th>프로젝트 작업</th>
+                                    <th>등록자</th>
+                                    <th>등록일</th>
+                                    <th>다운로드</th>
+                                    <th width="10%">삭제</th>
+                                </tr>
+                                </thead>
+                                <tbody class="output-tbody">
+                                <tr class="output-tbody-tr" th:each="output : ${outputList}">
+                                    <td th:text="${outputStat.count}"></td>
+                                    <td><a class="output-name" th:data-path="${output.outputPath}"
+                                           th:data-taskCode="${output.taskCode}"
+                                           th:data-mfp-src="'#' + ${output.outputCode}"
+                                           th:data-id="${output.outputCode}" th:text="${output.outputName}"></a></td>
+                                    <td th:text="${output.outputTypeName}"></td>
+                                    <td th:text="${output.taskName}"></td>
+                                    <td th:text="${output.outputUser}"></td>
+                                    <td th:text="${output.outputDate}"></td>
+                                    <td><a class="output-download-btn"><i class="fa fa-download"></i></a></td>
+                                    <td><a th:if="${#authentication.Principal.users.userId} == ${output.outputUser} OR
+													${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'"
+                                           class="output-delete-btn"><i class="fa fa-times text-danger"></i></a></td>
+
+                                    <div th:id="${output.outputCode}" class="white-popup mfp-hide output-info">
+                                        <h5>산출물 수정</h5>
+                                        <hr>
+                                        <span class="output-date" th:text="${output.outputDate}"></span>
+
+                                        <h5>산출물</h5>
+                                        <input class="output-file" id="output-file" type="file">
+
+                                        <br>
+                                        <span class="output-file-name" th:text="${output.outputName}"></span>
+
+                                        <h5>프로젝트</h5>
+                                        <select class="output-project">
+                                            <option value=""> 프로젝트를 선택해주세요</option>
+                                            <option th:each="projectOne : ${projectList}"
+                                                    th:value="${projectOne.projectCode}"
+                                                    th:text="${projectOne.projectName}"
+                                                    th:selected="${projectOne.projectCode} == ${project.projectCode}"></option>
+                                        </select>
+
+                                        <input class="output-task-code" type="hidden"
+                                               th:data-path="${output.outputPath}"
+                                               th:value="${output.taskCode}">
+                                        <h5>작업</h5>
+                                        <select id="output-task-list" class="output-task-list">
+                                            <option value=""> 작업을 선택해주세요</option>
+                                        </select>
+
+                                        <h5>카테고리</h5>
+                                        <select class="output-type" id="output-type">
+                                            <option value=""> 카테고리를 선택해주세요</option>
+                                            <option th:each="outputType : ${outputTypeList}"
+                                                    th:value="${outputType.outputTypeCode}"
+                                                    th:text="${outputType.outputType}"
+                                                    th:selected="${output.outputTypeName} == ${outputType.outputType}"></option>
+                                        </select>
+
+                                        <div class="output-btn-item">
+                                            <button th:if="${#authentication.Principal.users.userId} == ${output.outputUser} OR
+													${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'"
+                                                    class="output-update-btn" type="button">수정
+                                            </button>
+                                            <button class="output-cancel-btn" type="button">취소</button>
+                                        </div>
+                                    </div>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </html>

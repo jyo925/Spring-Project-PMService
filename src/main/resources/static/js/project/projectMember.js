@@ -13,7 +13,7 @@ function user(){
 			var data = new Object();
 			var ele = $(this)		
 			if(ele.attr('class') == null || ele.attr('class') == '') {
-				ele.css("background-color", "rgb(128,128,128)")
+				ele.css("background-color", "rgb(0,0,0,0.1)")
 				ele.addClass('userId');
 				
 				data.userId = ele.data('id');
@@ -57,7 +57,7 @@ function memberAdd(array){
 		}).done(function(){
 			array = [];
 			console.log(array);
-			// location.reload();
+			location.reload();
 		}).fail(function(){
 			alert('member add fail');
 		})
@@ -70,7 +70,7 @@ function member(){
 		
 		var ele = $(event.target);
 		if(ele.attr('class') == null || ele.attr('class') == ''){
-			ele.css("background-color", "rgb(128,128,128)");
+			ele.css("background-color", "rgb(0,0,0,0.1)");
 			ele.addClass('memberId');
 			
 			array.push(ele.data('code'));

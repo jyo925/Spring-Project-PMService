@@ -4,14 +4,95 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.admin.mapper.TeamSettingMapper">
 
-    <select id="selectTeamUpperForOption" resultType="com.project.bit.admin.domain.TeamDTO">
-    SELECT
-        TEAM_UPPER
-      FROM
+    <resultMap id="teamUpperMap" type="HashMap" >
+        <result column="TEAM_CODE" property="teamCode" />
+        <result column="TEAM_NAME" property="teamName" />
+    </resultMap>
+
+    <select id="selectTeamList" parameterType="com.project.bit.admin.domain.TeamDTO" resultType="com.project.bit.admin.domain.TeamDTO">
+    SELECT LEVEL, (LPAD(' ',5*(LEVEL-1)) ||
+        TEAM_NAME) AS TEAM_NAME
+        ,TEAM_CODE
+    FROM
         TEAMS
+    START WITH
+      TEAM_UPPER = 0
+    CONNECT BY PRIOR
+       TEAM_CODE=TEAM_UPPER
+    ORDER SIBLINGS BY
+        TEAM_SEQ
     </select>
 
+    <select id="selectTeamUpperList" resultMap="teamUpperMap">
+        SELECT *
+        FROM
+        (SELECT LEVEL
+        ,TEAM_NAME
+        ,TEAM_CODE
+        FROM
+        TEAMS
+        START WITH
+        TEAM_UPPER = 0
+        CONNECT BY PRIOR
+        TEAM_CODE=TEAM_UPPER
+        <trim prefix="AND">
+            <if test=" depth != null">
+                LEVEL = #{depth}
+            </if>
+        </trim>)
+        where TEAM_CODE LIKE (select SUBSTR(team_code,0,1) from teams where team_code = #{teamCode})||'%00'
+        and TEAM_CODE not Like '%000'
 
+    </select>
+
+    <select id="selectTeamDetail" parameterType="int" resultType="com.project.bit.admin.domain.TeamDTO">
+        SELECT
+            TEAM_CODE
+            ,TEAM_NAME
+            ,TEAM_UPPER
+            ,TEAM_SEQ
+        FROM
+            TEAMS
+        WHERE
+            TEAM_CODE=#{teamCode}
+    </select>
+
+    <update id="updateTeam" parameterType="com.project.bit.admin.domain.TeamDTO">
+      UPDATE TEAMS
+      SET
+        TEAM_CODE =#{teamCode}
+        ,TEAM_NAME = #{teamName}
+        ,TEAM_UPPER = #{teamUpper}
+        ,TEAM_SEQ = #{teamSeq}
+      WHERE TEAM_CODE = #{teamCode}
+    </update>
+
+
+    <!-- 팀 등록 -->
+    <insert id="insertTeam" parameterType="com.project.bit.admin.domain.TeamDTO">
+     INSERT INTO TEAMS(
+        TEAM_CODE
+       ,TEAM_NAME
+       ,TEAM_UPPER
+       ,TEAM_SEQ
+        )
+        VALUES(
+        #{teamCode}
+        ,#{teamName}
+        ,#{teamUpper}
+        ,#{teamSeq}
+        )
+    </insert>
+
+    <!-- 팀 삭제 -->
+    <delete id="deleteTeam">
+        DELETE
+        FROM TEAMS
+        WHERE TEAM_CODE = #{teamCode}
+    </delete>
+
+
+    <!--사용자 등록페이지 사용 팀 셀렉박스-->
     <select id="selectTeamForOption" resultType="com.project.bit.admin.domain.TeamDTO">
     SELECT
         TEAM_CODE

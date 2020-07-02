@@ -36,42 +36,55 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
     }
 
     @Override
+    public void postApDocTerm(ApDateDTO apDateDTO) {
+        apDocMapper.insertApDocTerm(apDateDTO);
+    }
+
+    @Override
+    public ApDateDTO getApDocTerm(String apDocNo) {
+
+        ApDateDTO apDateDTO = apDocMapper.selectApDocTerm(apDocNo);
+        apDateDTO.setApStartDate(apDateDTO.getApStartDate().substring(0,10));
+        apDateDTO.setApEndDate(apDateDTO.getApEndDate().substring(0,10));
+
+        return apDateDTO;
+    }
+
+    @Override
     public Long getNewApDocNo(ApDocDTO apDocDTO) {
         return apDocMapper.selectNewApDocNo(apDocDTO);
     }
 
-    //진행문서함
+    @Override
+    public void removeApDoc(String apDocNo, String apDocWriter) {
+        apDocMapper.deleteApDoc(apDocNo, apDocWriter);
+    }
+
     @Override
     public List<ApDocDTO> getApProgressList(String apDocWriter, Criteria cri) {
         return apDocMapper.selectApProgressList(apDocWriter, cri);
     }
 
     @Override
-    public List<ApDocDTO> getApCompleteList(String apDocWriter, Criteria cri) {
-        return apDocMapper.selectApCompleteList(apDocWriter, cri);
+    public List<ApDocDTO> getApCompleteList(String userId, Criteria cri) {
+        return apDocMapper.selectApCompleteList(userId, cri);
     }
 
     @Override
     public List<Integer> getApDocCount(String apDocWriter) {
 
         List<Integer> apDocCountList = new ArrayList<Integer>();
-
-//        apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter, cri) +
-//                apDocMapper.selectCountApDoc(2, apDocWriter, cri));
-//        apDocCountList.add(apDocMapper.selectCountApCheck(apDocWriter));
-//        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter, cri));
-
-        //결재진행(진행중, 반려) 개수
+        
+        //결재 진행(진행중, 반려) 개수
         apDocCountList.add(apDocMapper.selectCountApDoc(0, apDocWriter) +
                 apDocMapper.selectCountApDoc(2, apDocWriter));
-        //결재대기 개수
+        //결재 대기 개수
         apDocCountList.add(apDocMapper.selectCountApCheck(apDocWriter));
-        //임시저장 개수
-        apDocCountList.add(apDocMapper.selectCountApDoc(3, apDocWriter));
+
         return apDocCountList;
     }
 
-    //결재 대기 문서함
+
     @Override
     public List<ApDocDTO> getApCheckList(String apDocWriter, Criteria cri) {
         return apDocMapper.selectApCheckList(apDocWriter, cri);
@@ -122,7 +135,6 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
             //반려시 ---> 상태 2(반려)로, 단계 -1로
             apDocMapper.updateApDocReject(apDTO.getApDocNo());
         }
-
     }
 
     @Override

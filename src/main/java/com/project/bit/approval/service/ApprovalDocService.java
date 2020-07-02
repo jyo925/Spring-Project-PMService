@@ -11,6 +11,12 @@ public interface ApprovalDocService {
 
     //결재문서 등록
     public int postApDoc(ApDocDTO apDocDTO);
+    
+    //날짜 데이터 등록
+    public void postApDocTerm(ApDateDTO apDateDTO);
+
+    //날짜 데이터 조회
+    public ApDateDTO getApDocTerm(String apDocNo);
 
     //결재문서 조회
     public ApDocDTO getApDoc(String apDocNo);
@@ -30,11 +36,14 @@ public interface ApprovalDocService {
     //등록한 결재문서 번호 조회
     public Long getNewApDocNo(ApDocDTO apDocDTO);
 
+    //문서 삭제
+    public void removeApDoc(String apDocNo, String apDocWriter);
 
 
 
 
-    //문서 개수 조회 결재진행, 결재대기, 임시저장 순
+
+    //문서 개수 조회 결재진행, 결재대기 순
     public List<Integer> getApDocCount(String apDocWriter);
 
     //참조문서 개수
@@ -49,7 +58,7 @@ public interface ApprovalDocService {
     public List<ApDocDTO> getApProgressList(String apDocWriter, Criteria cri);
     
     //결재완료함 조회
-    public List<ApDocDTO> getApCompleteList(String apDocWriter, Criteria cri);
+    public List<ApDocDTO> getApCompleteList(String userId, Criteria cri);
 
     //결재 대기 문서함 조회
     public List<ApDocDTO> getApCheckList(String apDocWriter, Criteria cri);

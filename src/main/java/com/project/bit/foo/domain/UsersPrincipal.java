@@ -13,12 +13,13 @@ import lombok.Data;
 @Data
 public class UsersPrincipal implements UserDetails{
 
+	
+
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5099656648948726194L;
-
-	
+	private static final long serialVersionUID = 1596108203388622014L;
 	private Users users;
 	
 	public UsersPrincipal(Users users) {
@@ -67,20 +68,6 @@ public class UsersPrincipal implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-
-	/*
-	 * @Override public String toString() { return "Users [userId=" +
-	 * users.getUserId() + ", userPw=" + users.getUserPw() + ", userName=" +
-	 * users.getUserName() + ", positionCode=" + users.getPositionCode() +
-	 * ", positionName=" + users.getPositionName() + ", teamCode=" +
-	 * users.getTeamCode() + ", teamName=" + users.getTeamName() + ", userEmail=" +
-	 * users.getUserEmail() + ", userPhone=" + users.getUserPhone() +
-	 * ", userRregitdate=" + users.getUserRregitdate() + ", dutyCode=" +
-	 * users.getDutyCode() + ", userPhoto=" + users.getUserPhoto() +
-	 * ", userWebsite=" + users.getUserWebsite() + ", userInfo=" +
-	 * users.getUserInfo() + "]"; }
-	 */
 
 	
 	

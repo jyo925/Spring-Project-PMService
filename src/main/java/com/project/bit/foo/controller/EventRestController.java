@@ -16,8 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.bit.foo.domain.event.Event;
 import com.project.bit.foo.domain.event.EventGroup;
-import com.project.bit.foo.service.eventService.EventGroupService;
-import com.project.bit.foo.service.eventService.EventService;
+import com.project.bit.foo.service.EventService.EventGroupService;
+import com.project.bit.foo.service.EventService.EventService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +38,9 @@ public class EventRestController {
 	@GetMapping("/calendarE")
 	public String calendarE(Model model, Principal principal) {
 		JSONArray json = eventService.selectEventById(principal.getName());
-		System.out.println(json);
+		System.out.println("here"+json);
+
+
 		return json.toString();
 	}
 	

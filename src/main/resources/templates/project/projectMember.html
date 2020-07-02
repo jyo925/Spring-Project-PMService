@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/default">
+	  layout:decorate="~{layout/default}">
 
 <title id="pageTitle">프로젝트 기본정보</title>
 
-<!-- index.html 고유 CSS 추가 -->
+<!-- page 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<link rel="stylesheet" href="/css/project/projectDetail.css">
+	<link rel="stylesheet" href="/css/project/projectStyle.css">
 </th:block>
 
-<!-- index.html 고유 스크립트 추가 -->
+<!-- page 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 	<script th:inline="javascript" src="/js/project/projectMember.js"></script>
 </th:block>
@@ -26,10 +26,10 @@
 					<hr>
 					
 					<input type="hidden" th:value="${project.projectCode}" id="projectCode">
-					
-					<div id="user_div">
+					<div class="row h-100 align-top">
+					<div class="col-md-5 col-xs-12 user-box h-100 overflow-auto" id="user_div">
 						<ul id="user" style="list-style:none; padding-left:0px;">
-							<li th:id="userId" th:each="user : ${userList}" 
+							<li th:id="userId" th:each="user : ${noJoinUserList}" 
 							th:data-id="${user.userId}" th:data-name="${user.userName}"
 							th:data-team="${user.teamName}" th:data-pos="${user.positionName}"
 							th:text="${user.teamName} + ' / ' + ${user.userName} + ' / '
@@ -37,12 +37,12 @@
 						</ul>
 					</div>
 					
-					<div>
-						<button type="button" id="memberAdd_btn"> 추가 &gt; </button>
-						<button type="button" id="memberRemove_btn"> &lt; 삭제 </button>
+					<div class="col-md-2 col-xs-12 align-content-center text-center" th:if="${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'">
+						<button class="btn btn-primary m-2" type="button" id="memberAdd_btn"> 추가 &gt; </button>
+						<button class="btn btn-outline-primary" type="button" id="memberRemove_btn"> &lt; 삭제 </button>
 					</div>
 					
-					<div id="member_div">
+					<div class="col-md-5 col-xs-12 user-box h-100 overflow-auto" id="member_div">
 						<ul class="member" style="list-style:none; padding-left:0px;">
 							<li th:id="memberId" th:each="member : ${projectMembers}" 
 							th:data-code="${member.projectJoinCode}"
@@ -50,7 +50,7 @@
 							 + ${member.userId}"></li>
 						</ul>				
 					</div>
-					
+					</div>
 				</div>
 			</div>
 		</div>

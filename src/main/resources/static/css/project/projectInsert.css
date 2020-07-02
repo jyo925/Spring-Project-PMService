@@ -1,0 +1,20 @@
+.detail-top-nav {
+	margin-bottom: 2%;
+}
+
+.detail-top-nav a {
+	margin-left: 2%;
+	margin-right: 5%;
+}
+.reg-text {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+h5 {
+	margin-top: 20px;
+}
+
+.project-subName-div span {
+	color: red; 
+}

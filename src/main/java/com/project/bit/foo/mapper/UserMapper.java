@@ -15,7 +15,7 @@ import com.project.bit.project.domain.TeamDTO;
 @Mapper
 public interface UserMapper {
 	
-	@Select("select u.*, p.DUTY_CODE from USERS u left join project_members p on u.USER_ID = p.USER_ID where u.USER_ID=#{userId}")
+	@Select("select u.*, p.DUTY_CODE AS duty_code, d.duty_name AS duty_name from USERS u inner join project_members p on p.user_id = u.user_id inner join dutys d on p.duty_code = d.duty_code where u.USER_ID=#{userId} AND rownum <= 1")
 	Users selectUserById(String userId);
 	
 	@Insert("insert into users(USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_PHONE, POSITION_CODE, TEAM_CODE) "

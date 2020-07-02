@@ -33,7 +33,7 @@ $(function(){
 	})
 	
 	$.ajax({
-		url: '/projectMember/gantt',
+		url: '/projectMemberInfo/gantt',
 		type: 'get',
 		data: {projectCode : $('#projectCode').val()},
 		dataType: 'JSON'

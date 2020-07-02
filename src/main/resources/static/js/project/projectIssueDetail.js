@@ -108,22 +108,28 @@ function issueUpdate() {
 
 function issueFileDelete(){
 	$('#issue-file-delete').on('click', function(e){
-		$.ajax({
-			url: '/issue/delete/file/'+$('#issue-name').data('code'),
-			type: 'DELETE',
-			data: {issuePath: $('#issue-file-item').data('path')}
-		}).done(function(){
-			location.reload();
-		}).fail(function(){
-			alert('issue file delete fail')
-		})
+		if(confirm('삭제하시겠습니까?')){
+			$.ajax({
+				url: '/issue/delete/file/'+$('#issue-name').data('code'),
+				type: 'DELETE',
+				data: {issuePath: $('#issue-file-item').data('path')}
+			}).done(function(){
+				location.reload();
+			}).fail(function(){
+				alert('issue file delete fail')
+			})			
+		}
+		
+		
 		
 	})
 }
 
 function issueDelete(){
 	$('#issue-delete-btn').on('click', function(){
-		location.href='/removeProjectIssue/'+$('#issue-name').data('code');
+		if(confirm('삭제하시겠습니까?')){
+			location.href='/removeProjectIssue/'+$('#issue-name').data('code');			
+		}
 		/*$.ajax({
 			url: '/issue/delete/'+$('#issue-name').data('code'),
 			type: 'DELETE'

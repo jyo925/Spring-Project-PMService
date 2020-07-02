@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.bit.foo.domain.Users;
 import com.project.bit.foo.service.UserService;
+import com.project.bit.project.domain.ProjectCriteria;
 import com.project.bit.project.domain.ProjectIssueDTO;
 import com.project.bit.project.domain.ProjectIssueTypeDTO;
 import com.project.bit.project.service.ProjectIssueService;
@@ -32,15 +33,15 @@ public class ProjectIssueController {
 	@Autowired private ProjectService projectService;
 	
 	@GetMapping("/goProjectIssueAdd")
-	public String goProjectIssueAdd(@ModelAttribute ProjectIssueDTO projectIssueDTO, Model model) {
-		model.addAttribute("projectList", projectService.getProjectListAll());
+	public String goProjectIssueAdd(@ModelAttribute ProjectIssueDTO projectIssueDTO, Model model, ProjectCriteria cri) {
+		model.addAttribute("projectList", projectService.getProjectAll());
 		return "/project/projectIssueInsert";
 	}
 	
 	@GetMapping("/projectIssueDetail/{issueId}")
-	public String goProjectIssueDetail(@PathVariable String issueId, Model model) {
+	public String goProjectIssueDetail(@PathVariable String issueId, Model model, ProjectCriteria cri) {
 		model.addAttribute("issue", projectIssueService.getProjectIssueOne(issueId));
-		model.addAttribute("projectList", projectService.getProjectListAll());
+		model.addAttribute("projectList", projectService.getProjectListAll(cri));
 		return "/project/projectIssueDetail";
 	}
 	

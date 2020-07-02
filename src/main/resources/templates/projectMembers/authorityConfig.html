@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<title id="pageTitle">Authority config</title>
+<!-- 현제 페이지 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link href="/css/jquery-ui.css" rel="stylesheet">
+</th:block>
+
+<!-- 현제 페이지 고유 스크립 추가 -->
+<th:block layout:fragment="script">
+	<script src="/js/jquery-ui.js"></script>
+	<script src="/js/authorityConf/authorityConf.js"></script>
+</th:block>
+
+<div layout:fragment="content">
+
+	<div class="row">
+		<div class="col-12 grid-margin">
+		<div class="alert alert-danger" role="alert"></div>
+			<div class="card">
+				<div class="text-center">
+					<h3 class="mt-3">Authority config</h3>
+					<hr class="my-4">
+				</div>
+				
+				<div class="card-body">
+					<div id="tabs">
+						<ul>
+							<li><a href="#tabs-1">DEVELOPER</a></li>
+							<li><a href="#tabs-2">MANAGER</a></li>
+							<li><a href="#tabs-3">PM</a></li>
+							<li><a href="#tabs-4">PMO</a></li>
+						</ul>
+						<div id="tabs-1">
+							<table width="100%" class="table" id="developer">
+								<thead>
+									<tr class="card-header">
+										<th>Photo</th>
+										<th>Name</th>
+										<th>ID</th>
+										<th>Email</th>
+										<th>Position</th>
+										<th>Duty</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="el : ${members}" class="items">
+										<th scope="row"><img th:src="${el.userPhoto}" alt=""></th>
+										<th scope="row" th:text="${el.userName}"></th>
+										<th scope="row" th:text="${el.userId}"></th>
+										<th scope="row" th:text="${el.userEmail}"></th>
+										<th scope="row" th:text="${el.positionName}"></th>
+										<th scope="row" th:text="${el.dutyCode}" class="dutyCode" hidden=""></th>
+										<th scope="row">
+											
+												<input type="hidden" th:value="${el.userId}">
+												<select class="form-control">
+													<option th:each="duty : ${duty}" th:value="${duty.dutyCode}" th:text="${duty.dutyName}"></option>
+												</select>
+											
+										</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="tabs-2">
+							<table width="100%" class="table" id="manager">
+								<thead>
+									<tr class="card-header">
+										<th>Photo</th>
+										<th>Name</th>
+										<th>ID</th>
+										<th>Email</th>
+										<th>Position</th>
+										<th>Duty</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="el : ${members}" class="items">
+										<th scope="row"><img th:src="${el.userPhoto}" alt=""></th>
+										<th scope="row" th:text="${el.userName}"></th>
+										<th scope="row" th:text="${el.userId}"></th>
+										<th scope="row" th:text="${el.userEmail}"></th>
+										<th scope="row" th:text="${el.positionName}"></th>
+										<th scope="row" th:text="${el.dutyCode}" hidden=""></th>
+										<th scope="row">
+											
+												<input type="hidden" th:value="${el.userId}">
+												<select class="form-control">
+													<option th:each="el : ${duty}" th:value="${el.dutyCode}" th:text="${el.dutyName}"></option>
+												</select>
+											
+										</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="tabs-3">
+							<table width="100%" class="table" id="pm">
+								<thead>
+									<tr class="card-header">
+										<th>Photo</th>
+										<th>Name</th>
+										<th>ID</th>
+										<th>Email</th>
+										<th>Position</th>
+										<th>Duty</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="el : ${members}" class="items">
+										<th scope="row"><img th:src="${el.userPhoto}" alt=""></th>
+										<th scope="row" th:text="${el.userName}"></th>
+										<th scope="row" th:text="${el.userId}"></th>
+										<th scope="row" th:text="${el.userEmail}"></th>
+										<th scope="row" th:text="${el.positionName}"></th>
+										<th scope="row" th:text="${el.dutyCode}" hidden=""></th>
+										<th scope="row">
+											
+												<input type="hidden" th:value="${el.userId}">
+												<select class="form-control">
+													<option th:each="el : ${duty}" th:value="${el.dutyCode}" th:text="${el.dutyName}"></option>
+												</select>
+										
+										</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="tabs-4">
+							<table width="100%" class="table" id="pmo">
+								<thead>
+									<tr class="card-header">
+										<th>Photo</th>
+										<th>Name</th>
+										<th>ID</th>
+										<th>Email</th>
+										<th>Position</th>
+										<th>Duty</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="el : ${members}" class="items">
+										<th scope="row"><img th:src="${el.userPhoto}" alt=""></th>
+										<th scope="row" th:text="${el.userName}"></th>
+										<th scope="row" th:text="${el.userId}"></th>
+										<th scope="row" th:text="${el.userEmail}"></th>
+										<th scope="row" th:text="${el.positionName}"></th>
+										<th scope="row" th:text="${el.dutyCode}" hidden=""></th>
+										<th scope="row">
+											
+												<input type="hidden" th:value="${el.userId}">
+												<select class="form-control">
+													<option th:each="el : ${duty}" th:value="${el.dutyCode}" th:text="${el.dutyName}"></option>
+												</select>
+											
+										</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<form id="form" method="post">
+					<input name="data" type="hidden" id="data">
+				</form>
+			</div>
+			<button type="button" class="btn btn-primary">Submit</button>
+		</div>
+	</div>
+
+<!-- js code -->
+<th:block layout:fragment="scriptCode">
+
+</th:block>
+</div>
+
+
+
+</html>

@@ -4,24 +4,57 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.bit.project.mapper.ProjectMapper">
+	<select id="selectProjectAll" resultType="com.project.bit.project.domain.ProjectVO">
+		SELECT * FROM projects
+	</select>
+	<select id="checkProjectSubName" parameterType="String" resultType="int">
+		SELECT count(*) FROM projects WHERE project_subName = #{subName}
+	</select>
+	
 	<select id="selectProjectListAll" resultType="com.project.bit.project.domain.ProjectVO">
-		select * from projectList
+		<![CDATA[
+			SELECT
+			 	* 
+			FROM 
+				(SELECT rownum rn, projectList.* FROM projectList WHERE rownum <= #{pageNum} * #{amount})
+			WHERE
+				rn > (#{pageNum} - 1) * #{amount}
+		]]>
 	</select>
 	
-	<select id="selectProjectListByType" parameterType="String" resultType="com.project.bit.project.domain.ProjectVO">
-		SELECT * FROM projectList 
-		WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode})
+	<select id="selectProjectListByType" resultType="com.project.bit.project.domain.ProjectVO">
+		<![CDATA[
+			SELECT
+				* 
+			FROM
+				(SELECT
+					rownum rn, projectList.* 
+				FROM projectList 
+				WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode}) AND rownum <= #{cri.pageNum} * #{cri.amount})
+			WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}	
+		]]>
 	</select>
 	
-	<select id="selectProjectListByName" parameterType="String" resultType="com.project.bit.project.domain.ProjectVO">
-		SELECT * FROM projectList 
-		WHERE project_name LIKE '%'||#{projectName}||'%'
+	<select id="selectProjectListByName" resultType="com.project.bit.project.domain.ProjectVO">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				(SELECT rownum rn, projectList.* FROM projectList 
+				WHERE project_name LIKE '%'||#{projectName}||'%' AND rownum <= #{cri.pageNum} * #{cri.amount})
+			WHERE
+				rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		]]>
 	</select>
 	
 	<select id="selectProjectListByTypeAndName" resultType="com.project.bit.project.domain.ProjectVO">
-		SELECT * FROM projectList
-		WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode})
-		AND project_name LIKE '%'||#{projectName}||'%'
+		<![CDATA[
+			SELECT *
+			FROM (SELECT rownum rn, projectList.* FROM projectList
+					WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode})
+					AND project_name LIKE '%'||#{projectName}||'%' AND rownum <= #{cri.pageNum} * #{cri.amount})
+			WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		]]>
 	</select>
 	
 	<select id="selectProjectInfo" parameterType="String" resultType="com.project.bit.project.domain.ProjectInfoVO">
@@ -106,6 +139,16 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		#{projectPmo}, #{projectDescription}, #{projectPriority}, #{projectStatusCode})
 	</insert>
 	
+	<insert id="insertProjectPm" parameterType="com.project.bit.project.domain.ProjectDTO">
+		INSERT INTO project_members
+		VALUES(ID_SEQ.NEXTVAL||'-'||#{projectSubName}||'-'||(select duty_name from dutys where duty_code = 'duty200'), #{projectCode}, #{projectPm}, 'duty200')
+	</insert>
+	
+	<insert id="insertProjectPmo" parameterType="com.project.bit.project.domain.ProjectDTO">
+		INSERT INTO project_members
+		VALUES(ID_SEQ.NEXTVAL||'-'||#{projectSubName}||'-'||(select duty_name from dutys where duty_code = 'duty100'), #{projectCode}, #{projectPmo}, 'duty100')
+	</insert>
+	
 	<delete id="deleteProject" parameterType="String">
 		DELETE FROM projects WHERE project_code = #{projectCode}
 	</delete>
@@ -119,5 +162,25 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	
 	<select id="selectProjectStatusListAll" resultType="com.project.bit.project.domain.ProjectStatusDTO">
 		SELECT * FROM project_status
+	</select>
+	
+	<select id="getProjectListAllAccount" resultType="int">
+		SELECT count(*) FROM projectList
+	</select>
+	
+	<select id="selectProjectListAccount" parameterType="String" resultType="int">
+		SELECT
+			count(*) 
+		FROM projectList 
+		WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode})
+	</select>
+	<select id="selectProjectListAccountByName" parameterType="String" resultType="int">
+		SELECT count(*) FROM projectList 
+		WHERE project_name LIKE '%'||#{projectName}||'%' 
+	</select>
+	<select id="selectProjectListAccountByNameAndType" resultType="int">
+		SELECT count(*) FROM projectList
+		WHERE project_typeName = (SELECT project_type FROM project_types WHERE project_typeCode=#{typeCode})
+		AND project_name LIKE '%'||#{projectName}||'%'
 	</select>
 </mapper>

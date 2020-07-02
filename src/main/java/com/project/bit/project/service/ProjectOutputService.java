@@ -11,6 +11,7 @@ public interface ProjectOutputService {
 	List<ProjectOutputDTO> getProjectDetailOutput(String projectCode);
 	List<ProjectOutputDTO> getProjectOutput();
 	List<ProjectOutputTypeDTO> getOutputType();
+	List<ProjectOutputDTO> getProjectOutputByCategory(String projectCode, String typeCode);
 	void postProjectOutput(ProjectOutputDTO projectOutputDTO);
 	void postProjectOutput(MultipartFile outputFile);
 	void removeProjectOutput(String outputId);

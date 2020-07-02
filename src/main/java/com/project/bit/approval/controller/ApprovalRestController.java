@@ -24,9 +24,7 @@ public class ApprovalRestController {
     @GetMapping(value = "/getApprovalFiles", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ApFileDTO>> getApprovalFiles(String apDocNo) {
 
-        log.info(apDocService.getApFiles(apDocNo)+"");
         return new ResponseEntity<>(apDocService.getApFiles(apDocNo), HttpStatus.OK);
-
     }
 
 }

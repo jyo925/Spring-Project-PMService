@@ -97,7 +97,7 @@ function UserListTag(chat) {
 /* 기능 - 채팅 초대 목록 띄우기 */
 /* 기능 - 채팅 초대 목록 띄우기 */
 const btn_fetchUserList = document.getElementById('fetchUserList');
-      btn_fetchUserList.addEventListener("click", fetchUserList);
+btn_fetchUserList.addEventListener("click", fetchUserList);
 
 function fetchUserList() {
   stompClient.send("/chat/init/"+document.getElementById("user-id-hidden").value,{},JSON.stringify({
@@ -190,7 +190,7 @@ function messageTag(message) {
   const message_tag = document.createElement("div");
   message_tag.id = "message-id";
   message_tag.innerHTML =
-  `<p id="message-author-id">${message.authorId}</p>
+      `<p id="message-author-id">${message.authorId}</p>
    <p id="message-content">${message.content}</p>
    <p id="message-creationTime">${message.creationTime}</p>`
   return message_tag;
@@ -228,16 +228,16 @@ function send() {
 /* 채팅 내용 동적 태그 생성 함수 */
 /* 채팅 내용 동적 태그 생성 함수 */
 function MessageTag2(message) {
-    const MessageTag = document.createElement("li");
-    MessageTag.className = "chatroom-message";
-    MessageTag.innerHTML =
-    `<li class="chatroom-message">
+  const MessageTag = document.createElement("li");
+  MessageTag.className = "chatroom-message";
+  MessageTag.innerHTML =
+      `<li class="chatroom-message">
         <img src="" alt="" id="chatroom-user-image">
         <p id="chatroom-user-id">${message.authorId}</p>
         <p id="chatroom-user-message">${message.content}</p>
         <p id="chatroom-user-message-time">${message.creationTime}</p>
     </li>`;
-    return MessageTag;
+  return MessageTag;
 }
 
 

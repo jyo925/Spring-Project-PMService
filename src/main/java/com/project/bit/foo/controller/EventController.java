@@ -18,10 +18,10 @@ import com.project.bit.foo.domain.event.EventStatisticVO;
 import com.project.bit.foo.domain.event.EventTypes;
 import com.project.bit.foo.service.ProjectService2;
 import com.project.bit.foo.service.UserService;
-import com.project.bit.foo.service.eventService.EventGroupService;
-import com.project.bit.foo.service.eventService.EventService;
-import com.project.bit.foo.service.eventService.EventStatisticService;
-import com.project.bit.foo.service.eventService.EventTypesService;
+import com.project.bit.foo.service.EventService.EventGroupService;
+import com.project.bit.foo.service.EventService.EventService;
+import com.project.bit.foo.service.EventService.EventStatisticService;
+import com.project.bit.foo.service.EventService.EventTypesService;
 
 @Controller
 public class EventController {

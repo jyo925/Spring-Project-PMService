@@ -5,6 +5,8 @@ $(function(){
 	outputInsert();
 	outputDelete();
 	outputUpdate();
+	outputDownload();
+	outputCategorySearch();
 
 	taskListAjax($('.output-input').find('.output-project'));
 	
@@ -13,6 +15,48 @@ $(function(){
 		taskListAjax($('#'+outputId+'').find('.output-project'));
 	})
 })
+
+function outputCategorySearch(){
+	$('.output-category').on('change', function(){
+		$.ajax({
+			url : '/output/search/category/' + $('#project-code').val() + "/" + $(this).val(),
+			type : 'GET',
+			dataType : 'JSON'
+		}).done(function(list){
+			console.log(list);
+			var tbody = $('.output-tbody');
+			tbody.empty();
+			
+			$.each(list, function(index, value){
+				var item = '<tr class="output-tbody-tr">' + 
+				'<td>' + (index+1) + '</td>' +
+				'<td>' + '<a class="output-name" data-path="' + value.outputPath + '" data-taskCode="' + value.taskCode + '" data-mfp-src="#' + value.outputCode + '" data-id="' + value.outputCode + '">' + value.outputName + '</a>' + '</td>' +
+				'<td>' + value.outputTypeName + '</td>' +
+				'<td>' + value.taskName + '</td>' +
+				'<td>' + value.outputUser + '</td>' +
+				'<td>' + value.outputDate + '</td>' +
+				'<td><a class="output-download-btn"><i class="fa fa-download"></i></a></td>' +
+				'<td><a class="output-delete-btn"><i class="fa fa-trash"></i></a></td>'
+				+ '</tr>';
+				
+				tbody.append(item);
+			})
+			outputModal('.output-name', '.output-cancel-btn');
+			outputDownload();
+		}).fail(function(){
+			alert('output search fail');
+		})
+	})
+	
+}
+
+function outputDownload(){
+	$('.output-download-btn').on('click', function(e){
+		var liObj = $(e.target)
+		var path = encodeURIComponent(liObj.closest('.output-tbody-tr').find('.output-name').data('path'));
+		self.location = '/output/download?fileName=' + path
+	})
+}
 
 function outputUpdate(){
 	$('.output-update-btn').on('click', function(e){
@@ -30,7 +74,7 @@ function outputUpdate(){
 			outputFilePath = item.find('.output-task-code').data('path');
 		}
 		
-		console.log()
+		console.log(outputFilePath);
 		
 		$.ajax({
 			url: '/output/update',
@@ -53,15 +97,18 @@ function outputUpdate(){
 
 function outputDelete(){
 	$('.output-delete-btn').on('click', function(e){
-		var outputCode = $(e.target).closest('.output-tbody-tr').find('.output-name').data('id');
-		$.ajax({
-			url: '/output/delete/' + outputCode,
-			type: 'DELETE'
-		}).done(function(){
-			location.reload();
-		}).fail(function(){
-			alert('output delete fail')
-		})
+		if(confirm('삭제하시겠습니까?')){
+			var outputCode = $(e.target).closest('.output-tbody-tr').find('.output-name').data('id');
+			$.ajax({
+				url: '/output/delete/' + outputCode,
+				type: 'DELETE'
+			}).done(function(){
+				location.reload();
+			}).fail(function(){
+				alert('output delete fail')
+			})
+			
+		}
 	})
 }
 
@@ -76,7 +123,7 @@ function outputInsert(){
 			type: 'POST',
 			data: {
 				outputName: outputFileName,
-				outputUser: $('.name').text(),
+				outputUser: $('#user-id').val(),
 				outputTypeCode: $('#output-type').val(),
 				taskCode: $('#output-task-list').val()
 			}

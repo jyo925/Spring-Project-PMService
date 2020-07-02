@@ -1,0 +1,21 @@
+select /*+ INDEX_ASC(users user_id) */
+users.user_id, 
+users.user_name, 
+users.user_email, 
+users.user_phone, 
+count(project_tasks.taskGroup_code),
+count(case when project_tasks.task_status_code = 'taskstatus100' then 1 end) as Processing, 
+count(case when project_tasks.task_status_code = 'taskstatus200' then 1 end) as Complete,
+count(case when project_tasks.task_status_code = 'taskstatus300' then 1 end) as StandBy
+from users 
+
+INNER join project_members 
+on users.user_id = project_members.user_id
+
+inner join project_task_groups 
+on project_members.project_code = project_task_groups.project_code
+
+inner join project_tasks 
+on project_task_groups.taskGroup_code = project_tasks.taskGroup_code
+
+group by users.user_id, users.user_name, users.user_email, users.user_phone;

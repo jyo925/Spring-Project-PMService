@@ -16,155 +16,177 @@
 </th:block>
 
 <div layout:fragment="content">
-
-    <!-- Registration Start -->
-    <div id="dialog-form" title="regitUser">
-        <form action="/regitUser" id="regitUser">
-            <label for="userId">아이디</label>
-            <input id="userId" name="userId" type="text" class="text ui-widget-content ui-corner-all form-control mb-3"
-                   placeholder=""
-                   required="required">
-            <label for="userName">이름</label>
-            <input id="userName" name="userName" type="text"
-                   class="text ui-widget-content ui-corner-all form-control mb-3" placeholder=""
-                   required="required">
-            <label for="positionCode">직급</label>
-            <select name="positionCode" id="positionCode" class="form-control mb-3">
-                <option value="">선택</option>
-                <option value="1">부장</option>
-                <option value="2">차장</option>
-                <option value="3">과장</option>
-                <option value="4">대리</option>
-                <option value="5">사원</option>
-            </select>
-            <!--팀선택-->
-            <label for="teamCode">팀</label>
-            <select name="teamCode" id="teamCode" class="form-control mb-3">
-            </select>
-            <!--이메일 작성-->
-            <label for="userEmail">Email</label>
-            <input type="email" name="userEmail" id="userEmail"
-                   class="text ui-widget-content ui-corner-all form-control mb-3">
-            <!--전화번호 작성-->
-            <label for="userPhone">Phone</label>
-            <input type="tel" name="userPhone" id="userPhone"
-                   class="text ui-widget-content ui-corner-all form-control mb-3">
-
-        </form>
-    </div>
-    <!-- Registration end -->
-
-    <button type="button" id="regitBtn" name="regitBtn">사용자 등록</button>
-    <button type="button" id="resetPwBtn" name="resetPwBtn">비밀번호 초기화</button>
-    <button type="button" id="deleteUserBtn" name="deleteUserBtn">선택 삭제</button>
-
-
-    <!-- Search start-->
-    <form id='searchForm' action="/userSettingList" method='get' class="form-inline repeater">
-        <div data-repeater-list="group-a">
-            <div data-repeater-item="" class="d-md-flex mb-2">
-                <div class="input-group mb-2 mr-md-2 mb-md-0">
-                    <div class="input-group-prepend">
-                    </div>
-                    <select class="form-control" name='type'>
-                        <option value="NULL" th:selected="${pageMaker.cri.type == null?true:false}">--</option>
-                        <option value="N" th:selected="${pageMaker.cri.type eq 'N'?true:false}">이름</option>
-                        <option value="T" th:selected="${pageMaker.cri.type eq 'T'?true:false}">부서</option>
-                    </select>
-                </div>
-                <div class="input-group mb-2 mr-md-2 mb-md-0">
-                    <div class="input-group-prepend">
-                    </div>
-                    <input type="text" name="keyword" class="form-control" placeholder="Search Here" th:value="${pageMaker.cri.keyword}">
-                    <input type='hidden' name='pageNum' th:value="${pageMaker.cri.pageNum}">
-                    <input type='hidden' name='amount' th:value="${pageMaker.cri.amount}">
-                </div>
-                <button type="submit" class="btn btn-success btn-sm">검색</button>
-            </div>
-        </div>
-    </form>
-    <!-- Search end-->
-
-    <!--List start-->
-    <div>
-        <form  action="" method="post">
-            <table>
-                <thead>
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="colgroup">ID</th>
-                    <th scope="col">이름</th>
-                    <th scope="col">직급</th>
-                    <th scope="col">부서</th>
-                    <th scope="col">이메일</th>
-                    <th scope="col">전화번호</th>
-                    <th scope="col">등록일</th>
-                </tr>
-                </thead>
-                <tbody id="userList">
-                <tr th:each="userList,index : ${userSettingList}">
-                    <td scope="row" th:text="${index.index+1}"></td>
-                    <td th:text="${userList.userId}"></td>
-                    <td th:text="${userList.userName}"></td>
-                    <td th:text="${userList.positionName}"></td>
-                    <td th:text="${userList.teamName}"></td>
-                    <td th:text="${userList.userEmail}"></td>
-                    <td th:text="${userList.userPhone}"></td>
-                    <td th:text="${userList.userRegitDate}"></td>
-                    <td><input type="checkbox" name="chBox" class="check-box" th:value="${userList.userId}"/></td>
-
-                </tr>
-                </tbody>
-            </table>
-        </form>
-    </div>
-    <!-- List end -->
-
-
-    <!-- paging start -->
     <div class="row">
-        <div class="col-sm-12 col-md-5">
-            <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">
-                <p th:text="'Showing 1 to ' +${userSettingList.size()}+ 'of '+${userSettingList.size()} +' entries'">
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-7">
-            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                <ul class="pagination justify-content-end">
-                    <li class="paginate_button page-item previous"
-                        id="dataTable_previous"
-                       th:if="${pageMaker.prev}">
-                        <a th:href="${pageMaker.endPage -1}"
-                           aria-controls="dataTable"
-                           data-dt-idx="0"
-                           tabindex="0"
-                           class="page-link">Prev</a>
-                    </li>
-                    <th:block
-                            th:each="number: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
-                        <li class="paginate_button page-item">
-                            <a th:href="${number}"
-                               aria-controls="dataTable" data-dt-idx="1"
-                               tabindex="0" class="page-link" th:text="${number}">1</a>
-                        </li>
-                    </th:block>
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">사용자 등록</h3>
+                    <br><br>
+                    <!-- Registration Start -->
+                    <div id="dialog-form" title="regitUser">
+                        <form action="/admin/regitUser" id="regitUser">
+                            <label for="userId">아이디</label>
+                            <input id="userId" name="userId" type="text" class="text ui-widget-content ui-corner-all form-control mb-3"
+                                   placeholder=""
+                                   required="required">
+                            <label for="userName">이름</label>
+                            <input id="userName" name="userName" type="text"
+                                   class="text ui-widget-content ui-corner-all form-control mb-3" placeholder=""
+                                   required="required">
+                            <label for="positionCode">직급</label>
+                            <select name="positionCode" id="positionCode" class="form-control mb-3">
+                                <option value="">선택</option>
+                                <option value="1">부장</option>
+                                <option value="2">차장</option>
+                                <option value="3">과장</option>
+                                <option value="4">대리</option>
+                                <option value="5">사원</option>
+                            </select>
+                            <!--팀선택-->
+                            <label for="teamCode">팀</label>
+                            <select name="teamCode" id="teamCode" class="form-control mb-3">
+                            </select>
+                            <!--이메일 작성-->
+                            <label for="userEmail">Email</label>
+                            <input type="email" name="userEmail" id="userEmail" placeholder="ID@bitcom.kr"
+                                   class="text ui-widget-content ui-corner-all form-control mb-3">
+                            <!--전화번호 작성-->
+                            <label for="userPhone">Phone</label>
+                            <input type="tel" name="userPhone" id="userPhone" placeholder="010-0000-0000"
+                                   class="text ui-widget-content ui-corner-all form-control mb-3">
+                        </form>
+                    </div>
+                    <!-- Registration end -->
 
-                    <li class="paginate_button page-item next" id="dataTable_next"
-                        th:if="${pageMaker.next}">
-                        <a th:href="${pageMaker.endPage +1}"
-                           aria-controls="dataTable"
-                           data-dt-idx="7" tabindex="0"
-                           class="page-link"
-                        >Next</a>
-                    </li>
-                </ul>
+                    <div class="form-group row">
+                        <div class="col-lg-8">
+                        <button type="button" id="regitBtn" class="btn btn-inverse-success btn-fw" name="regitBtn">사용자 등록</button>
+                        <button type="button" id="resetPwBtn" class="btn btn-inverse-success btn-fw" name="resetPwBtn">비밀번호 초기화</button>
+                        <button type="button" id="deleteUserBtn" class="btn btn-inverse-success btn-fw" name="deleteUserBtn">선택 삭제</button>
+                        </div>
 
+                        <!-- Search start-->
+                        <div class="col-lg-4 float-right">
+                        <form id='searchForm' action="/admin/userSettingList" method='get' class="form-inline repeater float-right">
+                            <div data-repeater-list="group-a" class="float">
+                                <div data-repeater-item="" class="d-md-flex mb-2">
+                                    <div class="input-group mb-2 mr-md-2 mb-md-0">
+                                        <div class="input-group-prepend">
+                                        </div>
+                                        <select class="form-control" name='type'>
+                                            <option value="NULL" th:selected="${pageMaker.cri.type == null?true:false}">--</option>
+                                            <option value="N" th:selected="${pageMaker.cri.type eq 'N'?true:false}">이름</option>
+                                            <option value="T" th:selected="${pageMaker.cri.type eq 'T'?true:false}">부서</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-2 mr-md-2 mb-md-0">
+                                        <div class="input-group-prepend">
+                                        </div>
+                                        <input type="text" name="keyword" class="form-control" placeholder="Search Here" th:value="${pageMaker.cri.keyword}">
+                                        <input type='hidden' name='pageNum' th:value="${pageMaker.cri.pageNum}">
+                                        <input type='hidden' name='amount' th:value="${pageMaker.cri.amount}">
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-sm">검색</button>
+                                </div>
+                            </div>
+                        </form></div>
+                        <!-- Search end-->
+
+                    </div>
+                    <br>
+
+
+
+                    <!--List start-->
+                    <div>
+                        <form  action="" method="post">
+                            <table class="table dataTable no-footer">
+                                <thead>
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="colgroup">ID</th>
+                                    <th scope="col">이름</th>
+                                    <th scope="col">직급</th>
+                                    <th scope="col">부서</th>
+                                    <th scope="col">이메일</th>
+                                    <th scope="col">전화번호</th>
+                                    <th scope="col">등록일</th>
+                                    <th scope="col">선택</th>
+                                </tr>
+                                </thead>
+                                <tbody id="userList">
+                                <tr th:each="userList,index : ${userSettingList}">
+                                    <td scope="row" th:text="${index.index+1}"></td>
+                                    <td th:text="${userList.userId}"></td>
+                                    <td th:text="${userList.userName}"></td>
+                                    <td th:text="${userList.positionName}"></td>
+                                    <td th:text="${userList.teamName}"></td>
+                                    <td th:text="${userList.userEmail}"></td>
+                                    <td th:text="${userList.userPhone}"></td>
+                                    <td th:text="${userList.userRegitDate}"></td>
+                                    <td><input type="checkbox" name="chBox" class="check-box" th:value="${userList.userId}"/></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <!-- List end -->
+
+                    <br><br>
+                    <!-- paging start -->
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">
+                                <p th:text="'Showing 1 to ' +${userSettingList.size()}+ 'of '+${userSettingList.size()} +' entries'">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                <ul class="pagination justify-content-end">
+                                    <li class="paginate_button page-item previous"
+                                        id="dataTable_previous"
+                                        th:if="${pageMaker.prev}">
+                                        <a th:href="${pageMaker.endPage -1}"
+                                           aria-controls="dataTable"
+                                           data-dt-idx="0"
+                                           tabindex="0"
+                                           class="page-link">Prev</a>
+                                    </li>
+                                    <!--액티브 추가-->
+                                    <th:block
+                                            th:each="number: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+                                        <li class="paginate_button page-item" th:classappend="${pageMaker.cri.pageNum eq number} ? active : ''">
+                                            <a th:href="${number}"
+                                               aria-controls="dataTable" data-dt-idx="1"
+                                               tabindex="0" class="page-link" th:text="${number}">1</a>
+                                        </li>
+                                    </th:block>
+
+                                    <li class="paginate_button page-item next" id="dataTable_next"
+                                        th:if="${pageMaker.next}">
+                                        <a th:href="${pageMaker.endPage +1}"
+                                           aria-controls="dataTable"
+                                           data-dt-idx="7" tabindex="0"
+                                           class="page-link"
+                                        >Next</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- paging end-->
+
+                    <div id="js-legend" class="chartjs-legend mt-4 mb-5"></div>
+                </div>
             </div>
         </div>
     </div>
-<!-- paging end-->
 
-    <form id='actionForm' action="/userSettingList" method='get'>
+
+
+    <form id='actionForm' action="/admin/userSettingList" method='get'>
         <input type='hidden' name='type' th:value="${pageMaker.cri.type}">
         <input type='hidden' name='keyword' th:value="${pageMaker.cri.keyword}">
         <input type='hidden' name='pageNum' th:value="${pageMaker.cri.pageNum}">
@@ -172,7 +194,7 @@
     </form>
 
 
-<script>
+<script th:inline="javascript">
     $(document).ready(function () {
 
         //Paging
@@ -236,19 +258,25 @@
                     //alert($(this).val()); //값이 넘어갔는지 확인용
                     user.userId = $(this).val();
                 });
+                console.log(user);
+
                 $.ajax({
-                    url: "/deleteUser",
+                    url: "/admin/deleteUser",
                     type: "post",
-                    dataType: "json",
-                    data: user,
-                    success: function () {
-                        location.href = "/admin/userSetting";
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
+                    data:  user,
+                    //dataType = jason 지우니깐 문제. 해결 이유 알아보기
+
+                }).done(function(result){
+                        location.href = "/admin/userSettingList";
+                        console.log("성공"+result);
+
+                }).error(function (error){
+
+                        console.log(error);
                         alert("삭제하지 못했습니다.");
-                    }
 
                 });
+
             }
 
         });
@@ -261,20 +289,19 @@
                     userId: "",
                 };
                 $("input[name='chBox']:checked").each(function () {
-                    alert($(this).val()); //값이 넘어갔는지 확인용
+                    //alert($(this).val()); //값이 넘어갔는지 확인용
                     user.userId = $(this).val();
                 });
 
                 $.ajax({
-                    url: "/userSettingResetPw",
+                    url: "/admin/userSettingResetPw",
                     type: "get",
-                    dataType: "json",
                     data: user,
                     success: function () {
-                        location.href = "/admin/userSetting";
+                        location.href = "/admin/userSettingList";
                     },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert("리셋 실패!!!!!");
+                    error: function ( ) {
+                        alert("비밀번호 초기화 실패");
                     }
                 });
             }
@@ -316,7 +343,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/getTeamForOption",
+            url: "/admin/getTeamForOption",
             dataType: "json",
             data: {param: ""},
             contentType: "application/json;charset=UTF-8",
@@ -338,7 +365,7 @@
     }
 </script>
 
-</div>
 
+</div>
 
 </html>

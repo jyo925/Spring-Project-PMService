@@ -1,15 +1,18 @@
 package com.project.bit.foo.appConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.project.bit.foo.service.MyUserDetailService;
 
@@ -30,7 +33,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 				.antMatchers("/registration","/userStatusList","/test").permitAll()          //userStatus Test 위해 추가함
 				.antMatchers("/addDuty","/addMembers","/calendar","/calendarE").hasAnyAuthority("duty100","duty200","duty300","duty400")
-				.antMatchers("/adminMain", "/admin/userSetting").hasAnyAuthority("duty100","duty200")
+				.antMatchers("/adminMain", "/admin/userSetting", "/goProjectAdd", "/project/detailInfo/**", "/projectMember/**").hasAnyAuthority("duty100","duty200")
 				.anyRequest().authenticated()
 			.and()
 				.formLogin()
@@ -38,7 +41,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.defaultSuccessUrl("/")
 				.usernameParameter("USER_ID")
 				.passwordParameter("USER_PW")
+				.failureHandler(customAuthenticationFailureHandler())
 				.permitAll()
+				
+			.and()
+				.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/login")
 			.and()
 				.logout()
 					.logoutUrl("/logout")
@@ -49,6 +58,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		
 	}
 	
+	@Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new loginFailureHandler();
+    }
+
 	@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
