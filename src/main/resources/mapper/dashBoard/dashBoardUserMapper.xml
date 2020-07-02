@@ -77,7 +77,7 @@
 
 	<!-- user output list -->
 	<select id="selectMyOutputList" resultType="com.project.bit.dashBoard.domain.UserOutputVO">
-		select pt.task_name, o.output_date, o.output_name, p.project_name
+		select pt.task_name, o.output_date, o.output_name, o.output_path, p.project_name
 			from project_outputs o
 			inner join project_tasks pt
 			on o.task_code=pt.task_code

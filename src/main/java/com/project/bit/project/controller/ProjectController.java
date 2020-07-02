@@ -3,6 +3,7 @@ package com.project.bit.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.project.bit.foo.domain.Users;
+import com.project.bit.foo.domain.UsersPrincipal;
 import com.project.bit.project.domain.ProjectCriteria;
 import com.project.bit.project.domain.ProjectDTO;
 import com.project.bit.project.domain.ProjectPage;
@@ -32,9 +35,14 @@ public class ProjectController {
 	
 	// 프로젝트 리스트
 	@GetMapping("/projectList")
-	public String getProjectList(ProjectCriteria cri, Model model) {
-		model.addAttribute("projectList", projectService.getProjectListAll(cri));
-		model.addAttribute("pageMaker", new ProjectPage(cri,projectService.getProjectListAllAccount()));
+	public String getProjectList(ProjectCriteria cri, Model model, @AuthenticationPrincipal UsersPrincipal user) {
+		if(user.getUsers().getDutyCode().equals("duty100")||user.getUsers().getDutyCode().equals("duty200")) {
+			model.addAttribute("projectList", projectService.getProjectListAll(cri));
+			model.addAttribute("pageMaker", new ProjectPage(cri,projectService.getProjectListAllAccount()));			
+		} else if(user.getUsers().getDutyCode().equals("duty300")||user.getUsers().getDutyCode().equals("duty400")){
+			model.addAttribute("projectList", projectService.getMyProjectListAll(cri, user.getUsers().getUserId()));
+			model.addAttribute("pageMaker", new ProjectPage(cri,projectService.getMyProjectListAllAccount(user.getUsers().getUserId())));
+		}
 		model.addAttribute("typCode", "all");
 		return "/project/getProjectList";
 	}
