@@ -64,7 +64,7 @@
         select * from
         (select rownum rn, ap_form_name, ap_doc_no, ap_doc_title, user_name as ap_Doc_Writer_Name, ap_doc_writer,ap_doc_project_name,
         ap_doc_createdate, ap_doc_enddate , ap_doc_status
-        from (select f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name, d.ap_doc_writer, d.ap_doc_project_name,
+        from (select distinct f.ap_form_name, d.ap_doc_no, d.ap_doc_title, u.user_name, d.ap_doc_writer, d.ap_doc_project_name,
         d.ap_doc_createdate, d.ap_doc_enddate , d.ap_doc_status from approvaldoc d
         join approvalform f on d.ap_form_no = f.ap_form_no
         join users u on d.ap_doc_writer = u.user_id
