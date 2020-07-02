@@ -62,4 +62,14 @@ public interface ApDocMapper {
     //기간 조회
     public ApDateDTO selectApDocTerm(String apDocNo);
 
+
+    //이벤트 연동
+    public ApEventVO selectApEvent(String apDocNo);
+
+    //이벤트 유저 조회
+    public String selectApEventUserId(String apDocNo);
+
+    //이벤트 멤버 조회
+    public List<String> selectApEventMembers(String apDocNo);
+
 }

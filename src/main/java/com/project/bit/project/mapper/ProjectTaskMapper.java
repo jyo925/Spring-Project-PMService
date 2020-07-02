@@ -25,6 +25,7 @@ public interface ProjectTaskMapper {
 	void updateProjectTaskStatus(@Param("taskCode") String taskCode, @Param("statusCode") String statusCode);
 	
 	void insertProjectTaskManager(ProjectTaskManagerDTO manager);
+	void deleteProjectTaskManager(String managerCode);
 	
 	List<ProjectTaskStatusDTO> selectTaskStatus();
 }

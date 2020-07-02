@@ -107,7 +107,7 @@ public class ProjectDetailController {
 	@GetMapping("/projectOutput/{projectCode}")
 	public String goProjectOutput(ProjectCriteria cri, @PathVariable String projectCode, Model model) {
 		model.addAttribute("project", projectDetailService.getProjectOne(projectCode));
-		model.addAttribute("projectList", projectService.getProjectListAll(cri));
+		model.addAttribute("projectList", projectService.getProjectAll());
 		model.addAttribute("outputList", projectOutputService.getProjectDetailOutput(projectCode));
 		return "project/projectOutput";
 	}

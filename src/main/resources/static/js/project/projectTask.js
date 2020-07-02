@@ -11,8 +11,24 @@ $(function(){
 		console.log(taskStatus[i].textContent);
 	}
 	console.log(taskStatus);*/
-	
+	managerRemove();
 })
+
+function managerRemove(){
+	$('.manager-id').on('click', function(e){
+		console.log($(e.target).text());
+		console.log($(e.target).data('code'));
+		
+		$.ajax({
+			url: '/task/manager/delete/' + $(e.target).data('code'),
+			type: 'delete'
+		}).done(function(){
+			location.reload();
+		}).fail(function(){
+			alert('manager delete fail')
+		})
+	})
+}
 
 function slideAction(){
 	

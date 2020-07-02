@@ -2,11 +2,7 @@ $(function() {
 	////full Calendar
 	
 	$('#calendar').fullCalendar({
-				googleCalendarApiKey: 'AIzaSyDi_TYmdZHmwljgkQ9yOyGhcj8_lXthkB4',
-				events: {
-					googleCalendarId: 'ru.south_korea#holiday@group.v.calendar.google.com'
-				},
-				className: 'gcal-event',
+				
 				header : {
 					left : 'prev,next today',
 					center : 'title',
@@ -54,13 +50,24 @@ $(function() {
 					for (let i = 0; i < select1.length; i++) {
 					    if (select1[i].value === calEvent.projectCode) select1[i].selected = true;
 					}
+					
 					$('#dialog-event').dialog('open');
 
 				},
-
-				eventSources : [ {
-					url : '/calendarE'
-				} ]
+				googleCalendarApiKey: 'AIzaSyDi_TYmdZHmwljgkQ9yOyGhcj8_lXthkB4',
+				eventSources : [ 
+					{
+						url : '/calendarE'
+					},
+					{
+				    	googleCalendarId: 'ru.south_korea#holiday@group.v.calendar.google.com',
+				    	color : '#FB9678'
+				    },
+				    {
+					    googleCalendarId: 'dragon.rain.kim.9@gmail.com',
+					    color : '#03A9F3'
+					}
+				]
 
 			}); ////full Calendar End
 
@@ -99,9 +106,32 @@ $(function() {
 	});
 
 	
-	$('.datePicker').datepicker({
+	/*$('.datePicker').datepicker({
 		dateFormat : "yy-mm-dd"
-	});
+	});*/
+	
+	let minDate = new Date();
+	/*let minDate;*/
+	
+	$('.date-start').datepicker({
+		showAnim : 'drop',
+		numberOfMonth : 1,
+		minDate : minDate,
+		dateFormat : 'yy-mm-dd',
+		onClose : function(selectedDate) {
+			$('.date-finish').datepicker("option", "minDate", selectedDate);
+		}
+	})
+	
+	$('.date-finish').datepicker({
+		showAnim : 'drop',
+		numberOfMonth : 1,
+		minDate : minDate,
+		dateFormat : 'yy-mm-dd',
+		onClose : function(selectedDate) {
+			$('.date-finish').datepicker("option", "minDate", selectedDate);
+		}
+	})
 
 	
 	///add members function

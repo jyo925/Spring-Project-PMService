@@ -220,12 +220,11 @@
                     </a>
                         <div class="collapse" id="dashboard-nav">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><a class="nav-link" href="/dashBoardAll">종합
-                                    대시보드</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/dashBoardDetail">상세
-                                    대시보드</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/">개인
-                                    대시보드</a></li>
+                                <li th:if="${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'" 
+                                class="nav-item"><a class="nav-link" href="/dashBoardAll">종합 대시보드</a></li>
+                                <li th:if="${#authentication.Principal.users.dutyCode} == 'duty100' OR ${#authentication.Principal.users.dutyCode} == 'duty200'"
+                                class="nav-item"><a class="nav-link" href="/dashBoardDetail">상세 대시보드</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/">개인 대시보드</a></li>
                             </ul>
                         </div>
                     </li>

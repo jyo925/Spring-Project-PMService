@@ -1,5 +1,6 @@
 package com.project.bit.foo.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,10 @@ import com.project.bit.foo.domain.event.EventStatisticVO;
 import com.project.bit.foo.domain.event.EventTypes;
 import com.project.bit.foo.service.ProjectService2;
 import com.project.bit.foo.service.UserService;
-import com.project.bit.foo.service.EventService.EventGroupService;
-import com.project.bit.foo.service.EventService.EventService;
-import com.project.bit.foo.service.EventService.EventStatisticService;
-import com.project.bit.foo.service.EventService.EventTypesService;
+import com.project.bit.foo.service.eventService.EventGroupService;
+import com.project.bit.foo.service.eventService.EventService;
+import com.project.bit.foo.service.eventService.EventStatisticService;
+import com.project.bit.foo.service.eventService.EventTypesService;
 
 @Controller
 public class EventController {
@@ -44,11 +45,11 @@ public class EventController {
 	}
 
 	@GetMapping("/calendar")
-	public String calendar(Model model) {
+	public String calendar(Model model, Principal principal) {
 		List<EventTypes> eventTypes = eventTypesService.selectAllTypes();
 		List<Project> projectList = projectService.selectAllProjects();
 		List<Users> usersList = userService.selectAll();
-		List<EventStatisticVO> statistic = eventStatisticService.getStatistic();
+		List<EventStatisticVO> statistic = eventStatisticService.getStatistic(principal.getName());
 		model.addAttribute("projectList", projectList);
 		model.addAttribute("eventTypes", eventTypes);
 		model.addAttribute("usersList", usersList);

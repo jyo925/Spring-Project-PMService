@@ -46,4 +46,41 @@ $(document).ready(function(){
 		deletePhotoForm.submit();
 	});
 	
+	
+	let alert1 = $('.alert').hide();
+	
+	/////////////Add photo function
+	let PhotoForm = $('#photo');
+	$('#Photo').on('click', function(e) {
+		e.preventDefault();
+		if($('input', '#photo') != ' ') {
+			PhotoForm.submit();
+		} else {
+			alert1.text('Choose file');
+			alert1.show();
+		}
+	});
+	
+	function readURL(input) {
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    
+		    reader.onload = function(e) {
+		      $('#img1').attr('src', e.target.result);
+		    }
+		    
+		    reader.readAsDataURL(input.files[0]); // convert to base64 string
+		  }
+		}
+
+		$("#imgInput").change(function() {
+		  readURL(this);
+		});
+		
+	
+	
+	
+	
+	
+	
 });

@@ -16,8 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.bit.foo.domain.event.Event;
 import com.project.bit.foo.domain.event.EventGroup;
-import com.project.bit.foo.service.EventService.EventGroupService;
-import com.project.bit.foo.service.EventService.EventService;
+import com.project.bit.foo.service.eventService.EventGroupService;
+import com.project.bit.foo.service.eventService.EventService;
 
 import lombok.extern.slf4j.Slf4j;
 

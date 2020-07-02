@@ -11,6 +11,7 @@ import com.project.bit.project.domain.ProjectVO;
 
 public interface ProjectService {
 	public List<ProjectVO> getProjectListAll(ProjectCriteria cri);
+	public List<ProjectVO> getMyProjectListAll(ProjectCriteria cri, String userId);
 	public List<ProjectVO> getProjectListByType(ProjectCriteria cri, String typeCode);
 	public List<ProjectVO> getProjectSearch(ProjectCriteria cri, String typeCode, String projectName);
 	
@@ -22,6 +23,7 @@ public interface ProjectService {
 	public List<ProjectStatusDTO> getProjectStatusListAll();
 	
 	public int getProjectListAllAccount();
+	public int getMyProjectListAllAccount(String userId);
 	int getProjectListAccount(String typeCode);
 
 	/*

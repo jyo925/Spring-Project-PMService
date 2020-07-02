@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.project.bit.foo.domain.event.Event;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 @Mapper
 public interface EventMapper {
 	

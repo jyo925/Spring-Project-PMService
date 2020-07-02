@@ -117,4 +117,14 @@ public class ProjectServiceImpl implements ProjectService {
 		// TODO Auto-generated method stub
 		return projectMapper.selectProjectAll();
 	}
+
+	@Override
+	public List<ProjectVO> getMyProjectListAll(ProjectCriteria cri, String userId) {
+		return projectMapper.selectMyProjectListAll(cri, userId);
+	}
+
+	@Override
+	public int getMyProjectListAllAccount(String userId) {
+		return projectMapper.selectMyProjectListAllAccount(userId);
+	}
 }

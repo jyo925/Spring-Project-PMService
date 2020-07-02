@@ -2,6 +2,10 @@ $(function(){
 	dropDownEvent();
 	insertProject();
 	deleteProject();
+	
+	$('#project-auth-config').on('click', function(){
+		location.href = "/authorityConfig/"+$('#projectCode').val();
+	})
 })
 
 function dropDownEvent(){

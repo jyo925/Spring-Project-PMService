@@ -9,5 +9,6 @@ public class UserOutputVO {
     private String projectName;
     private String taskName;
     private String outputName;
+    private String outputPath;
     private Date outputDate;
 }

@@ -1,4 +1,9 @@
+<<<<<<< HEAD:src/main/java/com/project/bit/foo/service/eventService/EventServiceImpl.java
+
+package com.project.bit.foo.service.eventService;
+=======
 package com.project.bit.foo.service.EventService;
+>>>>>>> ff52f38f7fd7709ca2560babc588b42b57c7d77d:src/main/java/com/project/bit/foo/service/EventService/EventServiceImpl.java
 
 import java.util.List;
 

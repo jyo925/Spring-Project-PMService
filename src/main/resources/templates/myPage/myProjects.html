@@ -83,7 +83,7 @@
 							 <tbody>
 							<tr th:each="el : ${myProjects}" class="items">
 								<th scope="row" th:text="${el.taskName==null? 'No any tasks': el.taskName}"></th>
-								<th scope="row" th:text="${el.projectName}" id="projectName"></th>
+								<th scope="row"><a th:href="'/project/' + ${el.projectCode}" th:text="${el.projectName}" id="projectName"></a></th>
 								<th scope="row" th:text="${el.projectPmo==null? 'Empty': el.projectPmo}"></th>
 								<th scope="row" th:text="${el.projectStatus}"></th>
 								<th scope="row" th:text="${el.projectStart}"></th>
