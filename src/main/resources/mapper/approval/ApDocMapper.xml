@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.bit.approval.mapper.ApDocMapper">
-
     <sql id="criteria">
         <trim prefix="and" prefixOverrides="OR">
             <foreach item='type' collection="cri.typeArr">
@@ -202,5 +201,26 @@
         select ap_start_date, ap_end_date
         from approvaldate
         where ap_doc_no = #{apDocNo}
+    </select>
+
+    <select id="selectApEvent" resultType="com.project.bit.approval.domain.ApEventVO">
+        select u.user_name,
+        u.user_id,
+        d.ap_form_no,
+        e.ap_start_date, e.ap_end_date+1 as ap_end_date from approvaldoc d
+        join users u on d.ap_doc_writer = u.user_id
+        join approvaldate e on e.ap_doc_no = d.ap_doc_no
+        where d.ap_doc_no = #{apDocNo} and d.ap_form_no in (1,2,3)
+    </select>
+
+    <select id="selectApEventUserId" resultType="String">
+        select ap_doc_writer from approvaldoc where ap_doc_no = #{apDocNo}
+    </select>
+
+    <select id="selectApEventMembers" resultType="String">
+        select user_id from project_members
+        where project_code =
+        (SELECT project_code from project_members
+        where user_id = (select ap_doc_writer from approvaldoc where ap_doc_no = #{apDocNo}))
     </select>
 </mapper>

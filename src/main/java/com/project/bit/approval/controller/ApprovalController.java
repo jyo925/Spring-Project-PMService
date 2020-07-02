@@ -7,6 +7,7 @@ import com.project.bit.foo.domain.event.Event;
 import com.project.bit.foo.domain.event.EventGroup;
 import com.project.bit.foo.service.EventService.EventGroupService;
 import com.project.bit.foo.service.EventService.EventService;
+import com.project.bit.foo.service.EventService.EventServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,24 +29,22 @@ public class ApprovalController {
     @Autowired
     ApprovalService apService;
     @Autowired
-    EventService eventService;
+    EventServiceImpl eventService;
     @Autowired
     EventGroupService eventGroupService;
 
 
     public boolean postEvent(String apDocNo){
 
-        //문서번호를 이용하여 Event 등록해야하는 결재인지 확인 (문서 종류가 1,2,3인 경우만)
-        //apDocServie.getPostEventCheck(apDocNo);
-        //return 값으로 문서 종류 -->ex : username 휴가 , 이찬영 출장, 정상구 교육
+        Event event = apDocService.getPostEvent(apDocNo);
+        if(event != null){
+            eventService.insertEvent(event);
+            event.setEventId(eventService.getEventId(event));
+        }
+        EventGroup eventGroup = apDocService.getEventMemebers(apDocNo);
+        eventGroup.setEventId(event.getEventId());
+        eventGroupService.insertMember(eventGroup, event);
 
-        //event 제목: 이찬영 PM 출장
-        //시작일, 종료일+1 해줘야함
-        //        eventService.insertEvent(event);
-        
-        //같은 프로젝트 멤버 아이디 eventgroup에 셋팅해야함
-        //        eventGroupService.insertMember(eventGroup, event);
-        
         return false;
     };
 
@@ -195,8 +194,9 @@ public class ApprovalController {
         if (apService.getLastApprover(String.valueOf(apDTO.getApDocNo())).equals(approver)
                 && apDTO.getApResult() == '1') {
             apDocService.putLastApDoc(apDTO.getApDocNo());
+
             //이벤트 등록 처리 메소드로 처리
-            
+            postEvent(String.valueOf(apDTO.getApDocNo()));
         } else {
             apDocService.putApDoc(apDTO);
         }

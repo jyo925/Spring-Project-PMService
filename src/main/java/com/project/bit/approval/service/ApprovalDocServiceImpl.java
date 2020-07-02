@@ -5,6 +5,9 @@ import com.project.bit.approval.mapper.ApDocMapper;
 import com.project.bit.approval.mapper.ApFileMapper;
 import com.project.bit.approval.mapper.ApMapper;
 import com.project.bit.approval.mapper.ApReferrerMapper;
+import com.project.bit.foo.domain.event.Event;
+import com.project.bit.foo.domain.event.EventGroup;
+import com.project.bit.foo.mapper.EventMapper;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -185,6 +188,61 @@ public class ApprovalDocServiceImpl implements ApprovalDocService {
             apReferrersStr = apReferrersStr.substring(0, apReferrersStr.length()-2);
         }
         return apReferrersStr;
+    }
+
+    @Override
+    public Event getPostEvent(String apDocNo) {
+
+        ApEventVO apEventVO = apDocMapper.selectApEvent(apDocNo);
+        if(apEventVO == null){
+            return null;
+        }else{
+            Event event = new Event();
+            event.setEventStartDate(apEventVO.getApStartDate());
+            event.setEventFinishDate(apEventVO.getApEndDate());
+            event.setProjectCode("");
+            event.setEventPlace("");
+            event.setEventAllDay(true);
+
+            String userName = apEventVO.getUserName();
+            switch (apEventVO.getApFormNo()){
+                case "1":
+                    event.setEventTitle(userName+ " 교육");
+                    event.setEventDescription("교육");
+                    event.setEventTypeId("EV-700");
+                    break;
+                case "2":
+                    event.setEventTitle(userName+" 휴가");
+                    event.setEventDescription("휴가");
+                    event.setEventTypeId("EV-600");
+                    break;
+                case "3":
+                    event.setEventTitle(userName+" 출장");
+                    event.setEventDescription("출장");
+                    event.setEventTypeId("EV-500");
+                    break;
+            }
+            return event;
+        }
+    }
+
+
+    @Override
+    public EventGroup getEventMemebers(String apDocNo) {
+
+        EventGroup eventGroup = new EventGroup();
+        eventGroup.setUserId(apDocMapper.selectApEventUserId(apDocNo));
+
+        List<String> apEventMembers = apDocMapper.selectApEventMembers(apDocNo);
+        String members = "";
+
+        for(int i =0; i<apEventMembers.size(); i++){
+            members += apEventMembers.get(i)+" ";
+        }
+        log.info("members------------------------->"+members);
+        eventGroup.setEventMembers(members);
+        log.info("eventGroup------------------------->"+eventGroup);
+        return eventGroup;
     }
 
     @Override
