@@ -9,11 +9,13 @@ import java.util.List;
 @NoArgsConstructor
 public class MessageResponse {
 
+  private String type;
   private List<Message> messageList;
   private List<Users> usersList;
 
   @Builder
-  public MessageResponse(List<Message> messageList, List<Users> usersList) {
+  public MessageResponse(String type, List<Message> messageList, List<Users> usersList) {
+    this.type = type;
     this.messageList = messageList;
     this.usersList = usersList;
   }

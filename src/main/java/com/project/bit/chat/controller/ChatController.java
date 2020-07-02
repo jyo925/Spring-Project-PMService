@@ -33,7 +33,7 @@ public class ChatController {
 
   @GetMapping("/chat")
   public String chatPage() {
-    return "/chat/chat";
+    return "chat/chat";
   }
 
 }

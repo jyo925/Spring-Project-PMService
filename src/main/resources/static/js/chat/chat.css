@@ -1,10 +1,8 @@
 /*
-
-ChAT CSS
-
-
+CHAT CSS
 */
 
+/*
 #chatroom-content {
     overflow: auto;
     height: 300px;
@@ -19,4 +17,13 @@ ChAT CSS
 #user-list {
     height: 100px;
     overflow: auto;
+}*/
+
+.chatroom-message {
+    height: auto;
 }
+
+.fas fa-user-plus .fas fa-long-arrow-alt-left .fas fa-sign-out-alt .fas fa-plus {
+    height: 100px;
+}
+

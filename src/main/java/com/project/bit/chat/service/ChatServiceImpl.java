@@ -71,7 +71,7 @@ public class ChatServiceImpl implements ChatService {
       case "JOIN" : joinMessage(message, principal);
         break;
       case "ENTER" : simpMessagingTemplate.convertAndSend("/topic/room/"+roomNo,
-              new MessageResponse(messageMapper.findByChatRoom(roomNo), userMapper.findUsersByConversationId(roomNo)));
+              new MessageResponse("ENTER",messageMapper.findByChatRoom(roomNo), userMapper.findUsersByConversationId(roomNo)));
         break;
       case "SEND" : simpMessagingTemplate.convertAndSend("/topic/room/"+roomNo,
               sendProcess(message));
@@ -80,7 +80,7 @@ public class ChatServiceImpl implements ChatService {
   }
 
   /* 채팅방 초대 */
-  public boolean joinMessage(Message message, Principal principal) {
+  public void joinMessage(Message message, Principal principal) {
 
     message.setRoomNo(message.getRoomNo());
     message.setAuthorId(principal.getName());
@@ -91,12 +91,10 @@ public class ChatServiceImpl implements ChatService {
     }
 
     participating(message.getParticipations());
-    return true;
   }
 
   public boolean participating(List<Participation> participationList) {
-    participationMapper.save(participationList);
-    return true;
+    return participationMapper.save(participationList) == 1 ? true : false;
   }
 
   /* 채팅방 초대 메시지 */
@@ -115,7 +113,9 @@ public class ChatServiceImpl implements ChatService {
   */
   public Message sendProcess(Message message) {
     messageMapper.save(message);
-    return messageMapper.findByMessageId(message.getMessageId());
+    Message foundMessage = messageMapper.findByMessageId(message.getMessageId());
+    foundMessage.setType("SEND");
+    return foundMessage;
   }
 
   public Message joinWithNewRoom(Message message, String AuthorId) {

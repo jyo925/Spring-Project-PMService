@@ -1,14 +1,132 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/default">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-<div layout:fragment="content">
+      layout:decorator="~{layout/default}">
 
+<title id="pageTitle">채팅</title>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{js/chat/chat.css}">
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+</th:block>
+
+<div layout:fragment="content">
+  <div class="email-wrapper wrapper">
+    <div class="row align-items-stretch">
+      <div class="mail-sidebar d-none d-lg-block col-md-2 pt-3 bg-white">
+        <input type="hidden" id="user-id-hidden" th:value="${#authentication.getName()}">
+        <div class="menu-bar">
+          <ul class="menu-items">
+            <li class="compose mb-3"><button class="btn btn-primary btn-block" id="messenger-connect">메신저 연결</button></li>
+            <li><a><i class="far fa-list-alt"></i> 채팅방 목록 </a><span class="badge badge-pill badge-success">1</span></li>
+            <li><a id="btn-fetchUserList"><i class="fas fa-user-plus"></i> 유저 목록 </a><span class="badge badge-pill badge-dark">2</span></li>
+            <li><a id="btn-invite"><i class="fas fa-plus"></i> 초대 하기 </a><span class="badge badge-pill badge-warning">3</span></li>
+            <li><a><i class="mdi mdi-upload"></i> 임의 목록 </a><span class="badge badge-pill badge-danger">4</span></li>
+            <li><img></li>
+          </ul>
+          <div class="wrapper">
+            <div class="online-status d-flex justify-content-between align-items-center">
+              <p class="chat">Chats</p> <span class="status offline online"></span></div>
+          </div>
+          <ul class="profile-list" id="user-list">
+            <li class="profile-list-item"><a href="#"> <span class="pro-pic"><img src="../../images/faces/face1.jpg"
+                                                                                  alt=""></span>
+              <div class="user"><p class="u-name">David</p>
+                <p class="u-designation">Python Developer</p></div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="mail-list-container col-md-3 pt-4 pb-4 border-right bg-white" id="chat-list">
+        <div class="border-bottom pb-4 mb-3 px-3">
+          <div class="form-group">
+            <input class="form-control form-control-sm w-100" type="search" placeholder="Search mail" id="Mail-rearch">
+          </div>
+        </div>
+        <div class="mail-list new_mail">
+          <div class="form-check"> <label class="form-check-label"> <input type="checkbox" class="form-check-input"> <i class="input-helper"></i></label></div>
+          <div class="content">
+            <p class="sender-name">디자인 샘플 / 보내는 사람 이름</p>
+            <p class="message_text">채팅 메시지 </p>
+          </div>
+          <div class="details">
+            <i class="mdi mdi-star-outline"></i>
+          </div>
+        </div>
+      </div>
+      <div class="mail-view d-none d-md-block col-md-9 col-lg-7 bg-white">
+        <div class="row">
+          <div class="col-md-12 mb-4 mt-4">
+            <div class="btn-toolbar">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-send"><i class="mdi mdi-reply text-primary"></i> Send</button>
+                <input id="message-send">
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary"><i class="mdi mdi-attachment text-primary"></i>Attach</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary"><i class="mdi mdi-delete text-primary"></i>Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="message-body">
+          <div class="sender-details">
+            <img class="img-sm rounded-circle mr-3" src="../../images/faces/face11.jpg" alt="">
+            <div class="details">
+              <p class="msg-subject">
+                채팅방 정보
+              </p>
+              <p class="sender-email">
+                정보
+                <a href="#">링크</a>
+                &nbsp;<i class="mdi mdi-account-multiple-plus"></i>
+              </p>
+            </div>
+            <div>
+             <span style="font-size: 40px"><i class="fas fa-user-plus"></i></span>
+             <span style="font-size: 40px"><i class="fas fa-sign-out-alt"></i></span>
+             <span style="font-size: 40px"><i class="fas fa-plus"></i></span>
+             <span style="font-size: 40px"><i class="fas fa-long-arrow-alt-left"></i></span>
+            </div>
+
+          </div>
+          <div id="chatroom-userlist">
+          </div>
+          <div class="message-content" id="chatroom-content">
+          </div>
+          <div class="attachments-sections">
+            <ul>
+              <li>
+                <div class="thumb"><i class="mdi mdi-file-pdf"></i></div>
+                <div class="details">
+                  <p class="file-name">Seminar Reports.pdf</p>
+                  <div class="buttons">
+                    <p class="file-size">678Kb</p>
+                    <a href="#" class="view">View</a>
+                    <a href="#" class="download">Download</a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="thumb"><i class="mdi mdi-file-image"></i></div>
+                <div class="details">
+                  <p class="file-name">Product Design.jpg</p>
+                  <div class="buttons">
+                    <p class="file-size">1.96Mb</p>
+                    <a href="#" class="view">View</a>
+                    <a href="#" class="download">Download</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</body>
 </html>
