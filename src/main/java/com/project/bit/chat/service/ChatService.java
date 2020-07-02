@@ -10,9 +10,6 @@ import java.util.Map;
 
 public interface ChatService {
 
-  Map<String, Object> initialConnection(String userId);
-  boolean sendMessage(String roomNo, Message message, Principal principal);
-  boolean joinMessage(Message message, Principal principal);
-  boolean participating(List<Participation> participationList);
-  Message inviteMessage(Message message);
+  void initialConnection(String userId, Message message);
+  void sendMessage(String roomNo, Message message, Principal principal);
 }

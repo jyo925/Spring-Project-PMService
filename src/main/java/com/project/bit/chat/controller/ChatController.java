@@ -1,6 +1,5 @@
 package com.project.bit.chat.controller;
 
-import com.project.bit.chat.domain.ChatDTO;
 import com.project.bit.chat.domain.Message;
 import com.project.bit.chat.service.ChatService;
 import com.project.bit.foo.service.UserService;
@@ -12,7 +11,10 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.stream.Collectors;
@@ -24,38 +26,20 @@ public class ChatController {
 
   private ChatService chatService;
   private UserService userService;
-  private SimpMessagingTemplate simpMessagingTemplate;
 
   @MessageMapping("/room/{room}")
   public void sendMessage(@DestinationVariable String room, @RequestBody Message message, Principal principal) {
     chatService.sendMessage(room, message, principal);
   }
 
-  @MessageMapping("/chat/{username}")
-  public void initialMessage(@DestinationVariable String username) {
-    simpMessagingTemplate.convertAndSend("/topic/chat/"+username, chatService.initialConnection(username));
-  }
-
   @MessageMapping("/init/{username}")
-  public void initConnection(@DestinationVariable String username) {
-    simpMessagingTemplate.convertAndSend("/topic/init/"+username, chatService.initialConnection(username));
+  public void initConnection(@DestinationVariable String username, @RequestBody Message message) {
+    chatService.initialConnection(username, message);
   }
 
-  @PostMapping("/chat/invite")
-  @ResponseBody
-  public ResponseEntity fetchUserList(@RequestBody Message message) {
-    if(message.getType().equals("NEWJOIN")) {
-      return new ResponseEntity(chatService.inviteMessage(message), HttpStatus.OK);
-    }
-    return new ResponseEntity(HttpStatus.BAD_REQUEST);
+  @GetMapping("/chat")
+  public String chatPage() {
+    return "/chat/chat";
   }
 
-  @GetMapping("/chat/invite")
-  @ResponseBody
-  public ResponseEntity fetchUserList(Principal principal) {
-
-    return new ResponseEntity(userService.selectAll().stream().filter( user ->
-            !user.getUserId().equals(principal.getName())).collect(Collectors.toList())
-            , HttpStatus.OK);
-  }
 }

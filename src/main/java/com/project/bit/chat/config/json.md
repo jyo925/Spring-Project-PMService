@@ -36,3 +36,7 @@
 </li>
 ```
 
+### 오라클
+유저 시퀀스 조회
+SELECT * FROM USER_SEQUENCES
+
