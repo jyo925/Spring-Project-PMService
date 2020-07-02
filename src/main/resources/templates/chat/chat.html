@@ -9,6 +9,7 @@
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 </th:block>
@@ -88,7 +89,7 @@
             </div>
             <div>
              <span style="font-size: 40px"><i class="fas fa-user-plus"></i></span>
-             <span style="font-size: 40px"><i class="fas fa-sign-out-alt"></i></span>
+             <span style="font-size: 40px"><i class="fas fa-sign-out-alt" id="btn-leave"></i></span>
              <span style="font-size: 40px"><i class="fas fa-plus"></i></span>
              <span style="font-size: 40px"><i class="fas fa-long-arrow-alt-left"></i></span>
             </div>

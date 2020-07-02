@@ -1,5 +1,6 @@
 package com.project.bit.chat.mapper;
 
+import com.project.bit.chat.domain.Message;
 import com.project.bit.chat.domain.Participation;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,5 +11,5 @@ public interface ParticipationMapper {
 
   List<Participation> findByUserId(String userId);
   int save(List<Participation> participations);
-
+  int leave(Message message);
 }

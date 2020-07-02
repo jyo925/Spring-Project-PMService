@@ -19,11 +19,13 @@ CHAT CSS
     overflow: auto;
 }*/
 
-.chatroom-message {
-    height: auto;
-}
-
 .fas fa-user-plus .fas fa-long-arrow-alt-left .fas fa-sign-out-alt .fas fa-plus {
     height: 100px;
+}
+
+.chatroom-message {
+    height: auto;
+    display: block;
+    float: right;
 }
 

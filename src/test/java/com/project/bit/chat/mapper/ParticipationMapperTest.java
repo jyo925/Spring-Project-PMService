@@ -1,5 +1,6 @@
 package com.project.bit.chat.mapper;
 
+import com.project.bit.chat.domain.Message;
 import com.project.bit.chat.domain.Participation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -47,5 +48,15 @@ class ParticipationMapperTest {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     log.info(authentication.getAuthorities()+"");
+  }
+
+  @Test
+  @DisplayName("채팅방 나갈시에 참여 삭제")
+  public void test4() {
+    Message message = new Message();
+    message.setAuthorId("user002");
+    message.setRoomNo("33");
+
+    participationMapper.leave(message);
   }
 }

@@ -76,12 +76,21 @@ public class ChatServiceImpl implements ChatService {
       case "SEND" : simpMessagingTemplate.convertAndSend("/topic/room/"+roomNo,
               sendProcess(message));
         break;
+      case "LEAVE" : simpMessagingTemplate.convertAndSend("/topic/room/"+roomNo,
+              leaveMessage(message, principal));
     }
   }
 
+  public Message leaveMessage(Message message, Principal principal) {
+    message.setAuthorId(principal.getName());
+    message.setContent(principal.getName()+"님이 채팅방에서 나갔다네");
+    messageMapper.save(message);
+
+    participationMapper.leave(message);
+    return message;
+  }
   /* 채팅방 초대 */
   public void joinMessage(Message message, Principal principal) {
-
     message.setRoomNo(message.getRoomNo());
     message.setAuthorId(principal.getName());
     messageMapper.save(message);

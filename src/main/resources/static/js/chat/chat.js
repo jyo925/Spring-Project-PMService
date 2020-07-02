@@ -3,13 +3,18 @@ let state = {
   countChatRoomList:1,
 }
 
-function count() {
-  document.getElementsByClassName("badge badge-pill badge-success").innerHTML = state.countChatRoomList;
-}
-count();
+/*let chatRoomList = new List('chat-list', {
+  valueNames:['sender-name','message_text'],
+});*/
 
-const chatRoom_userList = document.querySelector("#chatroom-userlist");
-const chatRoom_content = document.querySelector("#chatroom-content");
+/*function count() {
+  document.getElementsByClassName("badge badge-pill badge-success").innerHTML = state.countChatRoomList;
+}*/
+
+const chatRoom_userList = document.querySelector("#chatroom-userlist"),
+      chatRoom_content = document.querySelector("#chatroom-content");
+
+let subscriptions = [];
 
 /* 메신저 연결 호출 -> WebSokcet 방식 */
 /* 메신저 연결 호출 -> WebSokcet 방식 */
@@ -38,6 +43,7 @@ function connect() {
     setTimeout(stompClient.send("/chat/init/" + document.getElementById("user-id-hidden").value, {}, JSON.stringify({
       type: "FETCHCHATROOMLIST",
     })),1000);
+    console.log(subscriptions);
   });
 }
 
@@ -55,27 +61,29 @@ function disconnect() {
 /* 채팅방 목록 불러오기 웹소켓*/
 /* 채팅방 목록 불러오기 웹소켓*/
 function fetchChatRoomListTag(data) {
-  data.ChatRooms.map(chatRoom => {
+  data.ChatRooms.forEach(chatRoom => {
     console.log(chatRoom);
     const chat_list = document.querySelector("#chat-list");
     chat_list.append(chatRoomTag(chatRoom));
     chat_list.addEventListener("click", enterChatRoom);
-    stompClient.subscribe("/topic/room/" + chatRoom.roomNo, function (response) {
-      const message = JSON.parse(response.body);
-      console.log(response);
-      if(message.type == "SEND") {
-        document.querySelector(`p[data-room-no="${chatRoom.roomNo}"]`).innerHTML = message.content;
-        chatRoom_content.append(messageTag2(message));
-      }
-      if(message.type == "ENTER") {
-        message.messageList.map(message => {
+    let subscription = stompClient.subscribe("/topic/room/" + chatRoom.roomNo, function (response) {
+        const message = JSON.parse(response.body);
+        console.log(response);
+        if(message.type == "SEND") {
+          document.querySelector(`p[data-room-no="${chatRoom.roomNo}"]`).innerHTML = message.content;
           chatRoom_content.append(messageTag2(message));
-        });
-        message.usersList.map(user => {
-          chatRoom_userList.append(userListInChatRoomTag(user));
-        });
-      }
-    });
+        }
+        if(message.type == "ENTER") {
+          message.messageList.map(message => {
+            chatRoom_content.append(messageTag2(message));
+          });
+          message.usersList.map(user => {
+            chatRoom_userList.append(userListInChatRoomTag(user));
+          });
+        }
+      });
+    subscription.roomNo = chatRoom.roomNo;
+    subscriptions.push(subscription);
   });
 }
 
@@ -155,11 +163,13 @@ function createChatRoomAfterInviting(data) {
     console.log(user);
     chatRoom_userList.innerHTML += user.userId + "유저목록";
   });
-  stompClient.subscribe("/topic/room/"+ data.roomNo, function(response) {
+  let subscription = stompClient.subscribe("/topic/room/"+ data.roomNo, function(response) {
     /* 받은 메시지 띄우기*/
     const message = JSON.parse(response.body);
     chatRoom_content.append(messageTag2(message));
   });
+  subscription.roomNo = data.roomNo;
+  subscriptions.push(subscription);
 }
 
 
@@ -168,25 +178,27 @@ function createChatRoomAfterInviting(data) {
 /* 채팅방 목록 -> 채팅방 ENTER - 메시지 태그 */
 /* 채팅방 목록 -> 채팅방 ENTER - 메시지 태그 */
 function messageTag2(message) {
-  const MessageTag = document.createElement("div");
-  MessageTag.className = "chatroom-message";
-  MessageTag.innerHTML =
-       `<img src="" alt="" id="chatroom-user-image">
-        <p id="chatroom-user-id">${message.authorId}</p>
-        <p id="chatroom-user-message">${message.content}</p>
-        <p id="chatroom-user-message-time">${message.creationTime}</p>
+  const rowTag = document.createElement("div");
+  rowTag.className = "row";
+  rowTag.innerHTML =
+       `
+        <div class="chatroom-message">
+          <img src="" alt="" id="chatroom-user-image">
+          <p id="chatroom-user-id">${message.authorId}</p>
+          <p id="chatroom-user-message">${message.content}</p>
+          <p id="chatroom-user-message-time">${message.creationTime}</p>
+        </div>
         `;
-  return MessageTag;
+  return rowTag;
 }
 
 
 /* 채팅방 목록 -> 채팅방 입장 */
 /* 채팅방 목록 -> 채팅방 입장 */
 function enterChatRoom(event) {
-  const mail_list = event.target.closest(".mail-list")
-  /*document.querySelectorAll(".mail-list").map( element => {
-    element.classList.remove("new_mail");
-  })*/
+  const mail_list = event.target.closest(".mail-list");
+  document.querySelectorAll(".mail-list").forEach( element =>
+  element.classList.remove("new_mail"));
   console.log(mail_list.dataset.roomNo);
   mail_list.classList.add("new_mail")
   chatRoom_content.dataset.roomNo = mail_list.dataset.roomNo;
@@ -228,6 +240,20 @@ function send() {
   message_send.value = null;
   message_send.focus;
 }
+
+/* 채팅방 목록 -> 채팅방 ENTER - 채팅방 LEAVE */
+/* 채팅방 목록 -> 채팅방 ENTER - 채팅방 LEAVE */
+
+const btn_leave = document.querySelector("#btn-leave");
+      btn_leave.addEventListener("click", leave);
+
+function leave() {
+  stompClient.send("/chat/room/"+chatRoom_content.dataset.roomNo, {}, JSON.stringify({
+    type: "LEAVE",
+    roomNo: chatRoom_content.dataset.roomNo,
+  }))
+}
+
 
 
 let message = {
