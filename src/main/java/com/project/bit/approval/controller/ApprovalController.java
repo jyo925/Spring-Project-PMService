@@ -1,23 +1,33 @@
 package com.project.bit.approval.controller;
 
-import com.project.bit.approval.domain.*;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.project.bit.approval.domain.ApDTO;
+import com.project.bit.approval.domain.ApDateDTO;
+import com.project.bit.approval.domain.ApDocDTO;
+import com.project.bit.approval.domain.ApFileDTO;
+import com.project.bit.approval.domain.ApproverVO;
+import com.project.bit.approval.domain.Criteria;
+import com.project.bit.approval.domain.PageDTO;
+import com.project.bit.approval.domain.ReferrerVO;
 import com.project.bit.approval.service.ApprovalDocService;
 import com.project.bit.approval.service.ApprovalService;
 import com.project.bit.foo.domain.event.Event;
 import com.project.bit.foo.domain.event.EventGroup;
-import com.project.bit.foo.service.eventService.EventGroupService;
-import com.project.bit.foo.service.eventService.EventService;
-import com.project.bit.foo.service.eventService.EventServiceImpl;
-import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.project.bit.foo.service.EventService.EventGroupService;
+import com.project.bit.foo.service.EventService.EventServiceImpl;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.extern.java.Log;
 
 @Log
 @Controller

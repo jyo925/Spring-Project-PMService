@@ -1,21 +1,13 @@
-<<<<<<< HEAD:src/main/java/com/project/bit/foo/service/eventService/EventServiceImpl.java
-
-package com.project.bit.foo.service.eventService;
-=======
 package com.project.bit.foo.service.EventService;
->>>>>>> ff52f38f7fd7709ca2560babc588b42b57c7d77d:src/main/java/com/project/bit/foo/service/EventService/EventServiceImpl.java
 
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.bit.foo.domain.event.Event;
 import com.project.bit.foo.mapper.EventMapper;
-
-import lombok.AllArgsConstructor;
 
 @Service
 public class EventServiceImpl implements EventService {

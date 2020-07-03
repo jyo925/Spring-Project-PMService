@@ -5,6 +5,9 @@ $(function(){
 	regExp();
 	check();
 	
+	$('#back-btn').on('click', function(){
+		window.history.back();
+	})
 })							
 
 function dropDownEvent(){
