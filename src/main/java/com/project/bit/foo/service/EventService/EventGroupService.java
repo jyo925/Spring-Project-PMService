@@ -1,4 +1,4 @@
-package com.project.bit.foo.service.EventService;
+package com.project.bit.foo.service.eventService;
 
 import com.project.bit.foo.domain.event.Event;
 import com.project.bit.foo.domain.event.EventGroup;

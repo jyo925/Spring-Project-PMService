@@ -30,22 +30,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/registration","/userStatusList").permitAll()          //userStatus Test 위해 추가함
-				.antMatchers("/addDuty","/addMembers","/calendar","/calendarE").hasAnyAuthority("duty100","duty200","duty300","duty400")
+				.antMatchers("/addDuty","/addMembers","/calendar","/calendarE","/dIndex").hasAnyAuthority("duty100","duty200","duty300","duty400")
 				.antMatchers("/authorityConfig/{projectCode}").hasAuthority("duty100")
 				.antMatchers("/adminMain","/main", "/main/outputAllStatus", "/teamSettingList", "/getTeamDetail", "/updateTeam", "/admin/**/**", "/admin/userSetting", "/goProjectAdd", "/project/detailInfo/**", "/projectMember/**", "/dashBoardAll", "/dashBoardDetail/**").hasAnyAuthority("duty100","duty200")
 				.anyRequest().authenticated()
 			.and()
 				.formLogin()
 				.loginPage("/login")
-				.defaultSuccessUrl("/dIndex")
+				.defaultSuccessUrl("/")
 				.usernameParameter("USER_ID")
 				.passwordParameter("USER_PW")
 				.failureHandler(customAuthenticationFailureHandler())
 				.permitAll()
 			.and()
 				.logout()
-					.logoutUrl("/logout")
-					.logoutSuccessUrl("/login")
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/login")
 			.and()
 				.csrf().disable();
 		
