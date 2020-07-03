@@ -6,9 +6,10 @@
 	<link type="text/css" href="/css/signin.css">
 	<title>Sign in</title>
 </head>
-<body> 
-	<div align="center"> 
-		<form action="/login" method="post" class="form-signin w-25 p-3 ">
+
+	<div align="center" style="margin-top: 10%;">
+		
+		<form action="/login" method="post" class="form-signin w-25 p-3">
 			<div th:if="${error}">
 				<div class="alert alert-danger alert-dismissible">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -18,11 +19,8 @@
 			<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 			<input name="USER_ID" type="text" class="form-control" placeholder="Input your ID" required="required" autofocus="autofocus"><br>
 			<input name="USER_PW" type="password" class="form-control" placeholder="Password" required="required"><br>
-			<div class="checkbox mb-3">
-				<label> <input type="checkbox" value="remember-me"> Remember me </label>
-			</div>
+
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-			<a href="/registration" class="btn btn-lg btn-primary btn-block">Registration</a>
 		</form>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

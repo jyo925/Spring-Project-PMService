@@ -22,7 +22,7 @@
 		<div class="card">
 		<div class="card-body">
 			<div class="text-center">
-				<h3>Files</h3>
+				<h3>프로젝트 산출물</h3>
 				<p class="lead">All your uploaded files is here.</p>
 				<hr class="my-4">
 			</div>
@@ -37,15 +37,21 @@
 							<div class="container">
 									<div class="row">
 										<div class="col">
+<<<<<<< HEAD
 											<select id="projectName" class="form-control">
 												<option value="" class="form-control">Choose
 													project name</option>
+=======
+											<select id="projectProgress" class="form-control">
+												<option value="" class="form-control">프로젝트 상태</option>
+>>>>>>> e319fb1c0c1a3794c8caefef9bf7a0012fe73750
 												<option class="form-control"
 													th:each="el : ${projects}"
 													th:text="${el.projectName}"></option>
 											</select>
 										</div>
 										<div class="col">
+<<<<<<< HEAD
 											<select id="type" class="form-control">
 												<option value="" class="form-control">Choose
 													type</option>
@@ -53,6 +59,10 @@
 													th:each="el : ${types}"
 													th:text="${el.outputType}"></option>
 											</select>
+=======
+											<input id="projectName" type="text" class="form-control"
+												placeholder="프로젝트 이름">
+>>>>>>> e319fb1c0c1a3794c8caefef9bf7a0012fe73750
 										</div>
 										<div class="input-group flex-nowrap col">
 											<div class="input-group-prepend">
@@ -68,7 +78,7 @@
 												</span>
 											</div>
 											<input id="elasticSearch" type="text" class="form-control"
-												placeholder="Keyword" aria-label="Username"
+												placeholder="키워드" aria-label="Username"
 												aria-describedby="addon-wrapping">
 										</div>
 										<!-- <div class="col">
@@ -92,13 +102,13 @@
 			<div class="card">
 				<div class="card-body">
 					<div>
-					    <table width="100%" class="table">
+					    <table width="100%" class="table" style="text-align: center">
 					       <thead>
 							<tr class="card-header">
-								<th>File</th>
-								<th>Project</th>
-								<th>Type</th>
-								<th>Task</th>
+								<th>파일명</th>
+								<th>프로젝트</th>
+								<th>산출물 타입</th>
+								<th>작업</th>
 								<th></th>
 								<th></th>
 								<th></th>

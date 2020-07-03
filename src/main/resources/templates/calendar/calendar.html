@@ -30,16 +30,16 @@
 	<div class="card">
 		<div class="card-body">
 			<div class="text-center">
-				<h3>Calendar</h3>
+				<h3>일정관리</h3>
 				<hr class="my-4">
 			</div>
 			<div class="row">
 				<div class="col-md-2">
 					<canvas id="chart"></canvas>
-					<table id="chartData" class="table">
+					<table id="chartData" class="table" style="text-align: center;">
 						<tr>
-							<th>Event types</th>
-							<th>Amount</th>
+							<th>이벤트 타입</th>
+							<th>총 수</th>
 						</tr>
 						<tr th:each="statistic : ${statistic}" style="color: #21A9F5">
 							<td th:text="${statistic.eventType}"></td>

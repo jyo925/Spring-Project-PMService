@@ -15,8 +15,15 @@
         GROUP BY OT.OUTPUT_TYPE
     </select>
 
-
-
-
+    <select id="selectOutputMonthly" resultType="com.project.bit.admin.domain.OutputMonthlyCountVO">
+        SELECT
+            COUNT(OUTPUT_CODE) as OUTPUT_COUNT,
+            TO_CHAR(OUTPUT_DATE,'yyyy-mm') as OUTPUT_MONTH
+        FROM
+            PROJECT_OUTPUTS
+        GROUP BY TO_CHAR(OUTPUT_DATE,'yyyy-mm')
+        ORDER BY TO_CHAR(OUTPUT_DATE,'yyyy-mm')
+    </select>
 
 </mapper>
+

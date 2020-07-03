@@ -21,6 +21,7 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
+                	<button id="back-btn" type="button" class="btn btn-light float-right border-0"> &lt; back</button>
                     <h6>프로젝트 이슈 등록</h6>
                     <hr>
                     <div class="row">
@@ -30,11 +31,11 @@
                                 <div class="form-group">
                                     <label>이슈 명</label>
                                     <input class="issue-name form-control" th:field="*{issueName}" type="text"
-                                           placeholder="이슈 명">
+                                           placeholder="이슈 명" required>
                                 </div>
                                 <div class="form-group">
                                     <label>이슈 구분</label>
-                                    <select class="form-control" th:field="*{issueTypeCode}">
+                                    <select class="form-control" th:field="*{issueTypeCode}" required>
                                         <option value="">선택하세요</option>
                                         <option th:each="issueType : ${issueTypeList}"
                                                 th:value="${issueType.issueTypeCode}"
@@ -43,7 +44,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>프로젝트</label>
-                                    <select class="project-list form-control">
+                                    <select class="project-list form-control" required>
                                         <option value="">선택하세요</option>
                                         <option th:each="project : ${projectList}"
                                                 th:value="${project.projectCode}"
@@ -52,7 +53,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>작업</label>
-                                    <select class="issue-task-list form-control" th:field="*{taskCode}">
+                                    <select class="issue-task-list form-control" th:field="*{taskCode}" required>
                                         <option value="">선택하세요</option>
                                     </select>
                                 </div>
@@ -72,7 +73,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>조치자</label>
-                                    <select class="form-control" th:field="*{issueActionId}">
+                                    <select class="form-control" th:field="*{issueActionId}" required>
                                         <option value="">선택하세요</option>
                                         <option th:each="user : ${userList}" th:value="${user.userId}"
                                                 th:text="${user.userId} + '  '+ ${user.userName}"></option>
@@ -80,7 +81,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>조치 희망일</label>
-                                    <input class="form-control" th:field="*{issueActionDate}" type="date">
+                                    <input class="form-control" th:field="*{issueActionDate}" type="date" required>
                                 </div>
                                 <div class="form-group">
                                     <div>

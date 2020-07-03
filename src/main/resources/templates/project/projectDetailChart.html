@@ -24,9 +24,8 @@
                     <li class="breadcrumb-item active" aria-selected="true">
                         <a th:href="'/project/'+${project.projectCode}">요약정보</a>
                     </li>
-                    <li class="breadcrumb-item">
-                        <a th:if="${#authentication.Principal.users.dutyCode} == 'duty100' or ${#authentication.Principal.users.dutyCode} == 'duty200'"
-                           th:href="'/project/detailInfo/'+${project.projectCode}">기본정보</a>
+                    <li class="breadcrumb-item" id="normal-info">
+                        <a th:href="'/project/detailInfo/'+${project.projectCode}">기본정보</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a th:href="'/projectMemberInfo/'+${project.projectCode}">리소스</a>
@@ -71,7 +70,7 @@
                     <div class="row mt-4">
                         <div class="col-xs-6 col-md-3">
                             <p class="mb-2 p-0">PM</p>
-                            <span class="font-weight-bold" th:text="${project.projectPm}"></span>
+                            <span class="font-weight-bold" th:text="${project.projectPm} + ' (' + ${project.projectPmName} + ')'"></span>
                         </div>
                         <div class="col-xs-6 col-md-3">
                             <p class="mb-2 p-0">개발형태</p>

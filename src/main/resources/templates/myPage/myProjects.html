@@ -17,7 +17,7 @@
 	<div class="card">
 		<div class="card-body">
 			<div class="text-center">
-				<h3>Projects</h3>
+				<h3>내 작업</h3>
 				<p class="lead">All your current and finished projects is here.</p>
 				<hr class="my-4">
 			</div>
@@ -34,8 +34,7 @@
 								<div class="row">
 									<div class="col">
 										<select id="projectProgress" class="form-control">
-											<option value="" class="form-control">Choose project
-												progress</option>
+											<option value="" class="form-control">프로젝트 상태</option>
 											<option class="form-control"
 												th:each="el : ${projectStatusNames}"
 												th:text="${el.projectStatus}"></option>
@@ -43,7 +42,7 @@
 									</div>
 									<div class="col">
 										<input id="projectName" type="text" class="form-control"
-											placeholder="projectName">
+											placeholder="프로젝트 이름">
 									</div>
 									<div class="input-group flex-nowrap col">
 										<div class="input-group-prepend">
@@ -57,7 +56,7 @@
 											</span>
 										</div>
 										<input id="elasticSearch" type="text" class="form-control"
-											placeholder="Keyword" aria-label="Username"
+											placeholder="키워드" aria-label="Username"
 											aria-describedby="addon-wrapping">
 									</div>
 								</div>
@@ -70,15 +69,15 @@
 			<div class="card">
 				<div class="card-body">
 					<div>
-					    <table width="100%" class="table">
+					    <table width="100%" class="table" style="text-align: center">
 					       <thead>
 							<tr class="card-header">
-								<th>Task name</th>
-								<th>Project name</th>
-								<th>Project pmo</th>
-								<th>Project status</th>
-								<th>Project start</th>
-								<th>Project finish</th>
+								<th>작업 이름</th>
+								<th>프로젝트 이름</th>
+								<th>프로젝트 PMO</th>
+								<th>프로젝트 상태</th>
+								<th>프로젝트 시작일</th>
+								<th>프로젝트 종료일</th>
 							</tr>
 							</thead>
 							 <tbody>

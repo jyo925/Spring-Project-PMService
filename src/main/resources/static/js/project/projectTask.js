@@ -160,23 +160,52 @@ function insertTask(){
 	$('.task-add-modal').on('click', function(event){
 		$groupId = $(event.target).closest('.taskGroup-div').find('.taskGroup').data('id')
 		$('.task-add-btn').on('click', function(event){
+			var isCheck = true;
+			const taskName = $('#task-name-add').val();
+			const taskStart = $('#task-start-add').val();
+			const taskFinish = $('#task-finish-add').val();
+			const taskStatus = $('.task-status-add').val();
 			
-			$.ajax({
-				url : '/task/add',
-				type : 'POST',
-				data : {
-					taskName : $('#task-name').val(),
-					taskStart : $('#task-start').val(),
-					taskFinish : $('#task-finish').val(),
-					taskDescription : $('#task-description').val(),
-					taskGroupCode : $groupId,
-					taskStatusCode : $('.task-status').val()
-				}
-			}).done(function(){
-				location.reload();
-			}).fail(function(){
-				alert('task add fail')
-			})	
+			if(taskName == '' || taskName == null){
+				isCheck = false;
+				alert('작업명을 입력해주세요');				
+			}
+				
+			if(taskStart == '' || taskStart == null){
+				isCheck = false;
+				alert('작업 시작일을 입력해주세요');
+			}
+				
+			if(taskFinish == '' || taskFinish == null){
+				isCheck = false;
+				alert('작업 종료일을 입력해주세요');				
+			}
+				
+			if(taskStatus == '' || taskStatus == null){
+				isCheck = false;
+				alert('작업 상태를 선택해주세요');				
+			}
+				
+			if(isCheck){
+				$.ajax({
+					url : '/task/add',
+					type : 'POST',
+					data : {
+						taskName : $('#task-name-add').val(),
+						taskStart : $('#task-start-add').val(),
+						taskFinish : $('#task-finish-add').val(),
+						taskDescription : $('#task-description-add').val(),
+						taskGroupCode : $groupId,
+						taskStatusCode : $('.task-status-add').val()
+					}
+				}).done(function(){
+					alert('등록 되었습니다.')
+					location.reload();
+				}).fail(function(){
+					alert('task add fail')
+				})	
+				
+			}
 			
 		})
 		

@@ -1,5 +1,6 @@
 package com.project.bit.admin.controller;
 
+import com.project.bit.admin.domain.OutputMonthlyCountVO;
 import com.project.bit.admin.domain.OutputStatusCountVO;
 import com.project.bit.admin.service.AdminMainService;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class AdminMainController {
     @GetMapping("/main")
     public String adminMain(Model model){
 
-     return "admin/main";
+        return "admin/main";
 
     }
 
@@ -31,10 +32,17 @@ public class AdminMainController {
     @ResponseBody
     public List<OutputStatusCountVO> getOutputAllStatus(){
 
-        log.info("차트확인>>>>>>>>>>>>.."+adminMainService.getOutputAllStatus());
-
         return adminMainService.getOutputAllStatus();
     }
+
+    @GetMapping("/main/outputMonthlyStatus")
+    @ResponseBody
+    public List<OutputMonthlyCountVO> getOutputMonthly(){
+
+
+        return adminMainService.getOutputMonthly();
+    }
+
 
 
 }

@@ -1,6 +1,10 @@
 $(function(){
 	taskList();
 // issueFile();
+	
+	$('#back-btn').on('click', function(){
+		window.history.back();
+	})
 })
 
 function taskList(){

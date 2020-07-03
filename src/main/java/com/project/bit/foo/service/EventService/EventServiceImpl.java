@@ -1,16 +1,17 @@
+<<<<<<< HEAD
 package com.project.bit.foo.service.eventService;
+=======
+package com.project.bit.foo.service.EventService;
+>>>>>>> e319fb1c0c1a3794c8caefef9bf7a0012fe73750
 
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.bit.foo.domain.event.Event;
 import com.project.bit.foo.mapper.EventMapper;
-
-import lombok.AllArgsConstructor;
 
 @Service
 public class EventServiceImpl implements EventService {
