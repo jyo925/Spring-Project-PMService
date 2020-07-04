@@ -23,9 +23,16 @@ CHAT CSS
     height: 100px;
 }
 
-.chatroom-message {
-    height: auto;
-    display: block;
-    float: right;
+#chatroom-content {
+    overflow: auto;
+    height: 400px;
 }
 
+.chatroom-message:after {
+    content: '.';
+    display: block;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden;
+    height: 0;
+}

@@ -12,4 +12,5 @@ public interface ParticipationMapper {
   List<Participation> findByUserId(String userId);
   int save(List<Participation> participations);
   int leave(Message message);
+  int count(String userId);
 }

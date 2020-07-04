@@ -23,4 +23,5 @@ public interface UserService {
 	
 	void updateUserPw(Users user, String userId);
 
+	int userCount();
 }

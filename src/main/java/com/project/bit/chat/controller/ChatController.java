@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,7 +20,6 @@ import java.security.Principal;
 public class ChatController {
 
   private ChatService chatService;
-  private UserService userService;
 
   @MessageMapping("/room/{room}")
   public void sendMessage(@DestinationVariable String room, @RequestBody Message message, Principal principal) {
@@ -32,7 +32,8 @@ public class ChatController {
   }
 
   @GetMapping("/chat")
-  public String chatPage() {
+  public String chatPage(Model model, Principal principal) {
+    model.addAttribute("count", chatService.count(principal.getName()));
     return "chat/chat";
   }
 

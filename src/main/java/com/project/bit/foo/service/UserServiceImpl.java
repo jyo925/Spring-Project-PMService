@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public int userCount() {
+		return userMapper.count();
+	}
+
+	@Override
 	public List<Users> selectUserByTeam(int teamCode) {
 		// TODO Auto-generated method stub
 		if(teamCode == 0) return projectMemberMapper.selectUserNoMember();

@@ -43,6 +43,7 @@ public interface UserMapper {
 	List<Users> selectUserByTeam(int teamCode);
 	
 	List<Users> findUsersByConversationId(String conversationId);
-	
+
+	int count();
 	
 }

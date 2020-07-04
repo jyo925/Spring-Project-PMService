@@ -12,4 +12,5 @@ public interface ChatService {
 
   void initialConnection(String userId, Message message);
   void sendMessage(String roomNo, Message message, Principal principal);
+  int[] count(String userId);
 }

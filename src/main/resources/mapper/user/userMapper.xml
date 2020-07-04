@@ -36,4 +36,9 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		INNER JOIN (SELECT * FROM PARTICIPATIONS WHERE conversation_id = #{conversationId}) p
 		ON u.user_id = p.user_id
 	</select>
+
+	<select id="count" resultType="int">
+		SELECT count(user_id)
+		FROM users
+	</select>
 </mapper>

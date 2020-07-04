@@ -9,10 +9,19 @@
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js"></script>
 </th:block>
+
+<div id="abcd">
+  <div class="border-bottom pb-4 mb-3 px-3">
+    <div class="form-group" id="invitemessage">
+      현재 초대된 목록
+    </div>
+  </div>
+</div>
+
 
 <div layout:fragment="content">
   <div class="email-wrapper wrapper">
@@ -22,23 +31,17 @@
         <div class="menu-bar">
           <ul class="menu-items">
             <li class="compose mb-3"><button class="btn btn-primary btn-block" id="messenger-connect">메신저 연결</button></li>
-            <li><a><i class="far fa-list-alt"></i> 채팅방 목록 </a><span class="badge badge-pill badge-success">1</span></li>
-            <li><a id="btn-fetchUserList"><i class="fas fa-user-plus"></i> 유저 목록 </a><span class="badge badge-pill badge-dark">2</span></li>
-            <li><a id="btn-invite"><i class="fas fa-plus"></i> 초대 하기 </a><span class="badge badge-pill badge-warning">3</span></li>
-            <li><a><i class="mdi mdi-upload"></i> 임의 목록 </a><span class="badge badge-pill badge-danger">4</span></li>
-            <li><img></li>
+            <li id="listup"><a><i class="far fa-list-alt"></i> 채팅방 목록 조회</a><span class="badge badge-pill badge-success" th:text="${count[1]}"></span></li>
+            <li><a id="btn-fetchUserList"><i class="fas fa-user-plus"></i> 유저 목록 조회 </a><span class="badge badge-pill badge-dark" th:text="${count[0]}"></span></li>
+            <li><a id="btn-invite"><i class="fas fa-plus"></i>대화방으로 초대 하기 </a></li>
+            <!--<li><a><i class="mdi mdi-upload"></i> 임의 목록 </a><span class="badge badge-pill badge-danger">4</span></li>
+            <li><img></li>-->
           </ul>
           <div class="wrapper">
             <div class="online-status d-flex justify-content-between align-items-center">
-              <p class="chat">Chats</p> <span class="status offline online"></span></div>
+              <p class="chat text-center"> 유저 목록</p> <span class="status offline online"></span></div>
           </div>
           <ul class="profile-list" id="user-list">
-            <li class="profile-list-item"><a href="#"> <span class="pro-pic"><img src="../../images/faces/face1.jpg"
-                                                                                  alt=""></span>
-              <div class="user"><p class="u-name">David</p>
-                <p class="u-designation">Python Developer</p></div>
-              </a>
-            </li>
           </ul>
         </div>
       </div>
@@ -48,32 +51,8 @@
             <input class="form-control form-control-sm w-100" type="search" placeholder="Search mail" id="Mail-rearch">
           </div>
         </div>
-        <div class="mail-list new_mail">
-          <div class="form-check"> <label class="form-check-label"> <input type="checkbox" class="form-check-input"> <i class="input-helper"></i></label></div>
-          <div class="content">
-            <p class="sender-name">디자인 샘플 / 보내는 사람 이름</p>
-            <p class="message_text">채팅 메시지 </p>
-          </div>
-          <div class="details">
-            <i class="mdi mdi-star-outline"></i>
-          </div>
-        </div>
       </div>
       <div class="mail-view d-none d-md-block col-md-9 col-lg-7 bg-white">
-        <div class="row">
-          <div class="col-md-12 mb-4 mt-4">
-            <div class="btn-toolbar">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-send"><i class="mdi mdi-reply text-primary"></i> Send</button>
-                <input id="message-send">
-              </div>
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary"><i class="mdi mdi-attachment text-primary"></i>Attach</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary"><i class="mdi mdi-delete text-primary"></i>Delete</button>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="message-body">
           <div class="sender-details">
             <img class="img-sm rounded-circle mr-3" src="../../images/faces/face11.jpg" alt="">
@@ -91,13 +70,14 @@
              <span style="font-size: 40px"><i class="fas fa-user-plus"></i></span>
              <span style="font-size: 40px"><i class="fas fa-sign-out-alt" id="btn-leave"></i></span>
              <span style="font-size: 40px"><i class="fas fa-plus"></i></span>
-             <span style="font-size: 40px"><i class="fas fa-long-arrow-alt-left"></i></span>
             </div>
 
           </div>
           <div id="chatroom-userlist">
+            <p>UserList</p>
           </div>
           <div class="message-content" id="chatroom-content">
+            <p>Content</p>
           </div>
           <div class="attachments-sections">
             <ul>
@@ -124,6 +104,17 @@
                 </div>
               </li>
             </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-4 mt-4">
+            <div class="btn-toolbar">
+              <div class="btn-group">
+                <input id="message-send" data-emojiable=true data-imoji-input="unicode">
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-send"><i class="mdi mdi-reply text-primary"></i> Send</button>
+                <button id="emoji-button">이모지</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

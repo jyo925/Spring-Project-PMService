@@ -28,4 +28,10 @@
         FROM participations
         WHERE conversation_id=#{roomNo} and user_Id=#{authorId}
     </delete>
+
+    <select id="count" parameterType="String" resultType="int">
+        SELECT count(CONVERSATION_ID)
+        FROM PARTICIPATIONS
+        WHERE USER_ID=#{userId}
+    </select>
 </mapper>

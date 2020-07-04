@@ -25,4 +25,14 @@ public class Message {
     this.content = content;
   }
 
+  @Builder
+  public Message(String type, int messageId, String authorId, String roomNo, String content, Date creationTime, List<Participation> participations) {
+    this.type = type;
+    this.messageId = messageId;
+    this.authorId = authorId;
+    this.roomNo = roomNo;
+    this.content = content;
+    this.creationTime = creationTime;
+    this.participations = participations;
+  }
 }
