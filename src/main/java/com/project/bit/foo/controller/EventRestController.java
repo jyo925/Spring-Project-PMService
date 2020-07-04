@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.bit.foo.service.EventService.EventGroupService;
-import com.project.bit.foo.service.EventService.EventService;
+import com.project.bit.foo.service.eventService.EventGroupService;
+import com.project.bit.foo.service.eventService.EventService;
 
 import lombok.extern.slf4j.Slf4j;
 

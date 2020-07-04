@@ -24,8 +24,8 @@ import com.project.bit.approval.service.ApprovalDocService;
 import com.project.bit.approval.service.ApprovalService;
 import com.project.bit.foo.domain.event.Event;
 import com.project.bit.foo.domain.event.EventGroup;
-import com.project.bit.foo.service.EventService.EventGroupService;
-import com.project.bit.foo.service.EventService.EventServiceImpl;
+import com.project.bit.foo.service.eventService.EventGroupService;
+import com.project.bit.foo.service.eventService.EventServiceImpl;
 
 import lombok.extern.java.Log;
 
