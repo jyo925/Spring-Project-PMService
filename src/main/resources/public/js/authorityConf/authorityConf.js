@@ -1,10 +1,12 @@
+
+
 $(document).ready(function() {
+	
+	let myAlert = $('#myAlert').hide()
 	
 	$( function() {
 	  $( "#tabs" ).tabs();
 	});
-	
-	let myAlert = $('.alert').hide()
 	
 	$('#developer .items').each(function() {
 		

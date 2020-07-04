@@ -30,9 +30,9 @@
                     <h6 class="card-title">프로젝트 작업</h6>
                     <hr>
                     <div class="row">
-                        <div style="max-width:100%">
+                        <div class="sortable" style="max-width:100%">
                         	<input type="hidden" th:value="${project.projectCode}" id="project-code">
-                            <div class="taskGroup-div" th:each="taskGroup : ${taskGroupList}">
+                            <div class="taskGroup-div drag-box" th:each="taskGroup : ${taskGroupList}">
                                 <!-- 작업 그룹 -->
                                 <div class="taskGroup-list">
 								<span class="taskGroup font-weight-bold" th:data-proj="${taskGroup.projectCode}"
@@ -92,28 +92,28 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label>작업 명</label>
-                                                <input class="form-control" id="task-name" type="text"
+                                                <input class="form-control" id="task-name-add" type="text"
                                                        placeholder="작업 명">
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col">
                                                     <label for="task-start">시작일</label>
-                                                    <input class="form-control" id="task-start" type="date">
+                                                    <input class="form-control" id="task-start-add" type="date">
                                                 </div>
                                                 <div class="col">
                                                     <label for="task-finish">종료일</label>
-                                                    <input class="form-control" id="task-finish" type="date">
+                                                    <input class="form-control" id="task-finish-add" type="date">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>작업 설명</label>
-                                                <textarea class="form-control" id="task-description" rows="10%"
+                                                <textarea class="form-control" id="task-description-add" rows="10%"
                                                           cols="auto"
                                                           placeholder="작업 설명"></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label>작업 상태</label>
-                                                <select class="task-status form-control">
+                                                <select class="task-status-add form-control">
                                                     <option value="">선택하세요</option>
                                                     <option th:each="taskStatus : ${taskStatusList}"
                                                             th:value="${taskStatus.taskStatusCode}"
@@ -123,8 +123,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button class="task-add-btn btn btn-primary mr-2" type="button">확인</button>
-                                            <button class="task-cancel-btn btn btn-outline-primary" type="button">취소
-                                            </button>
+                                            <button class="task-cancel-btn btn btn-outline-primary" type="button">취소</button>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +165,7 @@
                                                 th:text="${task.taskStart} + ' ~ ' + ${task.taskFinish}"></span></p>
                                         <p class="text-small text-gray"><i class="fa fa-user-o"></i> <span
                                                 th:each="manager : ${task.projectTaskManagers}"
-                                                th:text="${manager.taskManagerId} + ', '"></span></p>
+                                                th:text="${manager.taskManagerId} + ' '"></span></p>
                                     </div>
                                     <!-- 프로젝트 작업 -->
                                     <div th:id="${task.taskCode}" class="white-popup mfp-hide">
@@ -204,6 +203,7 @@
                                                     <ul class="task-manager-list">
                                                         <li class="manager-id"
                                                             th:each="manager : ${task.projectTaskManagers}"
+                                                            th:data-code="${manager.taskManagerCode}"
                                                             th:text="${manager.taskManagerId}"></li>
                                                     </ul>
                                                     <select class="task-manager form-control">
@@ -369,7 +369,7 @@
                                                     th:text="${task.taskStart} + ' ~ ' + ${task.taskFinish}"></span></p>
                                             <p class="text-small text-gray"><i class="fa fa-user-o"></i> <span
                                                     th:each="manager : ${task.projectTaskManagers}"
-                                                    th:text="${manager.taskManagerId} + ', '"></span></p>
+                                                    th:text="${manager.taskManagerId} + '  '"></span></p>
                                         </div>
                                         <!-- 프로젝트 작업 -->
                                         <div th:id="${task.taskCode}" class="white-popup mfp-hide">

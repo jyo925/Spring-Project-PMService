@@ -6,88 +6,144 @@
 <title id="pageTitle">사용자 등록</title>
 
 <th:block layout:fragment="css">
-    <link href="/css/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashBoard/dashBoardStyle.css">
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="/js/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+
     <script type="text/javascript">
 
+        $(document).ready(function() {
             $(function () {
-
                 $.ajax({
                     url: '/admin/main/outputAllStatus',
                     type: 'GET',
                     dataType: 'json'
                 }).done(function (status) {
-                    console.log(status);
-
-                        chartOutputStatus(status);
+                    google.charts.load("current", {packages: ['corechart']});
+                    google.charts.setOnLoadCallback(function () {
+                        drawOutputStatusChart(status);
                     });
                 }).fail(function () {
                     alert('chart fail!!')
                 })
 
+                $.ajax({
+                    url: '/admin/main/outputMonthlyStatus',
+                    type: 'GET',
+                    dataType: 'json'
+                }).done(function (list) {
+                    google.charts.load("current", {packages: ['corechart']});
+                    google.charts.setOnLoadCallback(function () {
+                        drawOutputStatusMonthlyChart(list);
+                    });
+                }).fail(function () {
+                    alert('chart fail!!')
+                })
+            })
 
-         google.charts.load('current', {'packages':['corechart']});
-         google.charts.setOnLoadCallback(drawChart);
 
-        function chartOutputStatus(status) {
+            function drawOutputStatusChart(status) {
 
-            var lists = new Array();
-            var data = new new google.visualization.DataTable();
-            data.addColumn('string', 'name');
-            data.addColumn('number', 'count');
-            console.log(status);
+                var lists = new Array();
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'name');
+                data.addColumn('number', 'count');
 
-            status.forEach(function (element) {
-                lists.push([element.outputStatusName, element.outputStatus]);
-            });
-            data.addRows(lists);
+                status.forEach(function (element) {
+                    lists.push([element.outputStatusName, element.outputStatus]);
+                });
 
-            var options = {
-                chartArea: {width: '100%', height: '80%'},
-                pieHole: 0.4,
-                pieSliceText: 'label',
-                legend: 'none'
-            };
+                data.addRows(lists);
 
-            if (data.getNumberOfRows() == 0) {
-                data.addRows([
-                    ['없음', 1]
-                ]);
-                options.pieSliceTextStyle = {
-                    color: 'black'
+                var options = {
+                    chartArea: {width:'85%',height:'80%'},
+                    bar: {groupWidth: "80%"},
+                    colors: ['#5D9CEC','#48CFAD','#A0D468','#4FC1E9','#FFCE54','#FC6E51'],
+                    legend: { position: "none" },
+                    vAxis: { format: '0' }
                 };
-                options.tooltip = {
-                    trigger: 'none'
+
+                if (data.getNumberOfRows() == 0) {
+                    data.addRows([
+                        ['없음', 1]
+                    ]);
+
+                    options.tooltip = {
+                        trigger: 'none'
+                    }
                 }
+
+                var chart = new google.visualization.ColumnChart(document.getElementById("outputStatusChart"));
+                chart.draw(data, options);
+                //ColumnChart
             }
 
-            var chart = new google.visualization.PieChart(document.getElementById('chartOutputStatus'));
-            chart.draw(data, options)
+            function drawOutputStatusMonthlyChart(list){
+                var lists = new Array();
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'month');
+                data.addColumn('number', 'count');
 
-        }
+                list.forEach(function (element) {
+                    lists.push([element.outputMonth, element.outputCount]);
+                });
+                data.addRows(lists);
+
+                var options = {
+                    chartArea: {width:'85%',height:'80%'},
+                    legend: { position: "none" },
+                    colors: ['#48CFAD','#5D9CEC','#A0D468'],
+                    vAxis: { format: '0' }
+
+                };
+
+                if (data.getNumberOfRows() == 0) {
+                    data.addRows([
+                        ['없음', 1]
+                    ]);
+                    options.tooltip = {
+                        trigger: 'none'
+                    }
+                }
+                var chart = new google.visualization.AreaChart(document.getElementById('outputStatusMonthlyChart'));
+                chart.draw(data, options);
+                //LineChart 랑 비교해서 나은걸로 바꾸기
+            }
+
+        });
     </script>
 </th:block>
 
 <div layout:fragment="content">
 
     <div class="row">
-        <div class="col-12 grid-margin">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">프로젝트 현황</h6>
-                    <div class="align-content-center" id="chartOutputStatus"></div>
-
+                    <h6 class="card-title">프로젝트 산출물 유형별 현황</h6>
+                    <div class="google-chart-container text-center col-6">
+                        <div class="google-charts" id="outputStatusChart" style="width: 700px; height: 700px;"></div>
+                    </div>
                 </div>
             </div>
-
         </div>
+
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">프로젝트 산출물 월별 현황</h6>
+                    <div class="google-chart-container text-center col-6">
+                        <div class="google-charts" id="outputStatusMonthlyChart" style="width: 700px; height: 700px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

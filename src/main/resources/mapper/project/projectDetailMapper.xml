@@ -9,10 +9,13 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 			p.project_name as project_name,
 			p.project_start as project_start,
 			p.project_finish as project_finish,
+			p.project_pm as project_pm,
+			u.user_name as project_pm_name,
 			(select pt.project_type from project_types pt where p.project_typeCode = pt.project_typeCode) as project_typeName,
 			(select count(*) from project_task_Groups ptg, project_tasks pt where p.project_code = ptg.project_code AND ptg.taskGroup_code = pt.taskGroup_code) as projectTaskAccount,
 			(select count(*) from project_members pm where p.project_code = pm.project_code) as projectMemberAccount
 		FROM projects p
+		INNER JOIN users u ON p.project_pm = u.user_id
 		WHERE p.project_code=#{projectId}
 	</select>
 	

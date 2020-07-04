@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.bit.dashBoard.domain.ProjectStatusVO;
 import com.project.bit.foo.domain.Users;
 import com.project.bit.foo.domain.files.FilesVO;
+import com.project.bit.foo.service.ProjectService2;
 import com.project.bit.foo.service.myFiles.MyFilesService;
 import com.project.bit.foo.service.tasks.TasksService;
 import com.project.bit.project.controller.ResponseProjectOutputController;
@@ -39,15 +41,17 @@ public class FilesIOController {
 	private final TasksService tasksService;
 	private final ProjectOutputService projectOutputService;
 	private final MyFilesService myFilesService;
+	private final ProjectService2 projectService2;
 
 	@Autowired
 	private ResponseProjectOutputController rpoController;
 
 	public FilesIOController(ProjectOutputService projectOutputService, TasksService tasksService,
-			MyFilesService myFilesService) {
+			MyFilesService myFilesService, ProjectService2 projectService2) {
 		this.projectOutputService = projectOutputService;
 		this.tasksService = tasksService;
 		this.myFilesService = myFilesService;
+		this.projectService2 = projectService2;
 	}
 
 	@GetMapping("/files")
@@ -55,6 +59,7 @@ public class FilesIOController {
 		model.addAttribute("types", projectOutputService.getOutputType());
 		model.addAttribute("tasks", tasksService.getTasks());
 		model.addAttribute("myFiles", myFilesService.getMyFiles(principal.getName()));
+		model.addAttribute("projects", projectService2.selectAllProjects());
 		return "filesIO/filesIO";
 	}
 

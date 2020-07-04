@@ -27,11 +27,11 @@
                         <form action="/admin/regitUser" id="regitUser">
                             <label for="userId">아이디</label>
                             <input id="userId" name="userId" type="text" class="text ui-widget-content ui-corner-all form-control mb-3"
-                                   placeholder=""
+                                   placeholder="영어소문자, 숫자, 3~10자" style="padding-top: 10px"
                                    required="required">
                             <label for="userName">이름</label>
                             <input id="userName" name="userName" type="text"
-                                   class="text ui-widget-content ui-corner-all form-control mb-3" placeholder=""
+                                   class="text ui-widget-content ui-corner-all form-control mb-3" placeholder="한글, 영어, 최소2자"
                                    required="required">
                             <label for="positionCode">직급</label>
                             <select name="positionCode" id="positionCode" class="form-control mb-3">
@@ -93,15 +93,12 @@
                         <!-- Search end-->
 
                     </div>
-                    <br>
-
-
 
                     <!--List start-->
                     <div>
                         <form  action="" method="post">
-                            <table class="table dataTable no-footer">
-                                <thead>
+                            <table class="table dataTable no-footer" style="text-align: center">
+                                <thead style="background: #e9ecef;">
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="colgroup">ID</th>
@@ -153,7 +150,6 @@
                                            tabindex="0"
                                            class="page-link">Prev</a>
                                     </li>
-                                    <!--액티브 추가-->
                                     <th:block
                                             th:each="number: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
                                         <li class="paginate_button page-item" th:classappend="${pageMaker.cri.pageNum eq number} ? active : ''">
@@ -314,15 +310,6 @@
             modal: true,
             width: 400,
             height: 700,
-            show: {
-                effect: "blind",
-                duration: 1000
-            },
-            hide: {
-                effect: "blind",
-                duration: 1000
-            },
-
 
             buttons: {
                 "등록": addUser,

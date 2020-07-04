@@ -1,4 +1,4 @@
-package com.project.bit.foo.service.EventService;
+package com.project.bit.foo.service.eventService;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ public class EventStatisticServiseImpl implements EventStatisticService {
 	}
 
 	@Override
-	public List<EventStatisticVO> getStatistic() {
-		return eventStatisticMapper.getStatistic();
+	public List<EventStatisticVO> getStatistic(String userId) {
+		return eventStatisticMapper.getStatistic(userId);
 	}
 
 }

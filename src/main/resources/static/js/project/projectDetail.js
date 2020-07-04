@@ -2,6 +2,10 @@ $(function(){
 	dropDownEvent();
 	insertProject();
 	deleteProject();
+	
+	$('#project-auth-config').on('click', function(){
+		location.href = "/authorityConfig/"+$('#projectCode').val();
+	})
 })
 
 function dropDownEvent(){
@@ -64,16 +68,13 @@ function insertProject(){
 		var projectPm = $('#pmIdChoice').val();
 		var projectPmo = $('#pmoIdChoice').val();
 		
-		var projectPmId = '';
 		if(projectPm == '' || projectPm == null) {
-			projectPmId = $('#project-pm').val();
+			projectPm = $('#project-pm').val();
 		}
 		
-		var projectPmoId = '';
 		if(projectPmo == '' || projectPmo == null) {
-			projectPmoId = $('#project-pm').val();
+			projectPmo = $('#project-pmo').val();
 		}
-		
 		
 		$.ajax({
 			url : '/project/'+$('#projectCode').val(),
@@ -84,8 +85,8 @@ function insertProject(){
 				projectTypeCode : $('#projectTypeChoice').val(),
 				projectStart : $('#projectStart').val(),
 				projectFinish : $('#projectFinish').val(),
-				projectPm : projectPmId,
-				projectPmo : projectPmoId,
+				projectPm : projectPm,
+				projectPmo : projectPmo,
 				projectDescription : $('#projectDescription').val(),
 				projectStatusCode : $('#projectStatusChoice').val()
 			},

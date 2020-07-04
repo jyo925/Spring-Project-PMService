@@ -22,6 +22,18 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<select id="selectMyProjectListAll" resultType="com.project.bit.project.domain.ProjectVO">
+		<![CDATA[
+			SELECT
+			 	* 
+			FROM 
+				(SELECT rownum rn, p.* FROM projectList p INNER JOIN project_members pm ON p.project_code = pm.project_code 
+				 WHERE pm.user_id = #{userId} AND rownum <= #{cri.pageNum} * #{cri.amount})
+			WHERE
+				rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		]]>
+	</select>
+	
 	<select id="selectProjectListByType" resultType="com.project.bit.project.domain.ProjectVO">
 		<![CDATA[
 			SELECT
@@ -166,6 +178,11 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	
 	<select id="getProjectListAllAccount" resultType="int">
 		SELECT count(*) FROM projectList
+	</select>
+	
+	<select id="selectMyProjectListAllAccount" parameterType="String" resultType="int">
+		SELECT count(*) FROM projectList p INNER JOIN project_members pm ON p.project_code = pm.project_code
+		WHERE pm.user_id = #{userId}
 	</select>
 	
 	<select id="selectProjectListAccount" parameterType="String" resultType="int">

@@ -9,6 +9,6 @@ import com.project.bit.foo.domain.event.EventStatisticVO;
 @Mapper
 public interface EventStatisticMapper {
 	
-	List<EventStatisticVO> getStatistic();
+	List<EventStatisticVO> getStatistic(String userId);
 
 }

@@ -22,7 +22,7 @@
 		<div class="card">
 		<div class="card-body">
 			<div class="text-center">
-				<h3>Files</h3>
+				<h3>프로젝트 산출물</h3>
 				<p class="lead">All your uploaded files is here.</p>
 				<hr class="my-4">
 			</div>
@@ -37,17 +37,24 @@
 							<div class="container">
 									<div class="row">
 										<div class="col">
-											<select id="projectProgress" class="form-control">
+											<select id="projectName" class="form-control">
 												<option value="" class="form-control">Choose
-													project progress</option>
+													project name</option>
+													
+													
 												<option class="form-control"
-													th:each="el : ${projectStatusNames}"
-													th:text="${el.projectStatus}"></option>
+													th:each="el : ${projects}"
+													th:text="${el.projectName}"></option>
 											</select>
 										</div>
 										<div class="col">
-											<input id="projectName" type="text" class="form-control"
-												placeholder="projectName">
+											<select id="type" class="form-control">
+												<option value="" class="form-control">Choose
+													type</option>
+												<option class="form-control"
+													th:each="el : ${types}"
+													th:text="${el.outputType}"></option>
+											</select>
 										</div>
 										<div class="input-group flex-nowrap col">
 											<div class="input-group-prepend">
@@ -63,7 +70,7 @@
 												</span>
 											</div>
 											<input id="elasticSearch" type="text" class="form-control"
-												placeholder="Keyword" aria-label="Username"
+												placeholder="키워드" aria-label="Username"
 												aria-describedby="addon-wrapping">
 										</div>
 										<!-- <div class="col">
@@ -87,13 +94,13 @@
 			<div class="card">
 				<div class="card-body">
 					<div>
-					    <table width="100%" class="table">
+					    <table width="100%" class="table" style="text-align: center">
 					       <thead>
 							<tr class="card-header">
-								<th>File</th>
-								<th>Project</th>
-								<th>Type</th>
-								<th>Task</th>
+								<th>파일명</th>
+								<th>프로젝트</th>
+								<th>산출물 타입</th>
+								<th>작업</th>
 								<th></th>
 								<th></th>
 								<th></th>
@@ -107,10 +114,10 @@
 								<th scope="row" th:text="${el.outputType}"></th>
 								<th scope="row" th:text="${el.taskName==null? 'None': el.taskName}"></th>
 								<th scope="row" th:text="${el.outputCode}" hidden=""></th>
-								<th><svg id="" class="edit-button bi bi-pencil-square" width="1.3em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<th><a href="#"><svg id="" class="edit-button bi bi-pencil-square" width="1.3em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   								  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
   								  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-								</svg></th>
+								</svg></a></th>
 								<th><a id="dow"  th:href="@{'/file/'+${el.outputName}}"><svg id="" class="upload-button bi bi-download" width="1.3em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 								  <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
 								  <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
@@ -120,6 +127,7 @@
 								  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
 								  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
 								</svg></a></th>
+								<th class="val" scope="row" th:text="${el.outputCode + el.taskName==null? '': el.taskName + el.outputName + el.outputType + el.projectName}" hidden=""></th>
 							</tr>
 							</tbody>
 						</table>
@@ -175,13 +183,13 @@
 			<input id="outputCode" name="outputCode" type="hidden"  readonly="readonly">
 			<div class="form-group">
 				<label for="outputTypeCode">Type</label>
-				<select name="outputTypeCode" class="form-control">
+				<select name="outputTypeCode" class="form-control" id="type">
 					<option th:each="el : ${types}" th:value="${el.outputTypeCode}" th:text="${el.outputType}">
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="taskCode">Task</label>
-				<select name="taskCode" class="form-control">
+				<select name="taskCode" class="form-control" id="task">
 					<option th:each="el : ${tasks}" th:value="${el.taskCode}" th:text="${el.taskName}">
 				</select>
 			</div>

@@ -6,7 +6,8 @@
 		SELECT t.event_type, COUNT(e.EVENT_TYPE_ID) as EVENT_AMOUNT
 		FROM EVENTS e
 		RIGHT JOIN event_types t
-		ON e.EVENT_TYPE_ID = t.EVENT_TYPE_ID group by t.EVENT_TYPE_ID, t.event_type
+		ON e.EVENT_TYPE_ID = t.EVENT_TYPE_ID
+        LEFT JOIN EVENT_GROUPS eg ON e.event_id = eg.event_id WHERE eg.user_id=#{userId} group by t.event_type
 	</select>
 	
 </mapper>

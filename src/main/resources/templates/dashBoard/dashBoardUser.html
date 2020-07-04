@@ -18,6 +18,7 @@
 <!-- page 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
     <script src="/js/dashBoard/dashBoardChart.js"></script>
+    <script src="/js/dashBoard/dashBoardUser.js"></script>
 </th:block>
 
 <div layout:fragment="content">
@@ -80,7 +81,7 @@
                         <i class="fa fa-cube status-icon"></i>
                         <div class="ml-3">
                             <p class="card-title mb-2">프로젝트</p>
-                            <h3 th:text="${userStatusCount.userTaskCount}"></h3>
+                            <h3 th:text="${userStatusCount.userProjectCount}"></h3>
                         </div>
                     </div>
                 </div>
@@ -175,7 +176,7 @@
                             <tr th:each="outputList : ${userOutputList}" th:object="${outputList}">
                                 <td th:text="*{projectName}"></td>
                                 <td th:text="*{taskName}"></td>
-                                <td th:text="*{outputName}"></td>
+                                <td><a class="output-name" th:data-path="*{outputPath}" th:text="*{outputName}" style="cursor:pointer;"></a></td>
                                 <td th:text="*{#dates.format(outputDate, 'yyyy-MM-dd')}"></td>
                             </tr>
                             </tbody>

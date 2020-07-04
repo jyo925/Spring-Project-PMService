@@ -1,9 +1,10 @@
 spring:
-  datasource:
-    url: jdbc:log4jdbc:oracle:thin:@beatcamps-152.cxqqny6qespu.ap-northeast-2.rds.amazonaws.com:1521:orcl
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    username: admin
-    password: 12345678
+
+ datasource:
+  url: jdbc:log4jdbc:oracle:thin:@beatcamps-152.cxqqny6qespu.ap-northeast-2.rds.amazonaws.com:1521:orcl
+  driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  username: admin
+  password: 12345678
 
   devtools:
     livereload:

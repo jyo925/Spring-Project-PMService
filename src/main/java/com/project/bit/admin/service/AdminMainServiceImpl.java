@@ -1,5 +1,6 @@
 package com.project.bit.admin.service;
 
+import com.project.bit.admin.domain.OutputMonthlyCountVO;
 import com.project.bit.admin.domain.OutputStatusCountVO;
 import com.project.bit.admin.mapper.AdminMainMapper;
 import lombok.AllArgsConstructor;
@@ -18,5 +19,11 @@ public class AdminMainServiceImpl implements AdminMainService{
     public List<OutputStatusCountVO> getOutputAllStatus() {
 
         return adminMainMapper.selectOutputAllStatus();
+    }
+
+    @Override
+    public List<OutputMonthlyCountVO> getOutputMonthly() {
+
+        return adminMainMapper.selectOutputMonthly();
     }
 }

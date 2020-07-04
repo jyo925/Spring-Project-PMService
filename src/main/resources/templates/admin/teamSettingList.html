@@ -163,7 +163,7 @@
                             <!--Team List Start-->
                             <h4 style="padding-: 10px" class="card-title">부서 리스트</h4>
                                 <div class="col"
-                                     style="height:content-box; width:45vh; background:#E5E5E5; padding: 40px;">
+                                     style="height:content-box; width:45vh; background:#e9ecef; padding: 40px;">
                                     <div class="teamListWithLevel" th:each="teamList : ${teamSettingList}">
                                         <p th:text="${teamList.teamCode}" class="d-none"></p>
                                         <p th:if="${teamList.level == 1}" th:text="${teamList.teamName}"></p>
@@ -182,6 +182,7 @@
                         <!-- Registration of Team Start 수정-->
                         <div id="dialog-form" title="regitTeam">
                             <form action="/admin/regitTeam" id="regitTeam">
+                                <br>
                                 <label  for="regitTeamUpCode">상위부서</label>
                                 <select name="teamUpper" id="regitTeamUpCode" class="form-control mb-3">
                                 </select>
@@ -191,7 +192,7 @@
                                 <input name="teamName" id="regitTeamName" type="text"
                                        class="text ui-widget-content ui-corner-all form-control mb-3">
                                 <label for="regitTeamSeq">순서</label>
-                                <input name="teamSeq" id="regitTeamSeq" type="number"
+                                <input name="teamSeq" id="regitTeamSeq" type="number" placeholder="1~9"
                                        class="text ui-widget-content ui-corner-all form-control mb-3">
                             </form>
                         </div>
@@ -218,7 +219,7 @@
                                         삭제
                                     </button>
                                     <button type="submit" id="updateTeam" data-oper class="btn btn-success" style="float: right; margin-right: 10px">
-                                        변경 혹은 저장
+                                        변경/저장
                                     </button>
                                 </form>
                             </div>

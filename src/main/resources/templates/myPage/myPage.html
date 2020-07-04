@@ -8,11 +8,13 @@
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
  <link rel="stylesheet" href="/css/dropify.min.css"/>
+ <link rel="stylesheet" href="/css/vendor.bundle.base.css"/>
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
 	<script src="/js/myPage/myPage.js"></script>
+	<script src="/js/dropify.min.js"></script>
 </th:block>
 <div layout:fragment="content">
 	<div class="row user-profile">
@@ -33,9 +35,9 @@
                   <div class="card">
                     <div class="card-body overview">
                       <ul class="achivements">
-                        <li><p>34</p><p>Projects</p></li>
-                        <li><p>23</p><p>Task</p></li>
-                        <li><p>29</p><p>Completed</p></li>
+                        <li><p th:text="${projects.projects}"></p><p>Projects</p></li>
+                        <li><p th:text="${tasks.tasks}"></p><p>Task</p></li>
+                        <li><p th:text="${finished.finished}"></p><p>Completed</p></li>
                       </ul>
                       <div class="wrapper about-user">
                         <h4 class="card-title mt-4 mb-3">About</h4>
@@ -104,8 +106,12 @@
 								<div class="wrapper mb-5 mt-4">
 									<span class="badge badge-warning text-white">Note : </span>
 									<p class="d-inline ml-3 text-muted">Image size is limited
-										to not greater than 1MB .</p>
+										to not greater than 10MB .</p>
 								</div>
+
+
+
+
 								<form id="photo" action="/uploadImg" enctype="multipart/form-data" method="post">
 									<div class="dropify-wrapper has-preview">
 										<span class="file-icon"></span>
@@ -117,11 +123,10 @@
 										<div class="dropify-errors-container">
 											<ul></ul>
 										</div>
-										<input type="file" name="files" class="dropify" th:data-default-file="${user.userPhoto}">
-										<button type="button" class="dropify-clear">Remove</button>
+										<input id="imgInput" type="file" name="files" class="dropify" th:data-default-file="${user.userPhoto}">
 										<div class="dropify-preview" style="display: block;">
 											<span class="dropify-render">
-											<img th:src="${user.userPhoto}"></span>
+											<img id="img1" src="#" alt="your Photo"></span>
 											<div class="dropify-infos">
 												<div class="dropify-infos-inner">
 													<p class="dropify-filename">
@@ -133,14 +138,14 @@
 											</div>
 										</div>
 									</div>
-									<div class="form-group mt-5">
-										<button type="submit" class="btn btn-success mr-2">Update</button>
-										<button id="deletePhoto" class="btn btn-outline-danger">Delete</button>
-									</div>
 								</form>
+								<div class="form-group mt-5">
+									<button id="Photo" class="btn btn-success mr-2">Update</button>
+									<button id="deletePhoto" class="btn btn-outline-danger">Delete</button>
+								</div>
 							</div>
 						  <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-						  	<div id="alert" class="alert alert-danger" role="alert" hi></div>
+						  	<div id="alert" class="alert alert-danger" role="alert" ></div>
 	                        <form action="/updateUserPw" method="post" id="pwChange">
 	                          <div class="form-group">
 	                            <label for="change-password">Change password</label>
