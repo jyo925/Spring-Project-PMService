@@ -6,25 +6,40 @@
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
   <link rel="stylesheet" th:href="@{js/chat/chat.css}">
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
 </th:block>
 
-<div id="abcd">
-  <div class="border-bottom pb-4 mb-3 px-3">
-    <div class="form-group" id="invitemessage">
-      현재 초대된 목록
+<div layout:fragment="content">
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">대화방</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          대화방 진짜 나갈겁니까?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="btn-leave" data-dismiss="modal">나갈고야</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-
-<div layout:fragment="content">
-  <div class="email-wrapper wrapper">
+  <div class="email-wrapper wrapper" id="test-list">
     <div class="row align-items-stretch">
       <div class="mail-sidebar d-none d-lg-block col-md-2 pt-3 bg-white">
         <input type="hidden" id="user-id-hidden" th:value="${#authentication.getName()}">
@@ -41,6 +56,7 @@
             <div class="online-status d-flex justify-content-between align-items-center">
               <p class="chat text-center"> 유저 목록</p> <span class="status offline online"></span></div>
           </div>
+          <!--<div id="search-list"><input type="text" id="finder"></div>-->
           <ul class="profile-list" id="user-list">
           </ul>
         </div>
@@ -66,20 +82,18 @@
                 &nbsp;<i class="mdi mdi-account-multiple-plus"></i>
               </p>
             </div>
-            <div>
-             <span style="font-size: 40px"><i class="fas fa-user-plus"></i></span>
-             <span style="font-size: 40px"><i class="fas fa-sign-out-alt" id="btn-leave"></i></span>
-             <span style="font-size: 40px"><i class="fas fa-plus"></i></span>
+            <div style="margin-left: 600px;">
+             <!--<span style="font-size: 40px"><i class="fas fa-user-plus"></i></span>-->
+             <span style="font-size: 40px"><i class="fas fa-plus" id="btn-add"></i></span>
+             <span style="font-size: 40px"><i class="fas fa-sign-out-alt" data-toggle="modal" data-target="#exampleModal"></i></span>
             </div>
 
           </div>
           <div id="chatroom-userlist">
-            <p>UserList</p>
           </div>
           <div class="message-content" id="chatroom-content">
-            <p>Content</p>
           </div>
-          <div class="attachments-sections">
+          <!--<div class="attachments-sections">
             <ul>
               <li>
                 <div class="thumb"><i class="mdi mdi-file-pdf"></i></div>
@@ -104,7 +118,7 @@
                 </div>
               </li>
             </ul>
-          </div>
+          </div>-->
         </div>
         <div class="row">
           <div class="col-md-12 mb-4 mt-4">
@@ -112,7 +126,6 @@
               <div class="btn-group">
                 <input id="message-send" data-emojiable=true data-imoji-input="unicode">
                 <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-send"><i class="mdi mdi-reply text-primary"></i> Send</button>
-                <button id="emoji-button">이모지</button>
               </div>
             </div>
           </div>

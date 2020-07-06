@@ -60,6 +60,18 @@ public class ChatServiceImpl implements ChatService {
           simpMessagingTemplate.convertAndSend("/topic/init/"+participation.getUserId(), initialDataMap);
         });
         break;
+      case "OLD":
+        Message invi2 = inviteMessage2(message, userId);
+        List<Message> chatRooms2 = new ArrayList<>();
+        chatRooms2.add(invi2);
+        initialDataMap.put("ChatRooms", chatRooms2);
+        invi2.getParticipations().forEach( participation -> {
+          simpMessagingTemplate.convertAndSend("/topic/init/"+participation.getUserId(), initialDataMap);
+        });
+        invi2.setType("SEND");
+        invi2.setYN("Y");
+        simpMessagingTemplate.convertAndSend("/topic/room/"+message.getRoomNo(), invi2);
+        break;
       case "ENTER" : simpMessagingTemplate.convertAndSend("/topic/init/"+userId,
               new MessageResponse("ENTER",messageMapper.findByChatRoom(message.getRoomNo()), userMapper.findUsersByConversationId(message.getRoomNo())));
         break;
@@ -123,6 +135,10 @@ public class ChatServiceImpl implements ChatService {
     return message;
   }
 
+  public Message inviteMessage2(Message message, String userId) {
+    return joinWithExistedRoom(message, userId);
+  }
+
   /* @params
      author_id, conversation_id, content
   */
@@ -142,6 +158,27 @@ public class ChatServiceImpl implements ChatService {
     return invitedList;
   }
 
+  public Message joinWithExistedRoom(Message message, String authorId) {
+    Message inviteMessage = Message.builder()
+            .authorId(authorId)
+            .content(authorId+" 님이 "+ inviteListMesage(message.getParticipations()) + "을 초대하였습니다." )
+            .roomNo(message.getRoomNo())
+            .build();
+
+    messageMapper.save(inviteMessage);
+    inviteMessage.setCreationTime(messageMapper.findByMessageId(inviteMessage.getMessageId()).getCreationTime());
+    inviteMessage.setType("INVITE");
+
+    List<Participation> participationList = message.getParticipations();
+    inviteMessage.setParticipations(participationList);
+
+    for ( Participation participation : inviteMessage.getParticipations() ) {
+      participation.setConversationId(message.getRoomNo());
+    }
+
+    participating(participationList);
+    return inviteMessage;
+  }
   public Message joinWithNewRoom(Message message, String authorId) {
     ChatRoom chatRoom = new ChatRoom();
     chatRoomMapper.save(chatRoom);

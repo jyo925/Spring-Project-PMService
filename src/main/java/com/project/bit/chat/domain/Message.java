@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class Message {
+  private String YN;
   private String type;
   private int messageId;
   private String authorId;

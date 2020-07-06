@@ -1,21 +1,26 @@
-let state = {
-  selectedChatRoom:"",
-  countChatRoomList:1,
-}
-
-
-/*let chatRoomList = new List('chat-list', {
-  valueNames:['sender-name','message_text'],
-});*/
-
-/*function count() {
-  document.getElementsByClassName("badge badge-pill badge-success").innerHTML = state.countChatRoomList;
-}*/
-
 const chatRoom_userList = document.querySelector("#chatroom-userlist"),
       chatRoom_content = document.querySelector("#chatroom-content");
       currentLogginedUserId = document.getElementById("user-id-hidden").value;
 let subscriptions = [];
+
+
+/* search */
+/*const options = {
+  keys: [
+      "userId",
+  ],
+};
+let list = [];
+let result ="";
+let fuse;
+document.querySelector("#finder").addEventListener("keyup", userSearch);
+function userSearch() {
+  fuse = new Fuse(list, options);
+  let pattern = document.querySelector("#finder").value;
+  console.log(pattern);
+  result = fuse.search(pattern);
+  console.log(result);
+}*/
 
 /* 메신저 연결 호출 -> WebSokcet 방식 */
 /* 메신저 연결 호출 -> WebSokcet 방식 */
@@ -24,6 +29,7 @@ btn_connect.addEventListener("click", connect);
 let stompClient = null;
 
 function connect() {
+  btn_connect.disabled = true;
   let socket = new SockJS("/endpoint");
   stompClient = Stomp.over(socket);
 
@@ -56,6 +62,7 @@ const btn = document.querySelector("#listup");
 btn.addEventListener("click", listUp);
 
 function listUp() {
+  btn.removeEventListener("click", listUp);
   stompClient.send("/chat/init/" + document.getElementById("user-id-hidden").value, {}, JSON.stringify({
     type: "FETCHCHATROOMLIST",
   }));
@@ -84,9 +91,15 @@ function fetchChatRoomListTag(data) {
     let subscription = stompClient.subscribe("/topic/room/" + chatRoom.roomNo, function (response) {
         const message = JSON.parse(response.body);
         console.log(response);
-        if(message.type == "SEND") {
-          document.querySelector(`p[data-room-no="${chatRoom.roomNo}"]`).innerHTML = message.content;
+        document.querySelector(`p[data-room-no="${chatRoom.roomNo}"]`).innerHTML = message.content;
+        if(message.type == "SEND" && message.roomNo == chatRoom_content.dataset.roomNo ) {
           chatRoom_content.append(messageTag2(message));
+        }
+        if(message.yn == "Y") {
+          console.log("YN");
+          message.participations.forEach(user => {
+          chatRoom_userList.append(userListInChatRoomTag(user));
+          });
         }
       });
     subscription.roomNo = chatRoom.roomNo;
@@ -118,26 +131,31 @@ const btn_fetchUserList = document.querySelector('#btn-fetchUserList');
 btn_fetchUserList.addEventListener("click", fetchUserList);
 
 function fetchUserList() {
+  btn_fetchUserList.removeEventListener("click", fetchUserList);
   stompClient.send("/chat/init/"+document.getElementById("user-id-hidden").value,{},JSON.stringify({
     type: "FETCHUSERLIST",
   }));
 }
 
 function fetchUserListTag(data) {
-  data.UserList.map( user => {
+  list = data.UserList;
+  data.UserList.forEach( (user,index) => {
     const user_list = document.querySelector("#user-list");
     let profile_list_item = document.createElement("li");
     profile_list_item.className = "profile-list-item";
+    profile_list_item.dataset.key = index;
     profile_list_item.innerHTML =
        `<a href="#">
         <span class="pro-pic"><img src="" alt=""></span>
         <div class="user">
-        <p class="u-name">${user.userId}</p>
+        <p class="u-name"><h5 style="color: black;">${user.userId}</h5></p>
+        <p class="u-name">${user.userName}</p>
         <p class="u-designation">${user.positionName}</p>
         </div>`
     profile_list_item.addEventListener("click", addParticipations);
     user_list.append(profile_list_item);
   });
+  console.log(list);
 }
 
 
@@ -148,9 +166,13 @@ btn_invite.addEventListener("click", invite);
 
 function addParticipations (event) {
   if(inviteMessage.participations.find( participation => participation.userId == event.target.innerHTML)) {
+    inviteMessage.participations = inviteMessage.participations.filter( participation => participation.userId != event.target.innerHTML);
     console.log("중복값 잇어");
+    event.target.closest('li').removeAttribute('style');
     return;
   }
+  event.target.closest('li').style="background-color: aliceblue";
+  ;
   console.log(event.target.innerHTML);
   inviteMessage.type = "INVITE"
   inviteMessage.participations.push({
@@ -165,6 +187,17 @@ function invite() {
   stompClient.send("/chat/init/"+document.getElementById("user-id-hidden").value,{},JSON.stringify(inviteMessage));
   inviteMessage.participations=[];
   inviteMessage.type="";
+  document.querySelectorAll(".profile-list-item").forEach( item => item.removeAttribute('style'));
+}
+
+document.querySelector("#btn-add").addEventListener("click", oldInvite);
+function oldInvite() {
+  inviteMessage.type="OLD";
+  inviteMessage.roomNo=document.querySelector("#chatroom-content").dataset.roomNo;
+  stompClient.send("/chat/init/"+document.getElementById("user-id-hidden").value,{},JSON.stringify(inviteMessage));
+  inviteMessage.participations=[];
+  inviteMessage.type="";
+  document.querySelectorAll(".profile-list-item").forEach( item => item.removeAttribute('style'));
 }
 
 function createChatRoomAfterInviting(data) {
@@ -196,14 +229,14 @@ function createChatRoomAfterInviting(data) {
 /* 채팅방 목록 -> 채팅방 ENTER - 메시지 태그 */
 function messageTag2(message) {
   const rowTag = document.createElement("div");
-  rowTag.className = "row";
+  rowTag.className = message.authorId == currentLogginedUserId ? "row" :"row right";
   rowTag.innerHTML =
        `
         <div class="chatroom-message">
           <img src="" alt="" id="chatroom-user-image">
           <p id="chatroom-user-id">${message.authorId}</p>
           <p id="chatroom-user-message">${message.content}</p>
-          <p id="chatroom-user-message-time">${message.creationTime}</p>
+          <p id="chatroom-user-message-time">${moment(message.creationTime).format("ddd, h:mmA")}</p>
         </div>
         `;
   return rowTag;
@@ -284,10 +317,8 @@ function leave() {
     type: "LEAVE",
     roomNo: chatRoom_content.dataset.roomNo,
   }));
-
+  document.getElementsByClassName('badge badge-pill badge-success')[0].innerText--;
 }
-
-
 
 let message = {
   type: "",
@@ -302,4 +333,5 @@ let message = {
 let inviteMessage = {
   type: "",
   participations: [],
+  roomNo: "",
 }
