@@ -1,13 +1,13 @@
 # 비트캠프 2조 Final Project PMService
 
-**Service:** 프로젝트 관리 웹 사이트
-**My Part:** 전자결재
-**URL: 
+**Service:** 프로젝트 관리 웹 사이트<br/>
+**My Part:** 전자결재<br/>
+**URL:**<br/>
 
 ## Project Stack
 **Client**
 <br/>
-Following items are core frontend technologies used in this project:
+Following items are core frontend technologies used in this project:<br/>
 HTML
 JS
 CSS
@@ -17,7 +17,7 @@ CKEditor5
 
 **Server**
 <br/>
-Following items are core backend technologies used in this project:
+Following items are core backend technologies used in this project:<br/>
 Spring
 Java
 Maven
