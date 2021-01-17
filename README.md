@@ -8,24 +8,24 @@
 **Client**
 <br/>
 Following items are core frontend technologies used in this project:<br/>
-HTML
-JS
-CSS
-JQuery
-Bootstrap
-CKEditor5
+HTML<br/>
+JS<br/>
+CSS<br/>
+JQuery<br/>
+Bootstrap<br/>
+CKEditor5<br/>
 
 **Server**
 <br/>
 Following items are core backend technologies used in this project:<br/>
-Spring
-Java
-Maven
-mybatis
-EC2
-ORACLE
-Tomcat
-RDS
+Spring<br/>
+Java<br/>
+Maven<br/>
+mybatis<br/>
+EC2<br/>
+ORACLE<br/>
+Tomcat<br/>
+RDS<br/>
 
 
 
