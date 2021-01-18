@@ -23,7 +23,7 @@ Java<br/>
 Maven<br/>
 mybatis<br/>
 EC2<br/>
-ORACLE<br/>
+Oracle<br/>
 Tomcat<br/>
 RDS<br/>
 
