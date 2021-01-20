@@ -4,7 +4,7 @@
 **My Part:** 전자결재<br/><br/>
 **URL:**<br/>
 
-## Project Stack
+### Project Stack
 **Client**
 <br/>
 Following items are core frontend technologies used in this project:<br/>
