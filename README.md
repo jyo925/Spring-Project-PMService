@@ -5,7 +5,7 @@
 **URL:**<br/>
 
 ### Project Stack
-
+----
 **Client**
 <br/>
 Following items are core frontend technologies used in this project:<br/>
@@ -15,7 +15,7 @@ CSS<br/>
 JQuery<br/>
 Bootstrap<br/>
 CKEditor5<br/>
-
+----
 **Server**
 <br/>
 Following items are core backend technologies used in this project:<br/>
