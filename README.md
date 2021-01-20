@@ -5,7 +5,6 @@
 **URL:**<br/>
 
 ### Project Stack
------
 **Client**
 <br/>
 Following items are core frontend technologies used in this project:<br/>
